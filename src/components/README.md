@@ -8,7 +8,7 @@ Every component is server-rendered Preact with typed props and a doc comment at 
 
 - **Width.** The shell does not constrain width. Start a page with `PageHeader`, then `Section`s (both include a `Container`). Use `Container` directly for anything else.
 - **Links.** Internal links go through `NavLink to={Target}` (typed route ids, never paths). External links use `ExternalLink`.
-  `Target` = `{ route: "home" | "compare" | "measured" | "methodology"; hash? }` | `{ route: "feature"; id: FeatureId; hash? }` | `{ route: "framework"; id: FrameworkId; hash? }`.
+  `Target` = `{ route: "home" | "compare" | "measured" | "benchmark" | "methodology"; hash? }` | `{ route: "feature"; id: FeatureId; hash? }` | `{ route: "framework"; id: FrameworkId; hash? }`.
 - **Anchors other components link to.** The header nav links to `/#matrix` and `/#ranking`: the home page must render `<Section id="matrix">` and `<Section id="ranking">`. `CapabilityMatrix` cells link to the feature page at `#<frameworkId>`: feature pages must put `id={framework.id}` on each framework's how-to block (e.g. `<Card id={fw.id}>`).
 - **Colour.** Tier colours (`first`, `experimental`, `third`, `manual`) are only for capability labels, via `LabelBadge`. Everything else is ink on paper. Tailwind's default palette is removed; `bg-red-500` does not exist.
 - **Numbers** are set in mono with tabular figures: add class `num`.

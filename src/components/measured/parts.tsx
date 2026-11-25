@@ -26,7 +26,14 @@ export const BUILD_TEXT: Record<BuildKind, string> = {
 export const ANCHOR = "scroll-mt-14";
 
 /** Sticky on-page navigation: plain anchors, one scrollable line on phones. */
-export function JumpNav({ items }: { items: { hash: string; label: string }[] }) {
+export function JumpNav({
+  items,
+  route = "measured",
+}: {
+  items: { hash: string; label: string }[];
+  /** The page the anchors are on. */
+  route?: "measured" | "benchmark";
+}) {
   return (
     <nav aria-label="On this page" class="sticky top-0 z-20 border-b border-rule-strong bg-paper">
       <Container>
@@ -36,7 +43,7 @@ export function JumpNav({ items }: { items: { hash: string; label: string }[] })
           </li>
           {items.map((item) => (
             <li key={item.hash}>
-              <NavLink to={{ route: "measured", hash: item.hash }} class="link">
+              <NavLink to={{ route, hash: item.hash }} class="link">
                 {item.label}
               </NavLink>
             </li>

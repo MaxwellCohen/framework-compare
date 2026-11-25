@@ -27,6 +27,7 @@ const NAV: NavItem[] = [
   { label: "Frameworks", to: { route: "home", hash: "ranking" }, match: "/frameworks" },
   { label: "Compare", to: { route: "compare" }, match: "/compare" },
   { label: "Measured", to: { route: "measured" }, match: "/measured" },
+  { label: "Benchmark", to: { route: "benchmark" }, match: "/benchmark" },
   { label: "Methodology", to: { route: "methodology" }, match: "/methodology" },
 ];
 
@@ -57,7 +58,7 @@ export function ThemeToggle({ class: cls = "" }: { class?: string }) {
   );
 }
 
-/** Site header: wordmark, primary nav (inline from `md`, a `<details>` menu below), theme toggle. */
+/** Site header: wordmark, primary nav (inline from `lg`, a `<details>` menu below), theme toggle. */
 export function SiteHeader() {
   const { pathname } = useLocation();
   const link = (item: NavItem, mobile: boolean) => {
@@ -94,7 +95,7 @@ export function SiteHeader() {
           <span class="font-display text-lg leading-none tracking-[-0.01em] text-ink">Framework Compare</span>
         </NavLink>
 
-        <nav aria-label="Primary" class="ml-auto hidden md:block">
+        <nav aria-label="Primary" class="ml-auto hidden lg:block">
           <ul class="flex items-center gap-5 lg:gap-6">
             {NAV.map((item) => (
               <li key={item.label}>{link(item, false)}</li>
@@ -102,9 +103,9 @@ export function SiteHeader() {
           </ul>
         </nav>
 
-        <div class="ml-auto flex items-center gap-2 md:ml-0">
+        <div class="ml-auto flex items-center gap-2 lg:ml-0">
           <ThemeToggle />
-          <details data-nav class="group md:hidden">
+          <details data-nav class="group lg:hidden">
             <summary
               class="flex h-8 cursor-pointer list-none items-center gap-2 rounded-sm border border-rule-strong px-2.5 text-sm text-ink-2 hover:border-ink hover:text-ink [&::-webkit-details-marker]:hidden"
             >
@@ -145,7 +146,11 @@ export function SiteFooter() {
             <NavLink to={{ route: "measured" }} class="link">
               Measured
             </NavLink>{" "}
-            page.
+            and{" "}
+            <NavLink to={{ route: "benchmark" }} class="link">
+              Benchmark
+            </NavLink>{" "}
+            pages.
           </p>
           <p>
             This comparison was researched and written with AI help and may contain errors. Check the linked sources
@@ -162,6 +167,14 @@ export function SiteFooter() {
             <ExternalLink href={REPO_URL}>MaxwellCohen/books-demo</ExternalLink>
           </p>
           <p class="text-ink-3">The same books app, ported to 15 frameworks.</p>
+          <p class="flex flex-wrap gap-x-4">
+            <NavLink to={{ route: "measured" }} class="link">
+              Measured
+            </NavLink>
+            <NavLink to={{ route: "benchmark" }} class="link">
+              Benchmark
+            </NavLink>
+          </p>
         </div>
       </div>
     </footer>

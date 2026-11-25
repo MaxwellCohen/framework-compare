@@ -30,6 +30,30 @@ committed data was generated from `docs/comparison-doc-revisions` (the
 accuracy-reviewed comparison). The script validates structure, scores and links
 and refuses to write on any mismatch.
 
+## Benchmark
+
+The Benchmark page shows our own lab measurements. `bench/cwv-bench.mjs` runs
+PageSpeed Insights (mobile Lighthouse) against every deployment listed in
+`capability.json`: each framework's builds on Vercel, Netlify and Cloudflare,
+for `/` and `/10145787`. It does three measured runs per target and keeps the
+median, after warming each target and discarding cold runs.
+
+```bash
+cp bench/.env.example bench/.env   # set PSI_API_KEY
+npm run bench                      # run (about an hour), import, rebuild data
+node bench/cwv-bench.mjs --help    # options: --filter, --hosts, --paths, --runs…
+npm run bench:import [results-dir] # import a run made earlier
+```
+
+Runs are kept in `content/benchmarks/<date>.json`, and
+`scripts/build-bench-data.mjs` builds `src/data/generated/benchmark.json` from
+them (newest run shown, older ones kept as history). It does not need the
+markdown sources.
+
+`.github/workflows/benchmark.yml` does the same every Monday, or on demand
+from the Actions tab, and commits the results, which redeploys the site. It
+needs a `PSI_API_KEY` repository secret.
+
 ## Commands
 
 - `npm install`

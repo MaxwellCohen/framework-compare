@@ -18,7 +18,15 @@ import {
 } from "../../components/index.ts";
 import { LabelTally } from "../../components/feature/LabelTally.tsx";
 import { Deployments, ScorecardGroup, type ScorecardRow } from "../../components/framework/Scorecard.tsx";
+import { BuildTable, type BuildTableRow } from "../../components/benchmark/BuildTable.tsx";
+import { StatusKey } from "../../components/benchmark/parts.tsx";
+import { longDate } from "../../components/benchmark/format.ts";
 import {
+  benchBranchRank,
+  benchBuildName,
+  benchBuildsFor,
+  benchPathRank,
+  benchmark,
   cells,
   featuresInGroup,
   frameworks,
@@ -84,7 +92,38 @@ export async function loader({ params }: LoaderArgs) {
   const groupSize = { core: 0, additional: 0 };
   for (const f of frameworks) groupSize[f.group] += 1;
 
+  // Latest benchmark run: this framework's builds on every page, or null.
+  const run = benchmark.latest;
+  const benchRows: BuildTableRow[] = benchBuildsFor(fw.id).map((b) => ({
+    key: `${b.branch}|${b.path}`,
+    frameworkId: b.frameworkId,
+    framework: fw.name,
+    href: null,
+    build: benchBuildName(b.branch, b.frameworkId),
+    branch: b.branch,
+    buildRank: benchBranchRank(b.branch, b.frameworkId),
+    path: b.path,
+    perf: b.perf,
+    fcp: b.fcp,
+    lcp: b.lcp,
+    tbt: b.tbt,
+    cls: b.cls,
+    hosts: b.hosts,
+  }));
+  const bench =
+    run && benchRows.length
+      ? {
+          date: run.date,
+          dateText: longDate(run.date),
+          runsPerTarget: run.runsPerTarget,
+          hostCount: run.hosts.length,
+          paths: [...new Set(benchRows.map((r) => r.path))].sort((a, b) => benchPathRank(a) - benchPathRank(b)),
+          rows: benchRows,
+        }
+      : null;
+
   return {
+    bench,
     framework: {
       id: fw.id,
       name: fw.name,
@@ -283,6 +322,38 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           )}
         </div>
       </Section>
+
+      {data.bench && (
+        <Section
+          id="benchmark"
+          title="Latest benchmark"
+          intro={
+            <>
+              Mobile Lighthouse lab results from PageSpeed Insights on{" "}
+              <time dateTime={data.bench.date}>{data.bench.dateText}</time>: the median of {data.bench.runsPerTarget}{" "}
+              {data.bench.runsPerTarget === 1 ? "run" : "runs"} per host, averaged across the hosts listed. One run from one
+              location; the numbers vary from run to run.
+            </>
+          }
+          actions={
+            <NavLink to={{ route: "benchmark" }} class="link">
+              All frameworks and caveats
+            </NavLink>
+          }
+          class="scroll-mt-4 border-t border-rule"
+        >
+          <div class="max-w-[56rem]">
+            <BuildTable
+              rows={data.bench.rows}
+              paths={data.bench.paths}
+              hostCount={data.bench.hostCount}
+              showFramework={false}
+              label={`${fw.name}: latest benchmark per build and page`}
+            />
+            <StatusKey class="mt-3" />
+          </div>
+        </Section>
+      )}
 
       {fw.extrasHtml && (
         <Section

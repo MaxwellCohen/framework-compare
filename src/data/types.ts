@@ -249,3 +249,91 @@ export interface MeasuredData {
   caveatsHtml: string;
   oneSentenceHtml: string;
 }
+
+// ---------------------------------------------------------------------------
+// Benchmark data — our own PageSpeed Insights runs (bench/cwv-bench.mjs →
+// scripts/import-bench.mjs → content/benchmarks/<date>.json →
+// scripts/build-bench-data.mjs → src/data/generated/benchmark.json).
+// Mobile Lighthouse lab runs. Times are in ms; any metric can be null.
+// ---------------------------------------------------------------------------
+
+/** Paths the bench measures: "/" (book list) and "/10145787" (one book). */
+export type BenchPath = string;
+
+/** Median of a target's measured runs (cold runs excluded when possible). */
+export interface BenchMetrics {
+  /** Lighthouse Performance score, 0–100. */
+  perf: number | null;
+  /** First Contentful Paint, ms. */
+  fcp: number | null;
+  /** Largest Contentful Paint, ms. */
+  lcp: number | null;
+  /** Total Blocking Time, ms. */
+  tbt: number | null;
+  /** Speed Index, ms. */
+  si: number | null;
+  /** Cumulative Layout Shift, unitless. */
+  cls: number | null;
+  /** Document request time as seen by Lighthouse, ms. */
+  doc: number | null;
+}
+
+/** One deployment × path: framework × branch × host × path. */
+export interface BenchTarget {
+  frameworkId: FrameworkId;
+  app: string;
+  /** Git branch, e.g. "main", "optimized", "nuxt-books-optimized-max". */
+  branch: string;
+  host: Host;
+  path: BenchPath;
+  url: string;
+  median: BenchMetrics | null;
+  /** Measured runs made. */
+  runs: number;
+  /** Runs that went into the median (not cold). */
+  usedRuns: number;
+  /** Every run was cold (document over the cold threshold), so the median includes cold runs. */
+  coldSuspect: boolean;
+  error: string | null;
+}
+
+/** Average of target medians across hosts, per framework × branch × path. */
+export interface BenchBuild extends BenchMetrics {
+  frameworkId: FrameworkId;
+  branch: string;
+  path: BenchPath;
+  /** Hosts that had data and went into the average. */
+  hosts: Host[];
+}
+
+export interface BenchRun {
+  /** "YYYY-MM-DD" (UTC start date). */
+  date: string;
+  startedAt: string;
+  finishedAt: string | null;
+  tool: string;
+  /** "mobile" | "desktop". */
+  strategy: string;
+  runsPerTarget: number;
+  psiRequests: number;
+  /** The run stopped early (quota or interrupt); results are partial. */
+  aborted: boolean;
+  paths: BenchPath[];
+  hosts: Host[];
+  targets: BenchTarget[];
+  builds: BenchBuild[];
+}
+
+export interface BenchHistoryEntry {
+  date: string;
+  targets: number;
+  withData: number;
+  builds: Pick<BenchBuild, "frameworkId" | "branch" | "path" | "fcp" | "lcp" | "perf">[];
+}
+
+export interface BenchmarkData {
+  /** The newest run in full, or null when no run has been imported. */
+  latest: BenchRun | null;
+  /** Every run, oldest first. */
+  history: BenchHistoryEntry[];
+}

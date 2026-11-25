@@ -42,6 +42,13 @@ export const app = defineApp({
       hydration: "islands",
       speculation: "prefetch",
     }),
+    route("/benchmark", "./routes/benchmark.tsx", {
+      id: "benchmark",
+      render: "ssg",
+      shell: "public",
+      hydration: "islands",
+      speculation: "prefetch",
+    }),
     route("/methodology", "./routes/methodology.tsx", {
       id: "methodology",
       render: "ssg",

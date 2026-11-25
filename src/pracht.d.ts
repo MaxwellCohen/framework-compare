@@ -40,6 +40,13 @@ declare module "@pracht/core" {
         searchOutput: RouteSearchOutput<typeof import("./routes/measured")>;
         data: RouteLoaderData<typeof import("./routes/measured")>;
       };
+      "benchmark": {
+        path: "/benchmark";
+        params: Record<never, never>;
+        search: RouteSearchInput<typeof import("./routes/benchmark")>;
+        searchOutput: RouteSearchOutput<typeof import("./routes/benchmark")>;
+        data: RouteLoaderData<typeof import("./routes/benchmark")>;
+      };
       "methodology": {
         path: "/methodology";
         params: Record<never, never>;

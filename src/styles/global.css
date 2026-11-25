@@ -832,6 +832,20 @@
     --series: var(--color-ink);
     border-radius: 50%;
   }
+
+  /* Core Web Vitals status (components/benchmark). Shape carries the meaning
+     (circle good, square needs improvement, triangle poor, as in Lighthouse);
+     colour reinforces it. Borrowed from existing tokens, so these appear only
+     next to a status glyph and the page's status key, never on their own. */
+  .cwv-good {
+    --cwv: var(--color-first);
+  }
+  .cwv-ni {
+    --cwv: var(--color-experimental);
+  }
+  .cwv-poor {
+    --cwv: var(--color-third);
+  }
 }
 
 /* Cross-document view transitions (defineApp viewTransitions): keep it brief. */

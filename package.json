@@ -13,7 +13,10 @@
     "dev": "pracht typegen && pracht dev",
     "typegen": "pracht typegen",
     "typecheck": "pracht typegen && tsrs --noEmit && tsrs --noEmit --project tsconfig.client.json",
-    "preview": "pracht preview"
+    "preview": "pracht preview",
+    "data:bench": "node scripts/build-bench-data.mjs",
+    "bench": "node bench/cwv-bench.mjs && node scripts/import-bench.mjs",
+    "bench:import": "node scripts/import-bench.mjs"
   },
   "dependencies": {
     "@pracht/adapter-static": "^1.0.0",

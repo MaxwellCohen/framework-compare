@@ -106,6 +106,9 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <NavLink to={{ route: "measured" }} class="link">
               Measured: first-paint timings from Lighthouse
             </NavLink>
+            <NavLink to={{ route: "benchmark" }} class="link">
+              Benchmark: our latest PageSpeed Insights run
+            </NavLink>
           </>
         }
         aside={
@@ -124,7 +127,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             A label records what the documentation says a framework provides and how much of it you have to build
             yourself. It does not tell you how fast a site built with that framework will be, and a higher score does
             not mean a faster site. Timings from real deployments are on the{" "}
-            <NavLink to={{ route: "measured" }}>Measured</NavLink> page.
+            <NavLink to={{ route: "measured" }}>Measured</NavLink> and <NavLink to={{ route: "benchmark" }}>Benchmark</NavLink>{" "}
+            pages.
           </p>
         </Callout>
       </Container>

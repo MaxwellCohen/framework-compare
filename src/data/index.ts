@@ -6,7 +6,10 @@
  */
 import capabilityJson from "./generated/capability.json";
 import measuredJson from "./generated/measured.json";
+import benchmarkJson from "./generated/benchmark.json";
 import type {
+  BenchBuild,
+  BenchmarkData,
   CapabilityData,
   Cell,
   Feature,
@@ -23,13 +26,14 @@ export type * from "./types.ts";
 
 export const capability = capabilityJson as unknown as CapabilityData;
 export const measured = measuredJson as unknown as MeasuredData;
+export const benchmark = benchmarkJson as unknown as BenchmarkData;
 
 export const frameworks: Framework[] = capability.frameworks;
 export const features: Feature[] = capability.features;
 export const cells: Cell[] = capability.cells;
 export const ranking = capability.ranking;
 
-/** 2 points per feature: fcp 10, other 12, total 22. */
+/** 2 points per feature: fcp 10, other 14, total 24 with the current 5 + 7 features. */
 export const MAX_SCORE: Record<FeatureGroup, number> = {
   fcp: 2 * capability.features.filter((f) => f.group === "fcp").length,
   other: 2 * capability.features.filter((f) => f.group === "other").length,
@@ -94,4 +98,55 @@ export function getMatrix(): Matrix {
     };
   }
   return matrix;
+}
+
+// ---------------------------------------------------------------------------
+// Benchmark (our own PSI runs). Any framework, branch, host, path or metric
+// can be missing from a run, so every helper tolerates gaps.
+// ---------------------------------------------------------------------------
+
+/** The book-list page; the bench also measures one book page. */
+export const BENCH_HOME_PATH = "/";
+
+const BRANCH_ORDER = ["main", "optimized", "nuxt-books-optimized-max"];
+const BRANCH_NAME: Record<string, string> = {
+  main: "baseline",
+  optimized: "optimized",
+  "nuxt-books-optimized-max": "max optimized",
+};
+
+/**
+ * Ports whose `main` is already tuned and whose untuned build lives on another
+ * branch. Next's `main` enables Cache Components, inlineCss and so on; `naive`
+ * is the untuned build (see the books-demo README).
+ */
+const BRANCH_OVERRIDES: Partial<Record<FrameworkId, { order: string[]; names: Record<string, string> }>> = {
+  next: { order: ["naive", "main"], names: { naive: "baseline", main: "optimized" } },
+};
+
+/** Build name for a git branch: main → "baseline", optimized → "optimized", … Unknown branches keep their name. */
+export function benchBuildName(branch: string, frameworkId?: FrameworkId): string {
+  const o = frameworkId && BRANCH_OVERRIDES[frameworkId];
+  return (o && o.names[branch]) ?? BRANCH_NAME[branch] ?? branch;
+}
+
+/** Sort key for branches: baseline first, then optimized, then max, then anything else. */
+export function benchBranchRank(branch: string, frameworkId?: FrameworkId): number {
+  const order = (frameworkId && BRANCH_OVERRIDES[frameworkId]?.order) || BRANCH_ORDER;
+  const i = order.indexOf(branch);
+  return i === -1 ? order.length : i;
+}
+
+/** Sort key for paths: the order the run lists them, home page first. */
+export function benchPathRank(path: string): number {
+  if (path === BENCH_HOME_PATH) return -1;
+  const i = benchmark.latest?.paths.indexOf(path) ?? -1;
+  return i === -1 ? 999 : i;
+}
+
+/** One framework's builds in the latest run, by path then branch. Empty when it has no data. */
+export function benchBuildsFor(id: FrameworkId): BenchBuild[] {
+  return (benchmark.latest?.builds ?? [])
+    .filter((b) => b.frameworkId === id)
+    .sort((a, b) => benchPathRank(a.path) - benchPathRank(b.path) || benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId));
 }

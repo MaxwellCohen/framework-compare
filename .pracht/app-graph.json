@@ -19,6 +19,22 @@
       "streaming": null
     },
     {
+      "file": "./routes/benchmark.tsx",
+      "hydration": "islands",
+      "id": "benchmark",
+      "loaderCache": null,
+      "loaderFile": null,
+      "middleware": [],
+      "path": "/benchmark",
+      "prefetch": null,
+      "render": "ssg",
+      "revalidate": null,
+      "shell": "public",
+      "shellFile": "./shells/public.tsx",
+      "speculation": "prefetch",
+      "streaming": null
+    },
+    {
       "file": "./routes/compare.tsx",
       "hydration": "islands",
       "id": "compare",

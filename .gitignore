@@ -7,3 +7,5 @@ node_modules
 !.env.example
 .dev.vars
 # Keep .pracht/app-graph.json committed — it is the `pracht plan` snapshot.
+bench/.psi-usage.json
+bench/results/

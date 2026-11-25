@@ -96,12 +96,16 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               <Prose size="sm" html={data.disclaimerHtml} />
             </Callout>
             <p class="mt-4 max-w-prose text-ink-2">
-              The site’s only measured numbers are on the{" "}
+              The site’s measured numbers are on two pages.{" "}
               <NavLink to={{ route: "measured" }} class="link">
                 Measured
               </NavLink>{" "}
-              page: lab results for mobile Lighthouse First Contentful Paint (FCP), from the Books demo app built in{" "}
-              {data.measuredCount} frameworks. No label, score or rank on this page uses them.
+              has lab results for mobile Lighthouse First Contentful Paint (FCP), from the Books demo app built in{" "}
+              {data.measuredCount} frameworks.{" "}
+              <NavLink to={{ route: "benchmark" }} class="link">
+                Benchmark
+              </NavLink>{" "}
+              has our latest PageSpeed Insights run. No label, score or rank on this page uses them.
             </p>
           </DocSection>
 

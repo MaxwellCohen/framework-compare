@@ -12,7 +12,7 @@ import type { FeatureId, FrameworkId } from "../data/types.ts";
  *   { route: "framework", id: "nuxt", hash: "deployments" }
  */
 export type Target =
-  | { route: "home" | "compare" | "measured" | "methodology"; hash?: string }
+  | { route: "home" | "compare" | "measured" | "benchmark" | "methodology"; hash?: string }
   | { route: "feature"; id: FeatureId; hash?: string }
   | { route: "framework"; id: FrameworkId; hash?: string };
 

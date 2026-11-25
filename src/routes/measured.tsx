@@ -206,7 +206,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <PageHeader
         eyebrow="Lab measurements"
         title="Measured First Contentful Paint"
-        lede={`First Contentful Paint (FCP) is the moment the browser first paints text or an image. This page shows FCP for the same Books demo app built in each framework, deployed to ${HOSTS.length} hosts and tested in ${data.runs.length} mobile Lighthouse runs in September 2026. It is the only page on the site with measured numbers.`}
+        lede={`First Contentful Paint (FCP) is the moment the browser first paints text or an image. This page shows FCP for the same Books demo app built in each framework, deployed to ${HOSTS.length} hosts and tested in ${data.runs.length} mobile Lighthouse runs in September 2026.`}
         meta={
           <>
             <Tag>Mobile Lighthouse</Tag>
@@ -225,6 +225,15 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           </StatGroup>
         }
       />
+
+      <Container class="pt-6">
+        <Callout kind="note" title="Newer numbers">
+          <p>
+            This page is the September 2026 write-up. Our own repeatable PageSpeed Insights run, with FCP, LCP, TBT and CLS for every
+            deployment, is on the <NavLink to={{ route: "benchmark" }}>Benchmark</NavLink> page.
+          </p>
+        </Callout>
+      </Container>
 
       <Container class="grid gap-4 py-6 lg:grid-cols-2">
         <Callout kind="caveat" title="How these numbers were produced">

@@ -1,0 +1,51 @@
+name: Benchmark
+
+# Runs PageSpeed Insights against every deployed port, imports the results
+# into content/benchmarks/, rebuilds src/data/generated/benchmark.json and
+# commits them. The push to main redeploys the site on Vercel.
+# Needs the repository secret PSI_API_KEY (a PageSpeed Insights API key).
+
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: Measured PSI runs per target (median reported)
+        default: "3"
+  schedule:
+    - cron: "0 9 * * 1" # Mondays 09:00 UTC
+
+permissions:
+  contents: write
+
+concurrency:
+  group: benchmark
+  cancel-in-progress: false
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run benchmark
+        env:
+          PSI_API_KEY: ${{ secrets.PSI_API_KEY }}
+        run: |
+          test -n "$PSI_API_KEY" || { echo "::error::Set the PSI_API_KEY repository secret"; exit 1; }
+          # Exit code 2 means the daily quota ran out; partial results are still written.
+          node bench/cwv-bench.mjs --no-live-limits --runs "${{ inputs.runs || '3' }}" || [ $? -eq 2 ]
+      - name: Import results
+        run: npm run bench:import
+      - name: Commit results
+        run: |
+          git add content/benchmarks src/data/generated/benchmark.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Benchmark results $(date -u +%Y-%m-%d)"
+          git push

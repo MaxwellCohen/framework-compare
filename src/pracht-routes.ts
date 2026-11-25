@@ -24,6 +24,10 @@ export const routes = [
     path: "/measured",
   },
   {
+    id: "benchmark",
+    path: "/benchmark",
+  },
+  {
     id: "methodology",
     path: "/methodology",
   },
