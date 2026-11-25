@@ -56,7 +56,7 @@ export async function loader() {
 }
 
 export function head({ data }: HeadArgs<typeof loader>) {
-  const title = "Framework Bench: what 15 web frameworks provide for 12 performance features";
+  const title = "Framework Compare: what 15 web frameworks provide for 12 performance features";
   const description = `A capability matrix of ${data.frameworks.length} web meta-frameworks across ${data.features.length} performance features, labelled 1st-party, Experimental, Third-party or Manual from vendor documentation. The labels describe documented capability; they are not speed measurements.`;
   return {
     title,

@@ -2,7 +2,7 @@ import { Container, NavLink } from "../components/index.ts";
 
 export function head() {
   return {
-    title: "Page not found — Framework Bench",
+    title: "Page not found — Framework Compare",
     meta: [{ content: "noindex", name: "robots" }],
   };
 }

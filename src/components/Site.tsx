@@ -6,13 +6,13 @@ export const REPO_URL = "https://github.com/MaxwellCohen/books-demo";
 
 /**
  * Inline head script (see shell `head()`): runs before first paint.
- *  - resolves the theme (localStorage "fb-theme", else the OS preference) and
+ *  - resolves the theme (localStorage "fc-theme", else the OS preference) and
  *    stamps <html data-theme>, so there is no flash and CSS has one hook;
  *  - handles clicks on any `[data-theme-toggle]` element (event delegation, so
  *    the toggle needs no hydration);
  *  - closes the mobile `<details data-nav>` menu after a same-page link.
  */
-export const THEME_SCRIPT = `(function(){var d=document,r=d.documentElement,k="fb-theme",m=matchMedia("(prefers-color-scheme: dark)");function s(){try{return localStorage.getItem(k)}catch(e){}}function a(){var v=s();r.dataset.theme=v==="light"||v==="dark"?v:m.matches?"dark":"light"}a();m.addEventListener("change",a);addEventListener("pageshow",a);d.addEventListener("click",function(e){var t=e.target;if(!t||!t.closest)return;if(t.closest("[data-theme-toggle]")){var n=r.dataset.theme==="dark"?"light":"dark";try{localStorage.setItem(k,n)}catch(e){}r.dataset.theme=n;return}var l=t.closest("[data-nav] a");if(l)l.closest("[data-nav]").removeAttribute("open")})})()`;
+export const THEME_SCRIPT = `(function(){var d=document,r=d.documentElement,k="fc-theme",m=matchMedia("(prefers-color-scheme: dark)");function s(){try{return localStorage.getItem(k)}catch(e){}}function a(){var v=s();r.dataset.theme=v==="light"||v==="dark"?v:m.matches?"dark":"light"}a();m.addEventListener("change",a);addEventListener("pageshow",a);d.addEventListener("click",function(e){var t=e.target;if(!t||!t.closest)return;if(t.closest("[data-theme-toggle]")){var n=r.dataset.theme==="dark"?"light":"dark";try{localStorage.setItem(k,n)}catch(e){}r.dataset.theme=n;return}var l=t.closest("[data-nav] a");if(l)l.closest("[data-nav]").removeAttribute("open")})})()`;
 
 interface NavItem {
   label: string;
@@ -83,7 +83,7 @@ export function SiteHeader() {
   return (
     <header class="relative border-b border-rule-strong bg-surface">
       <div class="mx-auto flex h-14 w-full max-w-page items-center gap-4 px-4 sm:px-6 lg:gap-8 lg:px-8">
-        <NavLink to={{ route: "home" }} class="flex flex-none items-center gap-2.5" aria-label="Framework Bench — home">
+        <NavLink to={{ route: "home" }} class="flex flex-none items-center gap-2.5" aria-label="Framework Compare — home">
           <span class="flex gap-0.5 text-ink" aria-hidden="true">
             {LABEL_ORDER.map((label) => (
               <span key={label} class={`badge tier-${label} text-[0.6875rem]`}>
@@ -91,7 +91,7 @@ export function SiteHeader() {
               </span>
             ))}
           </span>
-          <span class="font-display text-lg leading-none tracking-[-0.01em] text-ink">Framework Bench</span>
+          <span class="font-display text-lg leading-none tracking-[-0.01em] text-ink">Framework Compare</span>
         </NavLink>
 
         <nav aria-label="Primary" class="ml-auto hidden md:block">

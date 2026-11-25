@@ -74,7 +74,7 @@ export async function loader() {
 
 export function head() {
   return {
-    title: "Measured First Contentful Paint: four runs, three hosts — Framework Bench",
+    title: "Measured First Contentful Paint: four runs, three hosts — Framework Compare",
     meta: [
       {
         name: "description",

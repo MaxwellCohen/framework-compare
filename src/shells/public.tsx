@@ -29,7 +29,7 @@ export function Shell({ children }: ShellProps) {
 export function head() {
   return {
     lang: "en",
-    title: "Framework Bench",
+    title: "Framework Compare",
     meta: [
       { content: "width=device-width, initial-scale=1", name: "viewport" },
       { content: "light dark", name: "color-scheme" },

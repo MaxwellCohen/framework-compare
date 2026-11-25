@@ -81,7 +81,7 @@ export function getStaticPaths() {
 export function head({ data }: HeadArgs<typeof loader>) {
   const { feature, blocks, tallyText } = data;
   return {
-    title: `${feature.name}: support in ${blocks.length} frameworks — Framework Bench`,
+    title: `${feature.name}: support in ${blocks.length} frameworks — Framework Compare`,
     meta: [
       {
         name: "description",

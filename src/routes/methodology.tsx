@@ -32,12 +32,12 @@ export async function loader() {
 
 export function head() {
   return {
-    title: "Methodology: labels, scoring, ranking and versions checked — Framework Bench",
+    title: "Methodology: labels, scoring, ranking and versions checked — Framework Compare",
     meta: [
       {
         name: "description",
         content:
-          "How Framework Bench assigns its capability labels, how the scores and the completeness ranking are computed, which framework versions were checked, and the claims flagged as lower confidence. Capability is taken from vendor documentation, with AI assistance; it is not measured.",
+          "How Framework Compare assigns its capability labels, how the scores and the completeness ranking are computed, which framework versions were checked, and the claims flagged as lower confidence. Capability is taken from vendor documentation, with AI assistance; it is not measured.",
       },
     ],
   };

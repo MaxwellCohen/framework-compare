@@ -114,7 +114,7 @@ export function getStaticPaths() {
 export function head({ data }: HeadArgs<typeof loader>) {
   const { framework: fw, max, count } = data;
   return {
-    title: `${fw.name}: ${fw.total}/${max.total} documented capability — Framework Bench`,
+    title: `${fw.name}: ${fw.total}/${max.total} documented capability — Framework Compare`,
     meta: [
       {
         name: "description",

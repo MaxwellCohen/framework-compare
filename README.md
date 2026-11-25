@@ -1,4 +1,4 @@
-# Framework Bench
+# Framework Compare
 
 A static reference site comparing 15 web frameworks on 12 performance features:
 what each framework's documentation says it provides (1st-party, Experimental,
