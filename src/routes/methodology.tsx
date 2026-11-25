@@ -151,6 +151,15 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           </DocSection>
 
           <DocSection id="scoring" index="03" title="How scoring works, with a worked example">
+            <Callout kind="caveat" title="This site scores 11 features, out of 22 points" class="mb-6 max-w-prose">
+              <p>
+                The source comparison scores 12 features out of 24 points. This site drops its “Art-directed /
+                modern-format images (&lt;picture&gt;)” row from the score, so the text quoted below still counts 12
+                features. Each framework’s art-direction how-to now appears, unscored, under{" "}
+                <NavLink to={{ route: "feature", id: "image-pipeline" }}>Image pipeline</NavLink>. Scores, completeness
+                and ranks on this site are recalculated without that row, so they can differ from the source’s ranking.
+              </p>
+            </Callout>
             <div class="max-w-prose">
               <Prose html={data.scoringHtml} />
             </div>

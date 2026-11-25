@@ -44,7 +44,7 @@ export function FrameworkChip({
   rank,
   tied,
   score,
-  max = 24,
+  max = 22,
   short = false,
   link = true,
   class: cls = "",

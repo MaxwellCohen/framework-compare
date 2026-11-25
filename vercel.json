@@ -4,5 +4,12 @@
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
   "outputDirectory": "dist/client",
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/features/picture",
+      "destination": "/features/image-pipeline",
+      "permanent": true
+    }
+  ]
 }

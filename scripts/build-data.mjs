@@ -68,6 +68,14 @@ const FEATURES = [
   { id: "multi-host-deployment", shortName: "Multi-host" },
 ];
 
+/**
+ * Source rows the site does not score: dropped feature id → the feature it is
+ * shown under. Each framework's dropped cell moves onto its host cell as
+ * `artDirection`, and scores, ranks and completeness are recomputed without it.
+ */
+const FOLDED_FEATURES = { picture: "image-pipeline" };
+const SOURCE_FEATURE_IDS = FEATURES.map((f) => f.id);
+
 /** Short app names used in fcp-groupings.md / README averages → slug. */
 const MEASURED_ALIASES = { Svelte: "sveltekit", Solid: "solidstart" };
 
@@ -259,7 +267,7 @@ function rewriteHref(href) {
     const numbered = anchor.match(/^(\d+)-/);
     if (numbered) {
       const id = featureIdByNumber.get(Number(numbered[1]));
-      if (id) return { href: `/features/${id}`, external: false };
+      if (id) return { href: `/features/${FOLDED_FEATURES[id] ?? id}`, external: false };
     } else {
       for (const [re, target] of ANCHOR_TARGETS) {
         if (re.test(anchor)) return { href: target, external: false };
@@ -763,10 +771,10 @@ function buildCapability() {
     const md = manualExamples.get(cell.frameworkId)?.get(cell.featureId);
     cell.exampleHtml = null;
     if (md === undefined) {
-      if (cell.label === "manual" && !cell.hasSnippet) warn(`manual cell ${cell.frameworkId} × ${cell.featureId} has no code sample`);
+      if ((cell.label === "manual" || FOLDED_FEATURES[cell.featureId]) && !cell.hasSnippet) warn(`code-less cell ${cell.frameworkId} × ${cell.featureId} has no code sample`);
       continue;
     }
-    if (cell.label !== "manual") warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: label is ${cell.label}`);
+    if (cell.label !== "manual" && !FOLDED_FEATURES[cell.featureId]) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: label is ${cell.label}`);
     else if (cell.hasSnippet) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: the source already has a snippet`);
     else {
       const tokens = lex(md);
@@ -805,7 +813,55 @@ function buildCapability() {
   };
 
   validateCapability({ frameworks, features, cells: orderedCells, ranking, tableLabel, tableScore });
-  return { frameworks, features, cells: orderedCells, ranking, methodology };
+  return { ...foldFeatures({ frameworks, features, cells: orderedCells }), methodology };
+}
+
+/**
+ * Applies FOLDED_FEATURES after the source has been validated as written:
+ * moves each dropped cell onto its host cell, renumbers the features, and
+ * recomputes every score, completeness percentage and competition rank.
+ */
+function foldFeatures({ frameworks, features, cells }) {
+  for (const cell of cells) cell.artDirection = null;
+  for (const [dropped, host] of Object.entries(FOLDED_FEATURES)) {
+    for (const cell of cells.filter((c) => c.featureId === dropped)) {
+      const target = cells.find((c) => c.frameworkId === cell.frameworkId && c.featureId === host);
+      if (!target) die(`fold ${dropped} → ${host}: no ${host} cell for ${cell.frameworkId}`);
+      target.artDirection = { label: cell.label, bodyHtml: cell.bodyHtml, exampleHtml: cell.exampleHtml };
+    }
+  }
+  const keptFeatures = features.filter((f) => !FOLDED_FEATURES[f.id]).map((f, i) => ({ ...f, number: i + 1 }));
+  const keptCells = cells.filter((c) => !FOLDED_FEATURES[c.featureId]);
+  const groupOf = new Map(keptFeatures.map((f) => [f.id, f.group]));
+  const maxTotal = 2 * keptFeatures.length;
+
+  for (const fw of frameworks) {
+    const sums = { fcp: 0, other: 0 };
+    for (const c of keptCells) if (c.frameworkId === fw.id) sums[groupOf.get(c.featureId)] += c.points;
+    fw.fcpScore = sums.fcp;
+    fw.otherScore = sums.other;
+    fw.total = sums.fcp + sums.other;
+    fw.completeness = Math.round((fw.total / maxTotal) * 100);
+  }
+  for (const fw of frameworks) fw.rank = 1 + frameworks.filter((o) => o.total > fw.total).length;
+  const ranking = [...frameworks]
+    .sort((a, b) => a.rank - b.rank || a.order - b.order)
+    .map((fw) => ({
+      rank: fw.rank,
+      frameworkId: fw.id,
+      fcpScore: fw.fcpScore,
+      otherScore: fw.otherScore,
+      total: fw.total,
+      completeness: fw.completeness,
+    }));
+
+  const ids = keptFeatures.map((f) => f.id);
+  if (ids.length !== FEATURE_IDS.length || ids.some((id, i) => id !== FEATURE_IDS[i])) {
+    problem(`features after folding [${ids}] differ from FeatureId in types.ts [${FEATURE_IDS}]`);
+  }
+  const missing = keptCells.filter((c) => c.featureId in Object.fromEntries(Object.values(FOLDED_FEATURES).map((h) => [h, 1])) && !c.artDirection);
+  for (const c of missing) problem(`cell ${c.frameworkId} × ${c.featureId}: no folded artDirection`);
+  return { frameworks, features: keptFeatures, cells: keptCells, ranking };
 }
 
 function validateCapability({ frameworks, features, cells, ranking, tableLabel, tableScore }) {
@@ -818,8 +874,8 @@ function validateCapability({ frameworks, features, cells, ranking, tableLabel, 
   if (!sameSet(frameworks.map((f) => f.id), FRAMEWORK_IDS)) {
     problem(`framework ids [${frameworks.map((f) => f.id)}] differ from FrameworkId in types.ts [${FRAMEWORK_IDS}]`);
   }
-  if (!sameSet(features.map((f) => f.id), FEATURE_IDS)) {
-    problem(`feature ids [${features.map((f) => f.id)}] differ from FeatureId in types.ts [${FEATURE_IDS}]`);
+  if (!sameSet(features.map((f) => f.id), SOURCE_FEATURE_IDS)) {
+    problem(`feature ids [${features.map((f) => f.id)}] differ from the FEATURES map [${SOURCE_FEATURE_IDS}]`);
   }
   const core = frameworks.filter((f) => f.group === "core").length;
   if (core !== 9) problem(`expected 9 core frameworks, found ${core}`);
@@ -828,7 +884,7 @@ function validateCapability({ frameworks, features, cells, ranking, tableLabel, 
   for (const cell of cells) {
     const where = `cell ${cell.frameworkId} × ${cell.featureId}`;
     if (!FRAMEWORK_IDS.includes(cell.frameworkId)) problem(`${where}: frameworkId outside FrameworkId`);
-    if (!FEATURE_IDS.includes(cell.featureId)) problem(`${where}: featureId outside FeatureId`);
+    if (!SOURCE_FEATURE_IDS.includes(cell.featureId)) problem(`${where}: featureId outside the FEATURES map`);
     if (!cell.bodyHtml.replace(/<[^>]+>/g, "").trim()) problem(`${where}: empty bodyHtml`);
     const t = tableLabel.get(`${cell.frameworkId}:${cell.featureId}`);
     if (!t) problem(`${where}: no table cell`);

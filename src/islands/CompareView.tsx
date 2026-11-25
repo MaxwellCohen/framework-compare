@@ -123,7 +123,7 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
                   {on ? "✓" : "+"}
                 </span>
                 <span class="font-semibold">{fw.name}</span>
-                <span class={`num text-xs ${on ? "" : "text-ink-3"}`}>{fw.total}/24</span>
+                <span class={`num text-xs ${on ? "" : "text-ink-3"}`}>{fw.total}/22</span>
               </button>
             );
           })}
@@ -172,7 +172,7 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
                 <dt class="text-ink-2">Other features</dt>
                 <dd class="num text-right">
                   {fw.otherScore}
-                  <span class="text-ink-3">/14</span>
+                  <span class="text-ink-3">/12</span>
                 </dd>
                 <dt class="text-ink-2">Completeness</dt>
                 <dd class="num text-right">{fw.completeness}%</dd>

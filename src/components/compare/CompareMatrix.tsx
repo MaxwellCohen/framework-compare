@@ -20,7 +20,7 @@ export function featureHref(id: FeatureId, frameworkId?: FrameworkId) {
 
 const GROUPS: { id: FeatureGroup; title: string; max: string }[] = [
   { id: "fcp", title: "First-paint levers", max: "2 pts each · max 10" },
-  { id: "other", title: "Other features", max: "2 pts each · max 14" },
+  { id: "other", title: "Other features", max: "2 pts each · max 12" },
 ];
 
 /**
@@ -105,8 +105,8 @@ export function CompareMatrix({
       </tbody>
       <tfoot>
         {footRow("First paint", 10, (f) => f.fcpScore)}
-        {footRow("Other", 14, (f) => f.otherScore)}
-        {footRow("Total", 24, (f) => f.total, true)}
+        {footRow("Other", 12, (f) => f.otherScore)}
+        {footRow("Total", 22, (f) => f.total, true)}
       </tfoot>
     </Matrix>
   );

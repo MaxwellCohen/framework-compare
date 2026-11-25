@@ -46,8 +46,8 @@ Prefer no JavaScript where the platform does the job: `<details>` for disclosure
 - `LABELS` (text, short, points, description per label), `LABEL_ORDER`.
 
 ### Scores (`Score.tsx`)
-- `ScoreBar` `{ fcp, other, fcpMax? = 10, otherMax? = 14 } | { value, max }` + `{ size?: "sm" | "md", showValue?, class? }` — unit-segmented bar; the two-part form shows first-paint and other points side by side. For ranking rows and framework headers.
-- `ScoreMeter` `{ value, max, percent?, class? }` — compact mono "18/24"; `percent` appends completeness. For table cells and chips.
+- `ScoreBar` `{ fcp, other, fcpMax? = 10, otherMax? = 12 } | { value, max }` + `{ size?: "sm" | "md", showValue?, class? }` — unit-segmented bar; the two-part form shows first-paint and other points side by side. For ranking rows and framework headers.
+- `ScoreMeter` `{ value, max, percent?, class? }` — compact mono "18/22"; `percent` appends completeness. For table cells and chips.
 - `RankBadge` `{ rank, tied?, size?: "sm" | "md", class? }` — "#3" / "=3" square.
 - `Stat` `{ label, value, unit?, hint?, class? }` — one headline figure. Wrap several in `StatGroup` `{ cols?: 2 | 3 | 4 | 5 }`.
 
@@ -68,7 +68,7 @@ Prefer no JavaScript where the platform does the job: `<details>` for disclosure
 
 ### Chips (`Chips.tsx`)
 - `FrameworkName` `{ framework: { id, name, shortName }, short?, link? = true, class? }` — the name as a typed link.
-- `FrameworkChip` `{ framework, rank?, tied?, score?, max? = 24, short?, link?, class? }` — bordered chip with optional rank and score.
+- `FrameworkChip` `{ framework, rank?, tied?, score?, max? = 22, short?, link?, class? }` — bordered chip with optional rank and score.
 - `FeatureName` `{ feature: { id, number, name, shortName }, short?, link? = true, class? }` — "01 CSS inlining" as a typed link.
 - `FeatureChip` `{ feature, label?, short?, link?, class? }` — bordered chip; `label` adds the cell glyph for that framework.
 - `featureNo(n)` — zero-padded feature number.

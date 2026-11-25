@@ -41,6 +41,7 @@ export async function loader({ params }: LoaderArgs) {
       label: cell.label,
       bodyHtml: cell.bodyHtml,
       exampleHtml: cell.exampleHtml,
+      artDirection: cell.artDirection,
     };
   });
 

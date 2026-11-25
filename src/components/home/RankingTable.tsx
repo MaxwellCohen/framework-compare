@@ -19,9 +19,9 @@ export function RankingTable({ frameworks, maxTotal }: { frameworks: RankingFram
       <MatrixHead corner="Framework">
         <MatrixColHeader>Score</MatrixColHeader>
         <MatrixColHeader title="Points from the five first-paint levers, out of 10">First paint</MatrixColHeader>
-        <MatrixColHeader title="Points from the seven other features, out of 14">Other</MatrixColHeader>
+        <MatrixColHeader title="Points from the six other features, out of 12">Other</MatrixColHeader>
         <MatrixColHeader>Total</MatrixColHeader>
-        <MatrixColHeader title="Total as a share of the 24 available points">Complete</MatrixColHeader>
+        <MatrixColHeader title="Total as a share of the 22 available points">Complete</MatrixColHeader>
         <MatrixColHeader title="Core: full how-to sections. Additional: scored from documentation notes.">
           Group
         </MatrixColHeader>
@@ -45,7 +45,7 @@ export function RankingTable({ frameworks, maxTotal }: { frameworks: RankingFram
             <MatrixCell>
               <span class="num whitespace-nowrap">
                 {f.otherScore}
-                <span class="text-ink-3">/14</span>
+                <span class="text-ink-3">/12</span>
               </span>
             </MatrixCell>
             <MatrixCell>

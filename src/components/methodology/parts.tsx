@@ -79,9 +79,9 @@ export function RankingTable({ rows }: { rows: (RankingRow & { framework: FwRef;
     <Matrix label={`Completeness ranking of all ${rows.length} frameworks`}>
       <MatrixHead corner="Rank and framework">
         <MatrixColHeader title="Points from the five FCP levers, out of 10">FCP levers</MatrixColHeader>
-        <MatrixColHeader title="Points from the seven other features, out of 14">Other features</MatrixColHeader>
-        <MatrixColHeader title="Sum of the two scores, out of 24">Total</MatrixColHeader>
-        <MatrixColHeader title="Total divided by 24, rounded to a whole percent">Completeness</MatrixColHeader>
+        <MatrixColHeader title="Points from the six other features, out of 12">Other features</MatrixColHeader>
+        <MatrixColHeader title="Sum of the two scores, out of 22">Total</MatrixColHeader>
+        <MatrixColHeader title="Total divided by 22, rounded to a whole percent">Completeness</MatrixColHeader>
       </MatrixHead>
       <tbody>
         {rows.map((r) => (
@@ -91,8 +91,8 @@ export function RankingTable({ rows }: { rows: (RankingRow & { framework: FwRef;
               <span class="font-semibold underline decoration-rule-strong underline-offset-2">{r.framework.name}</span>
             </MatrixRowHeader>
             <MatrixCell>{frac(r.fcpScore, 10)}</MatrixCell>
-            <MatrixCell>{frac(r.otherScore, 14)}</MatrixCell>
-            <MatrixCell>{frac(r.total, 24, true)}</MatrixCell>
+            <MatrixCell>{frac(r.otherScore, 12)}</MatrixCell>
+            <MatrixCell>{frac(r.total, 22, true)}</MatrixCell>
             <MatrixCell>
               <span class="num">{r.completeness}%</span>
             </MatrixCell>

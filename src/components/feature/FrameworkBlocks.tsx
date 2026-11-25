@@ -1,8 +1,8 @@
-import type { Feature, Framework, Label } from "../../data/types.ts";
+import type { ArtDirection, Feature, Framework, Label } from "../../data/types.ts";
 import { LabelBadge, LabelGlyph, LABELS } from "../LabelBadge.tsx";
 import { NavLink } from "../links.tsx";
 import { Card } from "../Page.tsx";
-import { ManualExample } from "../ManualExample.tsx";
+import { ArtDirectionBlock, ManualExample } from "../ManualExample.tsx";
 import { Prose } from "../Prose.tsx";
 
 export type BlockFramework = Pick<Framework, "id" | "name" | "shortName" | "group">;
@@ -12,6 +12,7 @@ export interface FeatureBlock {
   label: Label;
   bodyHtml: string;
   exampleHtml: string | null;
+  artDirection: ArtDirection | null;
 }
 
 type FeatureRef = Pick<Feature, "id">;
@@ -139,6 +140,7 @@ export function FrameworkBlock({ feature, block }: { feature: FeatureRef; block:
     >
       <Prose html={block.bodyHtml} size="sm" class="max-w-prose" />
       {block.exampleHtml && <ManualExample html={block.exampleHtml} />}
+      {block.artDirection && <ArtDirectionBlock art={block.artDirection} id={`${fw.id}-art-direction`} />}
     </Card>
   );
 }

@@ -23,7 +23,7 @@ export function ScoreBar(
   const { size = "md", showValue = true, class: cls = "" } = props;
   const split = "fcp" in props;
   const fcpMax = split ? (props.fcpMax ?? 10) : 0;
-  const otherMax = split ? (props.otherMax ?? 14) : 0;
+  const otherMax = split ? (props.otherMax ?? 12) : 0;
   const value = split ? props.fcp + props.other : props.value;
   const max = split ? fcpMax + otherMax : props.max;
   const label = split

@@ -22,3 +22,33 @@ export default function Document(props: ParentProps) {
   );
 }
 ```
+
+## picture
+
+`@solidjs/image` covers formats but not breakpoints, so write the `<picture>` in the port's cover component. Wide screens get Goodreads' large cover, and narrow screens keep the medium one.
+
+```tsx
+// src/features/book/components/book-cover.tsx
+import { getLargeBookImageUrl } from "@/features/book/book-constants";
+import { imageSrcset } from "@/lib/image-cdn";
+// …
+{(src) => (
+  <picture>
+    <source
+      media="(min-width: 768px)"
+      srcset={imageSrcset(getLargeBookImageUrl(src())) ?? getLargeBookImageUrl(src())}
+      sizes={props.sizes}
+    />
+    <img
+      alt={props.title}
+      class="absolute inset-0 h-full w-full object-cover"
+      decoding="async"
+      width={COVER_WIDTH}
+      height={COVER_HEIGHT}
+      sizes={props.sizes}
+      srcset={imageSrcset(src())}
+      src={src()}
+    />
+  </picture>
+)}
+```

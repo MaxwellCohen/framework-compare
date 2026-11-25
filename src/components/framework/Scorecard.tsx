@@ -1,9 +1,9 @@
-import type { Deployment, Feature, Framework, Host, Label } from "../../data/types.ts";
+import type { ArtDirection, Deployment, Feature, Framework, Host, Label } from "../../data/types.ts";
 import { featureNo } from "../Chips.tsx";
 import { LabelBadge } from "../LabelBadge.tsx";
 import { ExternalLink, NavLink } from "../links.tsx";
 import { Card } from "../Page.tsx";
-import { ManualExample } from "../ManualExample.tsx";
+import { ArtDirectionBlock, ManualExample } from "../ManualExample.tsx";
 import { Prose } from "../Prose.tsx";
 import { ScoreMeter } from "../Score.tsx";
 
@@ -12,6 +12,7 @@ export interface ScorecardRow {
   label: Label;
   bodyHtml: string;
   exampleHtml: string | null;
+  artDirection: ArtDirection | null;
   /** Computed in the loader, e.g. "1st-party, like 8 of the other 14 frameworks. None scores higher." */
   comparison: string;
 }
@@ -59,6 +60,7 @@ export function ScorecardGroup({
               </summary>
               <Prose html={row.bodyHtml} size="sm" class="mt-3 max-w-prose pb-1" />
               {row.exampleHtml && <ManualExample html={row.exampleHtml} class="mb-1" />}
+              {row.artDirection && <ArtDirectionBlock art={row.artDirection} class="mb-1" />}
             </details>
           </li>
         ))}

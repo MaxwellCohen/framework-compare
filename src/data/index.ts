@@ -29,8 +29,12 @@ export const features: Feature[] = capability.features;
 export const cells: Cell[] = capability.cells;
 export const ranking = capability.ranking;
 
-export const MAX_SCORE: Record<FeatureGroup, number> = { fcp: 10, other: 14 };
-export const MAX_TOTAL = 24;
+/** 2 points per feature: fcp 10, other 12, total 22. */
+export const MAX_SCORE: Record<FeatureGroup, number> = {
+  fcp: 2 * capability.features.filter((f) => f.group === "fcp").length,
+  other: 2 * capability.features.filter((f) => f.group === "other").length,
+};
+export const MAX_TOTAL = MAX_SCORE.fcp + MAX_SCORE.other;
 
 export const LABEL_POINTS: Record<Label, Points> = {
   "first-party": 2,

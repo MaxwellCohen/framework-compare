@@ -27,7 +27,10 @@ export type FrameworkId =
   | "marko"
   | "fresh";
 
-/** Stable slugs, in source order (sections 1–12). */
+/**
+ * Stable slugs, in source order. The source's "<picture>" row (section 8) is
+ * not a feature here: it is folded into image-pipeline as `artDirection`.
+ */
 export type FeatureId =
   | "css-inlining"
   | "font-optimization"
@@ -36,7 +39,6 @@ export type FeatureId =
   | "route-prefetching"
   | "islands"
   | "render-modes"
-  | "picture"
   | "reactivity"
   | "bundle-analysis"
   | "third-party-scripts"
@@ -49,7 +51,7 @@ export type FeatureId =
 export type Label = "first-party" | "experimental" | "third-party" | "manual";
 export type Points = 0 | 1 | 2;
 
-/** "fcp" = the five critical-path levers (max 10); "other" = seven more (max 14). */
+/** "fcp" = the five critical-path levers (max 10); "other" = six more (max 12). */
 export type FeatureGroup = "fcp" | "other";
 
 /** "core" = the nine frameworks with full how-to sections; "additional" = six scored from bullets. */
@@ -79,8 +81,8 @@ export interface Framework {
   /** Notes column of "Versions checked" (core) — plain text, may be "". */
   versionNotes: string;
   fcpScore: number; // 0–10
-  otherScore: number; // 0–14
-  total: number; // 0–24
+  otherScore: number; // 0–12
+  total: number; // 0–22
   /** Whole percent, 0–100. */
   completeness: number;
   /** Shared ranks allowed (1, 1, 3 …). */
@@ -96,7 +98,7 @@ export interface Framework {
 
 export interface Feature {
   id: FeatureId;
-  /** 1–12, the section number in the source. */
+  /** 1–11: the source section number, renumbered after the <picture> row is folded away. */
   number: number;
   /** Row name from the tables, e.g. "Production CSS inlining". Plain text. */
   name: string;
@@ -113,7 +115,18 @@ export interface Feature {
   gotchasHtml: string;
 }
 
-/** One framework × feature cell. There are exactly 15 × 12 = 180. */
+/**
+ * The source's "Art-directed / modern-format images (<picture>)" cell for one
+ * framework, shown under its image-pipeline cell. Not scored.
+ */
+export interface ArtDirection {
+  label: Label;
+  bodyHtml: string;
+  /** Site-authored sample (content/manual-examples), or null when the source has code. */
+  exampleHtml: string | null;
+}
+
+/** One framework × feature cell. There are exactly 15 × 11 = 165. */
 export interface Cell {
   frameworkId: FrameworkId;
   featureId: FeatureId;
@@ -132,6 +145,8 @@ export interface Cell {
    * content/manual-examples, rendered like bodyHtml. Not from the sources.
    */
   exampleHtml: string | null;
+  /** image-pipeline cells only: the folded <picture> how-to. Null elsewhere. */
+  artDirection: ArtDirection | null;
 }
 
 export interface RankingRow {
