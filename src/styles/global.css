@@ -1,0 +1,843 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Design tokens
+   --------------------------------------------------------------------------
+   Ink on paper, plus four hues reserved for the capability-label tiers and
+   three for chart series. Every colour is a light-dark() pair; the active side
+   follows `color-scheme`, which follows the OS unless <html data-theme> (set
+   before paint by the inline script in the shell head) pins it.
+   Tailwind's default palette is removed on purpose: use the tokens.
+   ========================================================================== */
+
+@theme inline {
+  /* --ff-* are set by the shell from defineFont() (src/styles/fonts.ts). */
+  --font-display: var(--ff-display, Georgia, serif);
+  --font-sans: var(--ff-text, Arial, system-ui, sans-serif);
+  --font-mono: var(--ff-mono, ui-monospace, Menlo, Consolas, monospace);
+}
+
+@theme {
+  --color-*: initial;
+
+  /* Surfaces */
+  --color-paper: light-dark(#faf9f5, #111210); /* page background */
+  --color-surface: light-dark(#ffffff, #191a17); /* cards, table header */
+  --color-sunken: light-dark(#f1efe8, #0b0c0a); /* code blocks, wells, tracks */
+
+  /* Ink */
+  --color-ink: light-dark(#1b1b18, #ecebe4); /* primary text */
+  --color-ink-2: light-dark(#4a4943, #c3c1b8); /* secondary text */
+  --color-ink-3: light-dark(#66655d, #9a988f); /* muted text, captions (AA on paper) */
+
+  /* Rules */
+  --color-rule: light-dark(#e0ded5, #2c2d29); /* hairlines */
+  --color-rule-strong: light-dark(#bdbbb0, #4b4c45); /* table frames, emphasised borders */
+
+  /* Accent: links, focus rings, current-page marker. Not a tier colour. */
+  --color-accent: light-dark(#1e46c7, #9db7ff);
+
+  /* Label tiers — reserved. Foreground is AA on both its -bg and on paper. */
+  --color-first: light-dark(#17663a, #7fd8a2);
+  --color-first-bg: light-dark(#dff0e4, #143021);
+  --color-experimental: light-dark(#8a4b00, #f2c063);
+  --color-experimental-bg: light-dark(#fbecc8, #3a2a09);
+  --color-third: light-dark(#7a3391, #d9a5ec);
+  --color-third-bg: light-dark(#f1e4f6, #331c3d);
+  --color-manual: light-dark(#5f5e57, #a5a39a);
+  --color-manual-bg: light-dark(#ecebe4, #242521);
+
+  /* Chart series (categorical, fixed order: vercel, netlify, cloudflare). */
+  --color-series-1: light-dark(#257de0, #338ced);
+  --color-series-2: light-dark(#f47230, #e76624);
+  --color-series-3: light-dark(#00b894, #00a888);
+
+  /* Type scale: size / line-height. Body UI is `text-base` (15px). */
+  --text-2xs: 0.6875rem; /* 11 — mono micro-labels */
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.75rem; /* 12 */
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.8125rem; /* 13 — dense table text */
+  --text-sm--line-height: 1.25rem;
+  --text-base: 0.9375rem; /* 15 — UI body */
+  --text-base--line-height: 1.5rem;
+  --text-md: 1.0625rem; /* 17 — long-form prose, ledes */
+  --text-md--line-height: 1.75rem;
+  --text-lg: 1.25rem; /* 20 — h3 */
+  --text-lg--line-height: 1.625rem;
+  --text-xl: 1.5rem; /* 24 — h2 */
+  --text-xl--line-height: 1.875rem;
+  --text-2xl: 1.875rem; /* 30 — stat values */
+  --text-2xl--line-height: 2.125rem;
+  --text-3xl: 2.375rem; /* 38 — h1 (small screens) */
+  --text-3xl--line-height: 2.625rem;
+  --text-4xl: 3rem; /* 48 — h1 */
+  --text-4xl--line-height: 3.125rem;
+
+  /* Radius: nearly square. */
+  --radius-*: initial;
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+
+  /* Layout widths: max-w-page, max-w-prose. */
+  --container-page: 82rem;
+  --container-prose: 44rem;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+    scroll-padding-top: 1rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 22%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :root {
+      scroll-behavior: smooth;
+    }
+  }
+}
+
+/* ==========================================================================
+   Small shared atoms
+   ========================================================================== */
+
+@layer components {
+  /* Numbers and codes: mono, tabular, slashed zero. */
+  .num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums slashed-zero;
+    font-feature-settings: "zero";
+  }
+
+  /* Mono small-caps micro label (eyebrows, column heads, legends). */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xs);
+    line-height: var(--text-2xs--line-height);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+  }
+
+  /* Text link. Underlined always; colour is not the only cue. */
+  .link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: var(--color-rule-strong);
+  }
+  .link:hover {
+    color: var(--color-accent);
+    text-decoration-color: currentColor;
+  }
+
+  /* External-link arrow, drawn with a mask so it takes the text colour. */
+  .ext::after,
+  .prose a[href^="http"]::after {
+    content: "";
+    display: inline-block;
+    width: 0.62em;
+    height: 0.62em;
+    margin-left: 0.2em;
+    vertical-align: 0.05em;
+    background: currentColor;
+    opacity: 0.7;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2 1h7v7M9 1 1 9' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+
+  /* ---- Label tiers ------------------------------------------------------ */
+  .tier-first-party {
+    --tier: var(--color-first);
+    --tier-bg: var(--color-first-bg);
+  }
+  .tier-experimental {
+    --tier: var(--color-experimental);
+    --tier-bg: var(--color-experimental-bg);
+  }
+  .tier-third-party {
+    --tier: var(--color-third);
+    --tier-bg: var(--color-third-bg);
+  }
+  .tier-manual {
+    --tier: var(--color-manual);
+    --tier-bg: var(--color-manual-bg);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    color: var(--tier);
+    white-space: nowrap;
+  }
+  .badge svg {
+    flex: none;
+    width: 1em;
+    height: 1em;
+  }
+  /* full: tinted pill-less box with text and points */
+  .badge-full,
+  .badge-sm {
+    background: var(--tier-bg);
+    border: 1px solid color-mix(in oklab, var(--tier) 35%, transparent);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+  .badge-full {
+    padding: 0.1875rem 0.5rem;
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+  }
+  .badge-sm {
+    padding: 0 0.375rem;
+    font-size: var(--text-2xs);
+    line-height: 1.125rem;
+  }
+  .badge-pts {
+    font-weight: 400;
+    opacity: 0.85;
+    padding-left: 0.45em;
+    border-left: 1px solid color-mix(in oklab, var(--tier) 35%, transparent);
+  }
+  /* cell: glyph only, fills its matrix cell */
+  .badge-cell {
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 2.125rem;
+    background: var(--tier-bg);
+    font-size: 0.9375rem;
+  }
+  .badge-cell.tier-manual {
+    background: transparent;
+  }
+
+  /* ---- Score bar: one square per point ---------------------------------- */
+  .scorebar {
+    --u: 8px; /* unit pitch: square + 2px gap */
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    vertical-align: middle;
+  }
+  .scorebar-sm {
+    --u: 5px;
+  }
+  .scorebar-seg {
+    position: relative;
+    flex: none;
+    height: calc(var(--u) + 2px);
+    width: calc(var(--n) * var(--u) - 2px);
+    background: repeating-linear-gradient(
+      to right,
+      var(--color-rule-strong) 0 calc(var(--u) - 2px),
+      transparent calc(var(--u) - 2px) var(--u)
+    );
+  }
+  .scorebar-sm .scorebar-seg {
+    height: 8px;
+    width: calc(var(--n) * var(--u) - 1px);
+    background: repeating-linear-gradient(
+      to right,
+      var(--color-rule-strong) 0 calc(var(--u) - 1px),
+      transparent calc(var(--u) - 1px) var(--u)
+    );
+  }
+  .scorebar-seg::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: calc(var(--v) * var(--u));
+    max-width: 100%;
+    background: repeating-linear-gradient(
+      to right,
+      var(--fill, var(--color-ink)) 0 calc(var(--u) - 2px),
+      transparent calc(var(--u) - 2px) var(--u)
+    );
+  }
+  .scorebar-sm .scorebar-seg::after {
+    background: repeating-linear-gradient(
+      to right,
+      var(--fill, var(--color-ink)) 0 calc(var(--u) - 1px),
+      transparent calc(var(--u) - 1px) var(--u)
+    );
+  }
+  .scorebar-seg-other {
+    --fill: var(--color-ink-3);
+  }
+
+  /* ==========================================================================
+     Matrix
+     ========================================================================== */
+  .mx-wrap {
+    position: relative;
+    timeline-scope: --mx-x;
+    border: 1px solid var(--color-rule-strong);
+    border-radius: var(--radius-sm);
+    background: var(--color-paper);
+  }
+  .mx-scroll {
+    /* Containing block for absolutely positioned descendants (sr-only text,
+       cell link overlays) so they scroll with the table instead of widening the page. */
+    position: relative;
+    overflow: auto;
+    max-height: calc(100dvh - 1.5rem);
+    overscroll-behavior-x: contain;
+    scroll-timeline: --mx-x x;
+    border-radius: inherit;
+  }
+  /* Right-edge fade while more columns are off-screen. Scroll-driven, so it
+     only appears when the table really overflows (no-op where unsupported —
+     the text hint under the table covers that case). */
+  .mx-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 2rem;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 5;
+    border-radius: inherit;
+    background: linear-gradient(to right, transparent, color-mix(in oklab, var(--color-ink) 16%, transparent));
+    animation: mx-edge linear both;
+    animation-timeline: --mx-x;
+  }
+  @keyframes mx-edge {
+    0%,
+    92% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .mx {
+    --mx-hl: color-mix(in oklab, var(--color-ink) 7%, transparent);
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+  .mx :is(th, td) {
+    padding: 0;
+    border-bottom: 1px solid var(--color-rule);
+    border-right: 1px solid var(--color-rule);
+    background-color: var(--color-paper);
+    background-clip: padding-box;
+  }
+  .mx tr > :last-child {
+    border-right: 0;
+  }
+  .mx > :last-child > tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  /* Header row: sticky to the top of the scroll area. */
+  .mx thead th {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background-color: var(--color-surface);
+    border-bottom-color: var(--color-rule-strong);
+    vertical-align: bottom;
+    font-weight: 600;
+    text-align: left;
+  }
+  /* First column: sticky to the left edge. */
+  .mx :is(tbody, tfoot) th,
+  .mx thead th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    border-right-color: var(--color-rule-strong);
+    text-align: left;
+    font-weight: 400;
+  }
+  .mx thead th:first-child {
+    z-index: 4;
+  }
+  .mx tfoot :is(th, td) {
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-rule-strong);
+  }
+  .mx tfoot tr + tr :is(th, td) {
+    border-top: 0;
+  }
+
+  .mx-corner {
+    padding: 0.5rem 0.625rem !important;
+    min-width: 9rem;
+  }
+  .mx-colhead {
+    min-width: 2.75rem;
+  }
+  .mx-colhead > :is(a, span) {
+    display: flex;
+    align-items: flex-end;
+    padding: 0.5rem 0.375rem;
+    height: 100%;
+    color: inherit;
+  }
+  .mx-colhead-v > :is(a, span) {
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+  .mx-colhead-v .mx-colhead-label {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    line-height: 1.1;
+  }
+  .mx-rowhead > :is(a, span) {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.625rem;
+    min-height: 2.125rem;
+    color: inherit;
+  }
+  .mx-group th {
+    position: sticky;
+    left: 0;
+    padding: 0.25rem 0.625rem !important;
+    background-color: var(--color-sunken) !important;
+  }
+  .mx-group td {
+    background-color: var(--color-sunken);
+    background-image: none !important;
+  }
+  .mx-cell {
+    height: 2.125rem; /* lets the link/badge fill the cell */
+    text-align: center;
+  }
+  .mx-cell > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 2.125rem;
+    color: inherit;
+  }
+  .mx-cell > :not(a):not(.badge-cell) {
+    padding: 0.375rem 0.5rem;
+  }
+  .mx a:focus-visible {
+    outline-offset: -2px;
+  }
+  .mx :is(th, td) > a:hover {
+    box-shadow: inset 0 0 0 1.5px var(--color-ink);
+  }
+
+  /* Row highlight on hover / keyboard focus. */
+  .mx tbody tr:not(.mx-group):is(:hover, :focus-within) > * {
+    background-image: linear-gradient(var(--mx-hl), var(--mx-hl));
+  }
+  /* Column highlight: one rule per column position (up to 24 data columns). */
+  .mx:has(:is(td, thead th):nth-child(2):is(:hover, :focus-within)) :is(td, thead th):nth-child(2),
+  .mx:has(:is(td, thead th):nth-child(3):is(:hover, :focus-within)) :is(td, thead th):nth-child(3),
+  .mx:has(:is(td, thead th):nth-child(4):is(:hover, :focus-within)) :is(td, thead th):nth-child(4),
+  .mx:has(:is(td, thead th):nth-child(5):is(:hover, :focus-within)) :is(td, thead th):nth-child(5),
+  .mx:has(:is(td, thead th):nth-child(6):is(:hover, :focus-within)) :is(td, thead th):nth-child(6),
+  .mx:has(:is(td, thead th):nth-child(7):is(:hover, :focus-within)) :is(td, thead th):nth-child(7),
+  .mx:has(:is(td, thead th):nth-child(8):is(:hover, :focus-within)) :is(td, thead th):nth-child(8),
+  .mx:has(:is(td, thead th):nth-child(9):is(:hover, :focus-within)) :is(td, thead th):nth-child(9),
+  .mx:has(:is(td, thead th):nth-child(10):is(:hover, :focus-within)) :is(td, thead th):nth-child(10),
+  .mx:has(:is(td, thead th):nth-child(11):is(:hover, :focus-within)) :is(td, thead th):nth-child(11),
+  .mx:has(:is(td, thead th):nth-child(12):is(:hover, :focus-within)) :is(td, thead th):nth-child(12),
+  .mx:has(:is(td, thead th):nth-child(13):is(:hover, :focus-within)) :is(td, thead th):nth-child(13),
+  .mx:has(:is(td, thead th):nth-child(14):is(:hover, :focus-within)) :is(td, thead th):nth-child(14),
+  .mx:has(:is(td, thead th):nth-child(15):is(:hover, :focus-within)) :is(td, thead th):nth-child(15),
+  .mx:has(:is(td, thead th):nth-child(16):is(:hover, :focus-within)) :is(td, thead th):nth-child(16),
+  .mx:has(:is(td, thead th):nth-child(17):is(:hover, :focus-within)) :is(td, thead th):nth-child(17) {
+    background-image: linear-gradient(var(--mx-hl), var(--mx-hl));
+  }
+
+  /* ==========================================================================
+     Prose — trusted pre-rendered HTML (see components/Prose.tsx)
+     ========================================================================== */
+  .prose {
+    font-size: var(--text-md);
+    line-height: var(--text-md--line-height);
+    color: var(--color-ink);
+    overflow-wrap: break-word;
+    min-width: 0;
+  }
+  .prose-sm {
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+  }
+  .prose > * + * {
+    margin-top: 1em;
+  }
+  .prose > :first-child {
+    margin-top: 0;
+  }
+  .prose :is(h2, h3, h4) {
+    font-family: var(--font-display);
+    font-weight: 500;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+  .prose h2 {
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    margin-top: 2em;
+  }
+  .prose h3 {
+    font-size: var(--text-lg);
+    line-height: var(--text-lg--line-height);
+    margin-top: 1.75em;
+  }
+  .prose h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 1em;
+    margin-top: 1.5em;
+  }
+  .prose :is(h2, h3, h4) + * {
+    margin-top: 0.5em;
+  }
+  .prose a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    text-decoration-color: var(--color-accent);
+  }
+  .prose a:hover {
+    color: var(--color-accent);
+  }
+  .prose :is(strong, b) {
+    font-weight: 600;
+  }
+  .prose :is(ul, ol) {
+    padding-left: 1.4em;
+  }
+  .prose ul {
+    list-style: none;
+  }
+  .prose ul > li {
+    position: relative;
+  }
+  .prose ul > li::before {
+    content: "";
+    position: absolute;
+    left: -1.05em;
+    top: 0.72em;
+    width: 0.45em;
+    height: 1px;
+    background: var(--color-ink-3);
+  }
+  .prose ol {
+    list-style: decimal;
+  }
+  .prose ol > li::marker {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-ink-3);
+  }
+  .prose li + li,
+  .prose li > :is(ul, ol) {
+    margin-top: 0.4em;
+  }
+  .prose li > p + p {
+    margin-top: 0.6em;
+  }
+  .prose hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    margin-block: 2em;
+  }
+
+  /* Inline code */
+  .prose :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.86em;
+    padding: 0.08em 0.3em;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-xs);
+    background: var(--color-sunken);
+    overflow-wrap: anywhere;
+  }
+  .prose a > code {
+    text-decoration: inherit;
+  }
+
+  /* Code blocks: scroll horizontally, never wrap. */
+  .prose pre {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    padding: 0.875rem 1rem;
+    overflow-x: auto;
+    white-space: pre;
+    tab-size: 2;
+    background: var(--color-sunken);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    color: var(--color-ink);
+    font-variant-ligatures: none;
+  }
+  .prose pre code {
+    font: inherit;
+  }
+  /* Shiki dual-theme output (defaultColor: false): pick the side per theme.
+     The block background is ours (sunken) so code sits in the page palette. */
+  .prose .shiki,
+  .prose .shiki span {
+    color: light-dark(var(--shiki-light), var(--shiki-dark));
+  }
+
+  /* Source caption: the italic paragraph directly after a code block. */
+  .prose pre + .prose-caption,
+  .prose .prose-caption {
+    margin-top: 0.4em;
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    color: var(--color-ink-3);
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--color-rule-strong);
+  }
+  .prose .prose-caption em {
+    font-style: normal;
+  }
+
+  /* Blockquote: a quiet aside. */
+  .prose blockquote {
+    padding: 0.125rem 0 0.125rem 1rem;
+    border-left: 2px solid var(--color-ink);
+    color: var(--color-ink-2);
+  }
+  .prose blockquote > * + * {
+    margin-top: 0.75em;
+  }
+
+  /* Tables are wrapped by <Prose> in .prose-table for horizontal scroll. */
+  .prose .prose-table {
+    overflow-x: auto;
+    border: 1px solid var(--color-rule-strong);
+    border-radius: var(--radius-sm);
+  }
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+  .prose :is(th, td) {
+    padding: 0.4rem 0.625rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .prose th {
+    font-weight: 600;
+    background: var(--color-surface);
+    border-bottom-color: var(--color-rule-strong);
+    white-space: nowrap;
+  }
+  .prose tr:last-child > td {
+    border-bottom: 0;
+  }
+  .prose :is(th, td)[align="right"] {
+    text-align: right;
+  }
+  .prose :is(th, td)[align="center"] {
+    text-align: center;
+  }
+  .prose img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ==========================================================================
+     Charts (components/Chart.tsx)
+     ========================================================================== */
+  .chart {
+    --plot-pad: 7px; /* half a marker, so end values are not clipped */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+  .chart-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    grid-template-areas: "label values" "plot plot";
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+    padding-block: 0.375rem;
+    border-top: 1px solid var(--color-rule);
+  }
+  .chart-axis {
+    border-top: 0;
+    padding-block: 0 0.25rem;
+  }
+  .chart-label {
+    grid-area: label;
+    min-width: 0;
+  }
+  .chart-values {
+    grid-area: values;
+    display: flex;
+    gap: 0.625rem;
+    justify-content: flex-end;
+    white-space: nowrap;
+  }
+  .chart-plot {
+    grid-area: plot;
+    position: relative;
+    height: 1.25rem;
+    margin-inline: var(--plot-pad);
+  }
+  @media (width >= 40rem) {
+    .chart {
+      grid-template-columns: minmax(7rem, max-content) minmax(8rem, 1fr) auto;
+    }
+    .chart-row {
+      grid-template-areas: "label plot values";
+    }
+  }
+  /* gridlines + baseline */
+  .chart-tick {
+    position: absolute;
+    top: -0.4375rem;
+    bottom: -0.4375rem;
+    left: var(--x);
+    width: 1px;
+    background: var(--color-rule);
+  }
+  .chart-axis .chart-tick {
+    background: none;
+    top: 0;
+    bottom: 0;
+    width: auto;
+    transform: translateX(-50%);
+    color: var(--color-ink-3);
+  }
+  .chart-track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--color-rule-strong);
+  }
+  /* range (band) bar */
+  .chart-range {
+    position: absolute;
+    left: var(--x0);
+    width: calc(var(--x1) - var(--x0));
+    min-width: 4px;
+    top: 50%;
+    height: 0.625rem;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    background: color-mix(in oklab, var(--color-ink) 22%, transparent);
+    border-inline: 2px solid var(--color-ink-2);
+  }
+  .chart-range-quiet {
+    top: -0.4375rem;
+    bottom: -0.4375rem;
+    height: auto;
+    transform: none;
+    border: 0;
+    border-radius: 0;
+    background: color-mix(in oklab, var(--color-ink) 7%, transparent);
+  }
+  /* bar from zero */
+  .chart-bar {
+    position: absolute;
+    left: 0;
+    width: var(--x);
+    top: 50%;
+    height: 0.625rem;
+    transform: translateY(-50%);
+    border-radius: 0 3px 3px 0;
+    background: var(--color-ink-2);
+  }
+  /* dot markers: shape + colour per series; 2px surface ring where they overlap */
+  .chart-dot {
+    position: absolute;
+    left: var(--x);
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    background: var(--series);
+    box-shadow: 0 0 0 2px var(--color-paper);
+  }
+  .chart-key {
+    display: inline-block;
+    flex: none;
+    width: 9px;
+    height: 9px;
+    background: var(--series);
+  }
+  .series-1 {
+    --series: var(--color-series-1);
+    border-radius: 50%;
+  }
+  .series-2 {
+    --series: var(--color-series-2);
+    border-radius: 1px;
+  }
+  .series-3 {
+    --series: var(--color-series-3);
+    border-radius: 1px;
+    rotate: 45deg;
+    scale: 0.88;
+  }
+  .series-0 {
+    --series: var(--color-ink);
+    border-radius: 50%;
+  }
+}
+
+/* Cross-document view transitions (defineApp viewTransitions): keep it brief. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 120ms;
+  }
+}

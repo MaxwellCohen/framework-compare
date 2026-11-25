@@ -1,0 +1,37 @@
+{
+  "name": "framework-bench",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "build": "pracht build",
+    "data": "node scripts/build-data.mjs",
+    "data:reviewed": "BENCH_SOURCE_REF=docs/comparison-doc-revisions node scripts/build-data.mjs",
+    "dev": "pracht typegen && pracht dev",
+    "typegen": "pracht typegen",
+    "typecheck": "pracht typegen && tsrs --noEmit && tsrs --noEmit --project tsconfig.client.json",
+    "preview": "pracht preview"
+  },
+  "dependencies": {
+    "@pracht/adapter-static": "^1.0.0",
+    "@pracht/core": "^1.0.1"
+  },
+  "devDependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "@fontsource/newsreader": "^5.3.0",
+    "@pracht/cli": "^1.18.1",
+    "@pracht/vite-plugin": "^1.0.1",
+    "@tailwindcss/vite": "^4.3.5",
+    "marked": "^18.3.0",
+    "preact": "^11.0.1",
+    "preact-render-to-string": "^6.7.0",
+    "shiki": "^4.6.0",
+    "tailwindcss": "^4.3.5",
+    "tsrs": "0.24.0-ts7.1.0-beta",
+    "vite": "^8.0.0"
+  }
+}
