@@ -40,6 +40,7 @@ export async function loader({ params }: LoaderArgs) {
       framework: { id: fw.id, name: fw.name, shortName: fw.shortName, group: fw.group },
       label: cell.label,
       bodyHtml: cell.bodyHtml,
+      exampleHtml: cell.exampleHtml,
     };
   });
 
@@ -160,7 +161,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section
         id="frameworks"
         title="How to enable it, by framework"
-        intro={`The ${core.length} core ports come first, with code samples from their port of the books demo app. The ${additional.length} additional frameworks follow, labelled from their documentation. The order is the same on every feature page.`}
+        intro={`The ${core.length} core ports come first, with code samples from their port of the books demo app. The ${additional.length} additional frameworks follow, labelled from their documentation. Where a framework has no built-in support (Manual), a short example shows how to build it yourself. The order is the same on every feature page.`}
         class="scroll-mt-4 border-t border-rule"
       >
         <div class="grid gap-8 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-10">
@@ -179,7 +180,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <Callout kind="caveat" title="Scored from vendor docs" class="mb-4">
               <p>
                 These {additional.length} frameworks were labelled from their documentation, without trying the feature
-                in a port. Each entry is one paragraph with links to the docs it cites, and has no code samples.{" "}
+                in a port. Each entry is one paragraph with links to the docs it cites. Manual entries add a short example written for this site.{" "}
                 <NavLink to={{ route: "methodology", hash: "additional-frameworks" }}>
                   About the additional frameworks
                 </NavLink>

@@ -2,6 +2,7 @@ import type { Feature, Framework, Label } from "../../data/types.ts";
 import { LabelBadge, LabelGlyph, LABELS } from "../LabelBadge.tsx";
 import { NavLink } from "../links.tsx";
 import { Card } from "../Page.tsx";
+import { ManualExample } from "../ManualExample.tsx";
 import { Prose } from "../Prose.tsx";
 
 export type BlockFramework = Pick<Framework, "id" | "name" | "shortName" | "group">;
@@ -10,6 +11,7 @@ export interface FeatureBlock {
   framework: BlockFramework;
   label: Label;
   bodyHtml: string;
+  exampleHtml: string | null;
 }
 
 type FeatureRef = Pick<Feature, "id">;
@@ -136,6 +138,7 @@ export function FrameworkBlock({ feature, block }: { feature: FeatureRef; block:
       class="scroll-mt-14 target:border-ink target:shadow-[0_0_0_2px_var(--color-ink)] [&:target>div:first-child]:bg-sunken"
     >
       <Prose html={block.bodyHtml} size="sm" class="max-w-prose" />
+      {block.exampleHtml && <ManualExample html={block.exampleHtml} />}
     </Card>
   );
 }

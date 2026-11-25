@@ -58,6 +58,7 @@ export async function loader({ params }: LoaderArgs) {
         feature: { id: feature.id, number: feature.number, name: feature.name, shortName: feature.shortName },
         label: cell.label,
         bodyHtml: cell.bodyHtml,
+        exampleHtml: cell.exampleHtml,
         comparison:
           (same === 1
             ? `${text}: the only framework of ${count} with this label. `
@@ -207,7 +208,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <Callout kind="caveat" title="Labelled from vendor docs" class="mt-5 max-w-[56rem]">
             <p>
               The labels on this page come from {fw.name}'s documentation. They were not checked in the {fw.app} port.
-              Each how-to is one paragraph with links to the docs it cites, and has no code samples.{" "}
+              Each how-to is one paragraph with links to the docs it cites. Manual entries add a short example written for this site.{" "}
               <NavLink to={{ route: "methodology", hash: "additional-frameworks" }}>
                 About the additional frameworks
               </NavLink>

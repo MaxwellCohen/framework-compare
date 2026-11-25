@@ -127,6 +127,11 @@ export interface Cell {
   bodyHtml: string;
   /** True when bodyHtml contains a code block. */
   hasSnippet: boolean;
+  /**
+   * Manual cells only: a site-authored "build it yourself" sample from
+   * content/manual-examples, rendered like bodyHtml. Not from the sources.
+   */
+  exampleHtml: string | null;
 }
 
 export interface RankingRow {

@@ -13,7 +13,7 @@
  * Any structural surprise, unmapped link, or score mismatch is a hard failure.
  */
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Marked, Renderer } from "marked";
@@ -26,6 +26,8 @@ const SOURCE_DIR = process.env.BENCH_SOURCE_DIR
   : resolve(HERE, "../..");
 const SOURCE_REF = process.env.BENCH_SOURCE_REF || "";
 const OUT_DIR = resolve(PROJECT, "src/data/generated");
+/** Site-authored code samples for Manual cells: one `<frameworkId>.md` per framework, `## <featureId>` sections. */
+const EXAMPLES_DIR = resolve(PROJECT, "content/manual-examples");
 
 // ---------------------------------------------------------------------------
 // Hand-maintained maps (slugs, short names, aliases). Nothing else is.
@@ -170,6 +172,22 @@ const comparisonMd = readSource("framework-feature-comparison.md");
 const groupingsMd = readSource("fcp-groupings.md");
 const readmeMd = readSource("README.md");
 
+/** `frameworkId` → `featureId` → markdown, from content/manual-examples (part of this repo, not the sources). */
+const manualExamples = new Map();
+if (existsSync(EXAMPLES_DIR)) {
+  for (const file of readdirSync(EXAMPLES_DIR).filter((f) => f.endsWith(".md")).sort()) {
+    const fwId = file.replace(/\.md$/, "");
+    const md = readFileSync(resolve(EXAMPLES_DIR, file), "utf8").replace(/\r\n/g, "\n");
+    const byFeature = new Map();
+    for (const part of md.split(/^## +/m).slice(1)) {
+      const nl = part.indexOf("\n");
+      byFeature.set(part.slice(0, nl).trim(), part.slice(nl + 1).trim());
+    }
+    manualExamples.set(fwId, byFeature);
+  }
+}
+const exampleMarkdown = [...manualExamples.values()].flatMap((m) => [...m.values()]).join("\n\n");
+
 // ---------------------------------------------------------------------------
 // Markdown → HTML (marked + shiki), with link rewriting
 // ---------------------------------------------------------------------------
@@ -194,7 +212,7 @@ function discoverLangs(...docs) {
   return [...langs];
 }
 
-const seenLangs = discoverLangs(comparisonMd, groupingsMd, readmeMd);
+const seenLangs = discoverLangs(comparisonMd, groupingsMd, readmeMd, exampleMarkdown);
 const knownLangs = seenLangs.filter((l) => l in bundledLanguages);
 const unknownLangs = seenLangs.filter((l) => !(l in bundledLanguages) && !["text", "txt", "plain", "plaintext"].includes(l));
 const highlighter = await createHighlighter({
@@ -740,6 +758,30 @@ function buildCapability() {
     }
   }
 
+  // --- Site-authored samples for Manual cells (content/manual-examples).
+  for (const cell of orderedCells) {
+    const md = manualExamples.get(cell.frameworkId)?.get(cell.featureId);
+    cell.exampleHtml = null;
+    if (md === undefined) {
+      if (cell.label === "manual" && !cell.hasSnippet) warn(`manual cell ${cell.frameworkId} × ${cell.featureId} has no code sample`);
+      continue;
+    }
+    if (cell.label !== "manual") warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: label is ${cell.label}`);
+    else if (cell.hasSnippet) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: the source already has a snippet`);
+    else {
+      const tokens = lex(md);
+      if (!hasCode(tokens)) warn(`example for ${cell.frameworkId} × ${cell.featureId} has no code block`);
+      cell.exampleHtml = renderTokens(tokens);
+      // The source's "no inline example" note is answered by the sample below it.
+      cell.bodyHtml = cell.bodyHtml.replace(/\s*No inline example \(unsourced\)\.?/g, "");
+    }
+  }
+  for (const [fwId, m] of manualExamples) {
+    for (const featureId of m.keys()) {
+      if (!cells.has(`${fwId}:${featureId}`)) warn(`content/manual-examples/${fwId}.md: no cell for "${featureId}"`);
+    }
+  }
+
   // --- Methodology prose.
   const disclaimerTok = meaningful(lex(doc.body)).find((t) => t.type === "blockquote");
   if (!disclaimerTok) die("comparison: no disclaimer blockquote under the H1");
@@ -1102,7 +1144,7 @@ function checkOutput(name, data) {
       for (const m of value.matchAll(/<\/?([a-zA-Z][\w-]*)/g)) {
         if (!ALLOWED_TAGS.has(m[1].toLowerCase())) problem(`${name} ${path}: unexpected raw <${m[1]}> tag in rendered HTML`);
       }
-      for (const m of value.matchAll(/href="([^"]*)"/g)) {
+      for (const m of value.matchAll(/<a\s[^>]*?href="([^"]*)"/g)) {
         const href = decodeEntities(m[1]);
         const bare = href.replace(/[?#].*$/, "");
         const ok = /^https?:\/\//.test(href) || /^\/(?!\/)/.test(href) || /^mailto:/.test(href);
