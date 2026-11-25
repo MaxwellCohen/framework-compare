@@ -34,7 +34,7 @@ export const LABELS: Record<Label, { text: string; short: string; points: Points
     text: "Manual",
     short: "Man",
     points: 0,
-    description: "No built-in or packaged support; you implement it by hand.",
+    description: "Not built in and no package for it; you write it yourself.",
   },
 };
 
@@ -89,7 +89,7 @@ export function LabelBadge({
   const meta = LABELS[label];
   if (size === "cell") {
     return (
-      <span class={`badge badge-cell tier-${label} ${cls}`} title={`${meta.text} — ${pts(meta.points)}`}>
+      <span class={`badge badge-cell tier-${label} ${cls}`} title={`${meta.text}, ${pts(meta.points)}`}>
         <LabelGlyph label={label} />
         <span class="sr-only">
           {meta.text}, {pts(meta.points)}

@@ -27,7 +27,7 @@ export function ScoreBar(
   const value = split ? props.fcp + props.other : props.value;
   const max = split ? fcpMax + otherMax : props.max;
   const label = split
-    ? `${value} of ${max} points: ${props.fcp} of ${fcpMax} first-paint, ${props.other} of ${otherMax} other`
+    ? `${value} of ${max} points: ${props.fcp} of ${fcpMax} from first-paint levers, ${props.other} of ${otherMax} from other features`
     : `${value} of ${max} points`;
 
   return (

@@ -10,7 +10,7 @@ export interface ScorecardRow {
   feature: Pick<Feature, "id" | "number" | "name" | "shortName">;
   label: Label;
   bodyHtml: string;
-  /** Computed in the loader, e.g. "1st-party here; 9 of 15 are. None score higher." */
+  /** Computed in the loader, e.g. "1st-party, like 8 of the other 14 frameworks. None scores higher." */
   comparison: string;
 }
 

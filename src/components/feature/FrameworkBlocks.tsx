@@ -96,7 +96,7 @@ export function FeatureJumpNav({ feature, blocks }: { feature: FeatureRef; block
     >
       <p class="eyebrow">Core ports</p>
       {list("core")}
-      <p class="eyebrow mt-5">From vendor docs</p>
+      <p class="eyebrow mt-5">Additional frameworks</p>
       {list("additional")}
       <p class="mt-5 text-sm">
         <NavLink to={{ route: "feature", id: feature.id, hash: "overview" }} class="link text-ink-2">

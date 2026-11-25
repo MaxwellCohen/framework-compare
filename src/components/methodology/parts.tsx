@@ -76,7 +76,7 @@ export function RankingTable({ rows }: { rows: (RankingRow & { framework: FwRef;
     </span>
   );
   return (
-    <Matrix label="Completeness ranking of the 15 frameworks">
+    <Matrix label={`Completeness ranking of all ${rows.length} frameworks`}>
       <MatrixHead corner="Rank and framework">
         <MatrixColHeader title="Points from the five FCP levers, out of 10">FCP levers</MatrixColHeader>
         <MatrixColHeader title="Points from the seven other features, out of 14">Other features</MatrixColHeader>

@@ -4,7 +4,7 @@ import { ClaimList, DocSection, RankingTable, Toc, VersionList } from "../compon
 import type { Label } from "../data/types.ts";
 
 export async function loader() {
-  const { capability, frameworks, getFramework } = await import("../data/index.ts");
+  const { capability, frameworks, getFramework, measured, MAX_SCORE } = await import("../data/index.ts");
   const m = capability.methodology;
   const slim = (f: (typeof frameworks)[number]) => ({
     id: f.id,
@@ -27,17 +27,23 @@ export async function loader() {
     core: frameworks.filter((f) => f.group === "core").map(slim),
     additional: frameworks.filter((f) => f.group === "additional").map(slim),
     featureCount: capability.features.length,
+    otherFeatureCount: capability.features.filter((f) => f.group === "other").length,
+    otherMax: MAX_SCORE.other,
+    measuredCount: new Set([
+      ...measured.runs.flatMap((r) => r.samples.map((s) => s.frameworkId)),
+      ...measured.averages.map((a) => a.frameworkId),
+    ]).size,
   };
 }
 
 export function head() {
   return {
-    title: "Methodology: labels, scoring, ranking and versions checked — Framework Compare",
+    title: "Methodology: how labels, scores and the ranking work — Framework Compare",
     meta: [
       {
         name: "description",
         content:
-          "How Framework Compare assigns its capability labels, how the scores and the completeness ranking are computed, which framework versions were checked, and the claims flagged as lower confidence. Capability is taken from vendor documentation, with AI assistance; it is not measured.",
+          "How Framework Compare labels what each framework supports, how the scores and the completeness ranking are calculated, which versions were checked, and which claims are uncertain. Labels come from vendor documentation, read with AI assistance. They describe capability, not measured speed.",
       },
     ],
   };
@@ -69,7 +75,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <PageHeader
         eyebrow="Reference"
         title="Methodology"
-        lede={`How the capability labels are assigned for ${total} frameworks and ${data.featureCount} features, how the scores and the ranking are computed, which versions were checked, and which claims are uncertain.`}
+        lede={`How each of the ${total} frameworks gets a label for each of the ${data.featureCount} features, how the labels add up to scores and a ranking, which versions were checked, and which claims are uncertain.`}
         meta={
           <>
             <Tag>From vendor documentation</Tag>
@@ -90,12 +96,12 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               <Prose size="sm" html={data.disclaimerHtml} />
             </Callout>
             <p class="mt-4 max-w-prose text-ink-2">
-              The only measured numbers on the site are the lab results on the{" "}
+              The site’s only measured numbers are on the{" "}
               <NavLink to={{ route: "measured" }} class="link">
                 Measured
               </NavLink>{" "}
-              page: mobile Lighthouse First Contentful Paint for the ports of seven frameworks. They are not used in any label,
-              score or rank described here.
+              page: lab results for mobile Lighthouse First Contentful Paint (FCP), from the Books demo app built in{" "}
+              {data.measuredCount} frameworks. No label, score or rank on this page uses them.
             </p>
           </DocSection>
 
@@ -106,8 +112,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
             <h3 class="mt-8 mb-1 font-semibold text-ink">Marks used on this site</h3>
             <p class="mb-3 max-w-prose text-sm text-ink-2">
-              The source document marks cells with three emoji. This site draws four marks: the source’s 🧪 tier is shown as
-              Experimental or Third-party, following the word used in each cell. Both score 1 point.
+              The source document uses three emoji to mark cells. This site uses four marks, because it splits the source’s 🧪
+              into Experimental and Third-party, depending on the word in each cell. Both score 1 point.
             </p>
             <div class="overflow-x-auto rounded-sm border border-rule-strong bg-surface">
               <table class="w-full min-w-[34rem] border-collapse text-sm">
@@ -140,7 +146,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               </table>
             </div>
             <p class="mt-2 max-w-prose text-xs text-ink-3">
-              The short definitions are this site’s summaries. The rubric above is the authoritative wording.
+              The short definitions are this site’s summaries. Where they differ, the rubric above is the one that counts.
             </p>
           </DocSection>
 
@@ -157,14 +163,15 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <h3 class="mt-8 mb-3 font-semibold text-ink">The ranking</h3>
             <RankingTable rows={data.ranking} />
             <p class="mt-2 max-w-prose text-xs text-ink-3">
-              Points are documented-capability counts, not speed. “=” marks a shared rank. Each name links to the framework’s
-              page.
+              Points count documented capabilities. They do not measure speed. “=” marks a tied rank. Each name links to that
+              framework’s page.
             </p>
           </DocSection>
 
           <DocSection id="reading" index="05" title="Reading the other-features scores">
             <p class="mb-4 max-w-prose text-sm text-ink-3">
-              The source’s summary of the seven “other features” rows (max 14 points) for the nine core frameworks.
+              The source’s summary of the {data.otherFeatureCount} “other features” (the ones that are not FCP levers, max{" "}
+              {data.otherMax} points) for the {data.core.length} core frameworks.
             </p>
             <div class="max-w-prose">
               <Prose html={data.otherFeaturesSummaryHtml} />
@@ -173,8 +180,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
           <DocSection id="versions" index="06" title="Versions checked">
             <p class="mb-5 max-w-prose text-ink-2">
-              Capability is described as of these versions. Core frameworks have full how-to sections in the source; additional
-              frameworks are scored from shorter documentation notes (see{" "}
+              The labels describe these versions. Core frameworks have full how-to sections in the source. Additional frameworks
+              are scored from shorter documentation notes (see{" "}
               <NavLink to={{ route: "methodology", hash: "additional-frameworks" }} class="link">
                 Additional frameworks
               </NavLink>
@@ -183,7 +190,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <div class="grid gap-5">
               <VersionList
                 title={`Core frameworks (${data.core.length})`}
-                aside="Version in the Books demo port, with notes on the port"
+                aside="Version used in the Books demo app, with notes"
                 frameworks={data.core}
               />
               <VersionList
@@ -202,8 +209,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
           <DocSection id="lower-confidence" index="08" title="Lower-confidence claims">
             <p class="mb-5 max-w-prose text-ink-2">
-              The source flags {data.lowerConfidenceClaims.length} claims as uncertain. They are listed in source order; the
-              numbers are added here for reference. Emoji in the text are the source’s marks (see{" "}
+              The source flags {data.lowerConfidenceClaims.length} claims as uncertain. They appear in source order, numbered
+              here so you can link to each one. Emoji in the text are the source’s marks (see{" "}
               <NavLink to={{ route: "methodology", hash: "labels" }} class="link">
                 labels
               </NavLink>

@@ -1,6 +1,6 @@
 import type { HeadArgs, RouteComponentProps } from "@pracht/core";
 import { Container, NavLink, PageHeader } from "../components/index.ts";
-import { encodeLabel, type CompareFeature, type CompareFramework } from "../components/compare/model.ts";
+import { encodeLabel, MAX_PICK, MIN_PICK, type CompareFeature, type CompareFramework } from "../components/compare/model.ts";
 import CompareView from "../islands/CompareView.tsx";
 
 /**
@@ -44,7 +44,7 @@ export async function loader() {
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const title = "Compare frameworks side by side — Framework Compare";
-  const description = `Pick 2 to 4 of ${data.frameworks.length} web meta-frameworks and see their capability labels for ${data.features.length} performance features side by side, with the features where they differ listed. Labels come from vendor documentation, not from measurements.`;
+  const description = `Pick ${MIN_PICK} to ${MAX_PICK} of ${data.frameworks.length} web meta-frameworks and see their labels for ${data.features.length} performance features side by side, plus a list of the features where they differ. Labels come from vendor documentation, not from measurements.`;
   return {
     title,
     meta: [
@@ -63,21 +63,21 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title="Compare frameworks side by side"
         lede={
           <>
-            Pick 2 to 4 frameworks to see their scores, their columns of the capability matrix, and the features
-            where their labels differ. Labels describe what each framework's documentation says it provides; they
-            are not speed measurements. The rubric is on the{" "}
+            Pick {MIN_PICK} to {MAX_PICK} frameworks to see their scores, their columns of the capability matrix and
+            the features where their labels differ. Labels describe what each framework's documentation says it
+            provides, not how fast it is. The{" "}
             <NavLink to={{ route: "methodology" }} class="link">
               Methodology
             </NavLink>{" "}
-            page.
+            page explains how labels are scored.
           </>
         }
       />
       <noscript>
         <Container class="pt-6">
           <p class="border-l-[3px] border-rule-strong bg-sunken px-4 py-3 text-ink-2">
-            Changing the selection needs JavaScript. Without it this page shows the default comparison, the top
-            three frameworks by rank. The{" "}
+            Changing the selection needs JavaScript. Without it, this page compares the top three frameworks by
+            rank. The{" "}
             <NavLink to={{ route: "home", hash: "matrix" }} class="underline underline-offset-2">
               full matrix
             </NavLink>{" "}

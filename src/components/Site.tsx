@@ -83,7 +83,7 @@ export function SiteHeader() {
   return (
     <header class="relative border-b border-rule-strong bg-surface">
       <div class="mx-auto flex h-14 w-full max-w-page items-center gap-4 px-4 sm:px-6 lg:gap-8 lg:px-8">
-        <NavLink to={{ route: "home" }} class="flex flex-none items-center gap-2.5" aria-label="Framework Compare — home">
+        <NavLink to={{ route: "home" }} class="flex flex-none items-center gap-2.5" aria-label="Framework Compare home page">
           <span class="flex gap-0.5 text-ink" aria-hidden="true">
             {LABEL_ORDER.map((label) => (
               <span key={label} class={`badge tier-${label} text-[0.6875rem]`}>
@@ -141,19 +141,19 @@ export function SiteFooter() {
           <p>
             <strong class="font-semibold text-ink">Capability labels come from vendor documentation, not from measurements.</strong>{" "}
             A label says what a framework provides out of the box, not how fast an app built with it will be. Lab
-            measurements live on the{" "}
+            measurements are kept apart from the labels, on the{" "}
             <NavLink to={{ route: "measured" }} class="link">
               Measured
             </NavLink>{" "}
-            page and are reported separately.
+            page.
           </p>
           <p>
-            The comparison was researched and written with AI assistance and may contain errors; check the linked
-            sources before relying on a claim. See the{" "}
+            This comparison was researched and written with AI help and may contain errors. Check the linked sources
+            before you rely on a claim. The{" "}
             <NavLink to={{ route: "methodology" }} class="link">
               methodology
-            </NavLink>
-            .
+            </NavLink>{" "}
+            explains how each label was assigned.
           </p>
         </div>
         <div class="space-y-2 md:justify-self-end">

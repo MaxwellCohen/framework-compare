@@ -1,4 +1,4 @@
-import type { RouteComponentProps } from "@pracht/core";
+import type { HeadArgs, RouteComponentProps } from "@pracht/core";
 import {
   Callout,
   Card,
@@ -72,14 +72,14 @@ export async function loader() {
   };
 }
 
-export function head() {
+export function head({ data }: HeadArgs<typeof loader>) {
+  const measuredCount = data.frameworks.filter((f) => f.measured).length;
   return {
-    title: "Measured First Contentful Paint: four runs, three hosts — Framework Compare",
+    title: `Measured First Contentful Paint: ${data.runs.length} runs on ${HOSTS.length} hosts — Framework Compare`,
     meta: [
       {
         name: "description",
-        content:
-          "Mobile Lighthouse First Contentful Paint for the Books demo ports on Vercel, Netlify and Cloudflare across four runs in September 2026, with baseline and optimized averages. Lab data for 7 of the 15 frameworks; single runs, read from screenshots.",
+        content: `Lab measurements of First Contentful Paint (FCP) for the Books demo app in ${measuredCount} of ${data.frameworks.length} frameworks: mobile Lighthouse on Vercel, Netlify and Cloudflare, ${data.runs.length} runs in September 2026, baseline and optimized builds. Single runs, read from screenshots.`,
       },
     ],
   };
@@ -206,7 +206,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <PageHeader
         eyebrow="Lab measurements"
         title="Measured First Contentful Paint"
-        lede="Mobile Lighthouse First Contentful Paint (FCP) for the Books demo ports, per host, across four runs in September 2026. This is the only page on the site with measured numbers."
+        lede={`First Contentful Paint (FCP) is the moment the browser first paints text or an image. This page shows FCP for the same Books demo app built in each framework, deployed to ${HOSTS.length} hosts and tested in ${data.runs.length} mobile Lighthouse runs in September 2026. It is the only page on the site with measured numbers.`}
         meta={
           <>
             <Tag>Mobile Lighthouse</Tag>
@@ -232,36 +232,36 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         </Callout>
         <Callout kind="caveat" title={`Coverage: ${measuredFw.length} of ${data.frameworks.length} frameworks`}>
           <p>
-            Measurements exist for {list(measuredFw)}. The source tables call the SvelteKit and SolidStart ports “Svelte” and
+            This page has measurements for {list(measuredFw)}. The source tables call the SvelteKit and SolidStart ports “Svelte” and
             “Solid”.
           </p>
           <p>
-            {list(otherFw)} were not part of these runs. Nothing on this page describes them; their{" "}
-            <NavLink to={{ route: "home", hash: "matrix" }}>capability labels</NavLink> come from documentation and are not
-            measurements.
+            {list(otherFw)} were not measured, so nothing on this page applies to them. Their{" "}
+            <NavLink to={{ route: "home", hash: "matrix" }}>capability labels</NavLink> come from documentation, not
+            measurement.
           </p>
         </Callout>
       </Container>
 
       <JumpNav
         items={[
-          { hash: "finding", label: "Finding" },
+          { hash: "finding", label: "Summary" },
           { hash: "runs", label: "Runs" },
           { hash: "averages", label: "Averages" },
           { hash: "why", label: "Why bands" },
-          { hash: "anatomy", label: "Band anatomy" },
-          { hash: "steps", label: "Moving down a band" },
+          { hash: "anatomy", label: "Band by band" },
+          { hash: "steps", label: "Getting faster" },
           { hash: "caveats", label: "Caveats" },
         ]}
       />
 
-      <Section id="finding" title="Summary: FCP clusters into four bands" class={ANCHOR}>
+      <Section id="finding" title={`FCP falls into ${data.bands.length} bands`} class={ANCHOR}>
         <div class="max-w-prose">
           <Prose html={data.summaryLeadHtml} />
         </div>
         <div class="my-6 max-w-[64rem]">
           <DotChart
-            title="The four FCP bands"
+            title={`The ${data.bands.length} FCP bands`}
             domain={FCP_DOMAIN}
             ticks={FCP_TICKS}
             rows={data.bands.map((b) => ({
@@ -276,7 +276,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               ),
               range: { min: b.min, max: b.max },
             }))}
-            caption="First Contentful Paint in seconds, mobile Lighthouse (simulated Slow 4G, 4× CPU throttle). Each bar is the range the source gives for the band (“roughly”), with its critical-path shape. The same 0.8–2.9 s axis is used for every FCP chart below."
+            caption={`FCP in seconds, mobile Lighthouse (simulated Slow 4G, 4× CPU throttle). Each bar is the approximate range the source gives for a band. Under each name is what the page must wait for before it can paint. Every FCP chart below uses this same ${FCP_DOMAIN[0]}–${FCP_DOMAIN[1]} s axis.`}
           />
         </div>
         <div class="max-w-prose">
@@ -286,9 +286,9 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
       <Section
         id="runs"
-        title="The data: four runs"
+        title="Every measurement, run by run"
         class={`border-t border-rule ${ANCHOR}`}
-        intro="All values are mobile Lighthouse FCP in seconds, read from screenshots. Each marker is one Lighthouse run of one deployment. The shaded columns are the four bands. Rows follow the source order and are not sorted by value. A dash means the cell was not measured."
+        intro={`Each marker is one mobile Lighthouse run of one deployment, showing FCP in seconds as read from a screenshot. The shaded columns are the ${data.bands.length} bands. Rows keep the source’s order and are not sorted by speed. A dash means not measured.`}
         actions={
           <ul class="flex flex-wrap gap-x-3 gap-y-1 text-sm">
             {data.runs.map((r) => (
@@ -342,7 +342,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
                     <Prose size="sm" html={run.commentaryHtml} />
                     {run.id === "2026-09-17" && (
                       <p class="mt-3 text-sm text-ink-2">
-                        Explanation:{" "}
+                        See{" "}
                         <NavLink to={{ route: "measured", hash: "basic-cache" }} class="link">
                           why the “basic cache” run spans every band
                         </NavLink>
@@ -359,9 +359,9 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
       <Section
         id="averages"
-        title="Averages across hosts: baseline and optimized builds"
+        title="Baseline vs optimized builds, averaged across hosts"
         class={`border-t border-rule ${ANCHOR}`}
-        intro="From the README’s “Impact (9/22/2026 run)” table: each figure is the average over Vercel, Netlify and Cloudflare for one build. Next has a single cached build and no separate baseline. Rows follow the source order."
+        intro="Each figure is one build’s average across Vercel, Netlify and Cloudflare in the 22 September run, taken from the README’s “Impact (9/22/2026 run)” table. A line joins each app’s baseline build (before FCP tuning) to its optimized build. Next has only a cached build, with no separate baseline. Rows keep the source’s order."
         actions={buildKey}
       >
         <div class="grid gap-x-10 gap-y-8 lg:grid-cols-3">
@@ -387,7 +387,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             named={false}
             paired
             valueHeader="FCP, s"
-            caption="Average FCP in seconds; lower is earlier. Shading marks the four FCP bands."
+            caption="Average FCP in seconds; lower is better. Shading marks the FCP bands."
           />
           <LaneChart
             title="Largest Contentful Paint"
@@ -397,12 +397,12 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             named={false}
             paired
             valueHeader="LCP, s"
-            caption="Average LCP in seconds; lower is earlier. The axis runs 2–5 s."
+            caption="Average Largest Contentful Paint (LCP) in seconds: when the largest text block or image appears. Lower is better. The axis runs 2–5 s."
           />
         </div>
       </Section>
 
-      <Section id="why" title="Why the result is bands instead of a curve" width="prose" class={`border-t border-rule ${ANCHOR}`}>
+      <Section id="why" title="Why FCP falls into bands instead of a smooth curve" width="prose" class={`border-t border-rule ${ANCHOR}`}>
         <Prose html={data.whyBandsHtml} />
         <div class="mt-8">
           <SubHeading id="basic-cache">Why the “basic cache” run spans every band</SubHeading>
@@ -417,7 +417,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         </div>
       </Section>
 
-      <Section id="anatomy" title="Band-by-band anatomy" class={`border-t border-rule ${ANCHOR}`}>
+      <Section id="anatomy" title="What each band waits on" class={`border-t border-rule ${ANCHOR}`}>
         <div class="grid gap-4 lg:grid-cols-2">
           {data.bands.map((b) => (
             <Card
@@ -441,7 +441,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         </div>
       </Section>
 
-      <Section id="steps" title="How to move an app down a band" width="prose" class={`border-t border-rule ${ANCHOR}`}>
+      <Section id="steps" title="How to move an app into a faster band" width="prose" class={`border-t border-rule ${ANCHOR}`}>
         <ol class="grid grid-cols-[minmax(0,1fr)] gap-8">
           {data.steps.map((step, i) => (
             <li key={step.title} id={`step-${i + 1}`} class={ANCHOR}>
@@ -461,15 +461,15 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <Prose html={data.oneSentenceHtml} class="mt-2" />
         </div>
         <p class="mt-8 text-sm text-ink-2">
-          For what each framework documents for these levers, see the{" "}
+          To see which of these levers each framework supports according to its own docs, use the{" "}
           <NavLink to={{ route: "home", hash: "matrix" }} class="link">
             capability matrix
           </NavLink>
-          ; for how its labels are assigned, see{" "}
+          .{" "}
           <NavLink to={{ route: "methodology" }} class="link">
             Methodology
-          </NavLink>
-          .
+          </NavLink>{" "}
+          explains how those labels are assigned.
         </p>
       </Section>
     </>

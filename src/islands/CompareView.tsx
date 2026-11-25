@@ -1,7 +1,7 @@
 import type { IslandProps } from "@pracht/core";
 import { useEffect, useState } from "preact/hooks";
 import { FeatureChip, FeatureName } from "../components/Chips.tsx";
-import { LabelBadge, LabelLegend } from "../components/LabelBadge.tsx";
+import { LabelBadge, LabelLegend, LABELS } from "../components/LabelBadge.tsx";
 import { CompareMatrix, featureHref, frameworkHref } from "../components/compare/CompareMatrix.tsx";
 import { Card, Section, Tag } from "../components/Page.tsx";
 import { RankBadge, ScoreBar } from "../components/Score.tsx";
@@ -94,6 +94,9 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
   const same = rows.filter((r) => new Set(r.labels).size === 1);
   const names = listNames(picked.map((f) => f.name));
   const isDefault = selected.join() === initial.join();
+  // Most points a feature can earn (a 1st-party label), times the features in each group.
+  const fcpMax = features.filter((f) => f.group === "fcp").length * LABELS["first-party"].points;
+  const otherMax = features.filter((f) => f.group === "other").length * LABELS["first-party"].points;
 
   return (
     <>
@@ -101,7 +104,7 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
         id="pick"
         index="01"
         title="Pick frameworks"
-        intro={`Choose ${MIN_PICK} to ${MAX_PICK}. The selection is stored in the address, so the page can be shared or bookmarked.`}
+        intro={`Choose ${MIN_PICK} to ${MAX_PICK}. Your picks are saved in the URL, so you can share or bookmark the comparison.`}
       >
         <div role="group" aria-labelledby="pick-title" aria-describedby="pick-status" class="flex flex-wrap gap-2">
           {frameworks.map((fw) => {
@@ -145,7 +148,7 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
         id="scores"
         index="02"
         title="Scores"
-        intro="Points from documented capability: 10 available from the first-paint levers, 14 from the other features. Not a speed result."
+        intro={`Points for documented capability: up to ${fcpMax} from the first-paint levers and ${otherMax} from the other features. A higher score does not mean a faster site.`}
       >
         <ul class={`grid gap-3 ${COLS[picked.length] ?? COLS[4]}`}>
           {picked.map((fw) => (
@@ -187,7 +190,7 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
         id="matrix"
         index="03"
         title="Capability matrix"
-        intro="The same rows as the full matrix, narrowed to the picked frameworks. Each cell links to that framework's how-to on the feature page."
+        intro="The full matrix, showing only the frameworks you picked. Each cell links to the steps for enabling that feature in that framework."
         actions={<LabelLegend />}
       >
         <CompareMatrix

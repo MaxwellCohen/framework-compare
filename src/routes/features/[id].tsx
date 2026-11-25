@@ -17,7 +17,7 @@ import {
   type FeatureBlock,
 } from "../../components/feature/FrameworkBlocks.tsx";
 import { LabelTally } from "../../components/feature/LabelTally.tsx";
-import { features, frameworks, getCell, getFeature, LABEL_TEXT } from "../../data/index.ts";
+import { features, featuresInGroup, frameworks, getCell, getFeature, LABEL_TEXT, MAX_SCORE, MAX_TOTAL } from "../../data/index.ts";
 import type { Feature, Label } from "../../data/index.ts";
 
 /** The source's own shorthand for labels, which appears inside some `*Html` fields. */
@@ -69,6 +69,9 @@ export async function loader({ params }: LoaderArgs) {
     tallyText: LABELS_IN_ORDER.map((l) => `${tally[l]} ${LABEL_TEXT[l]}`).join(", "),
     usesSourceMarks: SOURCE_MARKS.test(feature.atAGlanceHtml + feature.gotchasHtml + blocks.map((b) => b.bodyHtml).join("")),
     featureCount: features.length,
+    groupCount: featuresInGroup(feature.group).length,
+    groupMax: MAX_SCORE[feature.group],
+    maxTotal: MAX_TOTAL,
     prev: pagerItem(features[index - 1]),
     next: pagerItem(features[index + 1]),
   };
@@ -120,8 +123,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <Tag>{groupText}</Tag>
             <span class="text-sm text-ink-3">
               {feature.group === "fcp"
-                ? "One of five features on the critical path to first paint (10 of 24 points)."
-                : "One of seven features outside the first-paint path (14 of 24 points)."}
+                ? `One of ${data.groupCount} features that affect first paint, the moment the browser first draws content. Together they are worth ${data.groupMax} of the ${data.maxTotal} points.`
+                : `One of ${data.groupCount} features that do not affect first paint. Together they are worth ${data.groupMax} of the ${data.maxTotal} points.`}
             </span>
           </>
         }
@@ -139,8 +142,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           {feature.atAGlanceHtml && <Prose html={feature.atAGlanceHtml} class="max-w-prose" />}
           {data.usesSourceMarks && (
             <p class="max-w-prose text-sm text-ink-3">
-              Text quoted from the source document uses its marks for labels: ✅ is 1st-party, 🧪 is Experimental or
-              Third-party, 🔧 is Manual.
+              Quoted text uses the source document's own marks: ✅ means 1st-party, 🧪 means Experimental or
+              Third-party, and 🔧 means Manual.
             </p>
           )}
           <FrameworkOverview feature={feature} blocks={blocks} />
@@ -157,13 +160,13 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section
         id="frameworks"
         title="How to enable it, by framework"
-        intro="In the source document's order: the nine core ports first, then the six additional frameworks. The order is the same on every feature page."
+        intro={`The ${core.length} core ports come first, with code samples from their port of the books demo app. The ${additional.length} additional frameworks follow, labelled from their documentation. The order is the same on every feature page.`}
         class="scroll-mt-4 border-t border-rule"
       >
         <div class="grid gap-8 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-10">
           <FeatureJumpNav feature={feature} blocks={blocks} />
           <div class="min-w-0 max-w-[56rem]">
-            <h3 class="eyebrow mb-3">Core ports · full how-to with code from the ports</h3>
+            <h3 class="eyebrow mb-3">Core ports · how-to with code samples</h3>
             <div class="grid gap-4">
               {core.map((b) => (
                 <FrameworkBlock key={b.framework.id} feature={feature} block={b} />
@@ -175,9 +178,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             </h3>
             <Callout kind="caveat" title="Scored from vendor docs" class="mb-4">
               <p>
-                The next {additional.length} frameworks were labelled by reading their documentation, not by exercising
-                the feature in a port. Each entry is one paragraph with links to the docs it relies on, so these blocks
-                are shorter than the ones above and carry no code samples.{" "}
+                These {additional.length} frameworks were labelled from their documentation, without trying the feature
+                in a port. Each entry is one paragraph with links to the docs it cites, and has no code samples.{" "}
                 <NavLink to={{ route: "methodology", hash: "additional-frameworks" }}>
                   About the additional frameworks
                 </NavLink>
@@ -214,7 +216,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         />
         <p class="mt-5 text-sm text-ink-2">
           <NavLink to={{ route: "home", hash: "matrix" }} class="link">
-            All 12 features in the matrix
+            All {data.featureCount} features in the matrix
           </NavLink>
         </p>
       </Section>

@@ -59,10 +59,12 @@ export async function loader({ params }: LoaderArgs) {
         label: cell.label,
         bodyHtml: cell.bodyHtml,
         comparison:
-          `${text} here; ${same === 1 ? `the only one of ${count}` : `${same} of ${count} are`}. ` +
+          (same === 1
+            ? `${text}: the only framework of ${count} with this label. `
+            : `${text}, like ${same - 1} of the other ${count - 1} frameworks. `) +
           (higher === 0
-            ? "No framework has a higher-scoring label."
-            : `${higher} ${higher === 1 ? "has" : "have"} a higher-scoring label.`),
+            ? "None scores higher."
+            : `${higher} ${higher === 1 ? "framework scores" : "frameworks score"} higher.`),
       };
     });
 
@@ -76,6 +78,9 @@ export async function loader({ params }: LoaderArgs) {
   const tiedWith = ranked
     .filter((f) => f.id !== fw.id && f.rank === fw.rank)
     .map((f) => ({ id: f.id, name: f.name, shortName: f.shortName }));
+
+  const groupSize = { core: 0, additional: 0 };
+  for (const f of frameworks) groupSize[f.group] += 1;
 
   return {
     framework: {
@@ -97,6 +102,7 @@ export async function loader({ params }: LoaderArgs) {
     },
     max: { fcp: MAX_SCORE.fcp, other: MAX_SCORE.other, total: MAX_TOTAL },
     count,
+    groupSize,
     featureCount,
     tiedWith,
     groups,
@@ -114,14 +120,14 @@ export function getStaticPaths() {
 export function head({ data }: HeadArgs<typeof loader>) {
   const { framework: fw, max, count } = data;
   return {
-    title: `${fw.name}: ${fw.total}/${max.total} documented capability — Framework Compare`,
+    title: `${fw.name}: ${fw.total}/${max.total} on documented performance features — Framework Compare`,
     meta: [
       {
         name: "description",
         content:
-          `What ${fw.name} provides across ${data.featureCount} performance features, from its documentation: ` +
-          `${fw.total} of ${max.total} points (${fw.fcpScore}/${max.fcp} first-paint, ${fw.otherScore}/${max.other} other), ` +
-          `rank ${fw.rank} of ${count}. How-to notes per feature and links to the ${fw.app} port.`,
+          `What ${fw.name}'s documentation says it provides for ${data.featureCount} performance features: ` +
+          `${fw.total} of ${max.total} points (${fw.fcpScore}/${max.fcp} first paint, ${fw.otherScore}/${max.other} other), ` +
+          `rank ${fw.rank} of ${count}. How to enable each feature, and links to the ${fw.app} port.`,
       },
     ],
   };
@@ -139,9 +145,10 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title={fw.name}
         lede={
           <>
-            {fw.name} has {fw.total} of {max.total} points for documented capability: {fw.fcpScore} of {max.fcp} on the
-            five first-paint levers and {fw.otherScore} of {max.other} on the seven other features. The points count
-            what the documentation says the framework provides; they are not performance measurements.
+            {fw.name} scores {fw.total} of {max.total} points. That is {fw.fcpScore} of {max.fcp} on the{" "}
+            {groups[0].rows.length} features that affect first paint (the moment the browser first draws content), and{" "}
+            {fw.otherScore} of {max.other} on the {groups[1].rows.length} other features. Points count what {fw.name}'s
+            documentation says it provides. They do not measure speed.
           </>
         }
         meta={
@@ -189,8 +196,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <dt class="eyebrow sm:pt-0.5">Group</dt>
           <dd class="text-ink-2">
             {additional
-              ? "One of six additional frameworks, labelled from vendor documentation."
-              : "One of nine core frameworks, with a full how-to section per feature."}{" "}
+              ? `One of ${data.groupSize.additional} additional frameworks, labelled from vendor documentation.`
+              : `One of ${data.groupSize.core} core ports, with a full how-to and code samples for each feature.`}{" "}
             <NavLink to={{ route: "methodology", hash: "versions" }} class="link">
               Versions checked
             </NavLink>
@@ -199,9 +206,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         {additional && (
           <Callout kind="caveat" title="Labelled from vendor docs" class="mt-5 max-w-[56rem]">
             <p>
-              The labels on this page come from {fw.name}'s documentation, not from the {fw.app} port. Each how-to is a
-              single paragraph with links to the docs it relies on, without the code samples the nine core frameworks
-              have.{" "}
+              The labels on this page come from {fw.name}'s documentation. They were not checked in the {fw.app} port.
+              Each how-to is one paragraph with links to the docs it cites, and has no code samples.{" "}
               <NavLink to={{ route: "methodology", hash: "additional-frameworks" }}>
                 About the additional frameworks
               </NavLink>
@@ -214,7 +220,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section
         id="scorecard"
         title="Scorecard"
-        intro={`The ${data.featureCount} features in their two groups. Each row gives the label, how it sits among all ${count} frameworks, and the how-to; feature names link to this framework's entry on the feature page.`}
+        intro={`All ${data.featureCount} features, in two groups. Each row shows ${fw.name}'s label, how that label compares across all ${count} frameworks, and how to enable the feature. Feature names link to ${fw.name}'s entry on that feature's page.`}
         class="scroll-mt-4"
       >
         <div class="max-w-[56rem]">
@@ -228,9 +234,9 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <div>
               <p class="eyebrow mb-2">How it compares</p>
               <p class="text-sm text-ink-2">
-                On <span class="num font-semibold text-ink">{data.notOutscored}</span> of {data.featureCount} features no
-                other framework has a higher-scoring label; on{" "}
-                <span class="num font-semibold text-ink">{data.featureCount - data.notOutscored}</span> at least one
+                On <span class="num font-semibold text-ink">{data.notOutscored}</span> of {data.featureCount} features, no
+                framework has a higher-scoring label than {fw.name}. On the other{" "}
+                <span class="num font-semibold text-ink">{data.featureCount - data.notOutscored}</span>, at least one
                 does.
               </p>
             </div>
@@ -280,7 +286,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         <Section
           id="extras"
           title="Not scored"
-          intro="Other performance features the source document lists for this framework. They do not count toward the points above."
+          intro={`Performance features the source document lists for ${fw.name} beyond the ${data.featureCount} above. They do not count toward the score.`}
           width="prose"
           class="scroll-mt-4 border-t border-rule"
         >

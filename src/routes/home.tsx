@@ -2,6 +2,7 @@ import type { HeadArgs, RouteComponentProps } from "@pracht/core";
 import {
   Callout,
   CapabilityMatrix,
+  LABELS,
   Container,
   LabelLegend,
   NavLink,
@@ -12,6 +13,7 @@ import {
 } from "../components/index.ts";
 import { FeatureIndex } from "../components/home/FeatureIndex.tsx";
 import { RankingTable } from "../components/home/RankingTable.tsx";
+import { MAX_PICK, MIN_PICK } from "../components/compare/model.ts";
 
 /**
  * Returns only what the page prints: scores and names per framework, names and
@@ -56,8 +58,8 @@ export async function loader() {
 }
 
 export function head({ data }: HeadArgs<typeof loader>) {
-  const title = "Framework Compare: what 15 web frameworks provide for 12 performance features";
-  const description = `A capability matrix of ${data.frameworks.length} web meta-frameworks across ${data.features.length} performance features, labelled 1st-party, Experimental, Third-party or Manual from vendor documentation. The labels describe documented capability; they are not speed measurements.`;
+  const title = `Framework Compare: how ${data.frameworks.length} web frameworks support ${data.features.length} performance features`;
+  const description = `See how ${data.frameworks.length} web meta-frameworks support ${data.features.length} performance features, from built in (1st-party) to build it yourself (Manual). Labels come from each framework's documentation. They describe capability, not measured speed.`;
   return {
     title,
     meta: [
@@ -80,34 +82,37 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
   const leaders = frameworks.filter((f) => f.total === topScore);
   const coreCount = frameworks.filter((f) => f.group === "core").length;
   const fcpCount = features.filter((f) => f.group === "fcp").length;
+  const otherCount = features.length - fcpCount;
+  const maxPoints = LABELS["first-party"].points;
 
   return (
     <>
       <PageHeader
         eyebrow="Capability reference · scored from documentation"
-        title={`What ${frameworks.length} web frameworks give you, out of the box, for ${features.length} performance features`}
+        title={`How ${frameworks.length} web frameworks support ${features.length} performance features`}
         lede={
           <>
-            Each framework gets one label per feature (1st-party, Experimental, Third-party or Manual), taken from
-            its vendor documentation. The labels add up to a score out of {maxTotal}. Nothing on this page was
-            measured.
+            Every framework gets one label per feature, based on its own documentation: 1st-party (built in),
+            Experimental (built in, but flagged or unstable), Third-party (needs an outside package) or Manual (you build it
+            yourself). Each label is worth points, and the points add up to a score out of {maxTotal}. Nothing on
+            this page was measured.
           </>
         }
         meta={
           <>
             <NavLink to={{ route: "methodology" }} class="link">
-              Methodology: the labels and the scoring rubric
+              Methodology: how labels and scores are assigned
             </NavLink>
             <NavLink to={{ route: "measured" }} class="link">
-              Measured: Lighthouse lab data
+              Measured: first-paint timings from Lighthouse
             </NavLink>
           </>
         }
         aside={
           <StatGroup cols={2} class="lg:w-80">
             <Stat label="Frameworks" value={frameworks.length} hint={`${coreCount} core, ${frameworks.length - coreCount} additional`} />
-            <Stat label="Features" value={features.length} hint={`${fcpCount} first-paint levers, ${features.length - fcpCount} other`} />
-            <Stat label="Cells" value={cells.length} hint="one label each" />
+            <Stat label="Features" value={features.length} hint={`${fcpCount} first-paint levers, ${otherCount} other`} />
+            <Stat label="Labels" value={cells.length} hint="one per framework and feature" />
             <Stat label="Top score" value={topScore} unit={`/${maxTotal}`} hint={listNames(leaders.map((f) => f.name))} />
           </StatGroup>
         }
@@ -117,8 +122,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         <Callout kind="caveat" title="Capability, not speed">
           <p>
             A label records what the documentation says a framework provides and how much of it you have to build
-            yourself. It does not say how fast a site built with that framework is, and a higher score is not a
-            performance result. Timings from real deployments are on the{" "}
+            yourself. It does not tell you how fast a site built with that framework will be, and a higher score does
+            not mean a faster site. Timings from real deployments are on the{" "}
             <NavLink to={{ route: "measured" }}>Measured</NavLink> page.
           </p>
         </Callout>
@@ -130,8 +135,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title="Capability matrix"
         intro={
           <>
-            Features in rows, frameworks in columns, ordered by total score. Each cell links to the how-to for that
-            framework on the feature page.
+            Features run down the side and frameworks across the top, highest score first. Each cell links to the
+            steps for enabling that feature in that framework.
           </>
         }
         actions={<LabelLegend />}
@@ -143,8 +148,11 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           label={`Capability matrix: ${features.length} features by ${frameworks.length} frameworks`}
         />
         <p class="mt-3 max-w-prose text-sm text-ink-2">
-          1st-party scores 2 points, Experimental and Third-party 1, Manual 0. The five first-paint levers add up
-          to 10 points and the seven other features to 14. To read a few columns side by side, use{" "}
+          1st-party is worth {LABELS["first-party"].points} points, Experimental and Third-party{" "}
+          {LABELS.experimental.points}, Manual {LABELS.manual.points}. First-paint levers are the features that
+          decide how soon the browser shows the first content on screen. Together the {fcpCount} levers are worth up
+          to {fcpCount * maxPoints} points, and the {otherCount} other features up to {otherCount * maxPoints}. To put a
+          few frameworks side by side, use{" "}
           <NavLink to={{ route: "compare" }} class="link">
             Compare
           </NavLink>
@@ -158,9 +166,9 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title="Ranking"
         intro={
           <>
-            The matrix summed per framework. Frameworks with the same total share a rank. The {coreCount} core
-            frameworks have a full how-to section for every feature; the {frameworks.length - coreCount} additional
-            ones are scored from shorter documentation notes.
+            Each row adds up one framework's points from the matrix. Frameworks with the same total share a rank. The{" "}
+            {coreCount} core frameworks have a full how-to section for every feature. The{" "}
+            {frameworks.length - coreCount} additional ones are scored from shorter notes on their documentation.
           </>
         }
       >
@@ -170,11 +178,11 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section
         id="features"
         index="03"
-        title="The 12 features"
-        intro="What each row of the matrix means, and how many of the 15 frameworks provide it 1st-party."
+        title={`The ${features.length} features`}
+        intro={`What each row of the matrix covers, and how many of the ${frameworks.length} frameworks build it in as 1st-party.`}
         actions={
           <NavLink to={{ route: "compare" }} class="link">
-            Compare 2 to 4 frameworks side by side
+            Compare {MIN_PICK} to {MAX_PICK} frameworks side by side
           </NavLink>
         }
       >

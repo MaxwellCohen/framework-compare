@@ -47,11 +47,11 @@ export function parseSelection(
   if (valid.length < MIN_PICK) {
     return {
       ids: fallback,
-      note: `The address did not name at least ${MIN_PICK} known frameworks, so the default comparison is shown.`,
+      note: `The URL did not name at least ${MIN_PICK} known frameworks, so this is the default comparison.`,
     };
   }
   const notes: string[] = [];
-  if (unknown.length) notes.push(`Ignored unknown ${unknown.length === 1 ? "id" : "ids"} in the address: ${unknown.join(", ")}.`);
-  if (valid.length > MAX_PICK) notes.push(`The address named ${valid.length} frameworks; only the first ${MAX_PICK} are shown.`);
+  if (unknown.length) notes.push(`Ignored unknown framework ${unknown.length === 1 ? "id" : "ids"} in the URL: ${unknown.join(", ")}.`);
+  if (valid.length > MAX_PICK) notes.push(`The URL named ${valid.length} frameworks. Showing the first ${MAX_PICK}.`);
   return { ids: valid.slice(0, MAX_PICK), note: notes.join(" ") };
 }
