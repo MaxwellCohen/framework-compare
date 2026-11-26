@@ -26,7 +26,7 @@ const SOURCE_DIR = process.env.BENCH_SOURCE_DIR
   : resolve(HERE, "../..");
 const SOURCE_REF = process.env.BENCH_SOURCE_REF || "";
 const OUT_DIR = resolve(PROJECT, "src/data/generated");
-/** Site-authored code samples for Manual cells: one `<frameworkId>.md` per framework, `## <featureId>` sections. */
+/** Site-authored code samples for cells whose source has no code: one `<frameworkId>.md` per framework, `## <featureId>` sections. */
 const EXAMPLES_DIR = resolve(PROJECT, "content/manual-examples");
 const GOTCHAS_FILE = resolve(PROJECT, "content/framework-gotchas.md");
 const LINKS_FILE = resolve(PROJECT, "content/framework-links.json");
@@ -768,16 +768,15 @@ function buildCapability() {
     }
   }
 
-  // --- Site-authored samples for Manual cells (content/manual-examples).
+  // --- Site-authored samples for cells whose source has no code (content/manual-examples).
   for (const cell of orderedCells) {
     const md = manualExamples.get(cell.frameworkId)?.get(cell.featureId);
     cell.exampleHtml = null;
     if (md === undefined) {
-      if ((cell.label === "manual" || FOLDED_FEATURES[cell.featureId]) && !cell.hasSnippet) warn(`code-less cell ${cell.frameworkId} × ${cell.featureId} has no code sample`);
+      if (!cell.hasSnippet) warn(`code-less cell ${cell.frameworkId} × ${cell.featureId} has no code sample`);
       continue;
     }
-    if (cell.label !== "manual" && !FOLDED_FEATURES[cell.featureId]) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: label is ${cell.label}`);
-    else if (cell.hasSnippet) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: the source already has a snippet`);
+    if (cell.hasSnippet) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: the source already has a snippet`);
     else {
       const tokens = lex(md);
       if (!hasCode(tokens)) warn(`example for ${cell.frameworkId} × ${cell.featureId} has no code block`);

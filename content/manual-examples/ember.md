@@ -201,3 +201,42 @@ export default {
   },
 };
 ```
+
+## image-pipeline
+
+Add the `@responsive-image/vite-plugin` to the Embroider Vite config. An import ending in `?responsive` is resized at build time, and the `<ResponsiveImage>` component from `@responsive-image/ember` renders the `srcset`.
+
+```js
+// vite.config.mjs
+import { defineConfig } from 'vite';
+import { extensions, ember } from '@embroider/vite';
+import { babel } from '@rollup/plugin-babel';
+import { responsiveImage } from '@responsive-image/vite-plugin';
+
+export default defineConfig({
+  plugins: [ember(), babel({ babelHelpers: 'runtime', extensions }), responsiveImage()],
+});
+```
+
+```gjs
+// app/components/home/hero.gjs
+import { ResponsiveImage } from '@responsive-image/ember';
+import heroImage from './hero.jpg?w=640;1280;1920&responsive';
+
+<template>
+  <ResponsiveImage @src={{heroImage}} @size={{100}} alt="Shelves of books" />
+</template>
+```
+
+Source: [responsive-image: Image component](https://responsive-image.dev/usage/component)
+
+## bundle-analysis
+
+Embroider points to the community `vite-bundle-visualizer`, a CLI wrapper around `rollup-plugin-visualizer`. It builds with the app's Vite config and writes a treemap.
+
+```sh
+# in the app root; Ember's config file is vite.config.mjs
+npx vite-bundle-visualizer -c vite.config.mjs -o stats.html
+```
+
+Source: [Embroider: Analyzing Bundles](https://github.com/embroider-build/embroider/blob/main/docs/analyzing.md)

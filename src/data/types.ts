@@ -146,7 +146,7 @@ export interface Cell {
   /** True when bodyHtml contains a code block. */
   hasSnippet: boolean;
   /**
-   * Manual cells only: a site-authored "build it yourself" sample from
+   * Cells whose source has no code: a site-authored sample from
    * content/manual-examples, rendered like bodyHtml. Not from the sources.
    */
   exampleHtml: string | null;
