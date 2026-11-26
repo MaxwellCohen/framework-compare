@@ -3,7 +3,7 @@ import { LabelBadge, LABEL_ORDER } from "../LabelBadge.tsx";
 
 /**
  * How many items carry each of the four labels: "● First-party 9  ◐ Experimental 1 …".
- * Used for "15 frameworks by label" on a feature page and "12 features by label"
+ * Used for "frameworks by label" on a feature page and "12 features by label"
  * on a framework page. Labels with a zero count stay in the list (dimmed) so the
  * four always appear in the same order.
  */
@@ -14,7 +14,7 @@ export function LabelTally({
   class: cls = "",
 }: {
   counts: Record<Label, number>;
-  /** The total the counts add up to (15 frameworks, 12 features). */
+  /** The total the counts add up to (the number of frameworks, or of features). */
   of: number;
   /** Plural noun for the accessible name, e.g. "frameworks". */
   noun: string;

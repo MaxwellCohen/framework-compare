@@ -30,7 +30,7 @@ const file = statSync(arg).isDirectory() ? join(arg, "results.json") : arg;
 const { meta, targets } = JSON.parse(readFileSync(file, "utf8"));
 
 const capability = JSON.parse(readFileSync(join(PROJECT, "src/data/generated/capability.json"), "utf8"));
-const byApp = new Map(capability.frameworks.map((f) => [f.app, f.id]));
+const byApp = new Map(capability.frameworks.filter((f) => f.app).map((f) => [f.app, f.id]));
 
 const round = (v, d = 0) => (v == null ? null : Math.round(v * 10 ** d) / 10 ** d);
 const out = {
@@ -57,8 +57,29 @@ const out = {
         path: t.path,
         url: t.url,
         median: m
-          ? { perf: m.perf, fcp: round(m.fcp), lcp: round(m.lcp), tbt: round(m.tbt), si: round(m.si), cls: round(m.cls, 3), doc: round(m.doc) }
+          ? {
+              perf: m.perf,
+              fcp: round(m.fcp),
+              lcp: round(m.lcp),
+              tbt: round(m.tbt),
+              si: round(m.si),
+              tti: round(m.tti),
+              cls: round(m.cls, 3),
+              doc: round(m.doc),
+            }
           : null,
+        // CrUX p75 for this URL, only when PSI had page-level field data (no origin fallback).
+        ...(t.field && Object.values(t.field).some((v) => v != null)
+          ? {
+              field: {
+                lcp: round(t.field.lcp),
+                inp: round(t.field.inp),
+                cls: round(t.field.cls, 3),
+                fcp: round(t.field.fcp),
+                ttfb: round(t.field.ttfb),
+              },
+            }
+          : {}),
         runs: t.runs.length,
         usedRuns: t.runs.filter((r) => !r.cold).length,
         coldSuspect: Boolean(t.coldSuspect),

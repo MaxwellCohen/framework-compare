@@ -1,4 +1,4 @@
-import type { ArtDirection, Deployment, Feature, Framework, Host, Label } from "../../data/types.ts";
+import type { ArtDirection, CellTest, Deployment, Feature, Framework, Host, Label } from "../../data/types.ts";
 import { featureNo } from "../Chips.tsx";
 import { LabelBadge } from "../LabelBadge.tsx";
 import { ExternalLink, NavLink } from "../links.tsx";
@@ -6,6 +6,7 @@ import { Card } from "../Page.tsx";
 import { ArtDirectionBlock, ManualExample } from "../ManualExample.tsx";
 import { Prose } from "../Prose.tsx";
 import { ScoreMeter } from "../Score.tsx";
+import { TestResult, TestStatus } from "../feature/TestResult.tsx";
 
 export interface ScorecardRow {
   feature: Pick<Feature, "id" | "number" | "name" | "shortName">;
@@ -16,6 +17,8 @@ export interface ScorecardRow {
   gotchasHtml: string | null;
   /** Computed in the loader, e.g. "1st-party, like 8 of the other 14 frameworks. None scores higher." */
   comparison: string;
+  /** Our own test of this cell in the port, or null. */
+  test: CellTest | null;
 }
 
 /**
@@ -54,12 +57,14 @@ export function ScorecardGroup({
               <LabelBadge label={row.label} />
             </div>
             <p class="mt-1 text-sm text-ink-3">{row.comparison}</p>
+            {row.test && <TestStatus test={row.test} class="mt-1.5" />}
             <details class="group mt-2">
               <summary class="w-fit cursor-pointer text-sm text-ink-2 underline decoration-rule-strong underline-offset-2 hover:text-ink">
-                <span class="group-open:hidden">Show the how-to</span>
-                <span class="hidden group-open:inline">Hide the how-to</span>
+                <span class="group-open:hidden">Show the how-to{row.test ? " and test" : ""}</span>
+                <span class="hidden group-open:inline">Hide the how-to{row.test ? " and test" : ""}</span>
               </summary>
               <Prose html={row.bodyHtml} size="sm" class="mt-3 max-w-prose pb-1" />
+              {row.test && <TestResult test={row.test} class="mt-3 mb-1" />}
               {row.exampleHtml && <ManualExample html={row.exampleHtml} class="mb-1" />}
               {row.artDirection && <ArtDirectionBlock art={row.artDirection} class="mb-1" />}
               {row.gotchasHtml && (

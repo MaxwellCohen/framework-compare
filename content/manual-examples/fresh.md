@@ -180,3 +180,133 @@ if (host === "vercel") {
 ```
 
 Source: [Fresh deployment](https://usefresh.dev/docs/deployment)
+
+## font-optimization
+
+The Books port self-hosts Geist with Fontsource packages mapped in `deno.json`. The CSS `@import` brings in the `@font-face` rules, and Vite bundles the font files when `client.ts` imports the stylesheet.
+
+```jsonc
+// deno.json
+"imports": {
+  "@fontsource-variable/geist": "npm:@fontsource-variable/geist@^5.3.0"
+}
+```
+
+```css
+/* assets/global.css (imported from client.ts) */
+@import '@fontsource-variable/geist';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+}
+```
+
+Source: [Fontsource: Install](https://fontsource.org/docs/getting-started/install)
+
+## image-pipeline
+
+Fresh 2 builds with Vite, so `vite-imagetools` resizes and converts images at build time. The query string on the import picks widths and format, and `as=srcset` returns a ready `srcset` string.
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { fresh } from "@fresh/plugin-vite";
+import { imagetools } from "vite-imagetools";
+
+export default defineConfig({
+  plugins: [fresh(), imagetools()],
+});
+```
+
+```tsx
+// routes/about.tsx
+import heroAvif from "../static/hero.jpg?format=avif&w=800";
+import heroSrcset from "../static/hero.jpg?w=400;800;1200&format=webp&as=srcset";
+
+export default function About() {
+  return <img src={heroAvif} srcset={heroSrcset} sizes="100vw" alt="Shelves of books" width={800} />;
+}
+```
+
+Source: [Fresh: Static files](https://usefresh.dev/docs/concepts/static-files)
+
+## islands
+
+Any component in `islands/` ships JS; everything else renders to HTML only. In the Books port the layout is server-only, and just the search box and the mobile drawer hydrate.
+
+```tsx
+// routes/_layout.tsx
+import BookSearch from '@/islands/BookSearch.tsx';
+import MobileSidebar from '@/islands/MobileSidebar.tsx';
+import MobileSidebarTrigger from '@/islands/MobileSidebarTrigger.tsx';
+import { define } from '../utils.ts';
+
+export default define.layout(function Layout({ Component, url }) {
+  const current = searchParamsFromUrl(url.searchParams);
+  return (
+    <>
+      <MobileSidebar pathname={url.pathname}>
+        {/* server-rendered children passed into an island */}
+        <BookSidebar current={current} idPrefix="mobile" mobile />
+      </MobileSidebar>
+      <header>
+        <MobileSidebarTrigger />
+        <BookSearch current={current} />
+      </header>
+      <main><Component /></main>
+    </>
+  );
+});
+```
+
+Source: [Fresh: Islands](https://usefresh.dev/docs/concepts/islands)
+
+## reactivity
+
+Preact signals. In the Books port, one module-level signal is shared by two islands: the trigger sets it and the drawer re-renders when it changes.
+
+```ts
+// lib/catalog-nav.ts
+import { signal } from '@preact/signals';
+export const mobileSidebarOpen = signal(false);
+```
+
+```tsx
+// islands/MobileSidebarTrigger.tsx
+import { mobileSidebarOpen } from '@/lib/catalog-nav.ts';
+
+export default function MobileSidebarTrigger() {
+  return <button aria-label="Open filters" onClick={() => (mobileSidebarOpen.value = true)}>Filters</button>;
+}
+
+// islands/MobileSidebar.tsx
+export default function MobileSidebar({ children }: { children?: ComponentChildren }) {
+  const isOpen = mobileSidebarOpen.value;
+  return <aside hidden={!isOpen}>{children}</aside>;
+}
+```
+
+Source: [Fresh: Signals](https://usefresh.dev/docs/concepts/signals)
+
+## bundle-analysis
+
+Fresh has no analyzer. The Vite page suggests `vite-plugin-inspect` for looking at transforms during dev; for bundle sizes, add `rollup-plugin-visualizer` and run `deno task build`.
+
+```ts
+// vite.config.ts
+import { defineConfig } from "vite";
+import { fresh } from "@fresh/plugin-vite";
+import inspect from "vite-plugin-inspect";
+import { visualizer } from "rollup-plugin-visualizer";
+
+export default defineConfig({
+  plugins: [
+    fresh(),
+    inspect(), // dev UI at /__inspect
+    visualizer({ filename: "stats.html", gzipSize: true }),
+  ],
+});
+```
+
+Source: [Fresh: Vite](https://usefresh.dev/docs/advanced/vite)

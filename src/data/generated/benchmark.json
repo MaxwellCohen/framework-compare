@@ -1,12 +1,12 @@
 {
  "latest": {
-  "date": "2026-11-25",
-  "startedAt": "2026-11-25T21:02:31.940Z",
-  "finishedAt": "2026-11-25T22:13:24.239Z",
+  "date": "2026-11-26",
+  "startedAt": "2026-11-26T05:05:28.203Z",
+  "finishedAt": "2026-11-26T06:15:15.058Z",
   "tool": "PageSpeed Insights v5 (Lighthouse lab run)",
   "strategy": "mobile",
   "runsPerTarget": 3,
-  "psiRequests": 878,
+  "psiRequests": 854,
   "aborted": false,
   "paths": [
    "/",
@@ -26,13 +26,14 @@
     "path": "/",
     "url": "https://next-books-olive.vercel.app/",
     "median": {
-     "perf": 96,
-     "fcp": 925,
-     "lcp": 2776,
-     "tbt": 35,
-     "si": 1543,
+     "perf": 98,
+     "fcp": 922,
+     "lcp": 2401,
+     "tbt": 20,
+     "si": 1094,
+     "tti": 2401,
      "cls": 0,
-     "doc": 142
+     "doc": 164
     },
     "runs": 3,
     "usedRuns": 3,
@@ -47,13 +48,14 @@
     "path": "/10145787",
     "url": "https://next-books-olive.vercel.app/10145787",
     "median": {
-     "perf": 99,
+     "perf": 98,
      "fcp": 923,
      "lcp": 2251,
-     "tbt": 38,
-     "si": 1074,
+     "tbt": 41,
+     "si": 1122,
+     "tti": 2251,
      "cls": 0,
-     "doc": 262
+     "doc": 137
     },
     "runs": 3,
     "usedRuns": 3,
@@ -69,12 +71,13 @@
     "url": "https://max-next-books.netlify.app/",
     "median": {
      "perf": 95,
-     "fcp": 1081,
+     "fcp": 925,
      "lcp": 3001,
-     "tbt": 12,
-     "si": 2846,
+     "tbt": 29,
+     "si": 1674,
+     "tti": 3016,
      "cls": 0,
-     "doc": 252
+     "doc": 193
     },
     "runs": 3,
     "usedRuns": 3,
@@ -89,13 +92,14 @@
     "path": "/10145787",
     "url": "https://max-next-books.netlify.app/10145787",
     "median": {
-     "perf": 98,
-     "fcp": 1079,
-     "lcp": 2266,
-     "tbt": 38,
-     "si": 2752,
+     "perf": 97,
+     "fcp": 1059,
+     "lcp": 2480,
+     "tbt": 27,
+     "si": 2799,
+     "tti": 2487,
      "cls": 0,
-     "doc": 315
+     "doc": 258
     },
     "runs": 3,
     "usedRuns": 3,
@@ -111,14 +115,15 @@
     "url": "https://next-books.to-email-max.workers.dev/",
     "median": {
      "perf": 94,
-     "fcp": 921,
+     "fcp": 923,
      "lcp": 3151,
-     "tbt": 2,
-     "si": 2560,
+     "tbt": 29,
+     "si": 1585,
+     "tti": 3151,
      "cls": 0,
-     "doc": 753
+     "doc": 169
     },
-    "runs": 4,
+    "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
     "error": null
@@ -133,389 +138,12 @@
     "median": {
      "perf": 99,
      "fcp": 923,
-     "lcp": 2251,
-     "tbt": 0,
-     "si": 1190,
+     "lcp": 1955,
+     "tbt": 5,
+     "si": 1364,
+     "tti": 1955,
      "cls": 0,
-     "doc": 335
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "next",
-    "app": "next-books",
-    "branch": "naive",
-    "host": "vercel",
-    "path": "/",
-    "url": "https://next-books-naive.vercel.app/",
-    "median": {
-     "perf": 99,
-     "fcp": 905,
-     "lcp": 2252,
-     "tbt": 6,
-     "si": 1207,
-     "cls": 0,
-     "doc": 120
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "next",
-    "app": "next-books",
-    "branch": "naive",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://next-books-naive.vercel.app/10145787",
-    "median": {
-     "perf": 98,
-     "fcp": 758,
-     "lcp": 2253,
-     "tbt": 29,
-     "si": 2361,
-     "cls": 0,
-     "doc": 157
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "next",
-    "app": "next-books",
-    "branch": "naive",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://next-books-max-naive.netlify.app/",
-    "median": {
-     "perf": 93,
-     "fcp": 917,
-     "lcp": 2810,
-     "tbt": 10,
-     "si": 4368,
-     "cls": 0,
-     "doc": 194
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "next",
-    "app": "next-books",
-    "branch": "naive",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://next-books-max-naive.netlify.app/10145787",
-    "median": {
-     "perf": 97,
-     "fcp": 914,
-     "lcp": 2339,
-     "tbt": 21,
-     "si": 2877,
-     "cls": 0,
-     "doc": 263
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "next",
-    "app": "next-books",
-    "branch": "naive",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://next-books-naive.to-email-max.workers.dev/",
-    "median": {
-     "perf": 96,
-     "fcp": 910,
-     "lcp": 2778,
-     "tbt": 1,
-     "si": 2498,
-     "cls": 0,
-     "doc": 198
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "next",
-    "app": "next-books",
-    "branch": "naive",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://next-books-naive.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 98,
-     "fcp": 758,
-     "lcp": 2251,
-     "tbt": 7,
-     "si": 2117,
-     "cls": 0,
-     "doc": 181
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "main",
-    "host": "vercel",
-    "path": "/",
-    "url": "https://ember-books.vercel.app/",
-    "median": {
-     "perf": 88,
-     "fcp": 1539,
-     "lcp": 3458,
-     "tbt": 96,
-     "si": 3940,
-     "cls": 0,
-     "doc": 233
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "main",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://ember-books.vercel.app/10145787",
-    "median": {
-     "perf": 96,
-     "fcp": 1511,
-     "lcp": 2711,
-     "tbt": 35,
-     "si": 2489,
-     "cls": 0,
-     "doc": 220
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "main",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://ember-books.netlify.app/",
-    "median": {
-     "perf": 84,
-     "fcp": 1507,
-     "lcp": 4505,
-     "tbt": 88,
-     "si": 1909,
-     "cls": 0.003,
-     "doc": 102
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "main",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://ember-books.netlify.app/10145787",
-    "median": {
-     "perf": 96,
-     "fcp": 1508,
-     "lcp": 2709,
-     "tbt": 42,
-     "si": 1591,
-     "cls": 0.001,
-     "doc": 68
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "main",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://ember-books.to-email-max.workers.dev/",
-    "median": {
-     "perf": 92,
-     "fcp": 1828,
-     "lcp": 2860,
-     "tbt": 121,
-     "si": 4144,
-     "cls": 0,
-     "doc": 130
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "main",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://ember-books.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 95,
-     "fcp": 1509,
-     "lcp": 2560,
-     "tbt": 60,
-     "si": 3894,
-     "cls": 0,
-     "doc": 156
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "optimized",
-    "host": "vercel",
-    "path": "/",
-    "url": "https://ember-books-optimized.vercel.app/",
-    "median": {
-     "perf": 93,
-     "fcp": 909,
-     "lcp": 3008,
-     "tbt": 68,
-     "si": 3746,
-     "cls": 0,
-     "doc": 317
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "optimized",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://ember-books-optimized.vercel.app/10145787",
-    "median": {
-     "perf": 98,
-     "fcp": 907,
-     "lcp": 2324,
-     "tbt": 63,
-     "si": 2257,
-     "cls": 0,
-     "doc": 198
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://ember-books-max-optimized.netlify.app/",
-    "median": {
-     "perf": 87,
-     "fcp": 790,
-     "lcp": 3915,
-     "tbt": 103,
-     "si": 1682,
-     "cls": 0.001,
-     "doc": 105
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://ember-books-max-optimized.netlify.app/10145787",
-    "median": {
-     "perf": 99,
-     "fcp": 934,
-     "lcp": 2030,
-     "tbt": 24,
-     "si": 1505,
-     "cls": 0.003,
-     "doc": 116
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://ember-books-optimized.to-email-max.workers.dev/",
-    "median": {
-     "perf": 97,
-     "fcp": 1396,
-     "lcp": 2190,
-     "tbt": 52,
-     "si": 4007,
-     "cls": 0,
-     "doc": 110
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "ember",
-    "app": "ember-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://ember-books-optimized.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 98,
-     "fcp": 766,
-     "lcp": 1966,
-     "tbt": 19,
-     "si": 3610,
-     "cls": 0,
-     "doc": 163
+     "doc": 211
     },
     "runs": 3,
     "usedRuns": 3,
@@ -530,13 +158,14 @@
     "path": "/",
     "url": "https://nuxt-books-navy.vercel.app/",
     "median": {
-     "perf": 86,
+     "perf": 85,
      "fcp": 1508,
-     "lcp": 4206,
-     "tbt": 56,
+     "lcp": 4055,
+     "tbt": 54,
      "si": 1508,
+     "tti": 4055,
      "cls": 0,
-     "doc": 147
+     "doc": 110
     },
     "runs": 3,
     "usedRuns": 3,
@@ -552,12 +181,13 @@
     "url": "https://nuxt-books-navy.vercel.app/10145787",
     "median": {
      "perf": 97,
-     "fcp": 1508,
-     "lcp": 2558,
-     "tbt": 33,
-     "si": 1508,
+     "fcp": 1509,
+     "lcp": 2410,
+     "tbt": 0,
+     "si": 1509,
+     "tti": 2410,
      "cls": 0,
-     "doc": 145
+     "doc": 170
     },
     "runs": 3,
     "usedRuns": 3,
@@ -572,13 +202,14 @@
     "path": "/",
     "url": "https://nuxt-books.netlify.app/",
     "median": {
-     "perf": 82,
-     "fcp": 1513,
-     "lcp": 4357,
-     "tbt": 54,
-     "si": 4424,
-     "cls": 0,
-     "doc": 191
+     "perf": 83,
+     "fcp": 1509,
+     "lcp": 4356,
+     "tbt": 40,
+     "si": 2695,
+     "tti": 4356,
+     "cls": 0.001,
+     "doc": 187
     },
     "runs": 3,
     "usedRuns": 3,
@@ -594,12 +225,13 @@
     "url": "https://nuxt-books.netlify.app/10145787",
     "median": {
      "perf": 95,
-     "fcp": 1517,
-     "lcp": 2718,
-     "tbt": 17,
-     "si": 2740,
-     "cls": 0.001,
-     "doc": 185
+     "fcp": 1511,
+     "lcp": 2713,
+     "tbt": 0,
+     "si": 3041,
+     "tti": 2713,
+     "cls": 0,
+     "doc": 210
     },
     "runs": 3,
     "usedRuns": 3,
@@ -614,13 +246,14 @@
     "path": "/",
     "url": "https://nuxt-books.to-email-max.workers.dev/",
     "median": {
-     "perf": 85,
-     "fcp": 1510,
-     "lcp": 4207,
-     "tbt": 22,
-     "si": 1912,
+     "perf": 84,
+     "fcp": 1538,
+     "lcp": 4210,
+     "tbt": 38,
+     "si": 3853,
+     "tti": 4210,
      "cls": 0,
-     "doc": 529
+     "doc": 180
     },
     "runs": 3,
     "usedRuns": 3,
@@ -635,13 +268,14 @@
     "path": "/10145787",
     "url": "https://nuxt-books.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1516,
-     "lcp": 2571,
-     "tbt": 27,
-     "si": 1873,
+     "perf": 96,
+     "fcp": 1536,
+     "lcp": 2588,
+     "tbt": 19,
+     "si": 2486,
+     "tti": 2588,
      "cls": 0,
-     "doc": 433
+     "doc": 162
     },
     "runs": 3,
     "usedRuns": 3,
@@ -657,12 +291,13 @@
     "url": "https://nuxt-books-optimized.vercel.app/",
     "median": {
      "perf": 99,
-     "fcp": 915,
-     "lcp": 1951,
-     "tbt": 27,
-     "si": 1322,
+     "fcp": 918,
+     "lcp": 2251,
+     "tbt": 33,
+     "si": 1203,
+     "tti": 2251,
      "cls": 0,
-     "doc": 89
+     "doc": 123
     },
     "runs": 3,
     "usedRuns": 3,
@@ -678,12 +313,13 @@
     "url": "https://nuxt-books-optimized.vercel.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 924,
-     "lcp": 1222,
-     "tbt": 5,
-     "si": 924,
+     "fcp": 916,
+     "lcp": 1215,
+     "tbt": 0,
+     "si": 916,
+     "tti": 1215,
      "cls": 0,
-     "doc": 47
+     "doc": 45
     },
     "runs": 3,
     "usedRuns": 3,
@@ -698,13 +334,14 @@
     "path": "/",
     "url": "https://nuxt-books-max-optimized.netlify.app/",
     "median": {
-     "perf": 99,
-     "fcp": 901,
-     "lcp": 2101,
-     "tbt": 29,
-     "si": 2299,
+     "perf": 96,
+     "fcp": 909,
+     "lcp": 2251,
+     "tbt": 78,
+     "si": 2864,
+     "tti": 2251,
      "cls": 0,
-     "doc": 186
+     "doc": 95
     },
     "runs": 3,
     "usedRuns": 3,
@@ -719,13 +356,14 @@
     "path": "/10145787",
     "url": "https://nuxt-books-max-optimized.netlify.app/10145787",
     "median": {
-     "perf": 98,
-     "fcp": 909,
-     "lcp": 1506,
-     "tbt": 15,
-     "si": 3858,
-     "cls": 0,
-     "doc": 131
+     "perf": 100,
+     "fcp": 901,
+     "lcp": 1351,
+     "tbt": 1,
+     "si": 901,
+     "tti": 1485,
+     "cls": 0.001,
+     "doc": 73
     },
     "runs": 3,
     "usedRuns": 3,
@@ -741,12 +379,13 @@
     "url": "https://nuxt-books-optimized.to-email-max.workers.dev/",
     "median": {
      "perf": 84,
-     "fcp": 905,
-     "lcp": 4205,
-     "tbt": 115,
-     "si": 3803,
+     "fcp": 907,
+     "lcp": 4207,
+     "tbt": 74,
+     "si": 3842,
+     "tti": 4207,
      "cls": 0,
-     "doc": 225
+     "doc": 315
     },
     "runs": 3,
     "usedRuns": 3,
@@ -761,13 +400,14 @@
     "path": "/10145787",
     "url": "https://nuxt-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 100,
-     "fcp": 905,
-     "lcp": 1684,
-     "tbt": 17,
-     "si": 905,
+     "perf": 97,
+     "fcp": 906,
+     "lcp": 2565,
+     "tbt": 22,
+     "si": 2131,
+     "tti": 2565,
      "cls": 0,
-     "doc": 105
+     "doc": 157
     },
     "runs": 3,
     "usedRuns": 3,
@@ -782,13 +422,14 @@
     "path": "/",
     "url": "https://nuxt-books-optimized-max.vercel.app/",
     "median": {
-     "perf": 98,
-     "fcp": 922,
-     "lcp": 2251,
-     "tbt": 81,
-     "si": 1023,
+     "perf": 99,
+     "fcp": 916,
+     "lcp": 1951,
+     "tbt": 11,
+     "si": 1217,
+     "tti": 1951,
      "cls": 0,
-     "doc": 38
+     "doc": 125
     },
     "runs": 3,
     "usedRuns": 3,
@@ -804,12 +445,13 @@
     "url": "https://nuxt-books-optimized-max.vercel.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 920,
-     "lcp": 974,
-     "tbt": 36,
-     "si": 951,
+     "fcp": 919,
+     "lcp": 943,
+     "tbt": 6,
+     "si": 938,
+     "tti": 1517,
      "cls": 0,
-     "doc": 130
+     "doc": 74
     },
     "runs": 3,
     "usedRuns": 3,
@@ -824,13 +466,14 @@
     "path": "/",
     "url": "https://nuxt-books-optimized-max.netlify.app/",
     "median": {
-     "perf": 99,
-     "fcp": 918,
-     "lcp": 1951,
-     "tbt": 21,
-     "si": 1956,
+     "perf": 100,
+     "fcp": 920,
+     "lcp": 1801,
+     "tbt": 38,
+     "si": 1489,
+     "tti": 1801,
      "cls": 0.003,
-     "doc": 312
+     "doc": 162
     },
     "runs": 3,
     "usedRuns": 3,
@@ -846,12 +489,13 @@
     "url": "https://nuxt-books-optimized-max.netlify.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 927,
-     "lcp": 1220,
-     "tbt": 0,
-     "si": 927,
-     "cls": 0.003,
-     "doc": 205
+     "fcp": 919,
+     "lcp": 1067,
+     "tbt": 1,
+     "si": 919,
+     "tti": 1540,
+     "cls": 0.001,
+     "doc": 145
     },
     "runs": 3,
     "usedRuns": 3,
@@ -867,12 +511,13 @@
     "url": "https://nuxt-books-optimized-max.to-email-max.workers.dev/",
     "median": {
      "perf": 88,
-     "fcp": 916,
+     "fcp": 915,
      "lcp": 3902,
-     "tbt": 35,
-     "si": 1548,
+     "tbt": 14,
+     "si": 1165,
+     "tti": 3902,
      "cls": 0,
-     "doc": 189
+     "doc": 119
     },
     "runs": 3,
     "usedRuns": 3,
@@ -888,12 +533,277 @@
     "url": "https://nuxt-books-optimized-max.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 100,
-     "fcp": 924,
+     "fcp": 919,
      "lcp": 1802,
      "tbt": 0,
-     "si": 986,
+     "si": 919,
+     "tti": 1802,
      "cls": 0,
-     "doc": 367
+     "doc": 164
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://svelte-books.vercel.app/",
+    "median": {
+     "perf": 85,
+     "fcp": 1508,
+     "lcp": 4355,
+     "tbt": 33,
+     "si": 1508,
+     "tti": 4355,
+     "cls": 0,
+     "doc": 118
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://svelte-books.vercel.app/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 1507,
+     "lcp": 2558,
+     "tbt": 8,
+     "si": 1507,
+     "tti": 2558,
+     "cls": 0,
+     "doc": 83
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://svelte-books.netlify.app/",
+    "median": {
+     "perf": 85,
+     "fcp": 1536,
+     "lcp": 4205,
+     "tbt": 9,
+     "si": 2520,
+     "tti": 4205,
+     "cls": 0,
+     "doc": 122
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://svelte-books.netlify.app/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1507,
+     "lcp": 2558,
+     "tbt": 45,
+     "si": 2410,
+     "tti": 2558,
+     "cls": 0,
+     "doc": 117
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://svelte-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 85,
+     "fcp": 1508,
+     "lcp": 4355,
+     "tbt": 3,
+     "si": 1508,
+     "tti": 4355,
+     "cls": 0,
+     "doc": 88
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://svelte-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 1511,
+     "lcp": 2589,
+     "tbt": 0,
+     "si": 1511,
+     "tti": 2589,
+     "cls": 0,
+     "doc": 269
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://svelte-books-optimized.vercel.app/",
+    "median": {
+     "perf": 98,
+     "fcp": 919,
+     "lcp": 2436,
+     "tbt": 0,
+     "si": 1636,
+     "tti": 2451,
+     "cls": 0,
+     "doc": 83
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://svelte-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 922,
+     "lcp": 2102,
+     "tbt": 9,
+     "si": 922,
+     "tti": 2221,
+     "cls": 0,
+     "doc": 71
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://svelte-books-max-optimized.netlify.app/",
+    "median": {
+     "perf": 89,
+     "fcp": 927,
+     "lcp": 3826,
+     "tbt": 5,
+     "si": 1988,
+     "tti": 3894,
+     "cls": 0.003,
+     "doc": 180
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://svelte-books-max-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 773,
+     "lcp": 2129,
+     "tbt": 7,
+     "si": 773,
+     "tti": 2164,
+     "cls": 0.001,
+     "doc": 124
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://svelte-books-optimized.to-email-max.workers.dev/",
+    "median": {
+     "perf": 96,
+     "fcp": 911,
+     "lcp": 2321,
+     "tbt": 4,
+     "si": 4281,
+     "tti": 2336,
+     "cls": 0,
+     "doc": 325
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "sveltekit",
+    "app": "svelte-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://svelte-books-optimized.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 100,
+     "fcp": 905,
+     "lcp": 1657,
+     "tbt": 3,
+     "si": 905,
+     "tti": 1943,
+     "cls": 0,
+     "doc": 137
     },
     "runs": 3,
     "usedRuns": 3,
@@ -908,13 +818,14 @@
     "path": "/",
     "url": "https://solid-books.vercel.app/",
     "median": {
-     "perf": 83,
+     "perf": 85,
      "fcp": 1508,
-     "lcp": 4206,
-     "tbt": 95,
-     "si": 3883,
+     "lcp": 4207,
+     "tbt": 33,
+     "si": 1508,
+     "tti": 4207,
      "cls": 0,
-     "doc": 162
+     "doc": 142
     },
     "runs": 3,
     "usedRuns": 3,
@@ -930,12 +841,13 @@
     "url": "https://solid-books.vercel.app/10145787",
     "median": {
      "perf": 97,
-     "fcp": 1509,
-     "lcp": 2587,
-     "tbt": 46,
-     "si": 1536,
+     "fcp": 1508,
+     "lcp": 2559,
+     "tbt": 25,
+     "si": 1508,
+     "tti": 2559,
      "cls": 0,
-     "doc": 165
+     "doc": 162
     },
     "runs": 3,
     "usedRuns": 3,
@@ -950,13 +862,14 @@
     "path": "/",
     "url": "https://max-solid-books.netlify.app/",
     "median": {
-     "perf": 84,
-     "fcp": 1509,
-     "lcp": 4206,
-     "tbt": 49,
-     "si": 2491,
+     "perf": 83,
+     "fcp": 1512,
+     "lcp": 4209,
+     "tbt": 50,
+     "si": 4461,
+     "tti": 4209,
      "cls": 0,
-     "doc": 173
+     "doc": 314
     },
     "runs": 3,
     "usedRuns": 3,
@@ -971,13 +884,14 @@
     "path": "/10145787",
     "url": "https://max-solid-books.netlify.app/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1508,
-     "lcp": 2559,
-     "tbt": 10,
-     "si": 1508,
-     "cls": 0.003,
-     "doc": 156
+     "perf": 96,
+     "fcp": 1511,
+     "lcp": 2562,
+     "tbt": 30,
+     "si": 2600,
+     "tti": 2562,
+     "cls": 0,
+     "doc": 253
     },
     "runs": 3,
     "usedRuns": 3,
@@ -995,10 +909,11 @@
      "perf": 85,
      "fcp": 1510,
      "lcp": 4355,
-     "tbt": 36,
+     "tbt": 47,
      "si": 1510,
+     "tti": 4355,
      "cls": 0,
-     "doc": 176
+     "doc": 218
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1013,13 +928,14 @@
     "path": "/10145787",
     "url": "https://solid-books.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1508,
-     "lcp": 2559,
-     "tbt": 10,
-     "si": 1508,
+     "perf": 96,
+     "fcp": 1509,
+     "lcp": 2560,
+     "tbt": 74,
+     "si": 1537,
+     "tti": 2560,
      "cls": 0,
-     "doc": 112
+     "doc": 154
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1034,13 +950,14 @@
     "path": "/",
     "url": "https://solid-books-optimized.vercel.app/",
     "median": {
-     "perf": 100,
-     "fcp": 932,
-     "lcp": 1651,
-     "tbt": 56,
-     "si": 932,
+     "perf": 97,
+     "fcp": 946,
+     "lcp": 1951,
+     "tbt": 78,
+     "si": 2280,
+     "tti": 1951,
      "cls": 0,
-     "doc": 84
+     "doc": 199
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1056,12 +973,13 @@
     "url": "https://solid-books-optimized.vercel.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 923,
-     "lcp": 1467,
-     "tbt": 66,
+     "fcp": 920,
+     "lcp": 1501,
+     "tbt": 12,
      "si": 923,
+     "tti": 1501,
      "cls": 0,
-     "doc": 80
+     "doc": 181
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1076,13 +994,14 @@
     "path": "/",
     "url": "https://solid-books-max-optimized.netlify.app/",
     "median": {
-     "perf": 100,
-     "fcp": 930,
-     "lcp": 1351,
+     "perf": 96,
+     "fcp": 963,
+     "lcp": 2266,
      "tbt": 0,
-     "si": 972,
-     "cls": 0.003,
-     "doc": 188
+     "si": 4205,
+     "tti": 2266,
+     "cls": 0,
+     "doc": 341
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1098,12 +1017,13 @@
     "url": "https://solid-books-max-optimized.netlify.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 936,
-     "lcp": 1676,
+     "fcp": 783,
+     "lcp": 1571,
      "tbt": 0,
-     "si": 1111,
-     "cls": 0.001,
-     "doc": 144
+     "si": 2193,
+     "tti": 1571,
+     "cls": 0,
+     "doc": 194
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1118,13 +1038,14 @@
     "path": "/",
     "url": "https://solid-books-optimized.to-email-max.workers.dev/",
     "median": {
-     "perf": 90,
-     "fcp": 905,
-     "lcp": 3605,
-     "tbt": 11,
-     "si": 905,
+     "perf": 88,
+     "fcp": 907,
+     "lcp": 3755,
+     "tbt": 9,
+     "si": 3586,
+     "tti": 3755,
      "cls": 0,
-     "doc": 113
+     "doc": 191
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1139,13 +1060,14 @@
     "path": "/10145787",
     "url": "https://solid-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 99,
-     "fcp": 906,
-     "lcp": 1964,
-     "tbt": 52,
-     "si": 2421,
+     "perf": 98,
+     "fcp": 905,
+     "lcp": 2152,
+     "tbt": 46,
+     "si": 3759,
+     "tti": 2152,
      "cls": 0,
-     "doc": 168
+     "doc": 268
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1153,18 +1075,41 @@
     "error": null
    },
    {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
     "branch": "main",
     "host": "vercel",
     "path": "/",
-    "url": "https://svelte-books.vercel.app/",
+    "url": "https://tanstack-books.vercel.app/",
     "median": {
-     "perf": 85,
+     "perf": 79,
+     "fcp": 2116,
+     "lcp": 4656,
+     "tbt": 0,
+     "si": 4273,
+     "tti": 4656,
+     "cls": 0,
+     "doc": 154
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://tanstack-books.vercel.app/10145787",
+    "median": {
+     "perf": 94,
      "fcp": 1508,
-     "lcp": 4056,
-     "tbt": 38,
-     "si": 2453,
+     "lcp": 3022,
+     "tbt": 0,
+     "si": 1509,
+     "tti": 3022,
      "cls": 0,
      "doc": 155
     },
@@ -1174,20 +1119,21 @@
     "error": null
    },
    {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
     "branch": "main",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://svelte-books.vercel.app/10145787",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://tanstack-books.netlify.app/",
     "median": {
-     "perf": 96,
-     "fcp": 1536,
-     "lcp": 2587,
-     "tbt": 17,
-     "si": 2342,
+     "perf": 82,
+     "fcp": 1520,
+     "lcp": 4668,
+     "tbt": 0,
+     "si": 2469,
+     "tti": 4668,
      "cls": 0,
-     "doc": 111
+     "doc": 232
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1195,20 +1141,219 @@
     "error": null
    },
    {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
     "branch": "main",
     "host": "netlify",
+    "path": "/10145787",
+    "url": "https://tanstack-books.netlify.app/10145787",
+    "median": {
+     "perf": 94,
+     "fcp": 1509,
+     "lcp": 3026,
+     "tbt": 0,
+     "si": 2504,
+     "tti": 3026,
+     "cls": 0,
+     "doc": 182
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "main",
+    "host": "cloudflare",
     "path": "/",
-    "url": "https://svelte-books.netlify.app/",
+    "url": "https://tanstack-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 81,
+     "fcp": 1512,
+     "lcp": 4657,
+     "tbt": 0,
+     "si": 3969,
+     "tti": 4657,
+     "cls": 0,
+     "doc": 230
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://tanstack-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 92,
+     "fcp": 1520,
+     "lcp": 3023,
+     "tbt": 0,
+     "si": 4092,
+     "tti": 3023,
+     "cls": 0,
+     "doc": 162
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://tanstack-books-optimized.vercel.app/",
+    "median": {
+     "perf": 100,
+     "fcp": 923,
+     "lcp": 1801,
+     "tbt": 3,
+     "si": 923,
+     "tti": 2004,
+     "cls": 0,
+     "doc": 136
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://tanstack-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 100,
+     "fcp": 926,
+     "lcp": 1201,
+     "tbt": 0,
+     "si": 926,
+     "tti": 1201,
+     "cls": 0,
+     "doc": 142
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://tanstack-books-max-optimized.netlify.app/",
+    "median": {
+     "perf": 100,
+     "fcp": 930,
+     "lcp": 1105,
+     "tbt": 2,
+     "si": 1582,
+     "tti": 2153,
+     "cls": 0.003,
+     "doc": 381
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://tanstack-books-max-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 935,
+     "lcp": 2415,
+     "tbt": 0,
+     "si": 1160,
+     "tti": 2415,
+     "cls": 0.003,
+     "doc": 181
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://tanstack-books-optimized.to-email-max.workers.dev/",
+    "median": {
+     "perf": 98,
+     "fcp": 924,
+     "lcp": 2402,
+     "tbt": 0,
+     "si": 1323,
+     "tti": 2402,
+     "cls": 0,
+     "doc": 222
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "app": "tanstack-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://tanstack-books-optimized.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 922,
+     "lcp": 2101,
+     "tbt": 0,
+     "si": 922,
+     "tti": 2101,
+     "cls": 0,
+     "doc": 145
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://tanstack-solid-books.vercel.app/",
     "median": {
      "perf": 84,
      "fcp": 1509,
-     "lcp": 4206,
-     "tbt": 19,
-     "si": 3894,
+     "lcp": 4205,
+     "tbt": 42,
+     "si": 2498,
+     "tti": 4205,
      "cls": 0,
-     "doc": 183
+     "doc": 170
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1216,20 +1361,65 @@
     "error": null
    },
    {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://tanstack-solid-books.vercel.app/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 1508,
+     "lcp": 2559,
+     "tbt": 0,
+     "si": 1508,
+     "tti": 2559,
+     "cls": 0,
+     "doc": 149
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://tanstack-solid-books.netlify.app/",
+    "median": {
+     "perf": 84,
+     "fcp": 1509,
+     "lcp": 4357,
+     "tbt": 16,
+     "si": 2444,
+     "tti": 4357,
+     "cls": 0,
+     "doc": 206
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
     "branch": "main",
     "host": "netlify",
     "path": "/10145787",
-    "url": "https://svelte-books.netlify.app/10145787",
+    "url": "https://tanstack-solid-books.netlify.app/10145787",
     "median": {
      "perf": 96,
      "fcp": 1512,
-     "lcp": 2563,
+     "lcp": 2712,
      "tbt": 0,
-     "si": 2465,
+     "si": 2751,
+     "tti": 2712,
      "cls": 0,
-     "doc": 150
+     "doc": 272
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1237,20 +1427,21 @@
     "error": null
    },
    {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
     "branch": "main",
     "host": "cloudflare",
     "path": "/",
-    "url": "https://svelte-books.to-email-max.workers.dev/",
+    "url": "https://tanstack-solid-books.to-email-max.workers.dev/",
     "median": {
-     "perf": 85,
-     "fcp": 1517,
-     "lcp": 4356,
-     "tbt": 3,
-     "si": 2563,
+     "perf": 87,
+     "fcp": 1508,
+     "lcp": 4055,
+     "tbt": 13,
+     "si": 1508,
+     "tti": 4055,
      "cls": 0,
-     "doc": 266
+     "doc": 123
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1258,272 +1449,21 @@
     "error": null
    },
    {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
     "branch": "main",
     "host": "cloudflare",
     "path": "/10145787",
-    "url": "https://svelte-books.to-email-max.workers.dev/10145787",
+    "url": "https://tanstack-solid-books.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 96,
-     "fcp": 1511,
-     "lcp": 2588,
-     "tbt": 36,
-     "si": 2648,
-     "cls": 0,
-     "doc": 273
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
-    "branch": "optimized",
-    "host": "vercel",
-    "path": "/",
-    "url": "https://svelte-books-optimized.vercel.app/",
-    "median": {
-     "perf": 97,
-     "fcp": 922,
-     "lcp": 2586,
-     "tbt": 0,
-     "si": 1731,
-     "cls": 0,
-     "doc": 140
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
-    "branch": "optimized",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://svelte-books-optimized.vercel.app/10145787",
-    "median": {
-     "perf": 99,
-     "fcp": 926,
-     "lcp": 2102,
-     "tbt": 3,
-     "si": 926,
-     "cls": 0,
-     "doc": 44
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://svelte-books-max-optimized.netlify.app/",
-    "median": {
-     "perf": 97,
-     "fcp": 920,
-     "lcp": 2551,
-     "tbt": 0,
-     "si": 1830,
-     "cls": 0.003,
-     "doc": 167
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://svelte-books-max-optimized.netlify.app/10145787",
-    "median": {
-     "perf": 99,
-     "fcp": 773,
-     "lcp": 2113,
-     "tbt": 1,
-     "si": 773,
-     "cls": 0.001,
-     "doc": 133
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://svelte-books-optimized.to-email-max.workers.dev/",
-    "median": {
-     "perf": 99,
-     "fcp": 906,
-     "lcp": 1961,
-     "tbt": 0,
-     "si": 1203,
-     "cls": 0,
-     "doc": 106
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "sveltekit",
-    "app": "svelte-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://svelte-books-optimized.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 99,
-     "fcp": 908,
-     "lcp": 1961,
-     "tbt": 5,
-     "si": 937,
-     "cls": 0,
-     "doc": 225
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "main",
-    "host": "vercel",
-    "path": "/",
-    "url": "https://waku-books.vercel.app/",
-    "median": {
-     "perf": 83,
-     "fcp": 1536,
-     "lcp": 4655,
-     "tbt": 0,
-     "si": 1536,
-     "cls": 0,
-     "doc": 110
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "main",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://waku-books.vercel.app/10145787",
-    "median": {
-     "perf": 95,
-     "fcp": 1511,
-     "lcp": 2898,
-     "tbt": 0,
-     "si": 1539,
-     "cls": 0,
-     "doc": 251
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "main",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://waku-books.netlify.app/",
-    "median": {
-     "perf": 82,
-     "fcp": 1543,
-     "lcp": 4668,
-     "tbt": 0,
-     "si": 3223,
-     "cls": 0,
-     "doc": 195
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "main",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://waku-books.netlify.app/10145787",
-    "median": {
-     "perf": 95,
-     "fcp": 1510,
-     "lcp": 2890,
-     "tbt": 0,
-     "si": 1638,
-     "cls": 0,
-     "doc": 223
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "main",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://waku-books.to-email-max.workers.dev/",
-    "median": {
-     "perf": 84,
-     "fcp": 1539,
-     "lcp": 4511,
-     "tbt": 0,
-     "si": 1632,
-     "cls": 0,
-     "doc": 120
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "main",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://waku-books.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 95,
      "fcp": 1507,
-     "lcp": 2866,
-     "tbt": 0,
-     "si": 1507,
+     "lcp": 2618,
+     "tbt": 5,
+     "si": 1538,
+     "tti": 2618,
      "cls": 0,
-     "doc": 86
+     "doc": 90
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1531,83 +1471,21 @@
     "error": null
    },
    {
-    "frameworkId": "waku",
-    "app": "waku-books",
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
     "branch": "optimized",
     "host": "vercel",
     "path": "/",
-    "url": "https://waku-books-optimized.vercel.app/",
-    "median": {
-     "perf": 99,
-     "fcp": 905,
-     "lcp": 2036,
-     "tbt": 0,
-     "si": 905,
-     "cls": 0,
-     "doc": 117
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "optimized",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://waku-books-optimized.vercel.app/10145787",
-    "median": {
-     "perf": 99,
-     "fcp": 905,
-     "lcp": 2263,
-     "tbt": 0,
-     "si": 905,
-     "cls": 0,
-     "doc": 107
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://waku-books-max-optimized.netlify.app/",
-    "median": {
-     "perf": 88,
-     "fcp": 933,
-     "lcp": 3440,
-     "tbt": 0,
-     "si": 4592,
-     "cls": 0,
-     "doc": 240
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "waku",
-    "app": "waku-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://waku-books-max-optimized.netlify.app/10145787",
+    "url": "https://tanstack-solid-books-optimized.vercel.app/",
     "median": {
      "perf": 96,
-     "fcp": 927,
-     "lcp": 2602,
-     "tbt": 0,
-     "si": 2991,
+     "fcp": 943,
+     "lcp": 2701,
+     "tbt": 53,
+     "si": 2222,
+     "tti": 2701,
      "cls": 0,
-     "doc": 185
+     "doc": 156
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1615,20 +1493,87 @@
     "error": null
    },
    {
-    "frameworkId": "waku",
-    "app": "waku-books",
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://tanstack-solid-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 939,
+     "lcp": 1801,
+     "tbt": 77,
+     "si": 2237,
+     "tti": 1801,
+     "cls": 0,
+     "doc": 138
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://tanstack-solid-books-optimized.netlify.app/",
+    "median": {
+     "perf": 90,
+     "fcp": 973,
+     "lcp": 3167,
+     "tbt": 69,
+     "si": 4609,
+     "tti": 3167,
+     "cls": 0,
+     "doc": 211
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://tanstack-solid-books-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 911,
+     "lcp": 2261,
+     "tbt": 93,
+     "si": 2767,
+     "tti": 2261,
+     "cls": 0,
+     "doc": 184
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
     "branch": "optimized",
     "host": "cloudflare",
     "path": "/",
-    "url": "https://waku-books-optimized.to-email-max.workers.dev/",
+    "url": "https://tanstack-solid-books-optimized.to-email-max.workers.dev/",
     "median": {
      "perf": 99,
-     "fcp": 906,
-     "lcp": 2112,
-     "tbt": 0,
-     "si": 1022,
+     "fcp": 925,
+     "lcp": 2252,
+     "tbt": 23,
+     "si": 1098,
+     "tti": 2252,
      "cls": 0,
-     "doc": 129
+     "doc": 83
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1636,20 +1581,21 @@
     "error": null
    },
    {
-    "frameworkId": "waku",
-    "app": "waku-books",
+    "frameworkId": "tanstack-start-solid",
+    "app": "tanstack-solid-books",
     "branch": "optimized",
     "host": "cloudflare",
     "path": "/10145787",
-    "url": "https://waku-books-optimized.to-email-max.workers.dev/10145787",
+    "url": "https://tanstack-solid-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 100,
-     "fcp": 906,
-     "lcp": 1656,
-     "tbt": 0,
-     "si": 906,
+     "fcp": 770,
+     "lcp": 1802,
+     "tbt": 11,
+     "si": 770,
+     "tti": 1802,
      "cls": 0,
-     "doc": 143
+     "doc": 149
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1665,12 +1611,13 @@
     "url": "https://pracht-books.vercel.app/",
     "median": {
      "perf": 85,
-     "fcp": 1536,
-     "lcp": 4355,
+     "fcp": 1509,
+     "lcp": 4356,
      "tbt": 0,
-     "si": 1536,
+     "si": 1509,
+     "tti": 4356,
      "cls": 0,
-     "doc": 75
+     "doc": 199
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1686,12 +1633,13 @@
     "url": "https://pracht-books.vercel.app/10145787",
     "median": {
      "perf": 97,
-     "fcp": 1509,
-     "lcp": 2558,
+     "fcp": 1536,
+     "lcp": 2442,
      "tbt": 0,
-     "si": 1565,
+     "si": 1536,
+     "tti": 2442,
      "cls": 0,
-     "doc": 85
+     "doc": 124
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1708,11 +1656,12 @@
     "median": {
      "perf": 84,
      "fcp": 1508,
-     "lcp": 4355,
+     "lcp": 4356,
      "tbt": 0,
-     "si": 2503,
-     "cls": 0.001,
-     "doc": 144
+     "si": 2829,
+     "tti": 4356,
+     "cls": 0,
+     "doc": 158
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1727,13 +1676,14 @@
     "path": "/10145787",
     "url": "https://pracht-books.netlify.app/10145787",
     "median": {
-     "perf": 96,
-     "fcp": 1508,
-     "lcp": 2559,
+     "perf": 97,
+     "fcp": 1509,
+     "lcp": 2560,
      "tbt": 0,
-     "si": 2443,
+     "si": 1509,
+     "tti": 2560,
      "cls": 0.001,
-     "doc": 140
+     "doc": 126
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1748,13 +1698,14 @@
     "path": "/",
     "url": "https://pracht-books.to-email-max.workers.dev/",
     "median": {
-     "perf": 85,
-     "fcp": 1509,
-     "lcp": 4355,
+     "perf": 83,
+     "fcp": 1510,
+     "lcp": 4357,
      "tbt": 0,
-     "si": 1509,
+     "si": 3928,
+     "tti": 4357,
      "cls": 0,
-     "doc": 129
+     "doc": 215
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1769,13 +1720,14 @@
     "path": "/10145787",
     "url": "https://pracht-books.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 95,
-     "fcp": 1514,
-     "lcp": 2565,
+     "perf": 97,
+     "fcp": 1510,
+     "lcp": 2558,
      "tbt": 0,
-     "si": 3901,
+     "si": 1510,
+     "tti": 2558,
      "cls": 0,
-     "doc": 177
+     "doc": 215
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1791,12 +1743,13 @@
     "url": "https://pracht-books-optimized.vercel.app/",
     "median": {
      "perf": 100,
-     "fcp": 767,
-     "lcp": 767,
-     "tbt": 9,
-     "si": 767,
-     "cls": 0.001,
-     "doc": 116
+     "fcp": 923,
+     "lcp": 1501,
+     "tbt": 0,
+     "si": 923,
+     "tti": 1501,
+     "cls": 0,
+     "doc": 94
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1812,12 +1765,13 @@
     "url": "https://pracht-books-optimized.vercel.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 778,
+     "fcp": 769,
      "lcp": 1351,
-     "tbt": 18,
-     "si": 783,
+     "tbt": 3,
+     "si": 786,
+     "tti": 1404,
      "cls": 0,
-     "doc": 135
+     "doc": 43
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1834,11 +1788,12 @@
     "median": {
      "perf": 100,
      "fcp": 928,
-     "lcp": 1501,
+     "lcp": 1051,
      "tbt": 0,
-     "si": 961,
-     "cls": 0.003,
-     "doc": 129
+     "si": 928,
+     "tti": 1201,
+     "cls": 0.001,
+     "doc": 140
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1854,12 +1809,13 @@
     "url": "https://pracht-books-max-optimized.netlify.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 774,
+     "fcp": 775,
      "lcp": 1502,
      "tbt": 0,
-     "si": 774,
-     "cls": 0.003,
-     "doc": 137
+     "si": 775,
+     "tti": 1502,
+     "cls": 0.001,
+     "doc": 156
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1874,13 +1830,14 @@
     "path": "/",
     "url": "https://pracht-books-optimized.to-email-max.workers.dev/",
     "median": {
-     "perf": 100,
-     "fcp": 924,
-     "lcp": 1501,
-     "tbt": 19,
-     "si": 1188,
+     "perf": 98,
+     "fcp": 923,
+     "lcp": 2251,
+     "tbt": 3,
+     "si": 923,
+     "tti": 2251,
      "cls": 0,
-     "doc": 170
+     "doc": 51
     },
     "runs": 3,
     "usedRuns": 3,
@@ -1896,243 +1853,13 @@
     "url": "https://pracht-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 100,
-     "fcp": 770,
-     "lcp": 1501,
-     "tbt": 0,
-     "si": 863,
-     "cls": 0,
-     "doc": 124
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "main",
-    "host": "vercel",
-    "path": "/",
-    "url": "https://tanstack-books.vercel.app/",
-    "median": {
-     "perf": 83,
-     "fcp": 1509,
-     "lcp": 4657,
-     "tbt": 0,
-     "si": 2473,
-     "cls": 0,
-     "doc": 189
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "main",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://tanstack-books.vercel.app/10145787",
-    "median": {
-     "perf": 97,
-     "fcp": 1508,
-     "lcp": 2560,
-     "tbt": 2,
-     "si": 1508,
-     "cls": 0,
-     "doc": 74
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "main",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://tanstack-books.netlify.app/",
-    "median": {
-     "perf": 82,
-     "fcp": 1539,
-     "lcp": 4657,
-     "tbt": 0,
-     "si": 2854,
-     "cls": 0,
-     "doc": 215
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "main",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://tanstack-books.netlify.app/10145787",
-    "median": {
-     "perf": 93,
-     "fcp": 1539,
-     "lcp": 3028,
-     "tbt": 0,
-     "si": 2787,
-     "cls": 0,
-     "doc": 196
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "main",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://tanstack-books.to-email-max.workers.dev/",
-    "median": {
-     "perf": 81,
-     "fcp": 1510,
-     "lcp": 4656,
-     "tbt": 0,
-     "si": 3867,
-     "cls": 0,
-     "doc": 197
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "main",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://tanstack-books.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 92,
-     "fcp": 1510,
-     "lcp": 3035,
-     "tbt": 0,
-     "si": 3866,
-     "cls": 0,
-     "doc": 235
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "optimized",
-    "host": "vercel",
-    "path": "/",
-    "url": "https://tanstack-books-optimized.vercel.app/",
-    "median": {
-     "perf": 97,
-     "fcp": 922,
-     "lcp": 2551,
-     "tbt": 0,
-     "si": 978,
-     "cls": 0,
-     "doc": 103
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "optimized",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://tanstack-books-optimized.vercel.app/10145787",
-    "median": {
-     "perf": 100,
-     "fcp": 923,
-     "lcp": 1201,
-     "tbt": 0,
-     "si": 923,
-     "cls": 0,
-     "doc": 98
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://tanstack-books-max-optimized.netlify.app/",
-    "median": {
-     "perf": 99,
-     "fcp": 933,
+     "fcp": 782,
      "lcp": 1351,
-     "tbt": 55,
-     "si": 1792,
-     "cls": 0.003,
-     "doc": 230
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "optimized",
-    "host": "netlify",
-    "path": "/10145787",
-    "url": "https://tanstack-books-max-optimized.netlify.app/10145787",
-    "median": {
-     "perf": 100,
-     "fcp": 941,
-     "lcp": 1519,
-     "tbt": 2,
-     "si": 1186,
-     "cls": 0.003,
-     "doc": 176
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://tanstack-books-optimized.to-email-max.workers.dev/",
-    "median": {
-     "perf": 97,
-     "fcp": 921,
-     "lcp": 2551,
-     "tbt": 0,
-     "si": 1396,
+     "tbt": 8,
+     "si": 851,
+     "tti": 1351,
      "cls": 0,
-     "doc": 185
+     "doc": 181
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2140,83 +1867,21 @@
     "error": null
    },
    {
-    "frameworkId": "tanstack-start-react",
-    "app": "tanstack-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://tanstack-books-optimized.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 99,
-     "fcp": 924,
-     "lcp": 2101,
-     "tbt": 0,
-     "si": 1015,
-     "cls": 0,
-     "doc": 144
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
+    "frameworkId": "waku",
+    "app": "waku-books",
     "branch": "main",
     "host": "vercel",
     "path": "/",
-    "url": "https://tanstack-solid-books.vercel.app/",
-    "median": {
-     "perf": 85,
-     "fcp": 1508,
-     "lcp": 4355,
-     "tbt": 24,
-     "si": 2432,
-     "cls": 0,
-     "doc": 130
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
-    "branch": "main",
-    "host": "vercel",
-    "path": "/10145787",
-    "url": "https://tanstack-solid-books.vercel.app/10145787",
-    "median": {
-     "perf": 96,
-     "fcp": 1536,
-     "lcp": 2710,
-     "tbt": 40,
-     "si": 2484,
-     "cls": 0,
-     "doc": 160
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
-    "branch": "main",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://tanstack-solid-books.netlify.app/",
+    "url": "https://waku-books.vercel.app/",
     "median": {
      "perf": 84,
      "fcp": 1508,
-     "lcp": 4207,
-     "tbt": 13,
-     "si": 2655,
+     "lcp": 4505,
+     "tbt": 0,
+     "si": 1615,
+     "tti": 4505,
      "cls": 0,
-     "doc": 138
+     "doc": 152
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2224,41 +1889,65 @@
     "error": null
    },
    {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
+    "frameworkId": "waku",
+    "app": "waku-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://waku-books.vercel.app/10145787",
+    "median": {
+     "perf": 95,
+     "fcp": 1507,
+     "lcp": 2866,
+     "tbt": 0,
+     "si": 1507,
+     "tti": 2866,
+     "cls": 0,
+     "doc": 120
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "waku",
+    "app": "waku-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://waku-books.netlify.app/",
+    "median": {
+     "perf": 80,
+     "fcp": 1535,
+     "lcp": 4661,
+     "tbt": 0,
+     "si": 4584,
+     "tti": 4661,
+     "cls": 0,
+     "doc": 203
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "waku",
+    "app": "waku-books",
     "branch": "main",
     "host": "netlify",
     "path": "/10145787",
-    "url": "https://tanstack-solid-books.netlify.app/10145787",
+    "url": "https://waku-books.netlify.app/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1507,
-     "lcp": 2558,
-     "tbt": 0,
-     "si": 1507,
-     "cls": 0.003,
-     "doc": 107
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
-    "branch": "main",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://tanstack-solid-books.to-email-max.workers.dev/",
-    "median": {
-     "perf": 85,
+     "perf": 93,
      "fcp": 1513,
-     "lcp": 4210,
-     "tbt": 40,
-     "si": 2408,
+     "lcp": 3061,
+     "tbt": 0,
+     "si": 3124,
+     "tti": 3061,
      "cls": 0,
-     "doc": 121
+     "doc": 356
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2266,20 +1955,43 @@
     "error": null
    },
    {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
+    "frameworkId": "waku",
+    "app": "waku-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://waku-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 83,
+     "fcp": 1514,
+     "lcp": 4505,
+     "tbt": 0,
+     "si": 2628,
+     "tti": 4505,
+     "cls": 0,
+     "doc": 330
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "waku",
+    "app": "waku-books",
     "branch": "main",
     "host": "cloudflare",
     "path": "/10145787",
-    "url": "https://tanstack-solid-books.to-email-max.workers.dev/10145787",
+    "url": "https://waku-books.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1508,
-     "lcp": 2559,
-     "tbt": 6,
-     "si": 1508,
+     "perf": 95,
+     "fcp": 1536,
+     "lcp": 2883,
+     "tbt": 0,
+     "si": 1536,
+     "tti": 2883,
      "cls": 0,
-     "doc": 79
+     "doc": 106
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2287,20 +1999,21 @@
     "error": null
    },
    {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
+    "frameworkId": "waku",
+    "app": "waku-books",
     "branch": "optimized",
     "host": "vercel",
     "path": "/",
-    "url": "https://tanstack-solid-books-optimized.vercel.app/",
+    "url": "https://waku-books-optimized.vercel.app/",
     "median": {
-     "perf": 100,
-     "fcp": 922,
-     "lcp": 1801,
-     "tbt": 27,
-     "si": 922,
+     "perf": 90,
+     "fcp": 1374,
+     "lcp": 3319,
+     "tbt": 26,
+     "si": 3883,
+     "tti": 3379,
      "cls": 0,
-     "doc": 128
+     "doc": 102
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2308,18 +2021,349 @@
     "error": null
    },
    {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
+    "frameworkId": "waku",
+    "app": "waku-books",
     "branch": "optimized",
     "host": "vercel",
     "path": "/10145787",
-    "url": "https://tanstack-solid-books-optimized.vercel.app/10145787",
+    "url": "https://waku-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 906,
+     "lcp": 2284,
+     "tbt": 0,
+     "si": 1041,
+     "tti": 2284,
+     "cls": 0,
+     "doc": 174
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "waku",
+    "app": "waku-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://waku-books-max-optimized.netlify.app/",
+    "median": {
+     "perf": 88,
+     "fcp": 921,
+     "lcp": 3498,
+     "tbt": 0,
+     "si": 4371,
+     "tti": 3558,
+     "cls": 0,
+     "doc": 178
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "waku",
+    "app": "waku-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://waku-books-max-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 923,
+     "lcp": 2585,
+     "tbt": 0,
+     "si": 2931,
+     "tti": 2585,
+     "cls": 0,
+     "doc": 186
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "waku",
+    "app": "waku-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://waku-books-optimized.to-email-max.workers.dev/",
+    "median": {
+     "perf": 99,
+     "fcp": 910,
+     "lcp": 2050,
+     "tbt": 0,
+     "si": 1665,
+     "tti": 2057,
+     "cls": 0,
+     "doc": 307
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "waku",
+    "app": "waku-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://waku-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 100,
-     "fcp": 918,
-     "lcp": 1501,
-     "tbt": 16,
-     "si": 918,
+     "fcp": 905,
+     "lcp": 1655,
+     "tbt": 0,
+     "si": 905,
+     "tti": 1655,
+     "cls": 0,
+     "doc": 63
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://ember-books.vercel.app/",
+    "median": {
+     "perf": 91,
+     "fcp": 1512,
+     "lcp": 3455,
+     "tbt": 61,
+     "si": 1512,
+     "tti": 3455,
+     "cls": 0,
+     "doc": 169
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://ember-books.vercel.app/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1510,
+     "lcp": 2590,
+     "tbt": 9,
+     "si": 2642,
+     "tti": 2630,
+     "cls": 0,
+     "doc": 166
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://ember-books.netlify.app/",
+    "median": {
+     "perf": 84,
+     "fcp": 1537,
+     "lcp": 4505,
+     "tbt": 71,
+     "si": 1785,
+     "tti": 4505,
+     "cls": 0.001,
+     "doc": 91
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://ember-books.netlify.app/10145787",
+    "median": {
+     "perf": 95,
+     "fcp": 1510,
+     "lcp": 2587,
+     "tbt": 27,
+     "si": 1730,
+     "tti": 2587,
+     "cls": 0.001,
+     "doc": 106
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://ember-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 91,
+     "fcp": 1508,
+     "lcp": 2864,
+     "tbt": 88,
+     "si": 3860,
+     "tti": 2879,
+     "cls": 0,
+     "doc": 161
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://ember-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1508,
+     "lcp": 2709,
+     "tbt": 44,
+     "si": 1665,
+     "tti": 2709,
+     "cls": 0,
+     "doc": 140
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://ember-books-optimized.vercel.app/",
+    "median": {
+     "perf": 93,
+     "fcp": 907,
+     "lcp": 3007,
+     "tbt": 55,
+     "si": 2308,
+     "tti": 3012,
+     "cls": 0,
+     "doc": 203
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://ember-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 907,
+     "lcp": 1686,
+     "tbt": 51,
+     "si": 907,
+     "tti": 2276,
+     "cls": 0,
+     "doc": 234
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://ember-books-max-optimized.netlify.app/",
+    "median": {
+     "perf": 96,
+     "fcp": 994,
+     "lcp": 2272,
+     "tbt": 96,
+     "si": 4035,
+     "tti": 2387,
+     "cls": 0,
+     "doc": 256
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://ember-books-max-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 910,
+     "lcp": 2117,
+     "tbt": 38,
+     "si": 1193,
+     "tti": 2242,
+     "cls": 0,
+     "doc": 108
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "ember",
+    "app": "ember-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://ember-books-optimized.to-email-max.workers.dev/",
+    "median": {
+     "perf": 88,
+     "fcp": 758,
+     "lcp": 3905,
+     "tbt": 64,
+     "si": 1215,
+     "tti": 3905,
      "cls": 0,
      "doc": 116
     },
@@ -2329,83 +2373,21 @@
     "error": null
    },
    {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
+    "frameworkId": "ember",
+    "app": "ember-books",
     "branch": "optimized",
-    "host": "netlify",
-    "path": "/",
-    "url": "https://tanstack-solid-books-optimized.netlify.app/",
-    "median": {
-     "perf": 90,
-     "fcp": 972,
-     "lcp": 3161,
-     "tbt": 87,
-     "si": 4645,
-     "cls": 0,
-     "doc": 296
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
-    "branch": "optimized",
-    "host": "netlify",
+    "host": "cloudflare",
     "path": "/10145787",
-    "url": "https://tanstack-solid-books-optimized.netlify.app/10145787",
+    "url": "https://ember-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 98,
-     "fcp": 794,
-     "lcp": 2274,
-     "tbt": 32,
-     "si": 2496,
+     "fcp": 768,
+     "lcp": 1965,
+     "tbt": 15,
+     "si": 3678,
+     "tti": 1995,
      "cls": 0,
-     "doc": 217
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/",
-    "url": "https://tanstack-solid-books-optimized.to-email-max.workers.dev/",
-    "median": {
-     "perf": 93,
-     "fcp": 940,
-     "lcp": 3002,
-     "tbt": 65,
-     "si": 2237,
-     "cls": 0,
-     "doc": 142
-    },
-    "runs": 3,
-    "usedRuns": 3,
-    "coldSuspect": false,
-    "error": null
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "app": "tanstack-solid-books",
-    "branch": "optimized",
-    "host": "cloudflare",
-    "path": "/10145787",
-    "url": "https://tanstack-solid-books-optimized.to-email-max.workers.dev/10145787",
-    "median": {
-     "perf": 100,
-     "fcp": 771,
-     "lcp": 1801,
-     "tbt": 7,
-     "si": 1767,
-     "cls": 0,
-     "doc": 618
+     "doc": 156
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2424,9 +2406,10 @@
      "fcp": 1508,
      "lcp": 4355,
      "tbt": 0,
-     "si": 2390,
+     "si": 1543,
+     "tti": 4355,
      "cls": 0,
-     "doc": 146
+     "doc": 145
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2441,13 +2424,14 @@
     "path": "/10145787",
     "url": "https://astro-books-eta.vercel.app/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1512,
-     "lcp": 2563,
+     "perf": 96,
+     "fcp": 1509,
+     "lcp": 2589,
      "tbt": 0,
-     "si": 1537,
+     "si": 2429,
+     "tti": 2589,
      "cls": 0,
-     "doc": 159
+     "doc": 149
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2462,13 +2446,14 @@
     "path": "/",
     "url": "https://max-astro-books.netlify.app/",
     "median": {
-     "perf": 85,
-     "fcp": 1512,
-     "lcp": 4059,
+     "perf": 84,
+     "fcp": 1513,
+     "lcp": 4060,
      "tbt": 0,
-     "si": 4094,
+     "si": 3881,
+     "tti": 4060,
      "cls": 0,
-     "doc": 328
+     "doc": 175
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2483,13 +2468,14 @@
     "path": "/10145787",
     "url": "https://max-astro-books.netlify.app/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1509,
-     "lcp": 2560,
+     "perf": 96,
+     "fcp": 1510,
+     "lcp": 2561,
      "tbt": 0,
-     "si": 1509,
-     "cls": 0.003,
-     "doc": 151
+     "si": 2486,
+     "tti": 2561,
+     "cls": 0,
+     "doc": 187
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2505,12 +2491,13 @@
     "url": "https://astro-books.to-email-max.workers.dev/",
     "median": {
      "perf": 85,
-     "fcp": 1539,
-     "lcp": 4060,
+     "fcp": 1513,
+     "lcp": 4205,
      "tbt": 0,
-     "si": 4030,
+     "si": 1767,
+     "tti": 4205,
      "cls": 0,
-     "doc": 278
+     "doc": 255
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2525,13 +2512,14 @@
     "path": "/10145787",
     "url": "https://astro-books.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1512,
-     "lcp": 2568,
+     "perf": 96,
+     "fcp": 1538,
+     "lcp": 2589,
      "tbt": 0,
-     "si": 1543,
+     "si": 2517,
+     "tti": 2589,
      "cls": 0,
-     "doc": 332
+     "doc": 202
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2546,13 +2534,14 @@
     "path": "/",
     "url": "https://astro-books-optimized.vercel.app/",
     "median": {
-     "perf": 94,
+     "perf": 91,
      "fcp": 905,
-     "lcp": 3155,
+     "lcp": 3455,
      "tbt": 0,
-     "si": 905,
+     "si": 2270,
+     "tti": 3455,
      "cls": 0,
-     "doc": 138
+     "doc": 124
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2569,11 +2558,12 @@
     "median": {
      "perf": 100,
      "fcp": 905,
-     "lcp": 1805,
+     "lcp": 1657,
      "tbt": 0,
      "si": 905,
+     "tti": 1657,
      "cls": 0,
-     "doc": 121
+     "doc": 125
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2588,13 +2578,14 @@
     "path": "/",
     "url": "https://astro-books-max-optimized.netlify.app/",
     "median": {
-     "perf": 89,
-     "fcp": 919,
+     "perf": 90,
+     "fcp": 929,
      "lcp": 3456,
      "tbt": 0,
-     "si": 3922,
+     "si": 3860,
+     "tti": 3456,
      "cls": 0,
-     "doc": 163
+     "doc": 165
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2609,13 +2600,14 @@
     "path": "/10145787",
     "url": "https://astro-books-max-optimized.netlify.app/10145787",
     "median": {
-     "perf": 99,
-     "fcp": 917,
-     "lcp": 1809,
+     "perf": 98,
+     "fcp": 957,
+     "lcp": 1832,
      "tbt": 0,
-     "si": 2548,
+     "si": 3933,
+     "tti": 1832,
      "cls": 0,
-     "doc": 140
+     "doc": 153
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2631,12 +2623,13 @@
     "url": "https://astro-books-optimized.to-email-max.workers.dev/",
     "median": {
      "perf": 91,
-     "fcp": 917,
-     "lcp": 3458,
+     "fcp": 922,
+     "lcp": 3461,
      "tbt": 0,
-     "si": 2647,
+     "si": 2835,
+     "tti": 3461,
      "cls": 0,
-     "doc": 243
+     "doc": 364
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2656,8 +2649,9 @@
      "lcp": 1655,
      "tbt": 0,
      "si": 905,
+     "tti": 1655,
      "cls": 0,
-     "doc": 128
+     "doc": 113
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2673,12 +2667,13 @@
     "url": "https://react-router-books-tau.vercel.app/",
     "median": {
      "perf": 82,
-     "fcp": 1537,
-     "lcp": 4655,
+     "fcp": 1508,
+     "lcp": 4505,
      "tbt": 0,
-     "si": 2427,
+     "si": 2629,
+     "tti": 4505,
      "cls": 0,
-     "doc": 128
+     "doc": 163
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2693,13 +2688,14 @@
     "path": "/10145787",
     "url": "https://react-router-books-tau.vercel.app/10145787",
     "median": {
-     "perf": 95,
-     "fcp": 1536,
-     "lcp": 2866,
+     "perf": 97,
+     "fcp": 1507,
+     "lcp": 2558,
      "tbt": 0,
-     "si": 1536,
+     "si": 1507,
+     "tti": 2558,
      "cls": 0,
-     "doc": 119
+     "doc": 85
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2715,12 +2711,13 @@
     "url": "https://react-router-books.netlify.app/",
     "median": {
      "perf": 82,
-     "fcp": 1526,
-     "lcp": 4509,
-     "tbt": 27,
-     "si": 4054,
+     "fcp": 1536,
+     "lcp": 4805,
+     "tbt": 16,
+     "si": 2519,
+     "tti": 4805,
      "cls": 0,
-     "doc": 305
+     "doc": 218
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2735,13 +2732,14 @@
     "path": "/10145787",
     "url": "https://react-router-books.netlify.app/10145787",
     "median": {
-     "perf": 94,
-     "fcp": 1538,
-     "lcp": 3025,
+     "perf": 97,
+     "fcp": 1511,
+     "lcp": 2588,
      "tbt": 0,
-     "si": 2540,
-     "cls": 0,
-     "doc": 161
+     "si": 1537,
+     "tti": 2588,
+     "cls": 0.003,
+     "doc": 212
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2756,13 +2754,14 @@
     "path": "/",
     "url": "https://react-router-books.to-email-max.workers.dev/",
     "median": {
-     "perf": 81,
-     "fcp": 1540,
-     "lcp": 4508,
+     "perf": 82,
+     "fcp": 1508,
+     "lcp": 4505,
      "tbt": 0,
-     "si": 4492,
+     "si": 4165,
+     "tti": 4505,
      "cls": 0,
-     "doc": 382
+     "doc": 183
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2777,13 +2776,14 @@
     "path": "/10145787",
     "url": "https://react-router-books.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1508,
-     "lcp": 2587,
+     "perf": 95,
+     "fcp": 1511,
+     "lcp": 2887,
      "tbt": 0,
-     "si": 1536,
+     "si": 2614,
+     "tti": 2887,
      "cls": 0,
-     "doc": 123
+     "doc": 281
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2803,8 +2803,9 @@
      "lcp": 4055,
      "tbt": 0,
      "si": 905,
+     "tti": 4055,
      "cls": 0,
-     "doc": 81
+     "doc": 88
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2819,13 +2820,14 @@
     "path": "/10145787",
     "url": "https://react-router-books-optimized.vercel.app/10145787",
     "median": {
-     "perf": 97,
+     "perf": 99,
      "fcp": 905,
-     "lcp": 2566,
+     "lcp": 2263,
      "tbt": 0,
-     "si": 2167,
+     "si": 905,
+     "tti": 2263,
      "cls": 0,
-     "doc": 132
+     "doc": 73
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2841,12 +2843,13 @@
     "url": "https://react-router-books-max-optimized.netlify.app/",
     "median": {
      "perf": 84,
-     "fcp": 921,
-     "lcp": 4207,
-     "tbt": 28,
-     "si": 4042,
+     "fcp": 917,
+     "lcp": 4216,
+     "tbt": 19,
+     "si": 4049,
+     "tti": 4216,
      "cls": 0,
-     "doc": 192
+     "doc": 185
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2861,13 +2864,14 @@
     "path": "/10145787",
     "url": "https://react-router-books-max-optimized.netlify.app/10145787",
     "median": {
-     "perf": 100,
-     "fcp": 906,
-     "lcp": 1814,
+     "perf": 95,
+     "fcp": 925,
+     "lcp": 2586,
      "tbt": 0,
-     "si": 906,
-     "cls": 0.003,
-     "doc": 108
+     "si": 4038,
+     "tti": 2586,
+     "cls": 0,
+     "doc": 164
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2882,13 +2886,14 @@
     "path": "/",
     "url": "https://react-router-books-optimized.to-email-max.workers.dev/",
     "median": {
-     "perf": 88,
-     "fcp": 906,
-     "lcp": 3905,
+     "perf": 83,
+     "fcp": 1209,
+     "lcp": 4205,
      "tbt": 0,
-     "si": 906,
+     "si": 4508,
+     "tti": 4205,
      "cls": 0,
-     "doc": 84
+     "doc": 330
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2903,13 +2908,14 @@
     "path": "/10145787",
     "url": "https://react-router-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 99,
-     "fcp": 912,
-     "lcp": 2112,
+     "perf": 96,
+     "fcp": 906,
+     "lcp": 2565,
      "tbt": 0,
-     "si": 1101,
+     "si": 3706,
+     "tti": 2565,
      "cls": 0,
-     "doc": 211
+     "doc": 225
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2925,12 +2931,13 @@
     "url": "https://qwik-books.vercel.app/",
     "median": {
      "perf": 85,
-     "fcp": 1684,
+     "fcp": 1655,
      "lcp": 4202,
      "tbt": 0,
-     "si": 1684,
+     "si": 1655,
+     "tti": 4202,
      "cls": 0,
-     "doc": 193
+     "doc": 154
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2945,13 +2952,14 @@
     "path": "/10145787",
     "url": "https://qwik-books.vercel.app/10145787",
     "median": {
-     "perf": 96,
-     "fcp": 1508,
-     "lcp": 2559,
+     "perf": 97,
+     "fcp": 1507,
+     "lcp": 2587,
      "tbt": 0,
-     "si": 1537,
+     "si": 1507,
+     "tti": 2587,
      "cls": 0,
-     "doc": 115
+     "doc": 96
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2967,12 +2975,13 @@
     "url": "https://qwik-books.netlify.app/",
     "median": {
      "perf": 86,
-     "fcp": 1508,
+     "fcp": 1537,
      "lcp": 4055,
      "tbt": 0,
-     "si": 2466,
+     "si": 2450,
+     "tti": 4055,
      "cls": 0,
-     "doc": 137
+     "doc": 132
     },
     "runs": 3,
     "usedRuns": 3,
@@ -2987,13 +2996,14 @@
     "path": "/10145787",
     "url": "https://qwik-books.netlify.app/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1508,
-     "lcp": 2588,
+     "perf": 96,
+     "fcp": 1536,
+     "lcp": 2587,
      "tbt": 0,
-     "si": 1537,
+     "si": 2434,
+     "tti": 2587,
      "cls": 0,
-     "doc": 138
+     "doc": 111
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3008,13 +3018,14 @@
     "path": "/",
     "url": "https://qwik-books.to-email-max.workers.dev/",
     "median": {
-     "perf": 85,
+     "perf": 84,
      "fcp": 1655,
      "lcp": 4202,
      "tbt": 0,
-     "si": 1753,
+     "si": 1656,
+     "tti": 4202,
      "cls": 0,
-     "doc": 279
+     "doc": 277
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3030,12 +3041,13 @@
     "url": "https://qwik-books.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 96,
-     "fcp": 1507,
-     "lcp": 2559,
+     "fcp": 1536,
+     "lcp": 2591,
      "tbt": 0,
-     "si": 1978,
+     "si": 1536,
+     "tti": 2591,
      "cls": 0,
-     "doc": 107
+     "doc": 104
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3051,12 +3063,13 @@
     "url": "https://qwik-books-optimized-eight.vercel.app/",
     "median": {
      "perf": 85,
-     "fcp": 930,
+     "fcp": 948,
      "lcp": 4202,
      "tbt": 0,
-     "si": 3669,
+     "si": 3715,
+     "tti": 4202,
      "cls": 0,
-     "doc": 151
+     "doc": 172
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3072,12 +3085,13 @@
     "url": "https://qwik-books-optimized-eight.vercel.app/10145787",
     "median": {
      "perf": 98,
-     "fcp": 905,
-     "lcp": 2279,
+     "fcp": 906,
+     "lcp": 2288,
      "tbt": 0,
-     "si": 905,
+     "si": 909,
+     "tti": 2288,
      "cls": 0,
-     "doc": 95
+     "doc": 86
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3096,9 +3110,10 @@
      "fcp": 906,
      "lcp": 4205,
      "tbt": 0,
-     "si": 3641,
+     "si": 3647,
+     "tti": 4205,
      "cls": 0,
-     "doc": 150
+     "doc": 144
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3113,13 +3128,14 @@
     "path": "/10145787",
     "url": "https://qwik-books-max-optimized.netlify.app/10145787",
     "median": {
-     "perf": 98,
-     "fcp": 908,
-     "lcp": 2422,
+     "perf": 97,
+     "fcp": 905,
+     "lcp": 2451,
      "tbt": 0,
-     "si": 908,
+     "si": 2235,
+     "tti": 2451,
      "cls": 0,
-     "doc": 84
+     "doc": 127
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3134,13 +3150,14 @@
     "path": "/",
     "url": "https://qwik-books-optimized.to-email-max.workers.dev/",
     "median": {
-     "perf": 85,
-     "fcp": 922,
-     "lcp": 4202,
+     "perf": 88,
+     "fcp": 934,
+     "lcp": 3902,
      "tbt": 0,
-     "si": 3636,
+     "si": 957,
+     "tti": 3902,
      "cls": 0,
-     "doc": 350
+     "doc": 103
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3156,12 +3173,13 @@
     "url": "https://qwik-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 97,
-     "fcp": 913,
-     "lcp": 2593,
+     "fcp": 905,
+     "lcp": 2568,
      "tbt": 0,
-     "si": 2419,
+     "si": 905,
+     "tti": 2568,
      "cls": 0,
-     "doc": 212
+     "doc": 112
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3176,13 +3194,14 @@
     "path": "/",
     "url": "https://angular-books-sigma.vercel.app/",
     "median": {
-     "perf": 87,
-     "fcp": 786,
-     "lcp": 3908,
-     "tbt": 44,
-     "si": 1269,
+     "perf": 86,
+     "fcp": 792,
+     "lcp": 4206,
+     "tbt": 18,
+     "si": 1406,
+     "tti": 4206,
      "cls": 0,
-     "doc": 198
+     "doc": 197
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3197,13 +3216,14 @@
     "path": "/10145787",
     "url": "https://angular-books-sigma.vercel.app/10145787",
     "median": {
-     "perf": 99,
-     "fcp": 775,
-     "lcp": 2263,
-     "tbt": 17,
-     "si": 899,
+     "perf": 98,
+     "fcp": 779,
+     "lcp": 2421,
+     "tbt": 5,
+     "si": 1137,
+     "tti": 2468,
      "cls": 0,
-     "doc": 146
+     "doc": 195
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3218,13 +3238,14 @@
     "path": "/",
     "url": "https://max-angular-books.netlify.app/",
     "median": {
-     "perf": 88,
-     "fcp": 780,
-     "lcp": 3906,
-     "tbt": 40,
-     "si": 1156,
+     "perf": 89,
+     "fcp": 781,
+     "lcp": 3757,
+     "tbt": 0,
+     "si": 1180,
+     "tti": 3757,
      "cls": 0,
-     "doc": 165
+     "doc": 183
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3240,12 +3261,13 @@
     "url": "https://max-angular-books.netlify.app/10145787",
     "median": {
      "perf": 99,
-     "fcp": 782,
-     "lcp": 1955,
-     "tbt": 3,
-     "si": 1029,
+     "fcp": 780,
+     "lcp": 1959,
+     "tbt": 0,
+     "si": 1078,
+     "tti": 1985,
      "cls": 0,
-     "doc": 134
+     "doc": 159
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3260,13 +3282,14 @@
     "path": "/",
     "url": "https://angular-books.to-email-max.workers.dev/",
     "median": {
-     "perf": 86,
-     "fcp": 783,
-     "lcp": 4206,
-     "tbt": 14,
-     "si": 1140,
+     "perf": 89,
+     "fcp": 781,
+     "lcp": 3767,
+     "tbt": 32,
+     "si": 1111,
+     "tti": 3767,
      "cls": 0,
-     "doc": 225
+     "doc": 385
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3282,12 +3305,13 @@
     "url": "https://angular-books.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 99,
-     "fcp": 774,
-     "lcp": 2107,
-     "tbt": 7,
-     "si": 1048,
+     "fcp": 792,
+     "lcp": 1956,
+     "tbt": 18,
+     "si": 1091,
+     "tti": 2345,
      "cls": 0,
-     "doc": 156
+     "doc": 217
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3302,13 +3326,14 @@
     "path": "/",
     "url": "https://angular-books-optimized.vercel.app/",
     "median": {
-     "perf": 87,
-     "fcp": 786,
-     "lcp": 4058,
-     "tbt": 60,
-     "si": 1228,
+     "perf": 86,
+     "fcp": 794,
+     "lcp": 4205,
+     "tbt": 83,
+     "si": 1209,
+     "tti": 4205,
      "cls": 0,
-     "doc": 213
+     "doc": 112
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3324,12 +3349,13 @@
     "url": "https://angular-books-optimized.vercel.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 774,
+     "fcp": 773,
      "lcp": 1655,
-     "tbt": 8,
-     "si": 900,
+     "tbt": 49,
+     "si": 773,
+     "tti": 2171,
      "cls": 0,
-     "doc": 130
+     "doc": 124
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3344,13 +3370,14 @@
     "path": "/",
     "url": "https://angular-books-max-optimized.netlify.app/",
     "median": {
-     "perf": 91,
-     "fcp": 787,
-     "lcp": 3464,
-     "tbt": 64,
-     "si": 794,
+     "perf": 94,
+     "fcp": 790,
+     "lcp": 3019,
+     "tbt": 33,
+     "si": 790,
+     "tti": 3019,
      "cls": 0,
-     "doc": 148
+     "doc": 150
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3366,12 +3393,13 @@
     "url": "https://angular-books-max-optimized.netlify.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 769,
-     "lcp": 1685,
-     "tbt": 23,
-     "si": 781,
+     "fcp": 779,
+     "lcp": 1656,
+     "tbt": 7,
+     "si": 871,
+     "tti": 2081,
      "cls": 0,
-     "doc": 104
+     "doc": 133
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3386,13 +3414,14 @@
     "path": "/",
     "url": "https://angular-books-optimized.to-email-max.workers.dev/",
     "median": {
-     "perf": 93,
+     "perf": 91,
      "fcp": 778,
-     "lcp": 3157,
-     "tbt": 57,
-     "si": 780,
+     "lcp": 3455,
+     "tbt": 78,
+     "si": 781,
+     "tti": 3455,
      "cls": 0,
-     "doc": 165
+     "doc": 134
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3408,12 +3437,13 @@
     "url": "https://angular-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 100,
-     "fcp": 780,
-     "lcp": 1670,
-     "tbt": 42,
-     "si": 1068,
+     "fcp": 770,
+     "lcp": 1657,
+     "tbt": 15,
+     "si": 951,
+     "tti": 1857,
      "cls": 0,
-     "doc": 145
+     "doc": 194
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3429,12 +3459,13 @@
     "url": "https://marko-books.vercel.app/",
     "median": {
      "perf": 85,
-     "fcp": 1508,
-     "lcp": 4356,
+     "fcp": 1513,
+     "lcp": 4065,
      "tbt": 0,
-     "si": 1508,
+     "si": 2648,
+     "tti": 4065,
      "cls": 0,
-     "doc": 135
+     "doc": 287
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3454,8 +3485,9 @@
      "lcp": 2559,
      "tbt": 0,
      "si": 1508,
+     "tti": 2559,
      "cls": 0,
-     "doc": 98
+     "doc": 115
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3470,13 +3502,14 @@
     "path": "/",
     "url": "https://marko-books.netlify.app/",
     "median": {
-     "perf": 84,
-     "fcp": 1532,
-     "lcp": 4372,
+     "perf": 85,
+     "fcp": 1542,
+     "lcp": 4068,
      "tbt": 0,
-     "si": 2521,
+     "si": 3923,
+     "tti": 4068,
      "cls": 0,
-     "doc": 202
+     "doc": 179
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3495,9 +3528,10 @@
      "fcp": 1509,
      "lcp": 2560,
      "tbt": 0,
-     "si": 2432,
+     "si": 2469,
+     "tti": 2560,
      "cls": 0,
-     "doc": 157
+     "doc": 142
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3512,13 +3546,14 @@
     "path": "/",
     "url": "https://marko-books.to-email-max.workers.dev/",
     "median": {
-     "perf": 85,
-     "fcp": 1511,
-     "lcp": 4058,
+     "perf": 84,
+     "fcp": 1525,
+     "lcp": 4083,
      "tbt": 0,
-     "si": 3996,
+     "si": 2526,
+     "tti": 4083,
      "cls": 0,
-     "doc": 256
+     "doc": 178
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3533,13 +3568,14 @@
     "path": "/10145787",
     "url": "https://marko-books.to-email-max.workers.dev/10145787",
     "median": {
-     "perf": 97,
-     "fcp": 1518,
-     "lcp": 2569,
+     "perf": 96,
+     "fcp": 1511,
+     "lcp": 2562,
      "tbt": 0,
-     "si": 1780,
+     "si": 2605,
+     "tti": 2562,
      "cls": 0,
-     "doc": 550
+     "doc": 149
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3554,13 +3590,14 @@
     "path": "/",
     "url": "https://marko-books-optimized.vercel.app/",
     "median": {
-     "perf": 92,
+     "perf": 94,
      "fcp": 905,
-     "lcp": 3305,
+     "lcp": 3155,
      "tbt": 0,
      "si": 905,
+     "tti": 3155,
      "cls": 0,
-     "doc": 106
+     "doc": 70
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3580,8 +3617,9 @@
      "lcp": 1684,
      "tbt": 0,
      "si": 905,
+     "tti": 1684,
      "cls": 0,
-     "doc": 79
+     "doc": 112
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3596,13 +3634,14 @@
     "path": "/",
     "url": "https://marko-books-max-optimized.netlify.app/",
     "median": {
-     "perf": 89,
-     "fcp": 942,
-     "lcp": 3615,
+     "perf": 94,
+     "fcp": 906,
+     "lcp": 3156,
      "tbt": 0,
-     "si": 2478,
-     "cls": 0.001,
-     "doc": 150
+     "si": 906,
+     "tti": 3156,
+     "cls": 0.003,
+     "doc": 94
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3618,12 +3657,13 @@
     "url": "https://marko-books-max-optimized.netlify.app/10145787",
     "median": {
      "perf": 100,
-     "fcp": 802,
-     "lcp": 1696,
+     "fcp": 923,
+     "lcp": 1684,
      "tbt": 0,
-     "si": 832,
+     "si": 1049,
+     "tti": 1684,
      "cls": 0.003,
-     "doc": 102
+     "doc": 125
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3639,12 +3679,13 @@
     "url": "https://marko-books-optimized.to-email-max.workers.dev/",
     "median": {
      "perf": 90,
-     "fcp": 916,
-     "lcp": 3464,
+     "fcp": 912,
+     "lcp": 3455,
      "tbt": 0,
-     "si": 1515,
+     "si": 3617,
+     "tti": 3455,
      "cls": 0,
-     "doc": 305
+     "doc": 138
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3660,12 +3701,13 @@
     "url": "https://marko-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 99,
-     "fcp": 914,
-     "lcp": 1809,
+     "fcp": 917,
+     "lcp": 1805,
      "tbt": 0,
-     "si": 2404,
+     "si": 2211,
+     "tti": 1805,
      "cls": 0,
-     "doc": 288
+     "doc": 119
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3684,9 +3726,10 @@
      "fcp": 1508,
      "lcp": 4355,
      "tbt": 0,
-     "si": 1508,
+     "si": 1513,
+     "tti": 4355,
      "cls": 0,
-     "doc": 151
+     "doc": 158
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3702,12 +3745,13 @@
     "url": "https://fresh-books.vercel.app/10145787",
     "median": {
      "perf": 97,
-     "fcp": 1507,
-     "lcp": 2408,
+     "fcp": 1508,
+     "lcp": 2437,
      "tbt": 0,
-     "si": 1507,
+     "si": 1536,
+     "tti": 2437,
      "cls": 0,
-     "doc": 91
+     "doc": 83
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3723,12 +3767,13 @@
     "url": "https://fresh-books.netlify.app/",
     "median": {
      "perf": 85,
-     "fcp": 1507,
+     "fcp": 1508,
      "lcp": 4355,
      "tbt": 0,
-     "si": 2402,
+     "si": 2458,
+     "tti": 4355,
      "cls": 0,
-     "doc": 94
+     "doc": 113
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3744,12 +3789,13 @@
     "url": "https://fresh-books.netlify.app/10145787",
     "median": {
      "perf": 97,
-     "fcp": 1507,
+     "fcp": 1536,
      "lcp": 2437,
      "tbt": 0,
-     "si": 1507,
+     "si": 2374,
+     "tti": 2437,
      "cls": 0,
-     "doc": 117
+     "doc": 88
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3765,12 +3811,13 @@
     "url": "https://fresh-books.to-email-max.workers.dev/",
     "median": {
      "perf": 85,
-     "fcp": 1509,
-     "lcp": 4056,
+     "fcp": 1512,
+     "lcp": 4237,
      "tbt": 0,
-     "si": 3891,
+     "si": 2568,
+     "tti": 4237,
      "cls": 0,
-     "doc": 172
+     "doc": 288
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3786,12 +3833,13 @@
     "url": "https://fresh-books.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 97,
-     "fcp": 1509,
-     "lcp": 2438,
+     "fcp": 1507,
+     "lcp": 2442,
      "tbt": 0,
-     "si": 2503,
+     "si": 1507,
+     "tti": 2442,
      "cls": 0,
-     "doc": 170
+     "doc": 110
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3806,13 +3854,14 @@
     "path": "/",
     "url": "https://fresh-books-optimized-seven.vercel.app/",
     "median": {
-     "perf": 91,
+     "perf": 90,
      "fcp": 905,
-     "lcp": 3455,
+     "lcp": 3610,
      "tbt": 0,
-     "si": 932,
+     "si": 930,
+     "tti": 3610,
      "cls": 0,
-     "doc": 115
+     "doc": 84
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3829,11 +3878,12 @@
     "median": {
      "perf": 100,
      "fcp": 905,
-     "lcp": 1834,
+     "lcp": 1810,
      "tbt": 0,
      "si": 905,
+     "tti": 1810,
      "cls": 0,
-     "doc": 98
+     "doc": 117
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3852,9 +3902,10 @@
      "fcp": 905,
      "lcp": 3605,
      "tbt": 0,
-     "si": 905,
+     "si": 2161,
+     "tti": 3605,
      "cls": 0,
-     "doc": 137
+     "doc": 114
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3869,13 +3920,14 @@
     "path": "/10145787",
     "url": "https://fresh-books-max-optimized.netlify.app/10145787",
     "median": {
-     "perf": 100,
+     "perf": 99,
      "fcp": 771,
-     "lcp": 1684,
+     "lcp": 1812,
      "tbt": 0,
-     "si": 771,
+     "si": 2190,
+     "tti": 1812,
      "cls": 0,
-     "doc": 118
+     "doc": 144
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3890,13 +3942,14 @@
     "path": "/",
     "url": "https://fresh-books-optimized.to-email-max.workers.dev/",
     "median": {
-     "perf": 89,
-     "fcp": 927,
-     "lcp": 3605,
+     "perf": 91,
+     "fcp": 907,
+     "lcp": 3470,
      "tbt": 0,
-     "si": 3665,
+     "si": 1944,
+     "tti": 3470,
      "cls": 0,
-     "doc": 124
+     "doc": 189
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3912,12 +3965,145 @@
     "url": "https://fresh-books-optimized.to-email-max.workers.dev/10145787",
     "median": {
      "perf": 99,
-     "fcp": 937,
-     "lcp": 1816,
+     "fcp": 906,
+     "lcp": 1813,
      "tbt": 0,
-     "si": 2313,
+     "si": 2331,
+     "tti": 1813,
      "cls": 0,
      "doc": 161
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "next",
+    "app": "next-books",
+    "branch": "naive",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://next-books-naive.vercel.app/",
+    "median": {
+     "perf": 96,
+     "fcp": 904,
+     "lcp": 2777,
+     "tbt": 12,
+     "si": 1567,
+     "tti": 2814,
+     "cls": 0,
+     "doc": 94
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "next",
+    "app": "next-books",
+    "branch": "naive",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://next-books-naive.vercel.app/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 776,
+     "lcp": 2176,
+     "tbt": 25,
+     "si": 1369,
+     "tti": 2184,
+     "cls": 0,
+     "doc": 90
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "next",
+    "app": "next-books",
+    "branch": "naive",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://next-books-max-naive.netlify.app/",
+    "median": {
+     "perf": 94,
+     "fcp": 920,
+     "lcp": 2818,
+     "tbt": 34,
+     "si": 3248,
+     "tti": 2856,
+     "cls": 0,
+     "doc": 207
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "next",
+    "app": "next-books",
+    "branch": "naive",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://next-books-max-naive.netlify.app/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 914,
+     "lcp": 2339,
+     "tbt": 36,
+     "si": 2846,
+     "tti": 2347,
+     "cls": 0,
+     "doc": 263
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "next",
+    "app": "next-books",
+    "branch": "naive",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://next-books-naive.to-email-max.workers.dev/",
+    "median": {
+     "perf": 94,
+     "fcp": 916,
+     "lcp": 2853,
+     "tbt": 7,
+     "si": 3949,
+     "tti": 2898,
+     "cls": 0,
+     "doc": 256
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "next",
+    "app": "next-books",
+    "branch": "naive",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://next-books-naive.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 762,
+     "lcp": 2102,
+     "tbt": 23,
+     "si": 1021,
+     "tti": 2102,
+     "cls": 0,
+     "doc": 162
     },
     "runs": 3,
     "usedRuns": 3,
@@ -3935,13 +4121,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 95,
-    "fcp": 976,
-    "lcp": 2976,
-    "tbt": 16,
-    "si": 2316,
+    "perf": 96,
+    "fcp": 923,
+    "lcp": 2851,
+    "tbt": 26,
+    "si": 1451,
+    "tti": 2856,
     "cls": 0,
-    "doc": 382
+    "doc": 175
    },
    {
     "frameworkId": "next",
@@ -3952,17 +4139,90 @@
      "netlify",
      "vercel"
     ],
-    "perf": 99,
-    "fcp": 975,
-    "lcp": 2256,
-    "tbt": 25,
-    "si": 1672,
+    "perf": 98,
+    "fcp": 968,
+    "lcp": 2229,
+    "tbt": 24,
+    "si": 1762,
+    "tti": 2231,
     "cls": 0,
-    "doc": 304
+    "doc": 202
    },
    {
-    "frameworkId": "next",
-    "branch": "naive",
+    "frameworkId": "nuxt",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 84,
+    "fcp": 1518,
+    "lcp": 4207,
+    "tbt": 44,
+    "si": 2685,
+    "tti": 4207,
+    "cls": 0,
+    "doc": 159
+   },
+   {
+    "frameworkId": "nuxt",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 96,
+    "fcp": 1519,
+    "lcp": 2570,
+    "tbt": 6,
+    "si": 2345,
+    "tti": 2570,
+    "cls": 0,
+    "doc": 181
+   },
+   {
+    "frameworkId": "nuxt",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 93,
+    "fcp": 911,
+    "lcp": 2903,
+    "tbt": 62,
+    "si": 2636,
+    "tti": 2903,
+    "cls": 0,
+    "doc": 178
+   },
+   {
+    "frameworkId": "nuxt",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 908,
+    "lcp": 1710,
+    "tbt": 8,
+    "si": 1316,
+    "tti": 1755,
+    "cls": 0,
+    "doc": 92
+   },
+   {
+    "frameworkId": "nuxt",
+    "branch": "nuxt-books-optimized-max",
     "path": "/",
     "hosts": [
      "cloudflare",
@@ -3970,16 +4230,449 @@
      "vercel"
     ],
     "perf": 96,
-    "fcp": 911,
-    "lcp": 2613,
-    "tbt": 6,
-    "si": 2691,
-    "cls": 0,
-    "doc": 171
+    "fcp": 917,
+    "lcp": 2551,
+    "tbt": 21,
+    "si": 1290,
+    "tti": 2551,
+    "cls": 0.001,
+    "doc": 135
    },
    {
-    "frameworkId": "next",
-    "branch": "naive",
+    "frameworkId": "nuxt",
+    "branch": "nuxt-books-optimized-max",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 100,
+    "fcp": 919,
+    "lcp": 1271,
+    "tbt": 2,
+    "si": 925,
+    "tti": 1620,
+    "cls": 0,
+    "doc": 128
+   },
+   {
+    "frameworkId": "sveltekit",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 85,
+    "fcp": 1517,
+    "lcp": 4305,
+    "tbt": 15,
+    "si": 1845,
+    "tti": 4305,
+    "cls": 0,
+    "doc": 109
+   },
+   {
+    "frameworkId": "sveltekit",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 97,
+    "fcp": 1508,
+    "lcp": 2568,
+    "tbt": 18,
+    "si": 1809,
+    "tti": 2568,
+    "cls": 0,
+    "doc": 156
+   },
+   {
+    "frameworkId": "sveltekit",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 94,
+    "fcp": 919,
+    "lcp": 2861,
+    "tbt": 3,
+    "si": 2635,
+    "tti": 2894,
+    "cls": 0.001,
+    "doc": 196
+   },
+   {
+    "frameworkId": "sveltekit",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 867,
+    "lcp": 1963,
+    "tbt": 6,
+    "si": 867,
+    "tti": 2109,
+    "cls": 0,
+    "doc": 111
+   },
+   {
+    "frameworkId": "solidstart",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 84,
+    "fcp": 1510,
+    "lcp": 4257,
+    "tbt": 43,
+    "si": 2493,
+    "tti": 4257,
+    "cls": 0,
+    "doc": 225
+   },
+   {
+    "frameworkId": "solidstart",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 96,
+    "fcp": 1509,
+    "lcp": 2560,
+    "tbt": 43,
+    "si": 1882,
+    "tti": 2560,
+    "cls": 0,
+    "doc": 190
+   },
+   {
+    "frameworkId": "solidstart",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 94,
+    "fcp": 939,
+    "lcp": 2657,
+    "tbt": 29,
+    "si": 3357,
+    "tti": 2657,
+    "cls": 0,
+    "doc": 244
+   },
+   {
+    "frameworkId": "solidstart",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 869,
+    "lcp": 1741,
+    "tbt": 19,
+    "si": 2292,
+    "tti": 1741,
+    "cls": 0,
+    "doc": 214
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 81,
+    "fcp": 1716,
+    "lcp": 4660,
+    "tbt": 0,
+    "si": 3570,
+    "tti": 4660,
+    "cls": 0,
+    "doc": 205
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 93,
+    "fcp": 1512,
+    "lcp": 3024,
+    "tbt": 0,
+    "si": 2702,
+    "tti": 3024,
+    "cls": 0,
+    "doc": 166
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 926,
+    "lcp": 1769,
+    "tbt": 2,
+    "si": 1276,
+    "tti": 2186,
+    "cls": 0.001,
+    "doc": 246
+   },
+   {
+    "frameworkId": "tanstack-start-react",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 928,
+    "lcp": 1906,
+    "tbt": 0,
+    "si": 1003,
+    "tti": 1906,
+    "cls": 0.001,
+    "doc": 156
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 85,
+    "fcp": 1509,
+    "lcp": 4206,
+    "tbt": 24,
+    "si": 2150,
+    "tti": 4206,
+    "cls": 0,
+    "doc": 166
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 96,
+    "fcp": 1509,
+    "lcp": 2630,
+    "tbt": 2,
+    "si": 1932,
+    "tti": 2630,
+    "cls": 0,
+    "doc": 170
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 95,
+    "fcp": 947,
+    "lcp": 2707,
+    "tbt": 48,
+    "si": 2643,
+    "tti": 2707,
+    "cls": 0,
+    "doc": 150
+   },
+   {
+    "frameworkId": "tanstack-start-solid",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 873,
+    "lcp": 1955,
+    "tbt": 60,
+    "si": 1925,
+    "tti": 1955,
+    "cls": 0,
+    "doc": 157
+   },
+   {
+    "frameworkId": "pracht",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 84,
+    "fcp": 1509,
+    "lcp": 4356,
+    "tbt": 0,
+    "si": 2755,
+    "tti": 4356,
+    "cls": 0,
+    "doc": 191
+   },
+   {
+    "frameworkId": "pracht",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 97,
+    "fcp": 1518,
+    "lcp": 2520,
+    "tbt": 0,
+    "si": 1518,
+    "tti": 2520,
+    "cls": 0,
+    "doc": 155
+   },
+   {
+    "frameworkId": "pracht",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 925,
+    "lcp": 1601,
+    "tbt": 1,
+    "si": 925,
+    "tti": 1651,
+    "cls": 0,
+    "doc": 95
+   },
+   {
+    "frameworkId": "pracht",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 100,
+    "fcp": 775,
+    "lcp": 1401,
+    "tbt": 4,
+    "si": 804,
+    "tti": 1419,
+    "cls": 0,
+    "doc": 127
+   },
+   {
+    "frameworkId": "waku",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 82,
+    "fcp": 1519,
+    "lcp": 4557,
+    "tbt": 0,
+    "si": 2942,
+    "tti": 4557,
+    "cls": 0,
+    "doc": 228
+   },
+   {
+    "frameworkId": "waku",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 94,
+    "fcp": 1519,
+    "lcp": 2937,
+    "tbt": 0,
+    "si": 2056,
+    "tti": 2937,
+    "cls": 0,
+    "doc": 194
+   },
+   {
+    "frameworkId": "waku",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 92,
+    "fcp": 1068,
+    "lcp": 2956,
+    "tbt": 9,
+    "si": 3306,
+    "tti": 2998,
+    "cls": 0,
+    "doc": 196
+   },
+   {
+    "frameworkId": "waku",
+    "branch": "optimized",
     "path": "/10145787",
     "hosts": [
      "cloudflare",
@@ -3987,12 +4680,13 @@
      "vercel"
     ],
     "perf": 98,
-    "fcp": 810,
-    "lcp": 2281,
-    "tbt": 19,
-    "si": 2452,
+    "fcp": 911,
+    "lcp": 2175,
+    "tbt": 0,
+    "si": 1626,
+    "tti": 2175,
     "cls": 0,
-    "doc": 200
+    "doc": 141
    },
    {
     "frameworkId": "ember",
@@ -4003,13 +4697,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 88,
-    "fcp": 1625,
+    "perf": 89,
+    "fcp": 1519,
     "lcp": 3608,
-    "tbt": 102,
-    "si": 3331,
-    "cls": 0.001,
-    "doc": 155
+    "tbt": 73,
+    "si": 2386,
+    "tti": 3613,
+    "cls": 0,
+    "doc": 140
    },
    {
     "frameworkId": "ember",
@@ -4022,11 +4717,12 @@
     ],
     "perf": 96,
     "fcp": 1509,
-    "lcp": 2660,
-    "tbt": 46,
-    "si": 2658,
+    "lcp": 2629,
+    "tbt": 27,
+    "si": 2012,
+    "tti": 2642,
     "cls": 0,
-    "doc": 148
+    "doc": 137
    },
    {
     "frameworkId": "ember",
@@ -4038,12 +4734,13 @@
      "vercel"
     ],
     "perf": 92,
-    "fcp": 1032,
-    "lcp": 3038,
-    "tbt": 74,
-    "si": 3145,
+    "fcp": 886,
+    "lcp": 3061,
+    "tbt": 72,
+    "si": 2519,
+    "tti": 3101,
     "cls": 0,
-    "doc": 177
+    "doc": 192
    },
    {
     "frameworkId": "ember",
@@ -4054,523 +4751,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 98,
-    "fcp": 869,
-    "lcp": 2107,
+    "perf": 99,
+    "fcp": 862,
+    "lcp": 1923,
     "tbt": 35,
-    "si": 2457,
-    "cls": 0.001,
-    "doc": 159
-   },
-   {
-    "frameworkId": "nuxt",
-    "branch": "main",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 84,
-    "fcp": 1510,
-    "lcp": 4257,
-    "tbt": 44,
-    "si": 2615,
+    "si": 1926,
+    "tti": 2171,
     "cls": 0,
-    "doc": 289
-   },
-   {
-    "frameworkId": "nuxt",
-    "branch": "main",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 96,
-    "fcp": 1514,
-    "lcp": 2616,
-    "tbt": 26,
-    "si": 2040,
-    "cls": 0,
-    "doc": 254
-   },
-   {
-    "frameworkId": "nuxt",
-    "branch": "optimized",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 94,
-    "fcp": 907,
-    "lcp": 2752,
-    "tbt": 57,
-    "si": 2475,
-    "cls": 0,
-    "doc": 167
-   },
-   {
-    "frameworkId": "nuxt",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 99,
-    "fcp": 913,
-    "lcp": 1471,
-    "tbt": 12,
-    "si": 1896,
-    "cls": 0,
-    "doc": 94
-   },
-   {
-    "frameworkId": "nuxt",
-    "branch": "nuxt-books-optimized-max",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 95,
-    "fcp": 919,
-    "lcp": 2701,
-    "tbt": 46,
-    "si": 1509,
-    "cls": 0.001,
-    "doc": 180
-   },
-   {
-    "frameworkId": "nuxt",
-    "branch": "nuxt-books-optimized-max",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 100,
-    "fcp": 924,
-    "lcp": 1332,
-    "tbt": 12,
-    "si": 955,
-    "cls": 0.001,
-    "doc": 234
-   },
-   {
-    "frameworkId": "solidstart",
-    "branch": "main",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 84,
-    "fcp": 1509,
-    "lcp": 4256,
-    "tbt": 60,
-    "si": 2628,
-    "cls": 0,
-    "doc": 170
-   },
-   {
-    "frameworkId": "solidstart",
-    "branch": "main",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 97,
-    "fcp": 1508,
-    "lcp": 2568,
-    "tbt": 22,
-    "si": 1517,
-    "cls": 0.001,
-    "doc": 144
-   },
-   {
-    "frameworkId": "solidstart",
-    "branch": "optimized",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 97,
-    "fcp": 922,
-    "lcp": 2202,
-    "tbt": 22,
-    "si": 936,
-    "cls": 0.001,
-    "doc": 128
-   },
-   {
-    "frameworkId": "solidstart",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 100,
-    "fcp": 922,
-    "lcp": 1702,
-    "tbt": 39,
-    "si": 1485,
-    "cls": 0,
-    "doc": 131
-   },
-   {
-    "frameworkId": "sveltekit",
-    "branch": "main",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 85,
-    "fcp": 1511,
-    "lcp": 4206,
-    "tbt": 20,
-    "si": 2970,
-    "cls": 0,
-    "doc": 201
-   },
-   {
-    "frameworkId": "sveltekit",
-    "branch": "main",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 96,
-    "fcp": 1520,
-    "lcp": 2579,
-    "tbt": 18,
-    "si": 2485,
-    "cls": 0,
-    "doc": 178
-   },
-   {
-    "frameworkId": "sveltekit",
-    "branch": "optimized",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 98,
-    "fcp": 916,
-    "lcp": 2366,
-    "tbt": 0,
-    "si": 1588,
-    "cls": 0.001,
-    "doc": 138
-   },
-   {
-    "frameworkId": "sveltekit",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 99,
-    "fcp": 869,
-    "lcp": 2059,
-    "tbt": 3,
-    "si": 879,
-    "cls": 0,
-    "doc": 134
-   },
-   {
-    "frameworkId": "waku",
-    "branch": "main",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 83,
-    "fcp": 1539,
-    "lcp": 4611,
-    "tbt": 0,
-    "si": 2130,
-    "cls": 0,
-    "doc": 142
-   },
-   {
-    "frameworkId": "waku",
-    "branch": "main",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 95,
-    "fcp": 1509,
-    "lcp": 2885,
-    "tbt": 0,
-    "si": 1561,
-    "cls": 0,
-    "doc": 187
-   },
-   {
-    "frameworkId": "waku",
-    "branch": "optimized",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 95,
-    "fcp": 915,
-    "lcp": 2529,
-    "tbt": 0,
-    "si": 2173,
-    "cls": 0,
-    "doc": 162
-   },
-   {
-    "frameworkId": "waku",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 98,
-    "fcp": 913,
-    "lcp": 2174,
-    "tbt": 0,
-    "si": 1601,
-    "cls": 0,
-    "doc": 145
-   },
-   {
-    "frameworkId": "pracht",
-    "branch": "main",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 85,
-    "fcp": 1518,
-    "lcp": 4355,
-    "tbt": 0,
-    "si": 1849,
-    "cls": 0,
-    "doc": 116
-   },
-   {
-    "frameworkId": "pracht",
-    "branch": "main",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 96,
-    "fcp": 1510,
-    "lcp": 2561,
-    "tbt": 0,
-    "si": 2636,
-    "cls": 0,
-    "doc": 134
-   },
-   {
-    "frameworkId": "pracht",
-    "branch": "optimized",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 100,
-    "fcp": 873,
-    "lcp": 1256,
-    "tbt": 9,
-    "si": 972,
-    "cls": 0.001,
-    "doc": 138
-   },
-   {
-    "frameworkId": "pracht",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 100,
-    "fcp": 774,
-    "lcp": 1451,
-    "tbt": 6,
-    "si": 807,
-    "cls": 0.001,
-    "doc": 132
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "branch": "main",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 82,
-    "fcp": 1519,
-    "lcp": 4657,
-    "tbt": 0,
-    "si": 3065,
-    "cls": 0,
-    "doc": 200
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "branch": "main",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 94,
-    "fcp": 1519,
-    "lcp": 2874,
-    "tbt": 1,
-    "si": 2720,
-    "cls": 0,
-    "doc": 168
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "branch": "optimized",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 98,
-    "fcp": 925,
-    "lcp": 2151,
-    "tbt": 18,
-    "si": 1389,
-    "cls": 0.001,
-    "doc": 173
-   },
-   {
-    "frameworkId": "tanstack-start-react",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 100,
-    "fcp": 929,
-    "lcp": 1607,
-    "tbt": 1,
-    "si": 1041,
-    "cls": 0.001,
-    "doc": 139
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "branch": "main",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 85,
-    "fcp": 1510,
-    "lcp": 4257,
-    "tbt": 26,
-    "si": 2498,
-    "cls": 0,
-    "doc": 130
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "branch": "main",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 97,
-    "fcp": 1517,
-    "lcp": 2609,
-    "tbt": 15,
-    "si": 1833,
-    "cls": 0.001,
-    "doc": 115
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "branch": "optimized",
-    "path": "/",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 94,
-    "fcp": 945,
-    "lcp": 2655,
-    "tbt": 60,
-    "si": 2601,
-    "cls": 0,
-    "doc": 189
-   },
-   {
-    "frameworkId": "tanstack-start-solid",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 99,
-    "fcp": 828,
-    "lcp": 1859,
-    "tbt": 18,
-    "si": 1727,
-    "cls": 0,
-    "doc": 317
+    "doc": 166
    },
    {
     "frameworkId": "astro",
@@ -4582,12 +4770,13 @@
      "vercel"
     ],
     "perf": 85,
-    "fcp": 1520,
-    "lcp": 4158,
+    "fcp": 1511,
+    "lcp": 4207,
     "tbt": 0,
-    "si": 3505,
+    "si": 2397,
+    "tti": 4207,
     "cls": 0,
-    "doc": 251
+    "doc": 192
    },
    {
     "frameworkId": "astro",
@@ -4598,13 +4787,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 97,
-    "fcp": 1511,
-    "lcp": 2564,
+    "perf": 96,
+    "fcp": 1519,
+    "lcp": 2580,
     "tbt": 0,
-    "si": 1530,
-    "cls": 0.001,
-    "doc": 214
+    "si": 2477,
+    "tti": 2580,
+    "cls": 0,
+    "doc": 179
    },
    {
     "frameworkId": "astro",
@@ -4616,12 +4806,13 @@
      "vercel"
     ],
     "perf": 91,
-    "fcp": 914,
-    "lcp": 3356,
+    "fcp": 919,
+    "lcp": 3457,
     "tbt": 0,
-    "si": 2491,
+    "si": 2988,
+    "tti": 3457,
     "cls": 0,
-    "doc": 181
+    "doc": 218
    },
    {
     "frameworkId": "astro",
@@ -4632,11 +4823,12 @@
      "netlify",
      "vercel"
     ],
-    "perf": 100,
-    "fcp": 909,
-    "lcp": 1756,
+    "perf": 99,
+    "fcp": 922,
+    "lcp": 1715,
     "tbt": 0,
-    "si": 1453,
+    "si": 1914,
+    "tti": 1715,
     "cls": 0,
     "doc": 130
    },
@@ -4650,12 +4842,13 @@
      "vercel"
     ],
     "perf": 82,
-    "fcp": 1534,
-    "lcp": 4557,
-    "tbt": 9,
-    "si": 3658,
+    "fcp": 1517,
+    "lcp": 4605,
+    "tbt": 5,
+    "si": 3104,
+    "tti": 4605,
     "cls": 0,
-    "doc": 272
+    "doc": 188
    },
    {
     "frameworkId": "react-router",
@@ -4666,13 +4859,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 95,
-    "fcp": 1527,
-    "lcp": 2826,
+    "perf": 96,
+    "fcp": 1510,
+    "lcp": 2678,
     "tbt": 0,
-    "si": 1871,
-    "cls": 0,
-    "doc": 134
+    "si": 1886,
+    "tti": 2678,
+    "cls": 0.001,
+    "doc": 193
    },
    {
     "frameworkId": "react-router",
@@ -4683,13 +4877,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 86,
-    "fcp": 911,
-    "lcp": 4056,
-    "tbt": 9,
-    "si": 1951,
+    "perf": 85,
+    "fcp": 1010,
+    "lcp": 4159,
+    "tbt": 6,
+    "si": 3154,
+    "tti": 4159,
     "cls": 0,
-    "doc": 119
+    "doc": 201
    },
    {
     "frameworkId": "react-router",
@@ -4700,13 +4895,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 99,
-    "fcp": 908,
-    "lcp": 2164,
+    "perf": 97,
+    "fcp": 912,
+    "lcp": 2471,
     "tbt": 0,
-    "si": 1391,
-    "cls": 0.001,
-    "doc": 150
+    "si": 2883,
+    "tti": 2471,
+    "cls": 0,
+    "doc": 154
    },
    {
     "frameworkId": "qwik-city",
@@ -4721,9 +4917,10 @@
     "fcp": 1616,
     "lcp": 4153,
     "tbt": 0,
-    "si": 1968,
+    "si": 1920,
+    "tti": 4153,
     "cls": 0,
-    "doc": 203
+    "doc": 188
    },
    {
     "frameworkId": "qwik-city",
@@ -4735,12 +4932,13 @@
      "vercel"
     ],
     "perf": 96,
-    "fcp": 1508,
-    "lcp": 2569,
+    "fcp": 1526,
+    "lcp": 2588,
     "tbt": 0,
-    "si": 1684,
+    "si": 1826,
+    "tti": 2588,
     "cls": 0,
-    "doc": 120
+    "doc": 104
    },
    {
     "frameworkId": "qwik-city",
@@ -4751,13 +4949,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 85,
-    "fcp": 919,
-    "lcp": 4203,
+    "perf": 86,
+    "fcp": 929,
+    "lcp": 4103,
     "tbt": 0,
-    "si": 3649,
+    "si": 2773,
+    "tti": 4103,
     "cls": 0,
-    "doc": 217
+    "doc": 140
    },
    {
     "frameworkId": "qwik-city",
@@ -4768,13 +4967,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 98,
-    "fcp": 909,
-    "lcp": 2431,
+    "perf": 97,
+    "fcp": 905,
+    "lcp": 2436,
     "tbt": 0,
-    "si": 1411,
+    "si": 1350,
+    "tti": 2436,
     "cls": 0,
-    "doc": 130
+    "doc": 108
    },
    {
     "frameworkId": "angular",
@@ -4785,13 +4985,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 87,
-    "fcp": 783,
-    "lcp": 4007,
-    "tbt": 33,
-    "si": 1188,
+    "perf": 88,
+    "fcp": 785,
+    "lcp": 3910,
+    "tbt": 17,
+    "si": 1232,
+    "tti": 3910,
     "cls": 0,
-    "doc": 196
+    "doc": 255
    },
    {
     "frameworkId": "angular",
@@ -4803,12 +5004,13 @@
      "vercel"
     ],
     "perf": 99,
-    "fcp": 777,
-    "lcp": 2108,
-    "tbt": 9,
-    "si": 992,
+    "fcp": 784,
+    "lcp": 2112,
+    "tbt": 8,
+    "si": 1102,
+    "tti": 2266,
     "cls": 0,
-    "doc": 145
+    "doc": 190
    },
    {
     "frameworkId": "angular",
@@ -4820,12 +5022,13 @@
      "vercel"
     ],
     "perf": 90,
-    "fcp": 784,
+    "fcp": 787,
     "lcp": 3560,
-    "tbt": 60,
-    "si": 934,
+    "tbt": 65,
+    "si": 927,
+    "tti": 3560,
     "cls": 0,
-    "doc": 175
+    "doc": 132
    },
    {
     "frameworkId": "angular",
@@ -4838,11 +5041,12 @@
     ],
     "perf": 100,
     "fcp": 774,
-    "lcp": 1670,
+    "lcp": 1656,
     "tbt": 24,
-    "si": 916,
+    "si": 865,
+    "tti": 2036,
     "cls": 0,
-    "doc": 126
+    "doc": 150
    },
    {
     "frameworkId": "marko",
@@ -4854,12 +5058,13 @@
      "vercel"
     ],
     "perf": 85,
-    "fcp": 1517,
-    "lcp": 4262,
+    "fcp": 1527,
+    "lcp": 4072,
     "tbt": 0,
-    "si": 2675,
+    "si": 3032,
+    "tti": 4072,
     "cls": 0,
-    "doc": 198
+    "doc": 215
    },
    {
     "frameworkId": "marko",
@@ -4870,13 +5075,14 @@
      "netlify",
      "vercel"
     ],
-    "perf": 97,
-    "fcp": 1512,
-    "lcp": 2563,
+    "perf": 96,
+    "fcp": 1509,
+    "lcp": 2560,
     "tbt": 0,
-    "si": 1907,
+    "si": 2194,
+    "tti": 2560,
     "cls": 0,
-    "doc": 268
+    "doc": 135
    },
    {
     "frameworkId": "marko",
@@ -4887,30 +5093,32 @@
      "netlify",
      "vercel"
     ],
-    "perf": 90,
-    "fcp": 921,
-    "lcp": 3461,
+    "perf": 93,
+    "fcp": 908,
+    "lcp": 3255,
     "tbt": 0,
-    "si": 1633,
-    "cls": 0,
-    "doc": 187
-   },
-   {
-    "frameworkId": "marko",
-    "branch": "optimized",
-    "path": "/10145787",
-    "hosts": [
-     "cloudflare",
-     "netlify",
-     "vercel"
-    ],
-    "perf": 100,
-    "fcp": 874,
-    "lcp": 1730,
-    "tbt": 0,
-    "si": 1380,
+    "si": 1809,
+    "tti": 3255,
     "cls": 0.001,
-    "doc": 156
+    "doc": 101
+   },
+   {
+    "frameworkId": "marko",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 100,
+    "fcp": 915,
+    "lcp": 1724,
+    "tbt": 0,
+    "si": 1388,
+    "tti": 1724,
+    "cls": 0.001,
+    "doc": 119
    },
    {
     "frameworkId": "fresh",
@@ -4922,12 +5130,13 @@
      "vercel"
     ],
     "perf": 85,
-    "fcp": 1508,
-    "lcp": 4255,
+    "fcp": 1509,
+    "lcp": 4316,
     "tbt": 0,
-    "si": 2600,
+    "si": 2180,
+    "tti": 4316,
     "cls": 0,
-    "doc": 139
+    "doc": 186
    },
    {
     "frameworkId": "fresh",
@@ -4939,12 +5148,13 @@
      "vercel"
     ],
     "perf": 97,
-    "fcp": 1508,
-    "lcp": 2428,
+    "fcp": 1517,
+    "lcp": 2439,
     "tbt": 0,
-    "si": 1839,
+    "si": 1806,
+    "tti": 2439,
     "cls": 0,
-    "doc": 126
+    "doc": 94
    },
    {
     "frameworkId": "fresh",
@@ -4956,12 +5166,13 @@
      "vercel"
     ],
     "perf": 90,
-    "fcp": 912,
-    "lcp": 3555,
+    "fcp": 906,
+    "lcp": 3562,
     "tbt": 0,
-    "si": 1834,
+    "si": 1678,
+    "tti": 3562,
     "cls": 0,
-    "doc": 125
+    "doc": 129
    },
    {
     "frameworkId": "fresh",
@@ -4972,13 +5183,50 @@
      "netlify",
      "vercel"
     ],
-    "perf": 100,
-    "fcp": 871,
-    "lcp": 1778,
+    "perf": 99,
+    "fcp": 861,
+    "lcp": 1812,
     "tbt": 0,
-    "si": 1330,
+    "si": 1809,
+    "tti": 1812,
     "cls": 0,
-    "doc": 126
+    "doc": 141
+   },
+   {
+    "frameworkId": "next",
+    "branch": "naive",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 95,
+    "fcp": 913,
+    "lcp": 2816,
+    "tbt": 18,
+    "si": 2921,
+    "tti": 2856,
+    "cls": 0,
+    "doc": 186
+   },
+   {
+    "frameworkId": "next",
+    "branch": "naive",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 98,
+    "fcp": 817,
+    "lcp": 2206,
+    "tbt": 28,
+    "si": 1745,
+    "tti": 2211,
+    "cls": 0,
+    "doc": 172
    }
   ]
  },
@@ -5483,6 +5731,509 @@
      "fcp": 871,
      "lcp": 1778,
      "perf": 100
+    }
+   ]
+  },
+  {
+   "date": "2026-11-26",
+   "targets": 186,
+   "withData": 186,
+   "builds": [
+    {
+     "frameworkId": "next",
+     "branch": "main",
+     "path": "/",
+     "fcp": 923,
+     "lcp": 2851,
+     "perf": 96
+    },
+    {
+     "frameworkId": "next",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 968,
+     "lcp": 2229,
+     "perf": 98
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1518,
+     "lcp": 4207,
+     "perf": 84
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1519,
+     "lcp": 2570,
+     "perf": 96
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 911,
+     "lcp": 2903,
+     "perf": 93
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 908,
+     "lcp": 1710,
+     "perf": 99
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "nuxt-books-optimized-max",
+     "path": "/",
+     "fcp": 917,
+     "lcp": 2551,
+     "perf": 96
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "nuxt-books-optimized-max",
+     "path": "/10145787",
+     "fcp": 919,
+     "lcp": 1271,
+     "perf": 100
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1517,
+     "lcp": 4305,
+     "perf": 85
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1508,
+     "lcp": 2568,
+     "perf": 97
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 919,
+     "lcp": 2861,
+     "perf": 94
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 867,
+     "lcp": 1963,
+     "perf": 99
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1510,
+     "lcp": 4257,
+     "perf": 84
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2560,
+     "perf": 96
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 939,
+     "lcp": 2657,
+     "perf": 94
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 869,
+     "lcp": 1741,
+     "perf": 99
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1716,
+     "lcp": 4660,
+     "perf": 81
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1512,
+     "lcp": 3024,
+     "perf": 93
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 926,
+     "lcp": 1769,
+     "perf": 99
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 928,
+     "lcp": 1906,
+     "perf": 99
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4206,
+     "perf": 85
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2630,
+     "perf": 96
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 947,
+     "lcp": 2707,
+     "perf": 95
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 873,
+     "lcp": 1955,
+     "perf": 99
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4356,
+     "perf": 84
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1518,
+     "lcp": 2520,
+     "perf": 97
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 925,
+     "lcp": 1601,
+     "perf": 99
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 775,
+     "lcp": 1401,
+     "perf": 100
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1519,
+     "lcp": 4557,
+     "perf": 82
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1519,
+     "lcp": 2937,
+     "perf": 94
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 1068,
+     "lcp": 2956,
+     "perf": 92
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 911,
+     "lcp": 2175,
+     "perf": 98
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1519,
+     "lcp": 3608,
+     "perf": 89
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2629,
+     "perf": 96
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 886,
+     "lcp": 3061,
+     "perf": 92
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 862,
+     "lcp": 1923,
+     "perf": 99
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1511,
+     "lcp": 4207,
+     "perf": 85
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1519,
+     "lcp": 2580,
+     "perf": 96
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 919,
+     "lcp": 3457,
+     "perf": 91
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 922,
+     "lcp": 1715,
+     "perf": 99
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1517,
+     "lcp": 4605,
+     "perf": 82
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1510,
+     "lcp": 2678,
+     "perf": 96
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 1010,
+     "lcp": 4159,
+     "perf": 85
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 912,
+     "lcp": 2471,
+     "perf": 97
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1616,
+     "lcp": 4153,
+     "perf": 85
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1526,
+     "lcp": 2588,
+     "perf": 96
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 929,
+     "lcp": 4103,
+     "perf": 86
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 905,
+     "lcp": 2436,
+     "perf": 97
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "main",
+     "path": "/",
+     "fcp": 785,
+     "lcp": 3910,
+     "perf": 88
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 784,
+     "lcp": 2112,
+     "perf": 99
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 787,
+     "lcp": 3560,
+     "perf": 90
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 774,
+     "lcp": 1656,
+     "perf": 100
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1527,
+     "lcp": 4072,
+     "perf": 85
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2560,
+     "perf": 96
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 908,
+     "lcp": 3255,
+     "perf": 93
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 915,
+     "lcp": 1724,
+     "perf": 100
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4316,
+     "perf": 85
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1517,
+     "lcp": 2439,
+     "perf": 97
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 906,
+     "lcp": 3562,
+     "perf": 90
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 861,
+     "lcp": 1812,
+     "perf": 99
+    },
+    {
+     "frameworkId": "next",
+     "branch": "naive",
+     "path": "/",
+     "fcp": 913,
+     "lcp": 2816,
+     "perf": 95
+    },
+    {
+     "frameworkId": "next",
+     "branch": "naive",
+     "path": "/10145787",
+     "fcp": 817,
+     "lcp": 2206,
+     "perf": 98
     }
    ]
   }

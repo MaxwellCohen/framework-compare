@@ -18,7 +18,7 @@ const fwIds = new Set(capability.frameworks.map((f) => f.id));
 const files = existsSync(IN_DIR) ? readdirSync(IN_DIR).filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort() : [];
 const runs = files.map((f) => ({ file: f, ...JSON.parse(readFileSync(join(IN_DIR, f), "utf8")) }));
 
-const METRICS = ["perf", "fcp", "lcp", "tbt", "si", "cls", "doc"];
+const METRICS = ["perf", "fcp", "lcp", "tbt", "si", "tti", "cls", "doc"];
 const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
 const r = (v, d = 0) => (v == null ? null : Math.round(v * 10 ** d) / 10 ** d);
 
@@ -34,6 +34,7 @@ function aggregate(run) {
     g.ms.push(t.median);
   }
   return [...groups.values()].map((g) => {
+    // Older files have no `tti`; it stays null for them.
     const avg = {};
     for (const k of METRICS) avg[k] = r(mean(g.ms.map((m) => m[k]).filter((v) => v != null)), k === "cls" ? 3 : 0);
     return { frameworkId: g.frameworkId, branch: g.branch, path: g.path, hosts: g.hosts.sort(), ...avg };

@@ -1,6 +1,6 @@
 # Framework Compare
 
-A static reference site comparing 15 web frameworks on 12 performance features:
+A static reference site comparing web meta-frameworks on 12 performance features:
 what each framework's documentation says it provides (1st-party, Experimental,
 Third-party or Manual), the resulting capability scores and ranking, and the
 Lighthouse FCP measurements from the

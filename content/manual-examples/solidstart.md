@@ -52,3 +52,56 @@ import { imageSrcset } from "@/lib/image-cdn";
   </picture>
 )}
 ```
+
+## islands
+
+Solid 2's experimental server components replace islands. A `"use server"` function returns a component, the client mounts it with `dynamicComponent`, and only the client components passed in as props or children hydrate. Turn it on with `serverFunctions: { components: true }` on `@solidjs/vite-plugin`.
+
+```tsx
+// src/routes/story.tsx
+import { dynamicComponent } from 'solid-js'
+
+async function getStory(id: number) {
+  'use server'
+  const story = await db.stories.get(id)
+  return (props) => (
+    <article>
+      <h1>{story.title}</h1>
+      <footer>{props.children}</footer>
+    </article>
+  )
+}
+
+export default function StoryPage(props) {
+  const Story = dynamicComponent(() => getStory(props.storyId))
+  return (
+    <Story>
+      <ShareBar />
+    </Story>
+  )
+}
+```
+
+Source: [Solid: RFC 11, Server components (experimental)](https://github.com/solidjs/solid/blob/main/documentation/solid-2.0/11-server-components.md)
+
+## bundle-analysis
+
+Add `rollup-plugin-visualizer` to the port's Vite config. `vite build` then writes a treemap of the bundle to `stats.html`.
+
+```ts
+// vite.config.ts
+import { nitro } from 'nitro/vite'
+import solid from '@solidjs/vite-plugin'
+import { visualizer } from 'rollup-plugin-visualizer'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    solid({ start: { /* … */ }, ssr: true }),
+    nitro({ /* … */ }),
+    visualizer({ filename: 'stats.html', gzipSize: true }),
+  ],
+})
+```
+
+Source: [rollup-plugin-visualizer: README](https://github.com/btd/rollup-plugin-visualizer)

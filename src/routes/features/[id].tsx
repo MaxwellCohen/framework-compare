@@ -16,7 +16,7 @@ import {
   type FeatureBlock,
 } from "../../components/feature/FrameworkBlocks.tsx";
 import { LabelTally } from "../../components/feature/LabelTally.tsx";
-import { features, featuresInGroup, frameworks, getCell, getFeature, LABEL_TEXT, MAX_SCORE, MAX_TOTAL } from "../../data/index.ts";
+import { features, featuresInGroup, frameworks, getCell, getCellTest, getFeature, LABEL_TEXT, MAX_SCORE, MAX_TOTAL } from "../../data/index.ts";
 import type { Feature, Label } from "../../data/index.ts";
 import { markdownAlternate, pageLd } from "../../agents.ts";
 
@@ -43,6 +43,7 @@ export async function loader({ params }: LoaderArgs) {
       exampleHtml: cell.exampleHtml,
       artDirection: cell.artDirection,
       gotchasHtml: cell.gotchasHtml,
+      test: getCellTest(fw.id, feature.id),
     };
   });
 
@@ -52,6 +53,15 @@ export async function loader({ params }: LoaderArgs) {
   // `whatHtml` is one paragraph in the source; unwrap it so it can be the lede.
   const single = /^\s*<p>([\s\S]*)<\/p>\s*$/.exec(feature.whatHtml);
   const ledeHtml = single && !single[1].includes("<p>") ? single[1] : null;
+
+  const tested = blocks.filter((b) => b.test && b.test.status !== "n/a");
+  const testSummary = tested.length
+    ? {
+        tested: tested.length,
+        passed: tested.filter((b) => b.test!.status === "pass").length,
+        failed: tested.filter((b) => b.test!.status === "fail").map((b) => b.framework.shortName),
+      }
+    : null;
 
   const index = features.findIndex((f) => f.id === feature.id);
 
@@ -69,6 +79,7 @@ export async function loader({ params }: LoaderArgs) {
     whatHtml: ledeHtml ? null : feature.whatHtml,
     blocks,
     tally,
+    testSummary,
     tallyText: LABELS_IN_ORDER.map((l) => `${tally[l]} ${LABEL_TEXT[l]}`).join(", "),
     usesSourceMarks: SOURCE_MARKS.test(feature.atAGlanceHtml + feature.gotchasHtml + blocks.map((b) => b.bodyHtml).join("")),
     featureCount: features.length,
@@ -148,6 +159,17 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             </p>
           )}
           <FrameworkOverview feature={feature} blocks={blocks} />
+          {data.testSummary && (
+            <p class="max-w-prose text-sm text-ink-2">
+              We tested this feature in {data.testSummary.tested} Books ports. {data.testSummary.passed} passed
+              {data.testSummary.failed.length ? `; ${data.testSummary.failed.join(", ")} failed (marked ✗)` : ""}. Each
+              framework's card below shows what its test saw.{" "}
+              <NavLink to={{ route: "methodology", hash: "feature-tests" }} class="link">
+                How we test labels
+              </NavLink>
+              .
+            </p>
+          )}
           <p class="max-w-prose text-sm text-ink-3">
             Labels record what each framework's documentation says it provides. They are not performance measurements.{" "}
             <NavLink to={{ route: "methodology", hash: "labels" }} class="link">

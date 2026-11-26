@@ -326,7 +326,7 @@ function write(path, content) {
 // Generated directories are rebuilt from scratch so a removed id leaves no stale file.
 for (const dir of ["api", "frameworks", "features"]) rmSync(join(OUT, dir), { recursive: true, force: true });
 
-const summary = `${site.name} compares ${features.length} speed features across ${frameworks.length} web meta-frameworks (${frameworks.map((f) => f.name).join(", ")}). Each framework × feature cell has one of four labels (1st-party, Experimental, Third-party, Manual), taken from the vendor's own documentation and linked to it. Labels score 2, 1, 1 and 0 points, which add up to a score out of ${MAX.total} and a ranking. The site also has lab measurements of the same Books demo app ported to each framework.`;
+const summary = `${site.name} compares ${features.length} speed features across ${frameworks.length} web meta-frameworks (${frameworks.map((f) => f.name).join(", ")}). Each framework × feature cell has one of four labels (1st-party, Experimental, Third-party, Manual), taken from the vendor's own documentation and linked to it. Labels score 2, 1, 1 and 0 points, which add up to a score out of ${MAX.total} and a ranking. The site also has lab measurements of the same Books demo app, ported to ${frameworks.filter((f) => f.repo).length} of them.`;
 
 // --- Markdown twins --------------------------------------------------------
 
