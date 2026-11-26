@@ -144,6 +144,14 @@ export function benchPathRank(path: string): number {
   return i === -1 ? 999 : i;
 }
 
+const HOST_ORDER = ["vercel", "netlify", "cloudflare"];
+
+/** Sort key for hosts: Vercel, Netlify, Cloudflare, then anything else. */
+export function benchHostRank(host: string): number {
+  const i = HOST_ORDER.indexOf(host);
+  return i === -1 ? HOST_ORDER.length : i;
+}
+
 /** One framework's builds in the latest run, by path then branch. Empty when it has no data. */
 export function benchBuildsFor(id: FrameworkId): BenchBuild[] {
   return (benchmark.latest?.builds ?? [])

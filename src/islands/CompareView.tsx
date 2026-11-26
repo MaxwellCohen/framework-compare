@@ -5,11 +5,16 @@ import { LabelBadge, LabelLegend, LABELS } from "../components/LabelBadge.tsx";
 import { CompareMatrix, featureHref, frameworkHref } from "../components/compare/CompareMatrix.tsx";
 import { Card, Section, Tag } from "../components/Page.tsx";
 import { RankBadge, ScoreBar } from "../components/Score.tsx";
+import { HostTable } from "../components/benchmark/HostTable.tsx";
+import { StatusKey } from "../components/benchmark/parts.tsx";
+import { pathName } from "../components/benchmark/format.ts";
+import { href } from "../pracht-routes.ts";
 import {
   LABEL_CODES,
   MAX_PICK,
   MIN_PICK,
   parseSelection,
+  type CompareBench,
   type CompareFeature,
   type CompareFramework,
 } from "../components/compare/model.ts";
@@ -22,6 +27,8 @@ interface CompareViewProps {
   features: CompareFeature[];
   /** Selection shown when the URL has no valid `?f=`; also what the server renders. */
   initial: FrameworkId[];
+  /** Latest benchmark medians for the book list page, or null with no run. */
+  bench: CompareBench | null;
 }
 
 const COLS: Record<number, string> = {
@@ -40,7 +47,7 @@ function listNames(names: string[]) {
  * the list of features where the picked frameworks differ. Selection lives in
  * `?f=id,id,id`; the server render (and the no-JS page) shows `initial`.
  */
-export default function CompareView({ frameworks, features, initial }: CompareViewProps & IslandProps) {
+export default function CompareView({ frameworks, features, initial, bench }: CompareViewProps & IslandProps) {
   const [selected, setSelected] = useState<FrameworkId[]>(initial);
   const [message, setMessage] = useState("");
 
@@ -259,6 +266,44 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
           </div>
         )}
       </Section>
+      {bench && (
+        <Section
+          id="benchmark"
+          index="05"
+          title="Latest benchmark"
+          intro={
+            <>
+              Mobile PageSpeed Insights results for the {pathName(bench.path).toLowerCase()} page ({bench.path}) on{" "}
+              <time dateTime={bench.date}>{bench.dateText}</time>: the median of {bench.runsPerTarget}{" "}
+              {bench.runsPerTarget === 1 ? "run" : "runs"} per build and host. The{" "}
+              <a href={href("benchmark")} class="link">
+                benchmark page
+              </a>{" "}
+              has the book page, every other framework and what each metric means.
+            </>
+          }
+          actions={<StatusKey />}
+        >
+          {picked.some((fw) => bench.rows[fw.id]?.length) ? (
+            <HostTable
+              groups={picked
+                .filter((fw) => bench.rows[fw.id]?.length)
+                .map((fw) => ({ key: fw.id, name: fw.name, rows: bench.rows[fw.id]! }))}
+              status={false}
+              showPath={false}
+              label={`Latest benchmark for ${names}, book list page, per build and host`}
+            />
+          ) : (
+            <p class="text-ink-3">The latest run has no data for {names}.</p>
+          )}
+          {picked.some((fw) => !bench.rows[fw.id]?.length) && picked.some((fw) => bench.rows[fw.id]?.length) && (
+            <p class="mt-3 text-sm text-ink-2">
+              No data in the latest run:{" "}
+              {listNames(picked.filter((fw) => !bench.rows[fw.id]?.length).map((fw) => fw.name))}.
+            </p>
+          )}
+        </Section>
+      )}
     </>
   );
 }
