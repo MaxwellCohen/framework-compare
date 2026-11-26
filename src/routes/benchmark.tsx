@@ -1,5 +1,5 @@
 import type { HeadArgs, RouteComponentProps } from "@pracht/core";
-import { Callout, Container, ExternalLink, FrameworkName, NavLink, PageHeader, Section, Stat, StatGroup, Tag } from "../components/index.ts";
+import { Callout, Container, ExternalLink, FrameworkName, NavLink, PageHeader, Section, Tag } from "../components/index.ts";
 import type { BuildTableRow } from "../components/benchmark/BuildTable.tsx";
 import { HostTable, type HostTableGroup } from "../components/benchmark/HostTable.tsx";
 import { FieldTable, type FieldTableGroup } from "../components/benchmark/FieldTable.tsx";
@@ -299,7 +299,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
   }
 
   const runsText = `${l.runsPerTarget} measured ${l.runsPerTarget === 1 ? "run" : "runs"}`;
-  const hostText = listText(l.hosts.map(hostName));
   const pathText = listText(l.paths.map((p) => `${pathName(p).toLowerCase()} (${p})`));
   const domain = rangeDomain(l.chartMax ? l.chartMax * 1000 : null);
 
@@ -329,13 +328,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               {l.finished && `–${l.finished}`}
             </Tag>
           </>
-        }
-        aside={
-          <StatGroup cols={3} class="lg:w-[28rem]">
-            <Stat label="Targets with data" value={l.withData} unit={`/${l.targetCount}`} hint="build × host × page" />
-            <Stat label="Frameworks" value={l.frameworksWithData} unit={`/${data.frameworkCount}`} hint="with any data" />
-            <Stat label="Hosts" value={l.hosts.length} hint={hostText} />
-          </StatGroup>
         }
       />
 
