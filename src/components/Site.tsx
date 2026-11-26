@@ -164,14 +164,10 @@ export function SiteFooter() {
         <div class="space-y-2 md:justify-self-end">
           <p class="eyebrow">Source</p>
           <p>
-            <ExternalLink href={REPO_URL}>MaxwellCohen/books-demo</ExternalLink>
+            <ExternalLink href={SITE_REPO_URL}>MaxwellCohen/framework-compare</ExternalLink>
           </p>
-          <p class="text-ink-3">The same books app, ported to 15 frameworks.</p>
           <p>
             <ExternalLink href={`${SITE_REPO_URL}/issues/new`}>Report an issue or a wrong label</ExternalLink>
-          </p>
-          <p>
-            <ExternalLink href={SITE_REPO_URL}>Site source on GitHub</ExternalLink>
           </p>
           <p class="flex flex-wrap gap-x-4">
             <NavLink to={{ route: "measured" }} class="link">
