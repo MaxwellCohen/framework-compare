@@ -27,6 +27,7 @@ const capability = read("src/data/generated/capability.json");
 const measured = read("src/data/generated/measured.json");
 const benchmark = read("src/data/generated/benchmark.json");
 const story = read("content/fcp-story.json");
+const changes = read("content/optimizations.json");
 
 const ORIGIN = (process.env.SITE_URL || site.url).replace(/\/+$/, "");
 const abs = (path) => ORIGIN + path;
@@ -304,8 +305,14 @@ function gainsTable() {
     .sort((a, b) => a.opt.lcp - b.opt.lcp || fwById.get(a.id).order - fwById.get(b.id).order);
   const pair = (k, r) => `${seconds(r.base?.[k])} → ${seconds(r.opt[k])}`;
   return tableMd(
-    ["Framework", "Optimized build", "FCP, default → optimized", "LCP, default → optimized"],
-    rows.map((r) => [fwById.get(r.id)?.name ?? r.id, buildName(r.opt), pair("fcp", r), pair("lcp", r)]),
+    ["Framework", "Optimized build", "FCP, default → optimized", "LCP, default → optimized", "What the optimized build changes (framework features in bold)"],
+    rows.map((r) => [
+      fwById.get(r.id)?.name ?? r.id,
+      buildName(r.opt),
+      pair("fcp", r),
+      pair("lcp", r),
+      (changes[r.id] ?? []).map((c) => (c.framework ? `**${c.label}**` : c.label)).join(", ") || "n/a",
+    ]),
   );
 }
 
@@ -314,7 +321,7 @@ function benchmarkBody(level = "##") {
   return [
     benchMethod(),
     `${level} What each framework's optimizations buy, ${pathName("/")}`,
-    "Each framework's build on default settings next to its build tuned with the speed features the framework offers. Sorted by optimized LCP, fastest first.",
+    "Each framework's build on default settings next to its optimized build. Changes in bold use an API or package the framework ships; the rest are hand-written or come from general libraries. Sorted by optimized LCP, fastest first.",
     gainsTable(),
     ...run.paths.flatMap((p) => [`${level} Medians, ${pathName(p)}, fastest FCP first`, benchTable(benchSorted(p))]),
   ].join("\n\n");

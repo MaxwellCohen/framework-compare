@@ -15,6 +15,17 @@ import { href } from "../pracht-routes.ts";
 import { markdownAlternate, pageLd } from "../agents.ts";
 
 
+/** One change the optimized build makes; `framework` when it uses something the framework ships. */
+interface Change {
+  label: string;
+  feature: string;
+  framework: boolean;
+}
+
+const CHIP = "inline-block rounded-xs border px-1 leading-4 whitespace-nowrap";
+const chipClass = (framework: boolean) =>
+  framework ? `${CHIP} border-ink font-semibold text-ink` : `${CHIP} border-dashed border-rule text-ink-3`;
+
 /** "LCP −2.8 s", or null when either build has no value or nothing changed. */
 function saved(metric: string, v: { from: number | null; to: number | null }): string | null {
   if (v.from == null || v.to == null) return null;
@@ -32,6 +43,7 @@ export async function loader() {
     await import("../data/index.ts");
   const history = benchmark.history.map((h) => ({ date: h.date, dateText: longDate(h.date), targets: h.targets, withData: h.withData }));
   const run = benchmark.latest;
+  const changes: Record<string, Change[]> = (await import("../../content/optimizations.json")).default as never;
   if (!run) return { latest: null, history, frameworkCount: frameworks.filter(hasPort).length, noPort: [] };
 
   const fwById = new Map(frameworks.map((f) => [f.id, f]));
@@ -59,6 +71,7 @@ export async function loader() {
         key: id,
         framework: { id, name: f?.name ?? id, shortName: f?.shortName ?? id },
         build: opt ? benchBuildName(opt.branch, id) : null,
+        changes: changes[id] ?? [],
         hosts: opt ? hostNote(opt.hosts) : undefined,
         fcp: { from: base?.fcp != null ? base.fcp / 1000 : null, to: opt?.fcp != null ? opt.fcp / 1000 : null },
         lcp: { from: base?.lcp != null ? base.lcp / 1000 : null, to: opt?.lcp != null ? opt.lcp / 1000 : null },
@@ -297,7 +310,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title="Benchmark"
         lede={
           <>
-            How much faster each meta-framework makes the same app when you use the speed features it ships. We ran
+            How much faster the same app gets in each meta-framework once it is optimized, and which of those gains the
+            framework provides. We ran
             PageSpeed Insights against every deployment of the Books demo app on {l.dateText}. Each target is one
             build on one host and one page: the {pathText}. Each figure is the median of {runsText} per target, after a
             warm-up. Runs whose document took over {COLD_DOC_MS} ms count as cold and are left out of the median when
@@ -381,10 +395,13 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         class={ANCHOR}
         intro={
           <>
-            Every framework runs the same Books app twice: once on its default settings, and once tuned with the speed
-            features it offers. Each row shows what that tuning bought on the {pathName(l.homePath).toLowerCase()} page (
+            Every framework runs the same Books app twice: once on its default settings, and once optimized. Each row shows
+            what the optimized build bought on the {pathName(l.homePath).toLowerCase()} page (
             {l.homePath}): First Contentful Paint (FCP), when the first text appears, and Largest Contentful Paint (LCP), when
-            the largest image or block of text appears. Frameworks are sorted by their optimized LCP, fastest first.
+            the largest image or block of text appears. Under each name is what the optimized build changes. A solid tag
+            uses something the framework ships, such as an image component or a config option. A dashed tag is
+            hand-written or comes from a general library, so it would work in any framework. Frameworks are sorted by their
+            optimized LCP, fastest first.
           </>
         }
       >
@@ -395,14 +412,33 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
                 (g): LaneGroup => ({
                   key: g.key,
                   label: <FrameworkName framework={g.framework} />,
-                  note: [
-                    g.fcp.from != null && g.fcp.from < 1 ? "fast FCP by default" : saved("FCP", g.fcp),
-                    saved("LCP", g.lcp),
-                    g.build && g.build !== "optimized" ? `${g.build} build` : null,
-                    g.hosts,
-                  ]
-                    .filter(Boolean)
-                    .join(" · "),
+                  note: (
+                    <>
+                      {[
+                        g.fcp.from != null && g.fcp.from < 1 ? "fast FCP by default" : saved("FCP", g.fcp),
+                        saved("LCP", g.lcp),
+                        g.build && g.build !== "optimized" ? `${g.build} build` : null,
+                        g.hosts,
+                      ]
+                        .filter(Boolean)
+                        .join(" · ")}
+                      {g.changes.length > 0 && (
+                        <ul class="mt-1 flex max-w-[18rem] flex-wrap gap-1 font-sans" aria-label="What the optimized build changes">
+                          {g.changes.map((c) => (
+                            <li key={c.label}>
+                              <a
+                                href={`${href("feature", { params: { id: c.feature } })}`}
+                                class={chipClass(c.framework)}
+                                title={c.framework ? "Uses an API or package the framework ships" : "Hand-written, or a library that isn’t part of the framework"}
+                              >
+                                {c.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </>
+                  ),
                   lanes: [
                     { key: "fcp", name: "FCP", series: 1, from: g.fcp.from, value: g.fcp.to },
                     { key: "lcp", name: "LCP", series: 2, from: g.lcp.from, value: g.lcp.to },
@@ -414,7 +450,15 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               digits={2}
               paired
               valueHeader="Default → optimized, s"
-              legend={<RunLegend hosts={false} bands={false} builds={{ hollow: "default settings", filled: "optimized" }} />}
+              legend={
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1">
+                  <RunLegend hosts={false} bands={false} builds={{ hollow: "default settings", filled: "optimized" }} />
+                  <span class="flex items-center gap-1.5 text-xs text-ink-2">
+                    <span class={chipClass(true)}>framework feature</span>
+                    <span class={chipClass(false)}>hand-written or library</span>
+                  </span>
+                </div>
+              }
               caption={
                 <>
                   Seconds, mobile Lighthouse through PageSpeed Insights. Each value is the median of {runsText} per host,
