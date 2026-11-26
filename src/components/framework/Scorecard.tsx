@@ -13,6 +13,7 @@ export interface ScorecardRow {
   bodyHtml: string;
   exampleHtml: string | null;
   artDirection: ArtDirection | null;
+  gotchasHtml: string | null;
   /** Computed in the loader, e.g. "1st-party, like 8 of the other 14 frameworks. None scores higher." */
   comparison: string;
 }
@@ -61,6 +62,12 @@ export function ScorecardGroup({
               <Prose html={row.bodyHtml} size="sm" class="mt-3 max-w-prose pb-1" />
               {row.exampleHtml && <ManualExample html={row.exampleHtml} class="mb-1" />}
               {row.artDirection && <ArtDirectionBlock art={row.artDirection} class="mb-1" />}
+              {row.gotchasHtml && (
+                <aside class="mt-3 mb-1 max-w-prose border-l-2 border-rule-strong pl-3" aria-label="Gotchas">
+                  <p class="eyebrow mb-1">Gotchas</p>
+                  <Prose html={row.gotchasHtml} size="sm" />
+                </aside>
+              )}
             </details>
           </li>
         ))}

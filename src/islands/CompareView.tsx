@@ -176,10 +176,6 @@ export default function CompareView({ frameworks, features, initial }: CompareVi
                 </dd>
                 <dt class="text-ink-2">Completeness</dt>
                 <dd class="num text-right">{fw.completeness}%</dd>
-                <dt class="text-ink-2">Group</dt>
-                <dd class="text-right">
-                  <Tag tone={fw.group === "core" ? "outline" : "quiet"}>{fw.group}</Tag>
-                </dd>
               </dl>
             </Card>
           ))}

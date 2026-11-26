@@ -32,7 +32,7 @@ export async function loader({ params }: LoaderArgs) {
   const feature = getFeature(params.id);
   if (!feature) throw notFound(`No feature "${params.id}"`);
 
-  // Source column order: the nine core ports, then the six additional frameworks.
+  // Source column order.
   const blocks: FeatureBlock[] = frameworks.map((fw) => {
     const cell = getCell(fw.id, feature.id);
     return {
@@ -41,6 +41,7 @@ export async function loader({ params }: LoaderArgs) {
       bodyHtml: cell.bodyHtml,
       exampleHtml: cell.exampleHtml,
       artDirection: cell.artDirection,
+      gotchasHtml: cell.gotchasHtml,
     };
   });
 
@@ -97,8 +98,6 @@ export function head({ data }: HeadArgs<typeof loader>) {
 
 export function Component({ data }: RouteComponentProps<typeof loader>) {
   const { feature, blocks, tally, prev, next } = data;
-  const core = blocks.filter((b) => b.framework.group === "core");
-  const additional = blocks.filter((b) => b.framework.group === "additional");
   const groupText = feature.group === "fcp" ? "First-paint lever" : "Other feature";
 
   return (
@@ -161,24 +160,14 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section
         id="frameworks"
         title="How to enable it, by framework"
-        intro={`The ${core.length} core ports come first, with code samples from their port of the books demo app. The ${additional.length} additional frameworks follow, labelled from their documentation. Where a framework has no built-in support (Manual), a short example shows how to build it yourself. The order is the same on every feature page.`}
+        intro={`One card per framework, in the same order on every feature page. Where a framework has no built-in support (Manual), a short example shows how to build it yourself.`}
         class="scroll-mt-4 border-t border-rule"
       >
         <div class="grid gap-8 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-10">
           <FeatureJumpNav feature={feature} blocks={blocks} />
           <div class="min-w-0 max-w-[56rem]">
-            <h3 class="eyebrow mb-3">Core ports · how-to with code samples</h3>
             <div class="grid gap-4">
-              {core.map((b) => (
-                <FrameworkBlock key={b.framework.id} feature={feature} block={b} />
-              ))}
-            </div>
-
-            <h3 id="vendor-docs" class="eyebrow mt-10 mb-3 scroll-mt-20">
-              Additional frameworks
-            </h3>
-            <div class="grid gap-4">
-              {additional.map((b) => (
+              {blocks.map((b) => (
                 <FrameworkBlock key={b.framework.id} feature={feature} block={b} />
               ))}
             </div>

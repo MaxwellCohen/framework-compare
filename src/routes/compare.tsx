@@ -44,7 +44,7 @@ export async function loader() {
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const title = "Compare frameworks side by side — Framework Compare";
-  const description = `Pick ${MIN_PICK} to ${MAX_PICK} of ${data.frameworks.length} web meta-frameworks and see their labels for ${data.features.length} performance features side by side, plus a list of the features where they differ. Labels come from vendor documentation, not from measurements.`;
+  const description = `Pick ${MIN_PICK} to ${MAX_PICK} of ${data.frameworks.length} web meta-frameworks and see their labels for ${data.features.length} performance features side by side, plus a list of the features where they differ.`;
   return {
     title,
     meta: [

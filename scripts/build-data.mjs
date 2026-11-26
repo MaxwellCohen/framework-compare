@@ -28,6 +28,7 @@ const SOURCE_REF = process.env.BENCH_SOURCE_REF || "";
 const OUT_DIR = resolve(PROJECT, "src/data/generated");
 /** Site-authored code samples for Manual cells: one `<frameworkId>.md` per framework, `## <featureId>` sections. */
 const EXAMPLES_DIR = resolve(PROJECT, "content/manual-examples");
+const GOTCHAS_FILE = resolve(PROJECT, "content/framework-gotchas.md");
 
 // ---------------------------------------------------------------------------
 // Hand-maintained maps (slugs, short names, aliases). Nothing else is.
@@ -117,7 +118,7 @@ const ANCHOR_TARGETS = [
   [/^how-to-read-the-ranking$/, "/methodology#ranking"],
   [/^how-to-recompute-it$/, "/methodology#ranking"],
   [/^completeness-score-and-ranking$/, "/#ranking"],
-  [/^additional-frameworks$/, "/methodology#additional-frameworks"],
+  [/^additional-frameworks$/, "/methodology#versions"],
   [/^other-performance-features$/, "/#matrix"],
   [/^comparison-table$/, "/#matrix"],
 ];
@@ -813,7 +814,41 @@ function buildCapability() {
   };
 
   validateCapability({ frameworks, features, cells: orderedCells, ranking, tableLabel, tableScore });
-  return { ...foldFeatures({ frameworks, features, cells: orderedCells }), methodology };
+  return { ...splitGotchas(foldFeatures({ frameworks, features, cells: orderedCells })), methodology };
+}
+
+/**
+ * Applies content/framework-gotchas.md: for each `## <featureId>`, `### general`
+ * bullets replace the feature's Gotchas list (empty → section hidden) and
+ * `### <frameworkId>` bullets move onto that framework's cell as `gotchasHtml`.
+ */
+function splitGotchas(data) {
+  for (const cell of data.cells) cell.gotchasHtml = null;
+  if (!existsSync(GOTCHAS_FILE)) return data;
+  const md = readFileSync(GOTCHAS_FILE, "utf8").replace(/\r\n/g, "\n").replace(/<!--[\s\S]*?-->/g, "");
+  for (const part of md.split(/^## +/m).slice(1)) {
+    const nl = part.indexOf("\n");
+    const featureId = part.slice(0, nl).trim();
+    const feature = data.features.find((f) => f.id === featureId);
+    if (!feature) {
+      warn(`content/framework-gotchas.md: no feature "${featureId}"`);
+      continue;
+    }
+    feature.gotchasHtml = "";
+    for (const sub of part.slice(nl + 1).split(/^### +/m).slice(1)) {
+      const snl = sub.indexOf("\n");
+      const key = sub.slice(0, snl).trim();
+      const html = renderBlock(sub.slice(snl + 1));
+      if (key === "general") {
+        feature.gotchasHtml = html;
+        continue;
+      }
+      const cell = data.cells.find((c) => c.featureId === featureId && c.frameworkId === key);
+      if (!cell) warn(`content/framework-gotchas.md: no cell ${key} × ${featureId}`);
+      else cell.gotchasHtml = html;
+    }
+  }
+  return data;
 }
 
 /**
@@ -920,7 +955,7 @@ function validateCapability({ frameworks, features, cells, ranking, tableLabel, 
   }
 
   for (const f of features) {
-    for (const field of ["summary", "whatHtml", "gotchasHtml"]) {
+    for (const field of ["summary", "whatHtml"]) {
       if (!f[field]) problem(`feature ${f.id}: empty ${field}`);
     }
   }
@@ -1231,6 +1266,40 @@ try {
   console.error(`\nbuild-data: ${err.message}\n\nNo files were written.`);
   process.exit(1);
 }
+
+/**
+ * The sources mark missing examples "(unsourced)". On the site, say what was not
+ * found instead. Applied to every string in the output.
+ */
+const NOT_FOUND_PHRASES = [
+  [/No inline example \(unsourced\) because no repo file or linked doc page supplied one:/g, "No code example was found in the repo or the linked docs for:"],
+  [/Also flagged UNSOURCED inline and not affecting any label:/g, "Not found in the docs, and not affecting any label:"],
+  [/\bno inline example was sourced \(unsourced\)/g, "no code example was found in the docs"],
+  [/The docs show no config snippet for it \(unsourced\)/g, "No config snippet for it was found in the docs"],
+  [/\(UNSOURCED for (\w+)\)/g, "(not found in the $1 docs)"],
+  [/No ((?:[\w.-]+-specific )?)inline example \(unsourced for this port\)/g, "No $1code example was found for this port"],
+  [/No ((?:[\w.-]+-specific )?)inline example \(unsourced\)/g, "No $1code example was found in the docs"],
+  // The site does not split frameworks into core and additional, or carry speed disclaimers.
+  [/performance features, not speed:/g, "performance features:"],
+];
+function rephraseNotFound(value, path = "") {
+  if (typeof value === "string") {
+    let out = value;
+    for (const [re, to] of NOT_FOUND_PHRASES) out = out.replace(re, to);
+    if (/unsourced/i.test(out)) warn(`${path}: "unsourced" left in text`);
+    return out;
+  }
+  if (Array.isArray(value)) return value.map((v, i) => rephraseNotFound(v, `${path}[${i}]`));
+  if (value && typeof value === "object") {
+    for (const k of Object.keys(value)) value[k] = rephraseNotFound(value[k], `${path}.${k}`);
+  }
+  return value;
+}
+capability.methodology.lowerConfidenceClaims = capability.methodology.lowerConfidenceClaims.filter(
+  (c) => !/Additional frameworks have/.test(typeof c === "string" ? c : JSON.stringify(c)),
+);
+rephraseNotFound(capability, "capability");
+rephraseNotFound(measured, "measured");
 
 for (const href of unmappedLinks) {
   problem(`unmapped link target "${href}" — add it to ANCHOR_TARGETS / FILE_TARGETS in scripts/build-data.mjs`);

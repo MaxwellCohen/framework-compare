@@ -5,7 +5,7 @@ import type { Label } from "../data/types.ts";
 
 export async function loader() {
   const { capability, frameworks, getFramework, measured, MAX_SCORE } = await import("../data/index.ts");
-  const m = capability.methodology;
+  const { disclaimerHtml: _disclaimer, additionalFrameworksHtml: _additional, ...m } = capability.methodology;
   const slim = (f: (typeof frameworks)[number]) => ({
     id: f.id,
     name: f.name,
@@ -24,8 +24,7 @@ export async function loader() {
         tied: capability.ranking.some((o) => o.frameworkId !== r.frameworkId && o.rank === r.rank),
       };
     }),
-    core: frameworks.filter((f) => f.group === "core").map(slim),
-    additional: frameworks.filter((f) => f.group === "additional").map(slim),
+    frameworks: frameworks.map(slim),
     featureCount: capability.features.length,
     otherFeatureCount: capability.features.filter((f) => f.group === "other").length,
     otherMax: MAX_SCORE.other,
@@ -43,7 +42,7 @@ export function head() {
       {
         name: "description",
         content:
-          "How Framework Compare labels what each framework supports, how the scores and the completeness ranking are calculated, which versions were checked, and which claims are uncertain. Labels come from vendor documentation, read with AI assistance. They describe capability, not measured speed.",
+          "How Framework Compare labels what each framework supports, how the scores and the completeness ranking are calculated, which versions were checked, and which claims are uncertain. Labels come from vendor documentation, read with AI assistance.",
       },
     ],
   };
@@ -64,12 +63,11 @@ const TOC = [
   { hash: "ranking", label: "Completeness score and ranking" },
   { hash: "reading", label: "Reading the other-features scores" },
   { hash: "versions", label: "Versions checked" },
-  { hash: "additional-frameworks", label: "Additional frameworks" },
   { hash: "lower-confidence", label: "Lower-confidence claims" },
 ];
 
 export function Component({ data }: RouteComponentProps<typeof loader>) {
-  const total = data.core.length + data.additional.length;
+  const total = data.frameworks.length;
   return (
     <>
       <PageHeader
@@ -80,7 +78,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <>
             <Tag>From vendor documentation</Tag>
             <Tag>AI-assisted</Tag>
-            <Tag>Capability, not measurement</Tag>
           </>
         }
       />
@@ -92,10 +89,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
         <div class="min-w-0 max-w-[52rem]">
           <DocSection id="about" index="01" title="What this site is and is not">
-            <Callout kind="caveat" title="Capability from documentation, not measurement">
-              <Prose size="sm" html={data.disclaimerHtml} />
-            </Callout>
-            <p class="mt-4 max-w-prose text-ink-2">
+            <p class="max-w-prose text-ink-2">
               The site’s measured numbers are on two pages.{" "}
               <NavLink to={{ route: "measured" }} class="link">
                 Measured
@@ -176,7 +170,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <h3 class="mt-8 mb-3 font-semibold text-ink">The ranking</h3>
             <RankingTable rows={data.ranking} />
             <p class="mt-2 max-w-prose text-xs text-ink-3">
-              Points count documented capabilities. They do not measure speed. “=” marks a tied rank. Each name links to that
+              “=” marks a tied rank. Each name links to that
               framework’s page.
             </p>
           </DocSection>
@@ -184,7 +178,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <DocSection id="reading" index="05" title="Reading the other-features scores">
             <p class="mb-4 max-w-prose text-sm text-ink-3">
               The source’s summary of the {data.otherFeatureCount} “other features” (the ones that are not FCP levers, max{" "}
-              {data.otherMax} points) for the {data.core.length} core frameworks.
+              {data.otherMax} points).
             </p>
             <div class="max-w-prose">
               <Prose html={data.otherFeaturesSummaryHtml} />
@@ -193,34 +187,16 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
           <DocSection id="versions" index="06" title="Versions checked">
             <p class="mb-5 max-w-prose text-ink-2">
-              The labels describe these versions. Core frameworks have full how-to sections in the source. Additional frameworks
-              are scored from shorter documentation notes (see{" "}
-              <NavLink to={{ route: "methodology", hash: "additional-frameworks" }} class="link">
-                Additional frameworks
-              </NavLink>
-              ).
+              The labels describe these versions.
             </p>
-            <div class="grid gap-5">
-              <VersionList
-                title={`Core frameworks (${data.core.length})`}
-                aside="Version used in the Books demo app, with notes"
-                frameworks={data.core}
-              />
-              <VersionList
-                title={`Additional frameworks (${data.additional.length})`}
-                aside="Version the documentation was read at"
-                frameworks={data.additional}
-              />
-            </div>
+            <VersionList
+              title={`Frameworks (${data.frameworks.length})`}
+              aside="Version checked, with notes"
+              frameworks={data.frameworks}
+            />
           </DocSection>
 
-          <DocSection id="additional-frameworks" index="07" title="Additional frameworks">
-            <div class="max-w-prose">
-              <Prose html={data.additionalFrameworksHtml} />
-            </div>
-          </DocSection>
-
-          <DocSection id="lower-confidence" index="08" title="Lower-confidence claims">
+          <DocSection id="lower-confidence" index="07" title="Lower-confidence claims">
             <p class="mb-5 max-w-prose text-ink-2">
               The source flags {data.lowerConfidenceClaims.length} claims as uncertain. They appear in source order, numbered
               here so you can link to each one. Emoji in the text are the source’s marks (see{" "}

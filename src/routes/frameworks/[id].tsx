@@ -67,6 +67,7 @@ export async function loader({ params }: LoaderArgs) {
         bodyHtml: cell.bodyHtml,
         exampleHtml: cell.exampleHtml,
         artDirection: cell.artDirection,
+        gotchasHtml: cell.gotchasHtml,
         comparison:
           (same === 1
             ? `${text}: the only framework of ${count} with this label. `
@@ -88,8 +89,6 @@ export async function loader({ params }: LoaderArgs) {
     .filter((f) => f.id !== fw.id && f.rank === fw.rank)
     .map((f) => ({ id: f.id, name: f.name, shortName: f.shortName }));
 
-  const groupSize = { core: 0, additional: 0 };
-  for (const f of frameworks) groupSize[f.group] += 1;
 
   // Latest benchmark run: this framework's builds on every page, or null.
   const run = benchmark.latest;
@@ -138,11 +137,9 @@ export async function loader({ params }: LoaderArgs) {
       app: fw.app,
       repo: fw.repo,
       deployments: fw.deployments,
-      extrasHtml: fw.extrasHtml,
     },
     max: { fcp: MAX_SCORE.fcp, other: MAX_SCORE.other, total: MAX_TOTAL },
     count,
-    groupSize,
     featureCount,
     tiedWith,
     groups,
@@ -176,7 +173,6 @@ export function head({ data }: HeadArgs<typeof loader>) {
 export function Component({ data }: RouteComponentProps<typeof loader>) {
   const { framework: fw, max, count, tiedWith, groups, prev, next } = data;
   const tied = tiedWith.length > 0;
-  const additional = fw.group === "additional";
 
   return (
     <>
@@ -187,8 +183,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <>
             {fw.name} scores {fw.total} of {max.total} points. That is {fw.fcpScore} of {max.fcp} on the{" "}
             {groups[0].rows.length} features that affect first paint (the moment the browser first draws content), and{" "}
-            {fw.otherScore} of {max.other} on the {groups[1].rows.length} other features. Points count what {fw.name}'s
-            documentation says it provides. They do not measure speed.
+            {fw.otherScore} of {max.other} on the {groups[1].rows.length} other features.
           </>
         }
         meta={
@@ -209,7 +204,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
                 </>
               )}
             </span>
-            <Tag>{additional ? "Additional framework" : "Core port"}</Tag>
             <ScoreBar fcp={fw.fcpScore} other={fw.otherScore} fcpMax={max.fcp} otherMax={max.other} />
           </>
         }
@@ -233,15 +227,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               <dd class="text-ink-2">{fw.versionNotes}</dd>
             </>
           )}
-          <dt class="eyebrow sm:pt-0.5">Group</dt>
-          <dd class="text-ink-2">
-            {additional
-              ? `One of ${data.groupSize.additional} additional frameworks, labelled from vendor documentation.`
-              : `One of ${data.groupSize.core} core ports, with a full how-to and code samples for each feature.`}{" "}
-            <NavLink to={{ route: "methodology", hash: "versions" }} class="link">
-              Versions checked
-            </NavLink>
-          </dd>
         </dl>
       </Container>
 
@@ -339,18 +324,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             />
             <StatusKey class="mt-3" />
           </div>
-        </Section>
-      )}
-
-      {fw.extrasHtml && (
-        <Section
-          id="extras"
-          title="Not scored"
-          intro={`Performance features the source document lists for ${fw.name} beyond the ${data.featureCount} above. They do not count toward the score.`}
-          width="prose"
-          class="scroll-mt-4 border-t border-rule"
-        >
-          <Prose html={fw.extrasHtml} />
         </Section>
       )}
 

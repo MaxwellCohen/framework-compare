@@ -10,7 +10,7 @@ export type RankingFramework = Pick<
 
 /**
  * All frameworks in rank order: rank, name (links to the framework page), the
- * split score bar, the three point columns, completeness, and the group.
+ * split score bar, the three point columns, and completeness.
  * Pass the rows already sorted.
  */
 export function RankingTable({ frameworks, maxTotal }: { frameworks: RankingFramework[]; maxTotal: number }) {
@@ -22,9 +22,6 @@ export function RankingTable({ frameworks, maxTotal }: { frameworks: RankingFram
         <MatrixColHeader title="Points from the six other features, out of 12">Other</MatrixColHeader>
         <MatrixColHeader>Total</MatrixColHeader>
         <MatrixColHeader title="Total as a share of the 22 available points">Complete</MatrixColHeader>
-        <MatrixColHeader title="Core: full how-to sections. Additional: scored from documentation notes.">
-          Group
-        </MatrixColHeader>
       </MatrixHead>
       <tbody>
         {frameworks.map((f) => (
@@ -56,9 +53,6 @@ export function RankingTable({ frameworks, maxTotal }: { frameworks: RankingFram
             </MatrixCell>
             <MatrixCell>
               <span class="num">{f.completeness}%</span>
-            </MatrixCell>
-            <MatrixCell>
-              <Tag tone={f.group === "core" ? "outline" : "quiet"}>{f.group}</Tag>
             </MatrixCell>
           </MatrixRow>
         ))}

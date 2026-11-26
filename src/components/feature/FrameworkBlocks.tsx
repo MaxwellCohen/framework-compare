@@ -13,6 +13,7 @@ export interface FeatureBlock {
   bodyHtml: string;
   exampleHtml: string | null;
   artDirection: ArtDirection | null;
+  gotchasHtml: string | null;
 }
 
 type FeatureRef = Pick<Feature, "id">;
@@ -41,30 +42,21 @@ export function FrameworkOverview({
   blocks: FeatureBlock[];
   class?: string;
 }) {
-  const run = (group: Framework["group"], heading: string) => (
-    <div class="min-w-0">
-      <p class="eyebrow mb-1.5">{heading}</p>
-      <ul class="flex flex-wrap gap-1.5">
-        {blocks
-          .filter((b) => b.framework.group === group)
-          .map((b) => (
-            <li key={b.framework.id}>
-              <NavLink
-                to={{ route: "feature", id: feature.id, hash: b.framework.id }}
-                class="inline-flex items-center gap-1.5 rounded-sm border border-rule-strong bg-surface px-2 py-1 text-sm whitespace-nowrap hover:border-ink"
-              >
-                <Mark label={b.label} />
-                <span class="text-ink">{b.framework.shortName}</span>
-              </NavLink>
-            </li>
-          ))}
-      </ul>
-    </div>
-  );
   return (
-    <nav aria-label="Frameworks on this page" class={`flex flex-wrap gap-x-8 gap-y-4 ${cls}`}>
-      {run("core", "Core ports")}
-      {run("additional", "Additional, from vendor docs")}
+    <nav aria-label="Frameworks on this page" class={cls}>
+      <ul class="flex flex-wrap gap-1.5">
+        {blocks.map((b) => (
+          <li key={b.framework.id}>
+            <NavLink
+              to={{ route: "feature", id: feature.id, hash: b.framework.id }}
+              class="inline-flex items-center gap-1.5 rounded-sm border border-rule-strong bg-surface px-2 py-1 text-sm whitespace-nowrap hover:border-ink"
+            >
+              <Mark label={b.label} />
+              <span class="text-ink">{b.framework.shortName}</span>
+            </NavLink>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }
@@ -75,21 +67,19 @@ export function FrameworkOverview({
  * `FrameworkOverview` and each block's "Overview" link do the same job there.
  */
 export function FeatureJumpNav({ feature, blocks }: { feature: FeatureRef; blocks: FeatureBlock[] }) {
-  const list = (group: Framework["group"]) => (
+  const list = (
     <ul class="mt-1.5 border-l border-rule">
-      {blocks
-        .filter((b) => b.framework.group === group)
-        .map((b) => (
-          <li key={b.framework.id}>
-            <NavLink
-              to={{ route: "feature", id: feature.id, hash: b.framework.id }}
-              class="-ml-px flex items-center gap-2 border-l border-transparent py-1 pl-3 text-sm text-ink-2 hover:border-ink hover:text-ink"
-            >
-              <Mark label={b.label} />
-              <span>{b.framework.shortName}</span>
-            </NavLink>
-          </li>
-        ))}
+      {blocks.map((b) => (
+        <li key={b.framework.id}>
+          <NavLink
+            to={{ route: "feature", id: feature.id, hash: b.framework.id }}
+            class="-ml-px flex items-center gap-2 border-l border-transparent py-1 pl-3 text-sm text-ink-2 hover:border-ink hover:text-ink"
+          >
+            <Mark label={b.label} />
+            <span>{b.framework.shortName}</span>
+          </NavLink>
+        </li>
+      ))}
     </ul>
   );
   return (
@@ -97,10 +87,8 @@ export function FeatureJumpNav({ feature, blocks }: { feature: FeatureRef; block
       aria-label="Jump to a framework"
       class="sticky top-4 hidden max-h-[calc(100dvh-2rem)] self-start overflow-y-auto pr-2 lg:block"
     >
-      <p class="eyebrow">Core ports</p>
-      {list("core")}
-      <p class="eyebrow mt-5">Additional frameworks</p>
-      {list("additional")}
+      <p class="eyebrow">Frameworks</p>
+      {list}
       <p class="mt-5 text-sm">
         <NavLink to={{ route: "feature", id: feature.id, hash: "overview" }} class="link text-ink-2">
           Back to overview
@@ -141,6 +129,12 @@ export function FrameworkBlock({ feature, block }: { feature: FeatureRef; block:
       <Prose html={block.bodyHtml} size="sm" class="max-w-prose" />
       {block.exampleHtml && <ManualExample html={block.exampleHtml} />}
       {block.artDirection && <ArtDirectionBlock art={block.artDirection} id={`${fw.id}-art-direction`} />}
+      {block.gotchasHtml && (
+        <aside class="mt-4 max-w-prose border-l-2 border-rule-strong pl-3" aria-label={`${fw.name} gotchas`}>
+          <p class="eyebrow mb-1">Gotchas</p>
+          <Prose html={block.gotchasHtml} size="sm" />
+        </aside>
+      )}
     </Card>
   );
 }

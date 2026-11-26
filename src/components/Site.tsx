@@ -3,6 +3,7 @@ import { ExternalLink, NavLink, type Target } from "./links.tsx";
 import { LabelGlyph, LABEL_ORDER } from "./LabelBadge.tsx";
 
 export const REPO_URL = "https://github.com/MaxwellCohen/books-demo";
+export const SITE_REPO_URL = "https://github.com/MaxwellCohen/framework-compare";
 
 /**
  * Inline head script (see shell `head()`): runs before first paint.
@@ -140,9 +141,7 @@ export function SiteFooter() {
         <div class="max-w-prose space-y-2">
           <p class="eyebrow">About this data</p>
           <p>
-            <strong class="font-semibold text-ink">Capability labels come from vendor documentation, not from measurements.</strong>{" "}
-            A label says what a framework provides out of the box, not how fast an app built with it will be. Lab
-            measurements are kept apart from the labels, on the{" "}
+            Lab measurements are on the{" "}
             <NavLink to={{ route: "measured" }} class="link">
               Measured
             </NavLink>{" "}
@@ -167,6 +166,12 @@ export function SiteFooter() {
             <ExternalLink href={REPO_URL}>MaxwellCohen/books-demo</ExternalLink>
           </p>
           <p class="text-ink-3">The same books app, ported to 15 frameworks.</p>
+          <p>
+            <ExternalLink href={`${SITE_REPO_URL}/issues/new`}>Report an issue or a wrong label</ExternalLink>
+          </p>
+          <p>
+            <ExternalLink href={SITE_REPO_URL}>Site source on GitHub</ExternalLink>
+          </p>
           <p class="flex flex-wrap gap-x-4">
             <NavLink to={{ route: "measured" }} class="link">
               Measured

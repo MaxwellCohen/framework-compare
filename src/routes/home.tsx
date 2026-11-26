@@ -76,7 +76,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
   const { frameworks, features, cells, maxTotal } = data;
   const topScore = frameworks[0].total;
   const leaders = frameworks.filter((f) => f.total === topScore);
-  const coreCount = frameworks.filter((f) => f.group === "core").length;
   const fcpCount = features.filter((f) => f.group === "fcp").length;
   const otherCount = features.length - fcpCount;
   const maxPoints = LABELS["first-party"].points;
@@ -113,7 +112,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         }
         aside={
           <StatGroup cols={2} class="lg:w-80">
-            <Stat label="Frameworks" value={frameworks.length} hint={`${coreCount} core, ${frameworks.length - coreCount} additional`} />
+            <Stat label="Frameworks" value={frameworks.length} hint="each with its own port of the books demo" />
             <Stat label="Features" value={features.length} hint={`${fcpCount} first-paint levers, ${otherCount} other`} />
             <Stat label="Labels" value={cells.length} hint="one per framework and feature" />
             <Stat label="Top score" value={topScore} unit={`/${maxTotal}`} hint={listNames(leaders.map((f) => f.name))} />
@@ -157,9 +156,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title="Ranking"
         intro={
           <>
-            Each row adds up one framework's points from the matrix. Frameworks with the same total share a rank. The{" "}
-            {coreCount} core frameworks have a full how-to section for every feature. The{" "}
-            {frameworks.length - coreCount} additional ones are scored from shorter notes on their documentation.
+            Each row adds up one framework's points from the matrix. Frameworks with the same total share a rank.
           </>
         }
       >

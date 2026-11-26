@@ -147,6 +147,8 @@ export interface Cell {
   exampleHtml: string | null;
   /** image-pipeline cells only: the folded <picture> how-to. Null elsewhere. */
   artDirection: ArtDirection | null;
+  /** Framework-specific gotchas for this feature (content/framework-gotchas.md), or null. */
+  gotchasHtml: string | null;
 }
 
 export interface RankingRow {
