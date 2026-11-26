@@ -401,11 +401,12 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         class={`border-t border-rule ${ANCHOR}`}
         intro={
           <>
-            {l.buildCount} {l.buildCount === 1 ? "row" : "rows"}: one per framework, build and page, averaged across hosts.
-            Perf is the Lighthouse Performance score (0–100, higher is better). FCP, LCP, SI and TTI are in seconds; TBT and
-            Doc in milliseconds. Select a column header to sort, or pick fewer columns on a small screen.{" "}
+            Each row is one page of one build, with the {l.hosts.length} hosts averaged together. Perf is Lighthouse’s score out of
+            100, so higher is better. For every other column, lower is better. Times are in seconds, except TBT and Doc,
+            which are in milliseconds. Click a column to sort by it. On a phone, pick a smaller set of columns. Not sure
+            what a column means?{" "}
             <a href="#metrics" class="link">
-              What each metric means
+              Each metric is explained below
             </a>
             .
           </>
