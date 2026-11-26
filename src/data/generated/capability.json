@@ -9,10 +9,10 @@
    "version": "next 16.4.0-canary.8 (pinned pre-release; npm latest 16.4.6, which the docs describe)",
    "versionNotes": "Cache Components, inlineCss, reactCompiler, partialPrefetching enabled",
    "fcpScore": 9,
-   "otherScore": 10,
-   "total": 19,
-   "completeness": 86,
-   "rank": 5,
+   "otherScore": 11,
+   "total": 20,
+   "completeness": 91,
+   "rank": 3,
    "app": "next-books",
    "repo": "https://github.com/MaxwellCohen/next-books",
    "deployments": [
@@ -147,7 +147,7 @@
    "otherScore": 7,
    "total": 12,
    "completeness": 55,
-   "rank": 11,
+   "rank": 12,
    "app": "solid-books",
    "repo": "https://github.com/MaxwellCohen/solid-books",
    "deployments": [
@@ -189,10 +189,10 @@
    "version": "@tanstack/react-start 1.169.1 (pinned; latest 1.169.7 as of 2026-11-24), Vite ^8.0.0",
    "versionNotes": "?inline CSS; Unpic; own catalog cache",
    "fcpScore": 7,
-   "otherScore": 6,
-   "total": 13,
-   "completeness": 59,
-   "rank": 10,
+   "otherScore": 7,
+   "total": 14,
+   "completeness": 64,
+   "rank": 9,
    "app": "tanstack-books",
    "repo": "https://github.com/MaxwellCohen/tanstack-books",
    "deployments": [
@@ -237,7 +237,7 @@
    "otherScore": 7,
    "total": 14,
    "completeness": 64,
-   "rank": 8,
+   "rank": 9,
    "app": "tanstack-solid-books",
    "repo": "https://github.com/MaxwellCohen/tanstack-solid-books",
    "deployments": [
@@ -324,9 +324,9 @@
    "version": "waku 1.0.0-rc.0 (latest rc.5)",
    "versionNotes": "optimized branch; no CSS inline or images",
    "fcpScore": 6,
-   "otherScore": 8,
-   "total": 14,
-   "completeness": 64,
+   "otherScore": 9,
+   "total": 15,
+   "completeness": 68,
    "rank": 8,
    "app": "waku-books",
    "repo": "https://github.com/MaxwellCohen/waku-books",
@@ -459,9 +459,9 @@
    "version": "react-router / @react-router/dev 8.5.1 (the port's locked version; npm latest is 8.5.2, a patch release of 2026-11-18)",
    "versionNotes": "Framework mode is the Remix successor, formerly \"React Router v7\"; reactrouter.com docs now default to v8 (7.18.x still maintained).",
    "fcpScore": 6,
-   "otherScore": 6,
-   "total": 12,
-   "completeness": 55,
+   "otherScore": 7,
+   "total": 13,
+   "completeness": 59,
    "rank": 11,
    "app": "react-router-books",
    "repo": "https://github.com/MaxwellCohen/react-router-books",
@@ -760,10 +760,10 @@
    "number": 8,
    "name": "Fine-grained client reactivity",
    "group": "other",
-   "summary": "Fine-grained reactivity tracks dependencies per value, so a state change re-runs only the effects or components that read it; Solid, Svelte, and Marko go furthest and write straight to the affected DOM nodes, while Vue and Angular still update at component granularity (Vue diffs a compiler-optimised virtual DOM) and Qwik falls back to a vDOM for structural changes.",
-   "whatHtml": "<p>Fine-grained reactivity tracks dependencies per value, so a state change re-runs only the effects or components that read it; Solid, Svelte, and Marko go furthest and write straight to the affected DOM nodes, while Vue and Angular still update at component granularity (Vue diffs a compiler-optimised virtual DOM) and Qwik falls back to a vDOM for structural changes. Component-level reactivity (React) re-renders the component and its subtree and diffs the result. This is an interaction-cost property, not a first-paint one: in principle it shows up in INP and memory on long-lived pages.</p>",
+   "summary": "Fine-grained reactivity limits how much work a state change causes, so only the parts of the UI that read the changed value update.",
+   "whatHtml": "<p>Fine-grained reactivity limits how much work a state change causes, so only the parts of the UI that read the changed value update. Solid, Svelte, and Marko go furthest and write straight to the affected DOM nodes; Vue and Angular update at component granularity (Vue diffs a compiler-optimised virtual DOM); Qwik falls back to a vDOM for structural changes. React gets there with the first-party <a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">React Compiler</a>, which memoizes components, values, and JSX at build time so a state change skips the parts of the tree whose inputs did not change. This is an interaction-cost property, not a first-paint one: in principle it shows up in INP and memory on long-lived pages.</p>",
    "atAGlanceHtml": "",
-   "gotchasHtml": ""
+   "gotchasHtml": "<ul>\n<li>The React Compiler is opt-in for every React framework here: nothing changes until you add it to the build.</li>\n<li>This row says nothing about first paint; do not read it as a loading-speed feature.</li>\n</ul>"
   },
   {
    "id": "bundle-analysis",
@@ -884,13 +884,13 @@
   {
    "frameworkId": "next",
    "featureId": "reactivity",
-   "label": "third-party",
-   "points": 1,
-   "bodyHtml": "<p>React re-renders component subtrees; fine-grained updates need a community signals package such as <a href=\"https://www.npmjs.com/package/@preact/signals-react\" target=\"_blank\" rel=\"noopener\"><code>@preact/signals-react</code></a> (hence 🧪; not used in this port). <a href=\"https://nextjs.org/docs/app/api-reference/config/next-config-js/reactCompiler\" target=\"_blank\" rel=\"noopener\"><code>reactCompiler: true</code></a> (stable since v16.0.0) is enabled in this repo and auto-memoizes, but it does not change the re-render model.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"ts\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> nextConfig</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">:</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> NextConfig</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  reactCompiler: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">true</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">,</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">};</span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>next-books/next.config.ts</code> (other options omitted).</em></p>",
+   "label": "first-party",
+   "points": 2,
+   "bodyHtml": "<p>The first-party <a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">React Compiler</a>, switched on with <a href=\"https://nextjs.org/docs/app/api-reference/config/next-config-js/reactCompiler\" target=\"_blank\" rel=\"noopener\"><code>reactCompiler: true</code></a> (stable since v16.0.0; enabled in this port). Next runs it through the Babel plugin, applied only to files with JSX or hooks; Next 16.4 also has an experimental native Rust build of the compiler, <code>experimental.turbopackRustReactCompiler: true</code>, used alongside <code>reactCompiler: true</code>.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"ts\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> nextConfig</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">:</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> NextConfig</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  reactCompiler: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">true</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">,</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">};</span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>next-books/next.config.ts</code> (other options omitted).</em></p>",
    "hasSnippet": true,
    "exampleHtml": null,
    "artDirection": null,
-   "gotchasHtml": "<ul>\n<li>React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.</li>\n</ul>"
+   "gotchasHtml": "<ul>\n<li>The native Rust build of the React Compiler (<code>experimental.turbopackRustReactCompiler</code>) is experimental in Next 16.4; the stable path runs the Babel plugin.</li>\n</ul>"
   },
   {
    "frameworkId": "next",
@@ -1180,7 +1180,7 @@
    "featureId": "css-inlining",
    "label": "manual",
    "points": 0,
-   "bodyHtml": "<p>There is no first-party production inlining flag documented in the <a href=\"https://docs.solidjs.com/building-apps/styling-and-assets\" target=\"_blank\" rel=\"noopener\">styling and assets docs</a> (Solid 2 start mode, this port&#39;s stack; production output is <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> tags) or in the archived <a href=\"https://v1.solidjs.com/solid-start/v2/building-your-application/css-and-styling\" target=\"_blank\" rel=\"noopener\">SolidStart v2 CSS and styling docs</a>, so you wire it yourself: import the stylesheet with <code>?inline</code> (a <a href=\"https://vite.dev/guide/features#disabling-css-injection-into-the-page\" target=\"_blank\" rel=\"noopener\">Vite CSS feature</a>) and render it in a <code>&lt;style&gt;</code> tag.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"tsx\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#9ECBFF\"> \"./app.css?inline\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// ...</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">>{</span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">meta</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.env.</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">SSR</span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\"> ?</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">:</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">}&#x3C;/</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>solid-books/src/Document.tsx</code> (<code>optimized</code> branch). <code>NoHydration</code> keeps the CSS string out of the client bundle.</em></p>",
+   "bodyHtml": "<p>There is no first-party production inlining flag documented in the <a href=\"https://docs.solidjs.com/building-apps/styling-and-assets\" target=\"_blank\" rel=\"noopener\">styling and assets docs</a> (Solid 2 start mode, this port&#39;s stack; production output is <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> tags) or in the archived <a href=\"https://v1.solidjs.com/solid-start/v2/building-your-application/css-and-styling\" target=\"_blank\" rel=\"noopener\">SolidStart v2 CSS and styling docs</a>, so you wire it yourself: import the stylesheet with <code>?inline</code> (a <a href=\"https://vite.dev/guide/features#disabling-css-injection-into-the-page\" target=\"_blank\" rel=\"noopener\">Vite CSS feature</a>) and render it in a <code>&lt;style&gt;</code> tag.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"tsx\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"./app.css?inline\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// ...</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">>{</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">meta</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.env.</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">SSR</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> ?</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">:</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">}&#x3C;/</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>solid-books/src/Document.tsx</code> (<code>optimized</code> branch). <code>NoHydration</code> keeps the CSS string out of the client bundle.</em></p>",
    "hasSnippet": true,
    "exampleHtml": null,
    "artDirection": null,
@@ -1384,13 +1384,13 @@
   {
    "frameworkId": "tanstack-start-react",
    "featureId": "reactivity",
-   "label": "third-party",
-   "points": 1,
-   "bodyHtml": "<p>React. The <a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">React Compiler</a> is not enabled in this port (<code>vite.config.ts</code> calls <code>viteReact()</code> with no <code>compiler</code> option and adds no <code>reactCompilerPreset</code> Babel plugin), so state updates re-render component subtrees. The compiler is opt-in and would not change the model. Fine-grained updates need a community signals library such as <a href=\"https://preactjs.com/guide/v10/signals/\" target=\"_blank\" rel=\"noopener\"><code>@preact/signals-react</code></a> (hence 🧪 third-party); nothing first-party provides them. No code example was found for this port.</p>",
+   "label": "first-party",
+   "points": 2,
+   "bodyHtml": "<p>React; the first-party <a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">React Compiler</a> is added as a Babel preset to the React Vite plugin. It is not enabled in this port (<code>vite.config.ts</code> calls <code>viteReact()</code> with no compiler preset).</p>",
    "hasSnippet": false,
    "exampleHtml": null,
    "artDirection": null,
-   "gotchasHtml": "<ul>\n<li>React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.</li>\n</ul>"
+   "gotchasHtml": "<ul>\n<li>The React Compiler is opt-in: add its Babel preset to the React Vite plugin.</li>\n</ul>"
   },
   {
    "frameworkId": "tanstack-start-react",
@@ -1419,7 +1419,7 @@
    "featureId": "multi-host-deployment",
    "label": "third-party",
    "points": 1,
-   "bodyHtml": "<p>Nitro presets (a separate project, <code>nitrojs/nitro</code>) plus the host-maintained Cloudflare (<code>@cloudflare/vite-plugin</code>) and Netlify (<code>@netlify/vite-plugin-tanstack-start</code>) Vite plugins, which the TanStack <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/hosting\" target=\"_blank\" rel=\"noopener\">hosting</a> guide documents as its official setups; none of the three is published by TanStack. This port implements all three branches; it scores 🧪 by the same rule as React Router and Next.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"ts\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">if</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> (isCloudflare) {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">  const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> { </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">cloudflare</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> } </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">=</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">'@cloudflare/vite-plugin'</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">)</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  plugins.</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">push</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">cloudflare</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ viteEnvironment: { name: </span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">'ssr'</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> } }))</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">} </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">else</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> if</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> (isNetlify) {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">  const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> netlify</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> (</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">await</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">'@netlify/vite-plugin-tanstack-start'</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">)).default</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  plugins.</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">push</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">netlify</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">())</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">} </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">else</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  plugins.</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">push</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">nitro</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">())</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">}</span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>tanstack-books/vite.config.ts</code> (<code>optimized</code> branch; Nitro <code>rollupConfig</code> option omitted).</em></p>",
+   "bodyHtml": "<p>Nitro presets (a separate project, <code>nitrojs/nitro</code>) plus the host-maintained Cloudflare (<code>@cloudflare/vite-plugin</code>) and Netlify (<code>@netlify/vite-plugin-tanstack-start</code>) Vite plugins, which the TanStack <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/hosting\" target=\"_blank\" rel=\"noopener\">hosting</a> guide documents as its official setups; none of the three is published by TanStack. This port implements all three branches; it scores 🧪 by the same rule as React Router and Next.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"ts\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">if</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> (isCloudflare) {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">  const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> { </span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">cloudflare</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> } </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">=</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">'@cloudflare/vite-plugin'</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">)</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  plugins.</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">push</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">cloudflare</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ viteEnvironment: { name: </span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">'ssr'</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> } }))</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">else</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#F97583\"> if</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> (isNetlify) {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">  const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\"> netlify</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> (</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">await</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">'@netlify/vite-plugin-tanstack-start'</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">)).default</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  plugins.</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">push</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">netlify</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">())</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">else</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> {</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  plugins.</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">push</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">nitro</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">())</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">}</span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>tanstack-books/vite.config.ts</code> (<code>optimized</code> branch; Nitro <code>rollupConfig</code> option omitted).</em></p>",
    "hasSnippet": true,
    "exampleHtml": null,
    "artDirection": null,
@@ -1759,13 +1759,13 @@
   {
    "frameworkId": "waku",
    "featureId": "reactivity",
-   "label": "third-party",
-   "points": 1,
-   "bodyHtml": "<p>React; the <a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">React Compiler</a> is enabled via a Babel preset (enabled on both <code>main</code> and <code>optimized</code> in this port) and does not change the re-render model. Fine-grained updates need a community signals library such as <a href=\"https://preactjs.com/guide/v10/signals/\" target=\"_blank\" rel=\"noopener\"><code>@preact/signals-react</code></a> (hence 🧪 third-party); nothing first-party provides them.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"ts\"><code><span class=\"line\"><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">plugins</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">: [</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">tailwindcss</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(), </span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">react</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(), </span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">babel</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ presets: [</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">reactCompilerPreset</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">()] })],</span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>waku-books/waku.config.ts</code> (<code>optimized</code> branch).</em></p>",
+   "label": "first-party",
+   "points": 2,
+   "bodyHtml": "<p>React; the first-party <a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">React Compiler</a> is enabled via a Babel preset (on both <code>main</code> and <code>optimized</code> in this port).</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"ts\"><code><span class=\"line\"><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">plugins</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">: [</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">tailwindcss</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(), </span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">react</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">(), </span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">babel</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ presets: [</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">reactCompilerPreset</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">()] })],</span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>waku-books/waku.config.ts</code> (<code>optimized</code> branch).</em></p>",
    "hasSnippet": true,
    "exampleHtml": null,
    "artDirection": null,
-   "gotchasHtml": "<ul>\n<li>React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.</li>\n</ul>"
+   "gotchasHtml": null
   },
   {
    "frameworkId": "waku",
@@ -1958,7 +1958,7 @@
    "artDirection": {
     "label": "first-party",
     "bodyHtml": "<p><code>&lt;Picture /&gt;</code> (astro@3.3.0+) emits <code>&lt;picture&gt;</code> with <code>formats</code> (default <code>webp</code>) plus a fallback <code>&lt;img&gt;</code>. Breakpoint art direction is not in the component docs; the official recipe uses <code>getImage()</code> and a hand-written <code>&lt;picture&gt;</code>/<code>&lt;source media&gt;</code>. (<a href=\"https://docs.astro.build/en/reference/modules/astro-assets/\" target=\"_blank\" rel=\"noopener\">astro-assets</a>, <a href=\"https://docs.astro.build/en/recipes/build-custom-img-component/\" target=\"_blank\" rel=\"noopener\">build-custom-img-component</a>)</p>",
-    "exampleHtml": "<p><code>&lt;Picture /&gt;</code> handles formats, not breakpoints. Astro&#39;s recipe calls <code>getImage()</code> once per crop and writes the <code>&lt;picture&gt;</code> by hand.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"astro\"><code><span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// src/components/Hero.astro</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> { getImage } </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"astro:assets\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> wide </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-wide.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> square </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-square.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> desktop</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: wide, width: </span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">1600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#24292E;--shiki-dark:#9ECBFF\">\"avif\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\"> mobile</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"webp\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\"> fallback</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> media</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"(min-width: 768px)\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{desktop.src} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/avif\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{mobile.src} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/webp\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">img</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> src</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{fallback.src} {</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">...</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">fallback.attributes} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">alt</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"Shelves of books\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p>Source: <a href=\"https://docs.astro.build/en/recipes/build-custom-img-component/\" target=\"_blank\" rel=\"noopener\">Astro: build a custom image component</a></p>"
+    "exampleHtml": "<p><code>&lt;Picture /&gt;</code> handles formats, not breakpoints. Astro&#39;s recipe calls <code>getImage()</code> once per crop and writes the <code>&lt;picture&gt;</code> by hand.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"astro\"><code><span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// src/components/Hero.astro</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> { getImage } </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"astro:assets\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> wide </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-wide.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> square </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-square.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> desktop</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: wide, width: </span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">1600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#24292E;--shiki-dark:#9ECBFF\">\"avif\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\"> mobile</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"webp\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\"> fallback</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> media</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"(min-width: 768px)\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{desktop.src} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/avif\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{mobile.src} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/webp\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">img</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> src</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{fallback.src} {</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">...</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">fallback.attributes} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">alt</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"Shelves of books\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p>Source: <a href=\"https://docs.astro.build/en/recipes/build-custom-img-component/\" target=\"_blank\" rel=\"noopener\">Astro: build a custom image component</a></p>"
    },
    "gotchasHtml": null
   },
@@ -2134,13 +2134,13 @@
   {
    "frameworkId": "react-router",
    "featureId": "reactivity",
-   "label": "third-party",
-   "points": 1,
-   "bodyHtml": "<p>React-based; no signals primitive. Fine-grained updates need a community signals library such as <a href=\"https://preactjs.com/guide/v10/signals/\" target=\"_blank\" rel=\"noopener\"><code>@preact/signals-react</code></a> (hence 🧪 third-party); nothing first-party provides them. v8.4.0 split internal router contexts to reduce router re-renders only. (<a href=\"https://reactrouter.com/changelog\" target=\"_blank\" rel=\"noopener\">changelog</a>)</p>",
+   "label": "first-party",
+   "points": 2,
+   "bodyHtml": "<p>React-based; the first-party <a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">React Compiler</a> is added as a Babel preset to the React Vite plugin (not enabled in this port). v8.4.0 also split internal router contexts to reduce router re-renders. (<a href=\"https://react.dev/learn/react-compiler\" target=\"_blank\" rel=\"noopener\">react-compiler</a>, <a href=\"https://reactrouter.com/changelog\" target=\"_blank\" rel=\"noopener\">changelog</a>)</p>",
    "hasSnippet": false,
    "exampleHtml": null,
    "artDirection": null,
-   "gotchasHtml": "<ul>\n<li>React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.</li>\n</ul>"
+   "gotchasHtml": "<ul>\n<li>The React Compiler is opt-in: add its Babel preset to the React Vite plugin.</li>\n</ul>"
   },
   {
    "frameworkId": "react-router",
@@ -2695,6 +2695,14 @@
   },
   {
    "rank": 3,
+   "frameworkId": "next",
+   "fcpScore": 9,
+   "otherScore": 11,
+   "total": 20,
+   "completeness": 91
+  },
+  {
+   "rank": 3,
    "frameworkId": "nuxt",
    "fcpScore": 10,
    "otherScore": 10,
@@ -2708,14 +2716,6 @@
    "otherScore": 11,
    "total": 20,
    "completeness": 91
-  },
-  {
-   "rank": 5,
-   "frameworkId": "next",
-   "fcpScore": 9,
-   "otherScore": 10,
-   "total": 19,
-   "completeness": 86
   },
   {
    "rank": 6,
@@ -2735,6 +2735,22 @@
   },
   {
    "rank": 8,
+   "frameworkId": "waku",
+   "fcpScore": 6,
+   "otherScore": 9,
+   "total": 15,
+   "completeness": 68
+  },
+  {
+   "rank": 9,
+   "frameworkId": "tanstack-start-react",
+   "fcpScore": 7,
+   "otherScore": 7,
+   "total": 14,
+   "completeness": 64
+  },
+  {
+   "rank": 9,
    "frameworkId": "tanstack-start-solid",
    "fcpScore": 7,
    "otherScore": 7,
@@ -2742,34 +2758,18 @@
    "completeness": 64
   },
   {
-   "rank": 8,
-   "frameworkId": "waku",
+   "rank": 11,
+   "frameworkId": "react-router",
    "fcpScore": 6,
-   "otherScore": 8,
-   "total": 14,
-   "completeness": 64
-  },
-  {
-   "rank": 10,
-   "frameworkId": "tanstack-start-react",
-   "fcpScore": 7,
-   "otherScore": 6,
+   "otherScore": 7,
    "total": 13,
    "completeness": 59
   },
   {
-   "rank": 11,
+   "rank": 12,
    "frameworkId": "solidstart",
    "fcpScore": 5,
    "otherScore": 7,
-   "total": 12,
-   "completeness": 55
-  },
-  {
-   "rank": 11,
-   "frameworkId": "react-router",
-   "fcpScore": 6,
-   "otherScore": 6,
    "total": 12,
    "completeness": 55
   },
@@ -2803,7 +2803,7 @@
   "labelsHtml": "<ul>\n<li>✅ <strong>1st-party / built-in</strong> — the framework covers it with a default, a stable flag, or an official module/package from the framework team. Whether it is on by default or added as a module does not matter: <code>@nuxt/image</code>, <code>@sveltejs/enhanced-img</code>, and <code>next/image</code> all count the same.</li>\n<li>🧪 <strong>Experimental / third-party</strong> — the only path is a first-party API marked experimental or unstable, or a community package maintained outside the framework team.</li>\n<li>🔧 <strong>Manual</strong> — nothing covers it; the app (or this repo) wires it by hand, or goes without.</li>\n</ul>\n<p>🧪 third-party applies when a community package or host service usable with that framework provides the feature itself (not just a building block the app still assembles by hand), whether or not the vendor docs mention it; each such entry names it. Partytown is credited only where the framework&#39;s own docs point to it.</p>\n<p>The labels describe <strong>framework capability</strong>, not what a particular port chose. Opt-in is not a penalty. Several ports took a manual or third-party route even where a first-party primitive existed; the feature sections below call that out and link the vendor docs for each framework.</p>\n<p><strong>Rubric change:</strong> these labels follow a revised rubric (opt-in is no longer penalized; 🔶 and ❌ are removed), so scores are not comparable with earlier versions of this file.</p>\n<p><strong>Evidence:</strong> Each framework entry links the vendor docs for its label; 🔧 (and 🧪 third-party) entries link the docs page that covers the topic without a first-party primitive (worded &quot;no first-party X documented&quot;, not &quot;cannot&quot;). Some labels follow the project owner&#39;s rubric decision rather than a literal reading of the linked docs; those cells are listed in <a href=\"/methodology#lower-confidence\">Lower-confidence claims</a>.</p>",
   "scoringHtml": "<p>✅ = 2 points, 🧪 = 1, 🔧 = 0. Each table ends with a score row, which is the sum of its column. To recompute one by hand, read down a column and add:</p>\n<div class=\"table-wrap\"><table>\n<thead>\n<tr>\n<th>Next, first table</th>\n<th>Label</th>\n<th>Points</th>\n</tr>\n</thead>\n<tbody><tr>\n<td>Production CSS inlining</td>\n<td>🧪</td>\n<td>1</td>\n</tr>\n<tr>\n<td>Font optimization</td>\n<td>✅</td>\n<td>2</td>\n</tr>\n<tr>\n<td>Image pipeline</td>\n<td>✅</td>\n<td>2</td>\n</tr>\n<tr>\n<td>Data/HTML caching</td>\n<td>✅</td>\n<td>2</td>\n</tr>\n<tr>\n<td>Route prefetching</td>\n<td>✅</td>\n<td>2</td>\n</tr>\n<tr>\n<td><strong>Total</strong></td>\n<td></td>\n<td><strong>9</strong></td>\n</tr>\n</tbody></table>\n</div>\n<p>That matches the <strong>9</strong> in the score row. The second table works the same way over seven rows (max 14), and the <a href=\"/#ranking\">ranking</a> adds the two totals.</p>",
   "rankingHtml": "<h3>How to read the ranking</h3>\n<p>Completeness % = (critical-path levers + other features) / 24, rounded to a whole percent. It measures the breadth of first-party and ecosystem performance features: items are unweighted, rows are not normalized against each other, and the islands row merges partial hydration, server islands, and lazy slices (best label). No measurements are used. Ties share a rank (2, 2, 4) and keep the earlier column order. Scores use the revised rubric and are not comparable with earlier versions.</p>\n<h3>How to recompute it</h3>\n<ol>\n<li>Score each cell: ✅ = 2, 🧪 = 1, 🔧 = 0.</li>\n<li>Sum each table&#39;s column to get the score row (max 10 for the critical-path levers, max 14 for the other features).</li>\n<li>Add the two scores for the total (max 24), then divide by 24 for the completeness percentage. For example, Nuxt: 10 + 12 = 22, and 22 / 24 rounds to 92%.</li>\n</ol>\n<p>Treat this as a rough capability count only, not a performance prediction.</p>",
-  "otherFeaturesSummaryHtml": "<p><strong>Summary:</strong> Nuxt and Pracht tie for the widest set (12 of 14). Nuxt has per-route rules, documented lazy hydration and experimental islands (🧪), modern-format images, first-party reactivity, an experimental analyzer, an official script module, and Nitro presets. Pracht is the only framework where islands are a per-route hydration mode, and it also has server islands, ISG, an analyzer, a script component with loading strategies, and first-party adapters. TanStack Start has per-route SSR control, experimental deferred hydration (🧪), and (React only) experimental Server Components. SvelteKit sits in the middle: strong routing and deploy primitives, but no islands and no built-in script or analysis tooling. SolidStart has the same gaps in script and analysis tooling, but gets modern-format <code>&lt;picture&gt;</code> output from the Solid team&#39;s <code>@solidjs/image</code> and experimental server components in Solid 2 (🧪); its deploy targets rely on Nitro and host-maintained plugins (🧪). Waku gets per-route rendering, adapters, and lazy slices, but its React runtime gives it no islands or fine-grained reactivity. Ember has autotracking and only a community analyzer beyond that.</p>\n<p>The honest reading is that <strong>Next&#39;s strength is server rendering, not breadth</strong>. It has React Server Components, Cache Components/PPR, and cache tags, which these tables do not try to score. It scores 🔧 on art-direction ergonomics, and 🧪 on deploy adapters and reactivity.</p>",
+  "otherFeaturesSummaryHtml": "<p><strong>Summary:</strong> Nuxt and Pracht tie for the widest set (12 of 14). Nuxt has per-route rules, documented lazy hydration and experimental islands (🧪), modern-format images, first-party reactivity, an experimental analyzer, an official script module, and Nitro presets. Pracht is the only framework where islands are a per-route hydration mode, and it also has server islands, ISG, an analyzer, a script component with loading strategies, and first-party adapters. TanStack Start has per-route SSR control, experimental deferred hydration (🧪), and (React only) experimental Server Components. SvelteKit sits in the middle: strong routing and deploy primitives, but no islands and no built-in script or analysis tooling. SolidStart has the same gaps in script and analysis tooling, but gets modern-format <code>&lt;picture&gt;</code> output from the Solid team&#39;s <code>@solidjs/image</code> and experimental server components in Solid 2 (🧪); its deploy targets rely on Nitro and host-maintained plugins (🧪). Waku gets per-route rendering, adapters, lazy slices, and the React Compiler. Ember has autotracking and only a community analyzer beyond that.</p>\n<p>The honest reading is that <strong>Next&#39;s strength is server rendering, not breadth</strong>. It has React Server Components, Cache Components/PPR, and cache tags, which these tables do not try to score. It scores 🔧 on art-direction ergonomics and 🧪 on deploy adapters.</p>",
   "additionalFrameworksHtml": "<p>Labels for these six frameworks come from vendor documentation and the package registry (npm; JSR for Fresh), at the versions listed under each framework, using the same legend and scoring as above. Ports of all six now exist (<code>astro-books</code>, <code>react-router-books</code>, <code>qwik-books</code>, <code>angular-books</code>, <code>marko-books</code>, <code>fresh-books</code>; see the <a href=\"https://github.com/MaxwellCohen/books-demo#readme\" target=\"_blank\" rel=\"noopener\">README</a> for repos and deploys), each with a <code>main</code> baseline and an <code>optimized</code> branch (cache + self-hosted fonts) deployed to Vercel, Netlify, and Cloudflare. The labels below were not derived from those ports.</p>\n<p><strong>Why these frameworks:</strong> widely used alternatives with an SSR/SSG story. Not included: Gatsby, Eleventy, Remix v2 (superseded by React Router), Analog, RedwoodSDK, and SvelteKit-adjacent projects.</p>",
   "lowerConfidenceClaims": [
    "TanStack Start (Solid)&#39;s <code>&lt;Hydrate&gt;</code> guide has prose copied from the React variant, and its runtime behavior was not confirmed by building the Solid port.",

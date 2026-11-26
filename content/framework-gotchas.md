@@ -98,16 +98,17 @@ A feature with no section here keeps the source list unchanged.
 ## reactivity
 
 ### next
-- React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.
+- The native Rust build of the React Compiler (`experimental.turbopackRustReactCompiler`) is experimental in Next 16.4; the stable path runs the Babel plugin.
 
 ### tanstack-start-react
-- React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.
+- The React Compiler is opt-in: add its Babel preset to the React Vite plugin.
 
 ### react-router
-- React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.
+- The React Compiler is opt-in: add its Babel preset to the React Vite plugin.
 
-### waku
-- React Compiler reduces wasted work but components still re-render; signals for React come only from community packages.
+### general
+- The React Compiler is opt-in for every React framework here: nothing changes until you add it to the build.
+- This row says nothing about first paint; do not read it as a loading-speed feature.
 
 ## bundle-analysis
 
