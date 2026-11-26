@@ -289,28 +289,28 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
       {(l.aborted || l.errors > 0 || l.coldSuspect > 0 || l.missing.length > 0) && (
         <Container class="py-6">
-        <Callout kind="caveat" title={`Coverage: ${l.withData} of ${l.targetCount} targets`}>
-          {l.aborted && <p class="font-semibold text-ink">This run stopped early, so its results are partial.</p>}
-          <p>
-            {l.frameworksWithData} of {data.frameworkCount} frameworks have data in this run.
-            {l.errors > 0 && ` ${l.errors} ${l.errors === 1 ? "target" : "targets"} failed.`}
-            {l.coldSuspect > 0 &&
-              ` ${l.coldSuspect} ${l.coldSuspect === 1 ? "target was" : "targets were"} cold on every run, so ${l.coldSuspect === 1 ? "its" : "their"} median includes cold runs.`}
-          </p>
-          {l.missing.length > 0 && (
+          <Callout kind="caveat" title={`Coverage: ${l.withData} of ${l.targetCount} targets`}>
+            {l.aborted && <p class="font-semibold text-ink">This run stopped early, so its results are partial.</p>}
             <p>
-              No data:{" "}
-              {l.missing.map((f, i) => (
-                <>
-                  {i > 0 && ", "}
-                  <FrameworkName framework={f} />
-                </>
-              ))}
-              .
+              {l.frameworksWithData} of {data.frameworkCount} frameworks have data in this run.
+              {l.errors > 0 && ` ${l.errors} ${l.errors === 1 ? "target" : "targets"} failed.`}
+              {l.coldSuspect > 0 &&
+                ` ${l.coldSuspect} ${l.coldSuspect === 1 ? "target was" : "targets were"} cold on every run, so ${l.coldSuspect === 1 ? "its" : "their"} median includes cold runs.`}
             </p>
-          )}
-        </Callout>
-      </Container>
+            {l.missing.length > 0 && (
+              <p>
+                No data:{" "}
+                {l.missing.map((f, i) => (
+                  <>
+                    {i > 0 && ", "}
+                    <FrameworkName framework={f} />
+                  </>
+                ))}
+                .
+              </p>
+            )}
+          </Callout>
+        </Container>
       )}
 
       <JumpNav

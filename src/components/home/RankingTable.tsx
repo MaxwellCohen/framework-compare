@@ -1,6 +1,5 @@
 import type { Framework } from "../../data/types.ts";
 import { Matrix, MatrixCell, MatrixColHeader, MatrixHead, MatrixRow, MatrixRowHeader } from "../Matrix.tsx";
-import { Tag } from "../Page.tsx";
 import { RankBadge, ScoreBar } from "../Score.tsx";
 
 export type RankingFramework = Pick<
