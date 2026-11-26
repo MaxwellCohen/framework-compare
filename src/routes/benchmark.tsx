@@ -211,9 +211,9 @@ function Reproduce({ history }: { history: { date: string; dateText: string; tar
           )}
         </div>
         <p class="text-sm text-ink-2">
-          The older September write-up, with FCP read from single Lighthouse runs, is on the{" "}
+          Why FCP clusters into bands, from the September Lighthouse runs, is on the{" "}
           <NavLink to={{ route: "measured" }} class="link">
-            Measured
+            FCP bands
           </NavLink>{" "}
           page.
         </p>
@@ -260,7 +260,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <Callout kind="note" title="No benchmark data">
             <p>
               No run has been imported yet. Follow the steps below to make one. Older lab numbers from September are on the{" "}
-              <NavLink to={{ route: "measured" }}>Measured</NavLink> page.
+              <NavLink to={{ route: "measured" }}>FCP bands</NavLink> page.
             </p>
           </Callout>
         </Container>

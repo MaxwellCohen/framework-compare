@@ -28,7 +28,7 @@ const NAV: NavItem[] = [
   { label: "Features", to: { route: "home", hash: "matrix" }, match: "/features" },
   { label: "Frameworks", to: { route: "home", hash: "ranking" }, match: "/frameworks" },
   { label: "Compare", to: { route: "compare" }, match: "/compare" },
-  { label: "Measured", to: { route: "measured" }, match: "/measured" },
+  { label: "FCP bands", to: { route: "measured" }, match: "/measured" },
   { label: "Benchmark", to: { route: "benchmark" }, match: "/benchmark" },
   { label: "Methodology", to: { route: "methodology" }, match: "/methodology" },
 ];
@@ -144,7 +144,7 @@ export function SiteFooter() {
           <p>
             Lab measurements are on the{" "}
             <NavLink to={{ route: "measured" }} class="link">
-              Measured
+              FCP bands
             </NavLink>{" "}
             and{" "}
             <NavLink to={{ route: "benchmark" }} class="link">
@@ -171,7 +171,7 @@ export function SiteFooter() {
           </p>
           <p class="flex flex-wrap gap-x-4">
             <NavLink to={{ route: "measured" }} class="link">
-              Measured
+              FCP bands
             </NavLink>
             <NavLink to={{ route: "benchmark" }} class="link">
               Benchmark

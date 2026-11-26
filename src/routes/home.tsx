@@ -103,7 +103,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               Methodology: how labels and scores are assigned
             </NavLink>
             <NavLink to={{ route: "measured" }} class="link">
-              Measured: first-paint timings from Lighthouse
+              FCP bands: why first paint comes in steps
             </NavLink>
             <NavLink to={{ route: "benchmark" }} class="link">
               Benchmark: our latest PageSpeed Insights run

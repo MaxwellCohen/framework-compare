@@ -92,10 +92,10 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <p class="max-w-prose text-ink-2">
               The site’s measured numbers are on two pages.{" "}
               <NavLink to={{ route: "measured" }} class="link">
-                Measured
+                FCP bands
               </NavLink>{" "}
-              has lab results for mobile Lighthouse First Contentful Paint (FCP), from the Books demo app built in{" "}
-              {data.measuredCount} frameworks.{" "}
+              uses mobile Lighthouse runs of the Books demo app in {data.measuredCount} frameworks to explain why First
+              Contentful Paint (FCP) clusters into bands.{" "}
               <NavLink to={{ route: "benchmark" }} class="link">
                 Benchmark
               </NavLink>{" "}
