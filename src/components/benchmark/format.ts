@@ -5,7 +5,7 @@
 
 export type CwvMetric = "fcp" | "lcp" | "tbt" | "cls" | "inp" | "ttfb";
 /** Every metric the site prints. */
-export type BenchMetricKey = CwvMetric | "perf" | "si" | "tti" | "doc";
+export type BenchMetricKey = CwvMetric | "perf" | "si" | "tti" | "doc" | "fcpObs";
 export type CwvStatus = "good" | "ni" | "poor";
 
 /**
@@ -36,6 +36,7 @@ export function cwvStatus(metric: CwvMetric, value: number | null | undefined): 
 export const METRIC_NAME: Record<BenchMetricKey, string> = {
   perf: "Performance score",
   fcp: "First Contentful Paint",
+  fcpObs: "First Contentful Paint, unthrottled",
   lcp: "Largest Contentful Paint",
   tbt: "Total Blocking Time",
   si: "Speed Index",
@@ -57,6 +58,7 @@ export function formatMetric(metric: BenchMetricKey, value: number | null | unde
   if (value == null) return null;
   switch (metric) {
     case "fcp":
+    case "fcpObs":
     case "lcp":
     case "si":
     case "tti":

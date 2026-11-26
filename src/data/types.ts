@@ -292,6 +292,14 @@ export interface BenchMetrics {
   cls: number | null;
   /** Document request time as seen by Lighthouse, ms. */
   doc: number | null;
+  /**
+   * First Contentful Paint in the real, unthrottled page load, ms. PSI simulates
+   * throttling, so `fcp` is an estimate built from this load. Runs before
+   * 2026-11-26 do not have it.
+   */
+  fcpObs?: number | null;
+  /** Largest Contentful Paint in the unthrottled load, ms. Same caveats as `fcpObs`. */
+  lcpObs?: number | null;
 }
 
 /**

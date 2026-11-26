@@ -111,6 +111,7 @@ export async function loader({ params }: LoaderArgs) {
     path: b.path,
     perf: b.perf,
     fcp: b.fcp,
+    fcpObs: b.fcpObs ?? null,
     lcp: b.lcp,
     tbt: b.tbt,
     cls: b.cls,

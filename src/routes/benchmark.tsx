@@ -75,6 +75,7 @@ export async function loader() {
     path: b.path,
     perf: b.perf,
     fcp: b.fcp,
+    fcpObs: b.fcpObs ?? null,
     lcp: b.lcp,
     tbt: b.tbt,
     cls: b.cls,
@@ -418,7 +419,18 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <>
             Each row is one page of one build, with the {l.hosts.length} hosts averaged together. Perf is Lighthouse’s score out of
             100, so higher is better. For every other column, lower is better. Times are in seconds, except TBT and Doc,
-            which are in milliseconds. Click a column to sort by it. On a phone, pick a smaller set of columns. Not sure
+            which are in milliseconds.{" "}
+            {l.tableRows.some((r) => r.fcpObs != null) && (
+              <>
+                FCP is Lighthouse’s estimate for Slow 4G; Raw FCP is the first paint in the real, unthrottled load that
+                estimate is built from.{" "}
+              </>
+            )}
+            Builds in the same{" "}
+            <NavLink to={{ route: "measured", hash: "caveats" }} class="link">
+              FCP band
+            </NavLink>{" "}
+            are a tie, whatever order the FCP column puts them in. Click a column to sort by it. On a phone, pick a smaller set of columns. Not sure
             what a column means?{" "}
             <a href="#metrics" class="link">
               Each metric is explained below
