@@ -772,15 +772,34 @@
    "group": "additional",
    "order": 17,
    "version": "rwsdk 1.7.5 (npm latest on 2026-11-25)",
-   "versionNotes": "RedwoodSDK runs on Cloudflare Workers only. No Books port yet.",
+   "versionNotes": "RedwoodSDK runs on Cloudflare Workers only; the Books port runs the same Worker bundle in a Node wrapper on Vercel and Netlify.",
    "fcpScore": 6,
    "otherScore": 7,
    "total": 13,
    "completeness": 46,
    "rank": 15,
-   "app": null,
-   "repo": null,
-   "deployments": [],
+   "app": "redwoodsdk-books",
+   "repo": "https://github.com/MaxwellCohen/redwoodsdk-books",
+   "deployments": [
+    {
+     "branch": "main",
+     "note": "baseline",
+     "urls": {
+      "vercel": "https://redwoodsdk-books.vercel.app",
+      "netlify": "https://redwoodsdk-books.netlify.app",
+      "cloudflare": "https://redwoodsdk-books.to-email-max.workers.dev"
+     }
+    },
+    {
+     "branch": "optimized",
+     "note": "x-prefetch + fonts + catalog cache + cover preloads + asset headers",
+     "urls": {
+      "vercel": "https://redwoodsdk-books-optimized.vercel.app",
+      "netlify": "https://redwoodsdk-books-max-optimized.netlify.app",
+      "cloudflare": "https://redwoodsdk-books-optimized.to-email-max.workers.dev"
+     }
+    }
+   ],
    "extrasHtml": "<ul>\n<li>Streaming responses from React server functions. (<a href=\"https://docs.rwsdk.com/guides/rsc-streams\" target=\"_blank\" rel=\"noopener\">rsc-streams</a>)</li>\n<li>Different Documents per route group, so one app can mix a static document, an SSR document and a client-only document. (<a href=\"https://docs.rwsdk.com/guides/frontend/documents\" target=\"_blank\" rel=\"noopener\">documents</a>)</li>\n<li>Security headers and a per-request CSP nonce by default. (<a href=\"https://docs.rwsdk.com/core/security\" target=\"_blank\" rel=\"noopener\">security</a>)</li>\n</ul>",
    "links": {
     "performanceGuide": {

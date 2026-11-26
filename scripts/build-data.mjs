@@ -58,7 +58,7 @@ const FRAMEWORKS = {
   // `port: false` = no Books port: no README deployment rows, no app, no repo.
   Analog: { id: "analog", shortName: "Analog" },
   Vike: { id: "vike", shortName: "Vike" },
-  RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK", port: false },
+  RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK" },
   "Remix 3": { id: "remix", shortName: "Remix 3", port: false },
 };
 
@@ -111,6 +111,7 @@ const APPS = {
   "fresh-books": "fresh",
   "vike-books": "vike",
   "analog-books": "analog",
+  "redwoodsdk-books": "redwoodsdk",
 };
 
 /** Label vocabulary of the source. */

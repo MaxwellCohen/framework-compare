@@ -102,5 +102,12 @@
     { "label": "Cover images (NgOptimizedImage)", "feature": "image-pipeline", "framework": true },
     { "label": "Router preloading", "feature": "route-prefetching", "framework": true },
     { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false }
+  ],
+  "redwoodsdk": [
+    { "label": "Navigation prefetch (x-prefetch links)", "feature": "route-prefetching", "framework": true },
+    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "Catalog query cache, hand-written", "feature": "caching", "framework": false },
+    { "label": "Home grid in first HTML, cover preloads", "feature": "streaming-ssr", "framework": false },
+    { "label": "Immutable asset headers", "feature": "caching", "framework": false }
   ]
 }
