@@ -2,7 +2,6 @@ import type { HeadArgs, RouteComponentProps } from "@pracht/core";
 import {
   CapabilityMatrix,
   LABELS,
-  Container,
   LabelLegend,
   NavLink,
   PageHeader,
@@ -10,9 +9,7 @@ import {
   Stat,
   StatGroup,
 } from "../components/index.ts";
-import { FeatureIndex } from "../components/home/FeatureIndex.tsx";
 import { RankingTable } from "../components/home/RankingTable.tsx";
-import { MAX_PICK, MIN_PICK } from "../components/compare/model.ts";
 
 /**
  * Returns only what the page prints: scores and names per framework, names and
@@ -165,20 +162,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         }
       >
         <RankingTable frameworks={frameworks} maxTotal={maxTotal} />
-      </Section>
-
-      <Section
-        id="features"
-        index="03"
-        title={`The ${features.length} features`}
-        intro={`What each row of the matrix covers, and how many of the ${frameworks.length} frameworks build it in as 1st-party.`}
-        actions={
-          <NavLink to={{ route: "compare" }} class="link">
-            Compare {MIN_PICK} to {MAX_PICK} frameworks side by side
-          </NavLink>
-        }
-      >
-        <FeatureIndex features={features} frameworkCount={frameworks.length} />
       </Section>
     </>
   );
