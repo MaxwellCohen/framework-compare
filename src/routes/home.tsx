@@ -54,7 +54,7 @@ export async function loader() {
 }
 
 export function head({ data }: HeadArgs<typeof loader>) {
-  const title = `Framework Compare: the speed features ${data.frameworks.length} web frameworks give you`;
+  const title = `Framework Compare: the speed features meta-frameworks give you`;
   const description = `Compare the ${data.features.length} features ${data.frameworks.length} web frameworks offer to make sites fast, from CSS inlining and image optimization to route prefetching and islands. See which ones each framework builds in and which you have to add yourself.`;
   return {
     title,
@@ -84,7 +84,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
     <>
       <PageHeader
         eyebrow="Performance features, compared"
-        title={`The speed features ${frameworks.length} web frameworks give you`}
+        title={`The speed features meta-frameworks give you`}
         lede={
           <>
             Frameworks ship features to make your site fast: inlined CSS, image optimization, route prefetching,
