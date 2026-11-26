@@ -1,11 +1,12 @@
 import type { FeatureGroup, Framework } from "../../data/types.ts";
 import { Matrix, MatrixCell, MatrixColHeader, MatrixHead, MatrixRow, MatrixRowHeader } from "../Matrix.tsx";
+import { NoPortTag } from "../Page.tsx";
 import { RankBadge, ScoreBar } from "../Score.tsx";
 
 export type RankingFramework = Pick<
   Framework,
   "id" | "name" | "group" | "fcpScore" | "otherScore" | "total" | "completeness" | "rank"
-> & { tied: boolean };
+> & { tied: boolean; hasPort: boolean };
 
 /**
  * All frameworks in rank order: rank, name (links to the framework page), the
@@ -36,6 +37,7 @@ export function RankingTable({
             <MatrixRowHeader to={{ route: "framework", id: f.id }}>
               <RankBadge rank={f.rank} tied={f.tied} size="sm" />
               <span class="font-semibold">{f.name}</span>
+              {!f.hasPort && <NoPortTag />}
             </MatrixRowHeader>
             <MatrixCell class="text-left">
               <ScoreBar fcp={f.fcpScore} other={f.otherScore} fcpMax={max.fcp} otherMax={max.other} size="sm" showValue={false} />

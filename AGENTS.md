@@ -46,3 +46,16 @@ This app uses **manifest routing**.
 - `.claude/skills/` — the 4 core pracht skills (pracht-scaffold, pracht-debug, pracht-deploy, upgrade-pracht); invoke with `/<skill-name>`
 - More skills — audits, testing scaffolds, and the `add-*` integrations — are published at https://pracht.resynapse.dev/.well-known/agent-skills/index.json. Run `pracht skills list` to see the catalog and `pracht skills add <name...>` to install one; do not hand-write a SKILL.md that already exists there.
 - `.mcp.json` — registers the `pracht dev-mcp` server so MCP clients can inspect the app graph, run doctor/verify, and scaffold natively
+
+## For agents reading the site
+
+The deployed site serves the same data as text and JSON, so an agent does not need to parse the HTML:
+
+- `/llms.txt` — index of every page and data file. `/llms-full.txt` — the matrix with a source link per cell, the FCP bands, the latest benchmark medians and the methodology in one file.
+- `/api/index.json` — catalog of the JSON files with a description of each field: `/api/frameworks.json`, `/api/features.json`, `/api/matrix.json`, `/api/benchmark.json`, `/api/fcp-bands.json`.
+- A markdown twin of each page: `/index.md`, `/frameworks/<id>.md`, `/features/<id>.md`, `/methodology.md`, `/measured.md`, `/benchmark.md`. Each HTML page links its twin with `<link rel="alternate" type="text/markdown">`.
+- `/sitemap.xml`, listed in `/robots.txt`.
+
+`scripts/build-agent-files.mjs` writes all of these into `public/` from `src/data/generated/*.json` before every `npm run build` and `npm run dev`. The outputs are gitignored. When you change a JSON shape, update the schema text in `/api/index.json` (in the same script) and keep existing field names. When you add a route, add it to the sitemap list and give it a twin there, then add `markdownAlternate()` and `pageLd()` from `src/agents.ts` to its `head`.
+
+The repo-root `llms.txt` is Pracht's authoring guide for coding agents working in this repo. It is not the served `/llms.txt`.

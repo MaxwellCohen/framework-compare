@@ -3,7 +3,9 @@
    Pure functions, no data imports: safe to use from islands.
    -------------------------------------------------------------------------- */
 
-export type CwvMetric = "fcp" | "lcp" | "tbt" | "cls";
+export type CwvMetric = "fcp" | "lcp" | "tbt" | "cls" | "inp" | "ttfb";
+/** Every metric the site prints. */
+export type BenchMetricKey = CwvMetric | "perf" | "si" | "tti" | "doc";
 export type CwvStatus = "good" | "ni" | "poor";
 
 /**
@@ -15,6 +17,8 @@ export const CWV_THRESHOLDS: Record<CwvMetric, [number, number]> = {
   lcp: [2500, 4000],
   tbt: [200, 600],
   cls: [0.1, 0.25],
+  inp: [200, 500],
+  ttfb: [800, 1800],
 };
 
 export const STATUS_TEXT: Record<CwvStatus, string> = {
@@ -29,29 +33,38 @@ export function cwvStatus(metric: CwvMetric, value: number | null | undefined): 
   return value <= good ? "good" : value <= ni ? "ni" : "poor";
 }
 
-export const METRIC_NAME: Record<CwvMetric | "perf" | "si" | "doc", string> = {
+export const METRIC_NAME: Record<BenchMetricKey, string> = {
   perf: "Performance score",
   fcp: "First Contentful Paint",
   lcp: "Largest Contentful Paint",
   tbt: "Total Blocking Time",
   si: "Speed Index",
+  tti: "Time to Interactive",
   cls: "Cumulative Layout Shift",
   doc: "Document request",
+  inp: "Interaction to Next Paint",
+  ttfb: "Time to First Byte",
 };
+
+/** Metrics with a Core Web Vitals status glyph. */
+export const hasStatus = (m: BenchMetricKey): m is CwvMetric => m in CWV_THRESHOLDS;
 
 /** ms → "1.51" (seconds, 2 decimals). */
 export const seconds = (ms: number) => (ms / 1000).toFixed(2);
 
 /** Formatted value and unit for a metric, or null when missing. */
-export function formatMetric(metric: keyof typeof METRIC_NAME, value: number | null | undefined): { text: string; unit: string } | null {
+export function formatMetric(metric: BenchMetricKey, value: number | null | undefined): { text: string; unit: string } | null {
   if (value == null) return null;
   switch (metric) {
     case "fcp":
     case "lcp":
     case "si":
+    case "tti":
       return { text: seconds(value), unit: "s" };
     case "tbt":
     case "doc":
+    case "inp":
+    case "ttfb":
       return { text: String(Math.round(value)), unit: "ms" };
     case "cls":
       return { text: value.toFixed(3), unit: "" };

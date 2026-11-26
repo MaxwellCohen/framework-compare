@@ -25,7 +25,11 @@ export type FrameworkId =
   | "qwik-city"
   | "angular"
   | "marko"
-  | "fresh";
+  | "fresh"
+  | "analog"
+  | "vike"
+  | "redwoodsdk"
+  | "remix";
 
 /**
  * Stable slugs, in source order. The source's "<picture>" row (section 8) is
@@ -57,7 +61,7 @@ export type Points = 0 | 1 | 2;
 /** "fcp" = the critical-path levers; "other" = the rest. 2 points per feature; see MAX_SCORE in index.ts. */
 export type FeatureGroup = "fcp" | "other";
 
-/** "core" = the nine frameworks with full how-to sections; "additional" = six scored from bullets. */
+/** "core" = the nine frameworks with full how-to sections; "additional" = the ones scored from bullets. */
 export type FrameworkGroup = "core" | "additional";
 
 export type Host = "vercel" | "netlify" | "cloudflare";
@@ -90,9 +94,9 @@ export interface Framework {
   completeness: number;
   /** Shared ranks allowed (1, 1, 3 …). */
   rank: number;
-  /** App name in the parent repo, e.g. "pracht-books". */
-  app: string;
-  /** GitHub URL of the port, from the README table. */
+  /** App name in the parent repo, e.g. "pracht-books". Null when the framework has no Books port. */
+  app: string | null;
+  /** GitHub URL of the port, from the README table. Null without a port. */
   repo: string | null;
   deployments: Deployment[];
   /** "Unscored extras" / "Other performance features not scored" entry for this framework, or null. */
@@ -149,7 +153,7 @@ export interface Cell {
   /** True when bodyHtml contains a code block. */
   hasSnippet: boolean;
   /**
-   * Manual cells only: a site-authored "build it yourself" sample from
+   * Cells whose source has no code: a site-authored sample from
    * content/manual-examples, rendered like bodyHtml. Not from the sources.
    */
   exampleHtml: string | null;
@@ -282,10 +286,24 @@ export interface BenchMetrics {
   tbt: number | null;
   /** Speed Index, ms. */
   si: number | null;
+  /** Time to Interactive, ms. Missing from runs imported before it was kept. */
+  tti?: number | null;
   /** Cumulative Layout Shift, unitless. */
   cls: number | null;
   /** Document request time as seen by Lighthouse, ms. */
   doc: number | null;
+}
+
+/**
+ * Chrome UX Report (CrUX) field data for one URL: the 75th percentile of real
+ * Chrome visits over the last 28 days. Times in ms, CLS unitless.
+ */
+export interface BenchField {
+  lcp: number | null;
+  inp: number | null;
+  cls: number | null;
+  fcp: number | null;
+  ttfb: number | null;
 }
 
 /** One deployment × path: framework × branch × host × path. */
@@ -298,6 +316,8 @@ export interface BenchTarget {
   path: BenchPath;
   url: string;
   median: BenchMetrics | null;
+  /** CrUX field data for this URL. Present only when PSI returned page-level data. */
+  field?: BenchField | null;
   /** Measured runs made. */
   runs: number;
   /** Runs that went into the median (not cold). */
@@ -346,4 +366,67 @@ export interface BenchmarkData {
   latest: BenchRun | null;
   /** Every run, oldest first. */
   history: BenchHistoryEntry[];
+}
+
+// ---------------------------------------------------------------------------
+// Feature tests: our own Playwright tests in each Books port
+// (content/feature-tests/<frameworkId>.json → generated/feature-tests.json).
+// ---------------------------------------------------------------------------
+
+export type FeatureTestStatus = "pass" | "fail" | "n/a";
+
+/** One port's test run. */
+export interface FeatureTestRun {
+  frameworkId: FrameworkId;
+  /** "owner/name" on GitHub. */
+  repo: string;
+  repoUrl: string;
+  branch: string;
+  /** The port code that was tested. */
+  commit: string;
+  /** The commit that holds feature-tests/ (specs and results.json). */
+  resultsCommit: string;
+  /** github.com tree URL of feature-tests/ at `resultsCommit`. */
+  testsUrl: string;
+  /** ISO timestamp of the run. */
+  testedAt: string;
+}
+
+/** One framework × feature test result. */
+export interface FeatureTestResult {
+  frameworkId: FrameworkId;
+  featureId: FeatureId;
+  status: FeatureTestStatus;
+  /** What the test observed, in plain text. */
+  evidence: string;
+  /** How the port implements the feature. */
+  method: string | null;
+  /** Route in the port the spec opens, or null when the test checks build output. */
+  testRoute: string | null;
+  /** github.com URL of the spec at `resultsCommit`. */
+  specUrl: string | null;
+  /** The label the test was written against. */
+  testedLabel: Label | null;
+  /** Set when the test suggests a different label from the current one. */
+  suggestedLabel: Label | null;
+}
+
+export interface FeatureTestData {
+  frameworks: FeatureTestRun[];
+  results: FeatureTestResult[];
+}
+
+/** What a page needs to show one cell's test: the result plus its run's links (`getCellTest`). */
+export interface CellTest {
+  status: FeatureTestStatus;
+  evidence: string;
+  method: string | null;
+  testRoute: string | null;
+  specUrl: string | null;
+  testsUrl: string;
+  repo: string;
+  shortCommit: string;
+  testedAt: string;
+  /** The label the test was written against, when it differs from the cell's current label. */
+  testedAs: Label | null;
 }

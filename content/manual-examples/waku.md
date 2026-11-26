@@ -71,6 +71,54 @@ export function LazyScript({ src }: { src: string }) {
 <LazyScript src="https://example-analytics.com/script.js" />  {/* lazyOnload */}
 ```
 
+## image-pipeline
+
+There is no image component, so the port renders a plain `<img>` and rewrites the Goodreads URL itself. The regex swaps the medium-size token `m` for the large `l`. There is no resizing, `srcset` or format negotiation.
+
+```tsx
+// src/features/book/book-constants.ts
+export function getLargeBookImageUrl(url: string): string {
+  return url.replace(/^(https:\/\/images\.gr-assets\.com\/books\/\d+)m(\/\d+\.jpg)$/, '$1l$2');
+}
+
+// src/features/book/components/book-cover.tsx
+const resolved = getLargeBookImageUrl(src ?? EMPTY_IMAGE_URL);
+// …
+<img
+  alt={title}
+  decoding="async"
+  fetchPriority={priority ? 'high' : 'auto'}
+  sizes={sizes}
+  src={resolved}
+/>
+```
+
+Source: [Waku: Static assets](https://waku.gg/#static-assets)
+
+## bundle-analysis
+
+Add `rollup-plugin-visualizer` under `vite.plugins` in `waku.config.ts`. `waku build` then writes a treemap of the bundle to `stats.html`.
+
+```ts
+// waku.config.ts
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
+import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig } from 'waku/config';
+
+export default defineConfig({
+  vite: {
+    plugins: [
+      tailwindcss(),
+      react(),
+      visualizer({ filename: 'stats.html', gzipSize: true }),
+    ],
+  },
+});
+```
+
+Source: [rollup-plugin-visualizer: README](https://github.com/btd/rollup-plugin-visualizer)
+
 ## service-worker
 
 Put a hand-written worker in `public/` and register it with an inline script in the root layout.

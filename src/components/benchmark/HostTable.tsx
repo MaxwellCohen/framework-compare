@@ -7,7 +7,8 @@ import type { BenchMetrics } from "../../data/types.ts";
 
 /* --------------------------------------------------------------------------
    Every target of a run (framework × build × host × path) with its medians,
-   how many runs went into the median, and any error or cold flag.
+   how many runs went into the median, and any error or cold flag. Island-safe
+   (the /compare island renders it with `status={false}`).
    -------------------------------------------------------------------------- */
 
 export interface HostTableRow {
@@ -31,7 +32,7 @@ export interface HostTableGroup {
 }
 
 const SERIES: Record<string, 1 | 2 | 3 | undefined> = { vercel: 1, netlify: 2, cloudflare: 3 };
-const METRICS = ["perf", "fcp", "lcp", "tbt", "cls", "si", "doc"] as const;
+const METRICS = ["perf", "fcp", "lcp", "tbt", "cls", "si", "tti", "doc"] as const;
 const HEADS: Record<(typeof METRICS)[number], [string, string]> = {
   perf: ["Perf", "Lighthouse Performance score, 0–100"],
   fcp: ["FCP", "First Contentful Paint, seconds"],
@@ -39,7 +40,8 @@ const HEADS: Record<(typeof METRICS)[number], [string, string]> = {
   tbt: ["TBT", "Total Blocking Time, milliseconds"],
   cls: ["CLS", "Cumulative Layout Shift"],
   si: ["SI", "Speed Index, seconds"],
-  doc: ["Doc", "Document request time as seen by Lighthouse, milliseconds"],
+  tti: ["TTI", "Time to Interactive, seconds"],
+  doc: ["Doc", "Document request time as seen by Lighthouse (about TTFB), milliseconds"],
 };
 
 function Status({ r, coldMs }: { r: HostTableRow; coldMs: number }) {
@@ -72,20 +74,33 @@ function Status({ r, coldMs }: { r: HostTableRow; coldMs: number }) {
   return <span class="text-xs text-ink-3">OK</span>;
 }
 
-export function HostTable({ groups, coldMs = 1000 }: { groups: HostTableGroup[]; coldMs?: number }) {
-  const span = 3 + METRICS.length + 1;
+export function HostTable({
+  groups,
+  coldMs = 1000,
+  status = true,
+  showPath = true,
+  label = "Every target in the run: medians per framework, build, path and host",
+}: {
+  groups: HostTableGroup[];
+  coldMs?: number;
+  /** Show the Runs and Status columns. */
+  status?: boolean;
+  showPath?: boolean;
+  label?: string;
+}) {
+  const span = (showPath ? 2 : 1) + METRICS.length + (status ? 2 : 0);
   return (
-    <Matrix label="Every target in the run: medians per framework, build, path and host">
+    <Matrix label={label}>
       <MatrixHead corner="Build">
-        <MatrixColHeader>Path</MatrixColHeader>
+        {showPath && <MatrixColHeader>Path</MatrixColHeader>}
         <MatrixColHeader>Host</MatrixColHeader>
         {METRICS.map((m) => (
           <MatrixColHeader key={m} title={HEADS[m][1]}>
             <span class="ml-auto">{HEADS[m][0]}</span>
           </MatrixColHeader>
         ))}
-        <MatrixColHeader title="Runs that went into the median, of runs made">Runs</MatrixColHeader>
-        <MatrixColHeader>Status</MatrixColHeader>
+        {status && <MatrixColHeader title="Runs that went into the median, of runs made">Runs</MatrixColHeader>}
+        {status && <MatrixColHeader>Status</MatrixColHeader>}
       </MatrixHead>
       {groups.map((g) => (
         <tbody key={g.key}>
@@ -99,9 +114,11 @@ export function HostTable({ groups, coldMs = 1000 }: { groups: HostTableGroup[];
                   </span>
                 </span>
               </th>
-              <td class="mx-cell !text-left">
-                <span class="num text-xs text-ink-2">{r.path}</span>
-              </td>
+              {showPath && (
+                <td class="mx-cell !text-left">
+                  <span class="num text-xs text-ink-2">{r.path}</span>
+                </td>
+              )}
               <td class="mx-cell !text-left">
                 <span class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs">
                   {SERIES[r.host] && <MarkerKey series={SERIES[r.host]!} />}
@@ -115,14 +132,18 @@ export function HostTable({ groups, coldMs = 1000 }: { groups: HostTableGroup[];
                   <MetricValue metric={m} value={r.median?.[m]} unit={false} />
                 </td>
               ))}
-              <td class="mx-cell !text-right">
-                <span class="num text-xs text-ink-2">
-                  {r.usedRuns}/{r.runs}
-                </span>
-              </td>
-              <td class="mx-cell !text-left">
-                <Status r={r} coldMs={coldMs} />
-              </td>
+              {status && (
+                <td class="mx-cell !text-right">
+                  <span class="num text-xs text-ink-2">
+                    {r.usedRuns}/{r.runs}
+                  </span>
+                </td>
+              )}
+              {status && (
+                <td class="mx-cell !text-left">
+                  <Status r={r} coldMs={coldMs} />
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

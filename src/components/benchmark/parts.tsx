@@ -1,5 +1,5 @@
 import { Fragment, type ComponentChildren } from "preact";
-import { cwvStatus, formatMetric, METRIC_NAME, STATUS_TEXT, CWV_THRESHOLDS, type CwvMetric, type CwvStatus } from "./format.ts";
+import { cwvStatus, formatMetric, hasStatus, METRIC_NAME, STATUS_TEXT, CWV_THRESHOLDS, type BenchMetricKey, type CwvMetric, type CwvStatus } from "./format.ts";
 
 /* --------------------------------------------------------------------------
    Small benchmark atoms. No NavLink and no data imports, so islands can use
@@ -33,7 +33,8 @@ export function StatusMark({ status, label = true }: { status: CwvStatus; label?
 }
 
 /**
- * One metric value: number, unit, and a status glyph for FCP, LCP, TBT and CLS.
+ * One metric value: number, unit, and a status glyph for the metrics with
+ * thresholds (FCP, LCP, TBT, CLS, INP, TTFB).
  * Missing values print "—". Text stays in ink; only the glyph is coloured.
  */
 export function MetricValue({
@@ -42,7 +43,7 @@ export function MetricValue({
   unit = true,
   class: cls = "",
 }: {
-  metric: CwvMetric | "perf" | "si" | "doc";
+  metric: BenchMetricKey;
   value: number | null | undefined;
   /** Print the unit after the number. */
   unit?: boolean;
@@ -57,7 +58,7 @@ export function MetricValue({
       </span>
     );
   }
-  const status = metric === "perf" || metric === "si" || metric === "doc" ? null : cwvStatus(metric, value);
+  const status = hasStatus(metric) ? cwvStatus(metric, value) : null;
   const text = `${f.text}${f.unit ? ` ${f.unit}` : ""}`;
   return (
     <span
@@ -78,12 +79,22 @@ const THRESHOLD_TEXT: Record<CwvMetric, (i: 0 | 1) => string> = {
   lcp: (i) => `${CWV_THRESHOLDS.lcp[i] / 1000} s`,
   tbt: (i) => `${CWV_THRESHOLDS.tbt[i]} ms`,
   cls: (i) => String(CWV_THRESHOLDS.cls[i]),
+  inp: (i) => `${CWV_THRESHOLDS.inp[i]} ms`,
+  ttfb: (i) => `${CWV_THRESHOLDS.ttfb[i] / 1000} s`,
 };
 
 /** Key for the status glyphs, with the thresholds per metric. */
-export function StatusKey({ class: cls = "", children }: { class?: string; children?: ComponentChildren }) {
+export function StatusKey({
+  class: cls = "",
+  metrics = ["fcp", "lcp", "tbt", "cls"],
+  children,
+}: {
+  class?: string;
+  /** Metrics whose thresholds the key lists. */
+  metrics?: CwvMetric[];
+  children?: ComponentChildren;
+}) {
   const item = "flex items-center gap-1.5";
-  const metrics: CwvMetric[] = ["fcp", "lcp", "tbt", "cls"];
   return (
     <div class={`text-xs text-ink-2 ${cls}`}>
       <ul class="flex flex-wrap gap-x-4 gap-y-1" aria-label="Core Web Vitals status key">

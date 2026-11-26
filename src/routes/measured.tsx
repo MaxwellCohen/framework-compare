@@ -1,4 +1,5 @@
 import type { HeadArgs, RouteComponentProps } from "@pracht/core";
+import { markdownAlternate, pageLd } from "../agents.ts";
 import {
   Callout,
   Card,
@@ -34,7 +35,7 @@ function longDate(iso: string) {
 }
 
 export async function loader() {
-  const { measured, frameworks } = await import("../data/index.ts");
+  const { measured, frameworks, hasPort } = await import("../data/index.ts");
 
   const measuredIds = new Set<FrameworkId>([
     ...measured.runs.flatMap((r) => r.samples.map((s) => s.frameworkId)),
@@ -61,19 +62,19 @@ export async function loader() {
       name: f.name,
       shortName: f.shortName,
       measured: measuredIds.has(f.id),
+      hasPort: hasPort(f),
     })),
   };
 }
 
 export function head({ data }: HeadArgs<typeof loader>) {
+  const title = `Why FCP comes in ${data.bands.length} bands — Framework Compare`;
+  const description = `First Contentful Paint for the same Books app, built in different frameworks, bunches into ${data.bands.length} bands instead of a smooth spread. Each band is one more request the browser waits for before it can paint. Mobile Lighthouse, September 2026.`;
   return {
-    title: `Why FCP comes in ${data.bands.length} bands — Framework Compare`,
-    meta: [
-      {
-        name: "description",
-        content: `First Contentful Paint for the same Books app, built in different frameworks, bunches into ${data.bands.length} bands instead of a smooth spread. Each band is one more request the browser waits for before it can paint. Mobile Lighthouse, September 2026.`,
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate("/measured")],
+    script: [pageLd("WebPage", "/measured", title, description)],
   };
 }
 
@@ -151,7 +152,8 @@ const RUN_BUILDS: Record<string, { hollow: string; filled: string } | undefined>
 export function Component({ data }: RouteComponentProps<typeof loader>) {
   const fw = new Map(data.frameworks.map((f) => [f.id, f]));
   const measuredFw = data.frameworks.filter((f) => f.measured);
-  const otherFw = data.frameworks.filter((f) => !f.measured);
+  const otherFw = data.frameworks.filter((f) => !f.measured && f.hasPort);
+  const noPortFw = data.frameworks.filter((f) => !f.hasPort);
   const laneBands = data.bands.map((b) => ({ name: b.name, min: b.min, max: b.max }));
   const list = (items: Fw[]) =>
     items.map((f, i) => (
@@ -338,6 +340,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <p>
             The runs covered {list(measuredFw)}; the source tables call the SvelteKit and SolidStart ports “Svelte” and “Solid”.{" "}
             {list(otherFw)} were not in these runs.
+            {noPortFw.length > 0 && <> No Books port yet: {list(noPortFw)}.</>}
           </p>
         </Callout>
         <p class="mt-8 text-sm text-ink-2">

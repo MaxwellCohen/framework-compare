@@ -26,6 +26,50 @@ return (
 )
 ```
 
+## reactivity
+
+Add the React Compiler preset through `@rolldown/plugin-babel` next to `viteReact()`. The compiler memoizes components and hooks at build time, so fewer components re-render when state changes.
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import viteReact, { reactCompilerPreset } from '@vitejs/plugin-react'
+import babel from '@rolldown/plugin-babel'
+
+export default defineConfig({
+  plugins: [
+    tanstackStart(),
+    viteReact(),
+    babel({ presets: [reactCompilerPreset()] }),
+  ],
+})
+```
+
+Source: [React: React Compiler installation](https://react.dev/learn/react-compiler/installation)
+
+## bundle-analysis
+
+Add `rollup-plugin-visualizer` to the plugin list. `vite build` then writes a treemap of the bundle to `stats.html`.
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import viteReact from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
+
+export default defineConfig({
+  plugins: [
+    tanstackStart(),
+    viteReact(),
+    visualizer({ filename: 'stats.html', gzipSize: true }),
+  ],
+})
+```
+
+Source: [rollup-plugin-visualizer: README](https://github.com/btd/rollup-plugin-visualizer)
+
 ## service-worker
 
 Put a hand-written worker in `public/` and register it with an inline script from the root route's `head`.

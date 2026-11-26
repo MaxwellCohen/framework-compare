@@ -90,6 +90,200 @@ export default function App() {
 
 Source: [React: the script component](https://react.dev/reference/react-dom/components/script)
 
+## font-optimization
+
+The port installs Fontsource's variable Geist packages and imports them at the top of the global stylesheet. The packages ship the `@font-face` rules and self-hosted font files, and Vite bundles them like any other CSS import.
+
+```css
+/* app/styles/global.css */
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+@import 'tailwindcss';
+
+@theme {
+  /* … */
+  --font-geist-sans: 'Geist Variable', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-geist-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+```
+
+Source: [Fontsource: Installing fonts](https://fontsource.org/docs/getting-started/install)
+
+## image-pipeline
+
+Install `@unpic/react` and render its `<Image>` in place of `<img>`. When it recognizes the image CDN in the URL, it writes a responsive `srcset` that asks the CDN for each width. It also sets `sizes`, dimensions and lazy loading.
+
+```tsx
+// app/features/book/components/book-cover.tsx
+import { Image } from '@unpic/react'
+
+export function BookCover({ src, title }: { src: string; title: string }) {
+  return (
+    <Image
+      src={src}
+      layout="constrained"
+      width={300}
+      height={450}
+      alt={title}
+    />
+  )
+}
+```
+
+Source: [Unpic: @unpic/react](https://unpic.pics/img/react/)
+
+## caching
+
+Export `headers` from a route module to set `Cache-Control` on that route's document response. A child route can read `parentHeaders` and overwrite one value.
+
+```tsx
+// app/routes/book.tsx
+import type { Route } from './+types/book'
+
+export function headers({ parentHeaders }: Route.HeadersArgs) {
+  parentHeaders.set(
+    'Cache-Control',
+    'max-age=3600, s-maxage=86400',
+  )
+  return parentHeaders
+}
+```
+
+Source: [React Router: HTTP Headers](https://reactrouter.com/how-to/headers)
+
+## route-prefetching
+
+Set `prefetch` on `<Link>`. `"intent"` loads the route module and data on hover or focus, `"viewport"` when the link scrolls into view, and `"render"` as soon as it renders. The port wraps `<Link>` in its own `FastLink`.
+
+```tsx
+// app/components/ui/fast-link.tsx
+import { Link } from 'react-router'
+// …
+export function FastLink({ href, prefetch = 'intent', ...rest }: Props) {
+  return (
+    <Link
+      prefetch={prefetch === false ? 'none' : prefetch === true ? 'intent' : prefetch}
+      to={href}
+      {...rest}
+    />
+  )
+}
+```
+
+Source: [React Router: Link](https://reactrouter.com/api/components/Link)
+
+## islands
+
+Swap `reactRouter()` for the unstable RSC plugin and add `@vitejs/plugin-rsc` after it. Route modules then render as React Server Components, and only `'use client'` modules ship JavaScript.
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { unstable_reactRouterRSC as reactRouterRSC } from '@react-router/dev/vite'
+import rsc from '@vitejs/plugin-rsc'
+
+export default defineConfig({
+  plugins: [reactRouterRSC(), rsc()],
+})
+```
+
+Source: [React Router: React Server Components](https://reactrouter.com/how-to/react-server-components)
+
+## render-modes
+
+List the URLs to prerender at build time. Those paths become static HTML, and every other path is server-rendered because `ssr` stays `true`.
+
+```ts
+// react-router.config.ts
+import type { Config } from '@react-router/dev/config'
+
+export default {
+  // Can be omitted - defaults to true
+  ssr: true,
+  prerender: ['/', '/blog', '/blog/popular-post'],
+} satisfies Config
+```
+
+Source: [React Router: Pre-Rendering](https://reactrouter.com/how-to/pre-rendering)
+
+## reactivity
+
+Add the React Compiler's Babel plugin next to `reactRouter()`. The compiler memoizes components and hooks at build time, so fewer components re-render when state changes.
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import babel from 'vite-plugin-babel'
+import { reactRouter } from '@react-router/dev/vite'
+
+export default defineConfig({
+  plugins: [
+    reactRouter(),
+    babel({
+      filter: /\.[jt]sx?$/,
+      babelConfig: {
+        presets: ['@babel/preset-typescript'],
+        plugins: [['babel-plugin-react-compiler', {}]],
+      },
+    }),
+  ],
+})
+```
+
+Source: [React: React Compiler installation](https://react.dev/learn/react-compiler/installation)
+
+## bundle-analysis
+
+Add `rollup-plugin-visualizer` to the Vite config. `react-router build` then writes a treemap of the client bundle to `stats.html`.
+
+```ts
+// vite.config.ts
+import { reactRouter } from '@react-router/dev/vite'
+import tailwindcss from '@tailwindcss/vite'
+import { visualizer } from 'rollup-plugin-visualizer'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    reactRouter(),
+    visualizer({ filename: 'stats.html', gzipSize: true }),
+  ],
+})
+```
+
+Source: [rollup-plugin-visualizer: README](https://github.com/btd/rollup-plugin-visualizer)
+
+## multi-host-deployment
+
+The port picks a host plugin from environment variables at build time. Cloudflare uses `@cloudflare/vite-plugin`, Netlify uses its own React Router plugin, and Vercel uses the `vercelPreset()` in `react-router.config.ts`.
+
+```ts
+// vite.config.ts
+import { reactRouter } from '@react-router/dev/vite'
+import { cloudflare } from '@cloudflare/vite-plugin'
+import netlifyReactRouter from '@netlify/vite-plugin-react-router'
+import { defineConfig, type PluginOption } from 'vite'
+
+const env = process.env
+const isCloudflare = !!(env.CLOUDFLARE || env.WORKERS_CI || env.CF_PAGES)
+const isNetlify = !!env.NETLIFY && !isCloudflare
+
+const hostPlugins: PluginOption[] = isCloudflare
+  ? [cloudflare({ viteEnvironment: { name: 'ssr' } })]
+  : isNetlify
+    ? [netlifyReactRouter()]
+    : []
+
+export default defineConfig({
+  plugins: [...hostPlugins, reactRouter()],
+})
+```
+
+Source: [React Router: Deploying](https://reactrouter.com/start/framework/deploying)
+
 ## service-worker
 
 Put a hand-written worker in `public/` and register it with an inline script in the root route.

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Parses the markdown sources in the parent repo into
- * src/data/generated/{capability,measured}.json (see src/data/types.ts).
+ * src/data/generated/{capability,measured}.json (see src/data/types.ts), and
+ * content/feature-tests/*.json into src/data/generated/feature-tests.json.
  *
  *   node scripts/build-data.mjs            # sources resolved from ../../
  *   BENCH_SOURCE_DIR=/path node scripts/build-data.mjs
@@ -26,10 +27,12 @@ const SOURCE_DIR = process.env.BENCH_SOURCE_DIR
   : resolve(HERE, "../..");
 const SOURCE_REF = process.env.BENCH_SOURCE_REF || "";
 const OUT_DIR = resolve(PROJECT, "src/data/generated");
-/** Site-authored code samples for Manual cells: one `<frameworkId>.md` per framework, `## <featureId>` sections. */
+/** Site-authored code samples for cells whose source has no code: one `<frameworkId>.md` per framework, `## <featureId>` sections. */
 const EXAMPLES_DIR = resolve(PROJECT, "content/manual-examples");
 const GOTCHAS_FILE = resolve(PROJECT, "content/framework-gotchas.md");
 const LINKS_FILE = resolve(PROJECT, "content/framework-links.json");
+/** Our own feature-test results, one `<frameworkId>.json` per port (scripts/import-feature-tests.mjs writes them). */
+const FEATURE_TESTS_DIR = resolve(PROJECT, "content/feature-tests");
 
 // ---------------------------------------------------------------------------
 // Hand-maintained maps (slugs, short names, aliases). Nothing else is.
@@ -52,6 +55,11 @@ const FRAMEWORKS = {
   "Angular (SSR)": { id: "angular", shortName: "Angular" },
   Marko: { id: "marko", shortName: "Marko" },
   Fresh: { id: "fresh", shortName: "Fresh" },
+  // `port: false` = no Books port: no README deployment rows, no app, no repo.
+  Analog: { id: "analog", shortName: "Analog", port: false },
+  Vike: { id: "vike", shortName: "Vike", port: false },
+  RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK", port: false },
+  "Remix 3": { id: "remix", shortName: "Remix 3", port: false },
 };
 
 /** Source rows in order (the fcp table's rows, then the other table's) → slug + short name. Row N is section N. */
@@ -743,7 +751,9 @@ function buildCapability() {
     const r = rankById.get(fw.id);
     const d = deploys.get(fw.id);
     if (!r) problem(`${name}: missing from the ranking table`);
-    if (!d) problem(`${name}: no deployment rows in README.md`);
+    const hasPort = fw.port !== false;
+    if (hasPort && !d) problem(`${name}: no deployment rows in README.md`);
+    if (!hasPort && d) problem(`${name}: has README deployment rows; remove "port: false" from FRAMEWORKS`);
     return {
       id: fw.id,
       name,
@@ -757,7 +767,7 @@ function buildCapability() {
       total: r?.total ?? -1,
       completeness: r?.completeness ?? -1,
       rank: r?.rank ?? -1,
-      app: d?.app ?? "",
+      app: d?.app ?? null,
       repo: d?.repo ?? null,
       deployments: d?.deployments ?? [],
       extrasHtml: extras.get(fw.id) ?? null,
@@ -774,16 +784,15 @@ function buildCapability() {
     }
   }
 
-  // --- Site-authored samples for Manual cells (content/manual-examples).
+  // --- Site-authored samples for cells whose source has no code (content/manual-examples).
   for (const cell of orderedCells) {
     const md = manualExamples.get(cell.frameworkId)?.get(cell.featureId);
     cell.exampleHtml = null;
     if (md === undefined) {
-      if ((cell.label === "manual" || FOLDED_FEATURES[cell.featureId]) && !cell.hasSnippet) warn(`code-less cell ${cell.frameworkId} × ${cell.featureId} has no code sample`);
+      if (!cell.hasSnippet) warn(`code-less cell ${cell.frameworkId} × ${cell.featureId} has no code sample`);
       continue;
     }
-    if (cell.label !== "manual" && !FOLDED_FEATURES[cell.featureId]) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: label is ${cell.label}`);
-    else if (cell.hasSnippet) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: the source already has a snippet`);
+    if (cell.hasSnippet) warn(`example for ${cell.frameworkId} × ${cell.featureId} ignored: the source already has a snippet`);
     else {
       const tokens = lex(md);
       if (!hasCode(tokens)) warn(`example for ${cell.frameworkId} × ${cell.featureId} has no code block`);
@@ -907,7 +916,6 @@ function foldFeatures({ frameworks, features, cells }) {
 }
 
 function validateCapability({ frameworks, features, cells, ranking, tableLabel, tableScore }) {
-  if (frameworks.length !== 15) problem(`expected 15 frameworks, found ${frameworks.length}`);
   if (features.length !== FEATURES.length) problem(`expected ${FEATURES.length} features, found ${features.length}`);
   const cellCount = frameworks.length * features.length;
   if (cells.length !== cellCount) problem(`expected ${cellCount} cells, found ${cells.length}`);
@@ -954,7 +962,7 @@ function validateCapability({ frameworks, features, cells, ranking, tableLabel, 
     const pct = Math.round((fw.total / maxTotal) * 100);
     if (fw.completeness !== pct) problem(`${fw.name}: completeness ${fw.completeness}% ≠ round(${fw.total}/${maxTotal}) = ${pct}%`);
     if (!fw.version) problem(`${fw.name}: empty version`);
-    if (!fw.app) problem(`${fw.name}: empty app`);
+    if (FRAMEWORKS[fw.name].port !== false && !fw.app) problem(`${fw.name}: empty app`);
   }
 
   // Ranks must be competition ranks by total (ties share, 1, 1, 3 …).
@@ -1328,6 +1336,60 @@ const footerLinks = capability.frameworks.map((f) => ({
   issues: f.links.issues,
 }));
 
+// --- Our own feature tests: one file per port, one result per cell.
+function buildFeatureTests() {
+  const out = { frameworks: [], results: [] };
+  if (!existsSync(FEATURE_TESTS_DIR)) return out;
+  const cellLabel = new Map(capability.cells.map((c) => [`${c.frameworkId}:${c.featureId}`, c.label]));
+  const known = new Set(capability.frameworks.map((f) => f.id));
+  for (const file of readdirSync(FEATURE_TESTS_DIR).filter((f) => f.endsWith(".json")).sort()) {
+    const where = `content/feature-tests/${file}`;
+    const t = JSON.parse(readFileSync(resolve(FEATURE_TESTS_DIR, file), "utf8"));
+    if (!known.has(t.frameworkId)) {
+      problem(`${where}: unknown frameworkId "${t.frameworkId}"`);
+      continue;
+    }
+    if (!/^[\w.-]+\/[\w.-]+$/.test(t.repo ?? "") || !/^[0-9a-f]{40}$/.test(t.resultsCommit ?? "") || !/^[0-9a-f]{40}$/.test(t.commit ?? "")) {
+      problem(`${where}: needs repo "owner/name", commit and resultsCommit (full SHAs)`);
+      continue;
+    }
+    const repoUrl = `https://github.com/${t.repo}`;
+    const blob = (path) => `${repoUrl}/blob/${t.resultsCommit}/${path}`;
+    out.frameworks.push({
+      frameworkId: t.frameworkId,
+      repo: t.repo,
+      repoUrl,
+      branch: t.branch,
+      commit: t.commit,
+      resultsCommit: t.resultsCommit,
+      testsUrl: `${repoUrl}/tree/${t.resultsCommit}/feature-tests`,
+      testedAt: t.testedAt,
+    });
+    for (const [featureId, r] of Object.entries(t.features ?? {})) {
+      const label = cellLabel.get(`${t.frameworkId}:${featureId}`);
+      if (!label) {
+        problem(`${where}: unknown feature "${featureId}"`);
+        continue;
+      }
+      if (!["pass", "fail", "n/a"].includes(r.status)) problem(`${where} ${featureId}: status must be pass, fail or n/a`);
+      out.results.push({
+        frameworkId: t.frameworkId,
+        featureId,
+        status: r.status,
+        evidence: r.evidence ?? "",
+        method: r.method ?? null,
+        testRoute: r.testRoute ?? null,
+        specUrl: r.spec ? blob(r.spec) : null,
+        testedLabel: r.claimedLabel ?? null,
+        suggestedLabel: r.suggestedLabel && r.suggestedLabel !== label ? r.suggestedLabel : null,
+      });
+    }
+  }
+  return out;
+}
+const featureTests = buildFeatureTests();
+checkOutput("feature-tests.json", featureTests);
+
 for (const href of unmappedLinks) {
   problem(`unmapped link target "${href}" — add it to ANCHOR_TARGETS / FILE_TARGETS in scripts/build-data.mjs`);
 }
@@ -1337,7 +1399,7 @@ bailIfProblems("validation");
 
 mkdirSync(OUT_DIR, { recursive: true });
 const written = [];
-for (const [file, data] of [["capability.json", capability], ["measured.json", measured], ["framework-links.json", footerLinks]]) {
+for (const [file, data] of [["capability.json", capability], ["measured.json", measured], ["framework-links.json", footerLinks], ["feature-tests.json", featureTests]]) {
   const json = `${JSON.stringify(data, null, 1)}\n`;
   writeFileSync(resolve(OUT_DIR, file), json);
   written.push(`${file} ${(Buffer.byteLength(json) / 1024).toFixed(1)} KB`);
@@ -1355,6 +1417,10 @@ console.log(
   `  ${measured.bands.length} bands, ${measured.runs.length} runs ` +
     `(${measured.runs.map((r) => `${r.id}: ${r.samples.length}`).join(", ")} samples), ` +
     `${measured.averages.length} averages, ${measured.steps.length} steps`,
+);
+console.log(
+  `  feature tests: ${featureTests.frameworks.length} ports, ${featureTests.results.length} results ` +
+    `(${featureTests.results.filter((r) => r.status === "pass").length} pass, ${featureTests.results.filter((r) => r.status === "fail").length} fail)`,
 );
 console.log(`  code languages: ${seenLangs.join(", ")}${unknownLangs.length ? ` (plain-text fallback: ${unknownLangs.join(", ")})` : ""}`);
 console.log(`\n  ${pad("rank", 5)}${pad("framework", 26)}${pad("fcp", 5)}${pad("other", 7)}${pad("total", 7)}%`);

@@ -9,6 +9,7 @@ import {
   Stat,
   StatGroup,
 } from "../components/index.ts";
+import { markdownAlternate, matrixLd } from "../agents.ts";
 import { RankingTable } from "../components/home/RankingTable.tsx";
 
 /**
@@ -16,11 +17,13 @@ import { RankingTable } from "../components/home/RankingTable.tsx";
  * one-line summaries per feature, and label + points per cell. No `*Html` bodies.
  */
 export async function loader() {
-  const { cells, features, frameworksByRank, MAX_SCORE } = await import("../data/index.ts");
+  const { cells, features, frameworksByRank, hasPort, MAX_SCORE } = await import("../data/index.ts");
   const ranked = frameworksByRank();
+  const ported = ranked.filter(hasPort).length;
 
   return {
     max: MAX_SCORE,
+    ported,
     // Columns of the matrix and rows of the ranking, both in rank order
     // (ties keep the source document's column order).
     frameworks: ranked.map((f) => ({
@@ -34,6 +37,7 @@ export async function loader() {
       completeness: f.completeness,
       rank: f.rank,
       tied: ranked.some((o) => o.id !== f.id && o.rank === f.rank),
+      hasPort: hasPort(f),
     })),
     features: features.map((f) => ({
       id: f.id,
@@ -62,6 +66,14 @@ export function head({ data }: HeadArgs<typeof loader>) {
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+    ],
+    link: [markdownAlternate("/")],
+    script: [
+      matrixLd(
+        description,
+        data.frameworks.map((f) => f.name),
+        data.features.map((f) => f.name),
+      ),
     ],
   };
 }
@@ -113,7 +125,11 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         }
         aside={
           <StatGroup cols={2} class="lg:w-80">
-            <Stat label="Frameworks" value={frameworks.length} hint="each with its own port of the books demo" />
+            <Stat label="Frameworks" value={frameworks.length} hint={
+                data.ported === frameworks.length
+                  ? "each with its own port of the books demo"
+                  : `${data.ported} with a port of the books demo`
+              } />
             <Stat label="Features" value={features.length} hint={`${fcpCount} first-paint levers, ${otherCount} other`} />
             <Stat label="Labels" value={cells.length} hint="one per framework and feature" />
             <Stat label="Top score" value={topScore} unit={`/${maxTotal}`} hint={listNames(leaders.map((f) => f.name))} />
@@ -158,6 +174,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         intro={
           <>
             Each row adds up one framework's points from the matrix. Frameworks with the same total share a rank.
+            {data.ported < frameworks.length &&
+              ` ${frameworks.length - data.ported} are scored from their docs and have no Books port yet, so they have no benchmark or FCP data.`}
           </>
         }
       >

@@ -5,6 +5,7 @@ import {
   ExternalLink,
   FrameworkName,
   NavLink,
+  NO_PORT,
   PageHeader,
   Pager,
   Prose,
@@ -19,11 +20,14 @@ import { LabelTally } from "../../components/feature/LabelTally.tsx";
 import { Deployments, ScorecardGroup, type ScorecardRow } from "../../components/framework/Scorecard.tsx";
 import { BuildTable, type BuildTableRow } from "../../components/benchmark/BuildTable.tsx";
 import { StatusKey } from "../../components/benchmark/parts.tsx";
-import { longDate } from "../../components/benchmark/format.ts";
+import { COLD_DOC_MS, longDate } from "../../components/benchmark/format.ts";
+import { HostTable, type HostTableRow } from "../../components/benchmark/HostTable.tsx";
+import { FieldTable, type FieldTableRow } from "../../components/benchmark/FieldTable.tsx";
 import {
   benchBranchRank,
   benchBuildName,
   benchBuildsFor,
+  benchHostRank,
   benchPathRank,
   benchmark,
   cells,
@@ -31,12 +35,15 @@ import {
   frameworks,
   frameworksByRank,
   getCell,
+  getCellTest,
   getFramework,
+  getTestRun,
   LABEL_TEXT,
   MAX_SCORE,
   MAX_TOTAL,
 } from "../../data/index.ts";
 import type { FeatureGroup, Framework, Label } from "../../data/index.ts";
+import { markdownAlternate, pageLd } from "../../agents.ts";
 
 function pagerItem(f: Framework | undefined) {
   return f ? { id: f.id, name: f.name, rank: f.rank } : null;
@@ -68,6 +75,7 @@ export async function loader({ params }: LoaderArgs) {
         exampleHtml: cell.exampleHtml,
         artDirection: cell.artDirection,
         gotchasHtml: cell.gotchasHtml,
+        test: getCellTest(fw.id, feature.id),
         comparison:
           (same === 1
             ? `${text}: the only framework of ${count} with this label. `
@@ -106,8 +114,44 @@ export async function loader({ params }: LoaderArgs) {
     lcp: b.lcp,
     tbt: b.tbt,
     cls: b.cls,
-    hosts: b.hosts,
+    si: b.si,
+    tti: b.tti ?? null,
+    doc: b.doc,
+    hosts: [...b.hosts].sort((x, y) => benchHostRank(x) - benchHostRank(y)),
   }));
+  // The same run before averaging: one row per build, page and host.
+  const targets = (run?.targets ?? [])
+    .filter((t) => t.frameworkId === fw.id)
+    .sort(
+      (a, b) =>
+        benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId) ||
+        benchPathRank(a.path) - benchPathRank(b.path) ||
+        benchHostRank(a.host) - benchHostRank(b.host),
+    );
+  const hostRows: HostTableRow[] = targets.map((t) => ({
+    key: `${t.branch}|${t.path}|${t.host}`,
+    build: benchBuildName(t.branch, t.frameworkId),
+    branch: t.branch,
+    path: t.path,
+    host: t.host,
+    url: t.url,
+    median: t.median,
+    runs: t.runs,
+    usedRuns: t.usedRuns,
+    coldSuspect: t.coldSuspect,
+    error: t.error,
+  }));
+  const fieldRows: FieldTableRow[] = targets
+    .filter((t) => t.field)
+    .map((t) => ({
+      key: `${t.branch}|${t.path}|${t.host}`,
+      build: benchBuildName(t.branch, t.frameworkId),
+      branch: t.branch,
+      path: t.path,
+      host: t.host,
+      url: t.url,
+      field: t.field!,
+    }));
   const bench =
     run && benchRows.length
       ? {
@@ -117,11 +161,28 @@ export async function loader({ params }: LoaderArgs) {
           hostCount: run.hosts.length,
           paths: [...new Set(benchRows.map((r) => r.path))].sort((a, b) => benchPathRank(a) - benchPathRank(b)),
           rows: benchRows,
+          hostRows,
+          fieldRows,
         }
       : null;
 
+  const testRun = getTestRun(fw.id);
+  const testRows = groups.flatMap((g) => g.rows).filter((r) => r.test && r.test.status !== "n/a");
+  const tests = testRun
+    ? {
+        url: testRun.testsUrl,
+        repo: testRun.repo,
+        shortCommit: testRun.resultsCommit.slice(0, 7),
+        date: testRun.testedAt.slice(0, 10),
+        tested: testRows.length,
+        passed: testRows.filter((r) => r.test!.status === "pass").length,
+        failed: testRows.filter((r) => r.test!.status === "fail").map((r) => r.feature.name),
+      }
+    : null;
+
   return {
     bench,
+    tests,
     framework: {
       id: fw.id,
       name: fw.name,
@@ -157,17 +218,18 @@ export function getStaticPaths() {
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const { framework: fw, max, count } = data;
+  const path = `/frameworks/${fw.id}`;
+  const title = `${fw.name}: ${fw.total}/${max.total} on documented performance features — Framework Compare`;
+  const description =
+    `What ${fw.name}'s documentation says it provides for ${data.featureCount} performance features: ` +
+    `${fw.total} of ${max.total} points (${fw.fcpScore}/${max.fcp} first paint, ${fw.otherScore}/${max.other} other), ` +
+    `rank ${fw.rank} of ${count}. How to enable each feature` +
+    (fw.app ? `, and links to the ${fw.app} port.` : `. ${NO_PORT}.`);
   return {
-    title: `${fw.name}: ${fw.total}/${max.total} on documented performance features — Framework Compare`,
-    meta: [
-      {
-        name: "description",
-        content:
-          `What ${fw.name}'s documentation says it provides for ${data.featureCount} performance features: ` +
-          `${fw.total} of ${max.total} points (${fw.fcpScore}/${max.fcp} first paint, ${fw.otherScore}/${max.other} other), ` +
-          `rank ${fw.rank} of ${count}. How to enable each feature, and links to the ${fw.app} port.`,
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate(path)],
+    script: [pageLd("TechArticle", path, title, description, fw.name)],
   };
 }
 
@@ -265,6 +327,29 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
                 does.
               </p>
             </div>
+            {data.tests && (
+              <div class="sm:col-span-2">
+                <p class="eyebrow mb-2">Tested in our port</p>
+                <p class="text-sm text-ink-2">
+                  The {fw.app} port passes{" "}
+                  <span class="num font-semibold text-ink">
+                    {data.tests.passed}/{data.tests.tested}
+                  </span>{" "}
+                  feature tests
+                  {data.tests.failed.length ? ` (failed: ${data.tests.failed.join(", ")})` : ""}. Run on{" "}
+                  <span class="num">{data.tests.date}</span> at{" "}
+                  <ExternalLink href={data.tests.url}>
+                    <span class="num">
+                      {data.tests.repo}@{data.tests.shortCommit}
+                    </span>
+                  </ExternalLink>
+                  .{" "}
+                  <NavLink to={{ route: "methodology", hash: "feature-tests" }} class="link">
+                    How we test labels
+                  </NavLink>
+                </p>
+              </div>
+            )}
           </div>
           <div class="grid gap-6">
             {groups.map((g) => (
@@ -283,9 +368,22 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section
         id="port"
         title="The port"
-        intro="The books demo app built with this framework, and where each branch is deployed."
+        intro={
+          fw.app
+            ? "The books demo app built with this framework, and where each branch is deployed."
+            : undefined
+        }
         class="scroll-mt-4 border-t border-rule"
       >
+        {fw.app === null ? (
+          <div class="max-w-[56rem]">
+            <p class="font-semibold text-ink">{NO_PORT}</p>
+            <p class="mt-1 max-w-prose text-sm text-ink-2">
+              {fw.name} has no repository, deployments, benchmark runs or FCP band data on this site. Its labels and
+              score come from the vendor documentation at the version checked above.
+            </p>
+          </div>
+        ) : (
         <div class="max-w-[56rem]">
           <dl class="mb-4 grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[max-content_minmax(0,1fr)]">
             <dt class="eyebrow sm:pt-0.5">App</dt>
@@ -305,7 +403,21 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <p class="text-sm text-ink-3">No deployments are listed for this port.</p>
           )}
         </div>
+        )}
       </Section>
+
+      {fw.app === null && (
+        <Section id="benchmark" title="Latest benchmark" class="scroll-mt-4 border-t border-rule">
+          <p class="font-semibold text-ink">{NO_PORT}</p>
+          <p class="mt-1 max-w-prose text-sm text-ink-2">
+            The{" "}
+            <NavLink to={{ route: "benchmark" }} class="link">
+              benchmark
+            </NavLink>{" "}
+            runs against deployed ports, so there are no numbers for {fw.name}.
+          </p>
+        </Section>
+      )}
 
       {data.bench && (
         <Section
@@ -315,26 +427,58 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <>
               Mobile Lighthouse lab results from PageSpeed Insights on{" "}
               <time dateTime={data.bench.date}>{data.bench.dateText}</time>: the median of {data.bench.runsPerTarget}{" "}
-              {data.bench.runsPerTarget === 1 ? "run" : "runs"} per host, averaged across the hosts listed. One run from one
-              location; the numbers vary from run to run.
+              {data.bench.runsPerTarget === 1 ? "run" : "runs"} per host, averaged across the hosts listed. The{" "}
+              <NavLink to={{ route: "benchmark", hash: "metrics" }} class="link">
+                benchmark page
+              </NavLink>{" "}
+              explains each metric and has every other framework.
             </>
           }
           actions={
             <NavLink to={{ route: "benchmark" }} class="link">
-              All frameworks and caveats
+              All frameworks
             </NavLink>
           }
           class="scroll-mt-4 border-t border-rule"
         >
-          <div class="max-w-[56rem]">
-            <BuildTable
-              rows={data.bench.rows}
-              paths={data.bench.paths}
-              hostCount={data.bench.hostCount}
-              showFramework={false}
-              label={`${fw.name}: latest benchmark per build and page`}
-            />
-            <StatusKey class="mt-3" />
+          <div class="grid gap-8 [&>*]:min-w-0">
+            <div>
+              <BuildTable
+                rows={data.bench.rows}
+                paths={data.bench.paths}
+                hostCount={data.bench.hostCount}
+                showFramework={false}
+                label={`${fw.name}: latest benchmark per build and page`}
+              />
+              <StatusKey class="mt-3" />
+            </div>
+            <div>
+              <h3 id="benchmark-hosts" class="mb-1 font-semibold text-ink">
+                Per host
+              </h3>
+              <p class="mb-3 max-w-[44rem] text-sm text-ink-2">
+                The medians above before averaging. Runs is how many measured runs went into each median. Host names link to
+                the deployment.
+              </p>
+              <HostTable
+                groups={[{ key: fw.id, name: fw.name, rows: data.bench.hostRows }]}
+                coldMs={COLD_DOC_MS}
+                label={`${fw.name}: latest benchmark per build, page and host`}
+              />
+            </div>
+            {data.bench.fieldRows.length > 0 && (
+              <div>
+                <h3 id="benchmark-field" class="mb-1 font-semibold text-ink">
+                  Field data from real visits
+                </h3>
+                <p class="mb-3 max-w-[44rem] text-sm text-ink-2">
+                  Chrome UX Report data for the URLs with enough real Chrome traffic: the 75th percentile of visits over the
+                  last 28 days.
+                </p>
+                <FieldTable groups={[{ key: fw.id, name: fw.name, rows: data.bench.fieldRows }]} />
+                <StatusKey class="mt-3" metrics={["lcp", "inp", "cls", "fcp", "ttfb"]} />
+              </div>
+            )}
           </div>
         </Section>
       )}

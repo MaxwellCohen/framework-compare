@@ -1,0 +1,109 @@
+{
+  "frameworkId": "sveltekit",
+  "repo": "MaxwellCohen/svelte-books",
+  "branch": "feature-tests",
+  "commit": "51eed7f9ea1eb6c4bdb5a86e23712b71b76e2092",
+  "resultsCommit": "bb5025f1ebc9438acc6a553c6b9137df6fb628c8",
+  "testedAt": "2026-11-26T05:05:24.498Z",
+  "features": {
+    "css-inlining": {
+      "status": "pass",
+      "evidence": "HTML has 1 inline <style> (37875 chars) containing the .ft-css-inline-marker rule; 2 <link rel=stylesheet> all disabled+media=\"(max-width: 0)\" placeholders, 0 render-blocking",
+      "method": "sveltekit({ inlineStyleThreshold: Infinity }) in vite.config.ts",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/css-inlining",
+      "spec": "feature-tests/css-inlining.spec.ts"
+    },
+    "font-optimization": {
+      "status": "pass",
+      "evidence": "preload as=font geist-latin-wght-normal.BgDaEnEv.woff2; 5 @font-face with font-display:swap; 1 same-origin font requests; 0 Google Fonts requests",
+      "method": "@fontsource-variable/geist (self-hosted, font-display: swap) + SvelteKit handle hook resolve(event, { preload }) for the Latin woff2",
+      "claimedLabel": "third-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/font-optimization",
+      "spec": "feature-tests/font-optimization.spec.ts"
+    },
+    "image-pipeline": {
+      "status": "pass",
+      "evidence": "<picture> with avif/webp/jpeg <source> srcsets (540,768,1080,1366,1536,1600w); <img> width=1600 height=1000; offscreen loading=lazy; photo.CXZkYjKV.avif served as image/avif; browser picked avif",
+      "method": "@sveltejs/enhanced-img plugin + <enhanced:img sizes=…> on a local JPEG",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/image-pipeline",
+      "spec": "feature-tests/image-pipeline.spec.ts"
+    },
+    "caching": {
+      "status": "pass",
+      "evidence": "data endpoint cache-control \"public, max-age=5, s-maxage=60\"; browser fetch counter 2→2 within TTL, 3 after 6s; adapter-vercel wrote caching.prerender-config.json expiration=60 (ISR itself only runs on Vercel)",
+      "method": "setHeaders cache-control on a +server.ts endpoint (HTTP cache) + adapter-vercel per-route config.isr",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/caching/data",
+      "spec": "feature-tests/caching.spec.ts"
+    },
+    "route-prefetching": {
+      "status": "pass",
+      "evidence": "on hover (before click): /feature-tests/route-prefetching/target/__data.json + 1 route node chunk(s); 1 data request(s) total, so click reused the preload",
+      "method": "data-sveltekit-preload-data=\"hover\" on the link",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/route-prefetching",
+      "spec": "feature-tests/route-prefetching.spec.ts"
+    },
+    "islands": {
+      "status": "pass",
+      "evidence": "csr=false page + hand-rolled island entry (?worker&url, svelte mount): 1 JS file(s) loaded (island-entry-7dbpQtc5.js), none contain static marker, no SvelteKit runtime; island counter reached 2",
+      "method": "hand-rolled: route csr = false + separately bundled island entry (?worker&url) that mounts one Svelte component",
+      "claimedLabel": "manual",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/islands",
+      "spec": "feature-tests/islands.spec.ts"
+    },
+    "render-modes": {
+      "status": "pass",
+      "evidence": "prerender: prerendered.html in build output (+ .vercel/output/static), stamp stable 2026-11-26T05:04:19.416Z; ssr stamp 2026-11-26T05:04:39.963Z→2026-11-26T05:04:39.993Z; ssr=false route HTML has no content, browser renders it",
+      "method": "page options: prerender = true / prerender = false (SSR) / ssr = false (CSR) per route",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/render-modes/prerendered",
+      "spec": "feature-tests/render-modes.spec.ts"
+    },
+    "reactivity": {
+      "status": "pass",
+      "evidence": "3 clicks → count text 3; component script ran 1×; 3 DOM mutation(s), all on #ft-count (characterData:ft-count)",
+      "method": "Svelte 5 runes ($state) with a component-script run counter",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/reactivity",
+      "spec": "feature-tests/reactivity.spec.ts"
+    },
+    "bundle-analysis": {
+      "status": "pass",
+      "evidence": "ANALYZE=1 vite build wrote .svelte-kit/stats/{client.html,server.html} (client.html 338 KB, includes route modules)",
+      "method": "rollup-plugin-visualizer in vite.config.ts behind ANALYZE=1",
+      "claimedLabel": "third-party",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/bundle-analysis.spec.ts"
+    },
+    "third-party-scripts": {
+      "status": "pass",
+      "evidence": "<script type=\"text/partytown\"> in HTML (main-thread parser skips it); requests: document /~partytown/partytown-sandbox-sw.html, fetch /fake-third-party.js; fetched by the Partytown web worker (1 worker(s)), never as a main-thread script; it set html[data-fake-third-party=ran] via Partytown's DOM proxy (window global visible on main thread: false); final script type=text/partytown-x",
+      "method": "@qwik.dev/partytown: partytownVite() + partytownSnippet() in route +layout.svelte svelte:head, <script type=\"text/partytown\">",
+      "claimedLabel": "third-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/third-party-scripts",
+      "spec": "feature-tests/third-party-scripts.spec.ts"
+    },
+    "multi-host-deployment": {
+      "status": "pass",
+      "evidence": "3 adapter builds succeeded: netlify→.netlify/v1/functions/sveltekit-render.mjs+build/_app; cloudflare→.svelte-kit/cloudflare/_worker.js; vercel→.vercel/output/config.json+.vercel/output/functions",
+      "method": "@sveltejs/adapter-netlify / adapter-cloudflare / adapter-vercel chosen by env in vite.config.ts",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/multi-host-deployment.spec.ts"
+    }
+  }
+}

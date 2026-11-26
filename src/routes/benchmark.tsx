@@ -2,29 +2,28 @@ import type { HeadArgs, RouteComponentProps } from "@pracht/core";
 import { Callout, Container, ExternalLink, FrameworkName, NavLink, PageHeader, Section, Stat, StatGroup, Tag } from "../components/index.ts";
 import type { BuildTableRow } from "../components/benchmark/BuildTable.tsx";
 import { HostTable, type HostTableGroup } from "../components/benchmark/HostTable.tsx";
+import { FieldTable, type FieldTableGroup } from "../components/benchmark/FieldTable.tsx";
+import { MetricGuide } from "../components/benchmark/MetricGuide.tsx";
 import { RangeChart, RangeKey, rangeDomain, type RangeGroup } from "../components/benchmark/RangeChart.tsx";
 import { StatusKey } from "../components/benchmark/parts.tsx";
 import { COLD_DOC_MS, hostName, listText, longDate, pathName, utcTime } from "../components/benchmark/format.ts";
 import { ANCHOR, JumpNav } from "../components/measured/parts.tsx";
 import BenchTable from "../islands/BenchTable.tsx";
-import type { FrameworkId, Host } from "../data/types.ts";
+import type { FrameworkId } from "../data/types.ts";
 import { href } from "../pracht-routes.ts";
+import { markdownAlternate, pageLd } from "../agents.ts";
 
-const HOST_ORDER: Host[] = ["vercel", "netlify", "cloudflare"];
-const hostRank = (h: string) => {
-  const i = HOST_ORDER.indexOf(h as Host);
-  return i === -1 ? HOST_ORDER.length : i;
-};
 
 /**
  * Everything the page prints from the latest bench run, already grouped and
  * sorted. `latest` is null when no run has been imported.
  */
 export async function loader() {
-  const { benchmark, frameworks, benchBuildName, benchBranchRank, benchPathRank, BENCH_HOME_PATH } = await import("../data/index.ts");
+  const { benchmark, frameworks, benchBuildName, benchBranchRank, benchHostRank: hostRank, benchPathRank, BENCH_HOME_PATH, hasPort } =
+    await import("../data/index.ts");
   const history = benchmark.history.map((h) => ({ date: h.date, dateText: longDate(h.date), targets: h.targets, withData: h.withData }));
   const run = benchmark.latest;
-  if (!run) return { latest: null, history, frameworkCount: frameworks.length };
+  if (!run) return { latest: null, history, frameworkCount: frameworks.filter(hasPort).length, noPort: [] };
 
   const fwById = new Map(frameworks.map((f) => [f.id, f]));
   const fwOrder = (id: FrameworkId) => fwById.get(id)?.order ?? 999;
@@ -79,6 +78,9 @@ export async function loader() {
     lcp: b.lcp,
     tbt: b.tbt,
     cls: b.cls,
+    si: b.si,
+    tti: b.tti ?? null,
+    doc: b.doc,
     hosts: [...b.hosts].sort((x, y) => hostRank(x) - hostRank(y)),
   }));
 
@@ -111,14 +113,42 @@ export async function loader() {
       })),
   }));
 
+  // CrUX field data: only targets PSI returned page-level data for.
+  const fieldGroups: FieldTableGroup[] = hostGroups
+    .map((g) => ({
+      key: g.key,
+      name: g.name,
+      rows: run.targets
+        .filter((t) => t.frameworkId === g.key && t.field)
+        .sort(
+          (a, b) =>
+            benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId) ||
+            benchPathRank(a.path) - benchPathRank(b.path) ||
+            hostRank(a.host) - hostRank(b.host),
+        )
+        .map((t) => ({
+          key: `${t.branch}|${t.path}|${t.host}`,
+          build: benchBuildName(t.branch, t.frameworkId),
+          branch: t.branch,
+          path: t.path,
+          host: t.host,
+          url: t.url,
+          field: t.field!,
+        })),
+    }))
+    .filter((g) => g.rows.length);
+
   const withDataIds = new Set(run.targets.filter((t) => t.median).map((t) => t.frameworkId));
+  const slimFw = (f: (typeof frameworks)[number]) => ({ id: f.id, name: f.name, shortName: f.shortName });
+  const noPort = frameworks.filter((f) => !hasPort(f)).sort((a, b) => a.order - b.order).map(slimFw);
   const missing = frameworks
-    .filter((f) => !withDataIds.has(f.id))
+    .filter((f) => hasPort(f) && !withDataIds.has(f.id))
     .sort((a, b) => a.order - b.order)
-    .map((f) => ({ id: f.id, name: f.name, shortName: f.shortName }));
+    .map(slimFw);
 
   return {
-    frameworkCount: frameworks.length,
+    frameworkCount: frameworks.filter(hasPort).length,
+    noPort,
     history,
     latest: {
       date: run.date,
@@ -144,22 +174,23 @@ export async function loader() {
       chartMax,
       tableRows,
       hostGroups,
+      fieldGroups,
+      fieldCount: fieldGroups.reduce((n, g) => n + g.rows.length, 0),
     },
   };
 }
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const l = data.latest;
+  const title = l ? `Benchmark: PageSpeed Insights run of ${l.dateText} — Framework Compare` : "Benchmark — Framework Compare";
+  const description = l
+    ? `Mobile Lighthouse lab results (PageSpeed Insights) for the Books demo app in each framework, run on ${l.dateText}: Performance score, FCP, LCP, TBT, CLS, Speed Index, TTI and document time for ${l.withData} of ${l.targetCount} deployments. One run, one location; numbers vary from run to run.`
+    : "Our own PageSpeed Insights benchmark of the Books demo app in each framework. No run has been published yet.";
   return {
-    title: l ? `Benchmark: PageSpeed Insights run of ${l.dateText} — Framework Compare` : "Benchmark — Framework Compare",
-    meta: [
-      {
-        name: "description",
-        content: l
-          ? `Mobile Lighthouse lab results (PageSpeed Insights) for the Books demo app in each framework, run on ${l.dateText}: FCP, LCP, TBT, CLS and Performance score for ${l.withData} of ${l.targetCount} deployments. One run, one location; numbers vary from run to run.`
-          : "Our own PageSpeed Insights benchmark of the Books demo app in each framework. No run has been published yet.",
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate("/benchmark")],
+    script: [pageLd("WebPage", "/benchmark", title, description)],
   };
 }
 
@@ -241,7 +272,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             </p>
           </Callout>
         </Container>
-        <Section id="reproduce" title="How to run it" class="border-t border-rule">
+      <Section id="reproduce" title="How to run it" class="border-t border-rule">
           <Reproduce history={data.history} />
         </Section>
       </>
@@ -287,12 +318,12 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         }
       />
 
-      {(l.aborted || l.errors > 0 || l.coldSuspect > 0 || l.missing.length > 0) && (
+      {(l.aborted || l.errors > 0 || l.coldSuspect > 0 || l.missing.length > 0 || data.noPort.length > 0) && (
         <Container class="py-6">
           <Callout kind="caveat" title={`Coverage: ${l.withData} of ${l.targetCount} targets`}>
             {l.aborted && <p class="font-semibold text-ink">This run stopped early, so its results are partial.</p>}
             <p>
-              {l.frameworksWithData} of {data.frameworkCount} frameworks have data in this run.
+              {l.frameworksWithData} of {data.frameworkCount} frameworks with a Books port have data in this run.
               {l.errors > 0 && ` ${l.errors} ${l.errors === 1 ? "target" : "targets"} failed.`}
               {l.coldSuspect > 0 &&
                 ` ${l.coldSuspect} ${l.coldSuspect === 1 ? "target was" : "targets were"} cold on every run, so ${l.coldSuspect === 1 ? "its" : "their"} median includes cold runs.`}
@@ -301,6 +332,18 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               <p>
                 No data:{" "}
                 {l.missing.map((f, i) => (
+                  <>
+                    {i > 0 && ", "}
+                    <FrameworkName framework={f} />
+                  </>
+                ))}
+                .
+              </p>
+            )}
+            {data.noPort.length > 0 && (
+              <p>
+                No Books port yet:{" "}
+                {data.noPort.map((f, i) => (
                   <>
                     {i > 0 && ", "}
                     <FrameworkName framework={f} />
@@ -319,6 +362,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           { hash: "ranking", label: "Book list" },
           { hash: "builds", label: "All builds" },
           { hash: "hosts", label: "By host" },
+          ...(l.fieldCount ? [{ hash: "field", label: "Field data" }] : []),
+          { hash: "metrics", label: "Metrics" },
           { hash: "reproduce", label: "Run it" },
         ]}
       />
@@ -369,7 +414,18 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         id="builds"
         title="Every build and page"
         class={`border-t border-rule ${ANCHOR}`}
-        intro={`${l.buildCount} ${l.buildCount === 1 ? "row" : "rows"}: one per framework, build and page, averaged across hosts. Perf is the Lighthouse Performance score (0–100, higher is better). FCP and LCP are in seconds, TBT in milliseconds. Select a column header to sort.`}
+        intro={
+          <>
+            Each row is one page of one build, with the {l.hosts.length} hosts averaged together. Perf is Lighthouse’s score out of
+            100, so higher is better. For every other column, lower is better. Times are in seconds, except TBT and Doc,
+            which are in milliseconds. Click a column to sort by it. On a phone, pick a smaller set of columns. Not sure
+            what a column means?{" "}
+            <a href="#metrics" class="link">
+              Each metric is explained below
+            </a>
+            .
+          </>
+        }
         actions={<StatusKey />}
       >
         <BenchTable
@@ -390,11 +446,79 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <>
             Every target in the run, before averaging. Runs shows how many measured runs went into the median. A cold suspect
             had every run over {COLD_DOC_MS} ms for the document, which usually means the host was starting up. Doc is that
-            document time; SI is Speed Index, in seconds. Host names link to the deployment.
+            document time. Host names link to the deployment.
           </>
         }
       >
         <HostTable groups={l.hostGroups} coldMs={COLD_DOC_MS} />
+      </Section>
+
+      {l.fieldCount > 0 && (
+        <Section
+          id="field"
+          title="Field data from real visits"
+          class={`border-t border-rule ${ANCHOR}`}
+          intro={
+            <>
+              PageSpeed Insights also returns Chrome UX Report (CrUX) data for URLs with enough real Chrome traffic: the 75th
+              percentile of visits over the last 28 days. {l.fieldCount} of {l.targetCount}{" "}
+              {l.targetCount === 1 ? "target has" : "targets have"} it. Core Web Vitals pass when LCP, INP and CLS are all
+              good at the 75th percentile (
+              <ExternalLink href="https://web.dev/articles/vitals">web.dev</ExternalLink>).
+            </>
+          }
+          actions={<StatusKey metrics={["lcp", "inp", "cls", "fcp", "ttfb"]} />}
+        >
+          <FieldTable groups={l.fieldGroups} />
+        </Section>
+      )}
+
+      <Section
+        id="metrics"
+        title="What each metric means"
+        class={`border-t border-rule ${ANCHOR}`}
+        intro={
+          <>
+            The thresholds are Google's: web.dev for the Core Web Vitals (LCP, INP and CLS) and the other web metrics, and the
+            Lighthouse docs for the score and Speed Index.
+          </>
+        }
+      >
+        <MetricGuide field={l.fieldCount > 0} />
+      </Section>
+
+      {l.fieldCount > 0 && (
+        <Section
+          id="field"
+          title="Field data from real visits"
+          class={`border-t border-rule ${ANCHOR}`}
+          intro={
+            <>
+              PageSpeed Insights also returns Chrome UX Report (CrUX) data for URLs with enough real Chrome traffic: the 75th
+              percentile of visits over the last 28 days. {l.fieldCount} of {l.targetCount}{" "}
+              {l.targetCount === 1 ? "target has" : "targets have"} it. Core Web Vitals pass when LCP, INP and CLS are all
+              good at the 75th percentile (
+              <ExternalLink href="https://web.dev/articles/vitals">web.dev</ExternalLink>).
+            </>
+          }
+          actions={<StatusKey metrics={["lcp", "inp", "cls", "fcp", "ttfb"]} />}
+        >
+          <FieldTable groups={l.fieldGroups} />
+        </Section>
+      )}
+
+      <Section
+        id="metrics"
+        title="What each metric means"
+        class={`border-t border-rule ${ANCHOR}`}
+        intro={
+          <>
+            The thresholds are Google's: web.dev for the Core Web Vitals (LCP, INP and CLS) and the other web metrics, and the
+            Lighthouse docs for the score and Speed Index.
+          </>
+        }
+      >
+        <MetricGuide field={l.fieldCount > 0} />
       </Section>
 
       <Section id="reproduce" title="How to run it" class={`border-t border-rule ${ANCHOR}`}>
