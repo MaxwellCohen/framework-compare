@@ -34,7 +34,9 @@ import {
   frameworks,
   frameworksByRank,
   getCell,
+  getCellTest,
   getFramework,
+  getTestRun,
   LABEL_TEXT,
   MAX_SCORE,
   MAX_TOTAL,
@@ -71,6 +73,7 @@ export async function loader({ params }: LoaderArgs) {
         exampleHtml: cell.exampleHtml,
         artDirection: cell.artDirection,
         gotchasHtml: cell.gotchasHtml,
+        test: getCellTest(fw.id, feature.id),
         comparison:
           (same === 1
             ? `${text}: the only framework of ${count} with this label. `
@@ -161,8 +164,23 @@ export async function loader({ params }: LoaderArgs) {
         }
       : null;
 
+  const testRun = getTestRun(fw.id);
+  const testRows = groups.flatMap((g) => g.rows).filter((r) => r.test && r.test.status !== "n/a");
+  const tests = testRun
+    ? {
+        url: testRun.testsUrl,
+        repo: testRun.repo,
+        shortCommit: testRun.resultsCommit.slice(0, 7),
+        date: testRun.testedAt.slice(0, 10),
+        tested: testRows.length,
+        passed: testRows.filter((r) => r.test!.status === "pass").length,
+        failed: testRows.filter((r) => r.test!.status === "fail").map((r) => r.feature.name),
+      }
+    : null;
+
   return {
     bench,
+    tests,
     framework: {
       id: fw.id,
       name: fw.name,
@@ -306,6 +324,29 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
                 does.
               </p>
             </div>
+            {data.tests && (
+              <div class="sm:col-span-2">
+                <p class="eyebrow mb-2">Tested in our port</p>
+                <p class="text-sm text-ink-2">
+                  The {fw.app} port passes{" "}
+                  <span class="num font-semibold text-ink">
+                    {data.tests.passed}/{data.tests.tested}
+                  </span>{" "}
+                  feature tests
+                  {data.tests.failed.length ? ` (failed: ${data.tests.failed.join(", ")})` : ""}. Run on{" "}
+                  <span class="num">{data.tests.date}</span> at{" "}
+                  <ExternalLink href={data.tests.url}>
+                    <span class="num">
+                      {data.tests.repo}@{data.tests.shortCommit}
+                    </span>
+                  </ExternalLink>
+                  .{" "}
+                  <NavLink to={{ route: "methodology", hash: "feature-tests" }} class="link">
+                    How we test labels
+                  </NavLink>
+                </p>
+              </div>
+            )}
           </div>
           <div class="grid gap-6">
             {groups.map((g) => (

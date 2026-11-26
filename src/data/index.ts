@@ -7,6 +7,7 @@
 import capabilityJson from "./generated/capability.json";
 import measuredJson from "./generated/measured.json";
 import benchmarkJson from "./generated/benchmark.json";
+import featureTestsJson from "./generated/feature-tests.json";
 import type {
   BenchBuild,
   BenchmarkData,
@@ -15,6 +16,10 @@ import type {
   Feature,
   FeatureGroup,
   FeatureId,
+  CellTest,
+  FeatureTestData,
+  FeatureTestResult,
+  FeatureTestRun,
   Framework,
   FrameworkId,
   Label,
@@ -27,6 +32,7 @@ export type * from "./types.ts";
 export const capability = capabilityJson as unknown as CapabilityData;
 export const measured = measuredJson as unknown as MeasuredData;
 export const benchmark = benchmarkJson as unknown as BenchmarkData;
+export const featureTests = featureTestsJson as unknown as FeatureTestData;
 
 export const frameworks: Framework[] = capability.frameworks;
 export const features: Feature[] = capability.features;
@@ -157,4 +163,34 @@ export function benchBuildsFor(id: FrameworkId): BenchBuild[] {
   return (benchmark.latest?.builds ?? [])
     .filter((b) => b.frameworkId === id)
     .sort((a, b) => benchPathRank(a.path) - benchPathRank(b.path) || benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId));
+}
+
+// ---------------------------------------------------------------------------
+// Feature tests (our own Playwright tests in each port). Any cell can be untested.
+// ---------------------------------------------------------------------------
+
+const testRunById = new Map(featureTests.frameworks.map((r) => [r.frameworkId, r]));
+const testByKey = new Map(featureTests.results.map((r) => [`${r.frameworkId}:${r.featureId}`, r]));
+
+/** The test run for one port, or null when the port has none. */
+export function getTestRun(frameworkId: FrameworkId): FeatureTestRun | null {
+  return testRunById.get(frameworkId) ?? null;
+}
+
+export function getCellTest(frameworkId: FrameworkId, featureId: FeatureId): CellTest | null {
+  const r = testByKey.get(`${frameworkId}:${featureId}`);
+  const run = testRunById.get(frameworkId);
+  if (!r || !run) return null;
+  return {
+    status: r.status,
+    evidence: r.evidence,
+    method: r.method,
+    testRoute: r.testRoute,
+    specUrl: r.specUrl,
+    testsUrl: run.testsUrl,
+    repo: run.repo,
+    shortCommit: run.resultsCommit.slice(0, 7),
+    testedAt: run.testedAt,
+    testedAs: r.testedLabel && r.testedLabel !== getCell(frameworkId, featureId).label ? r.testedLabel : null,
+  };
 }

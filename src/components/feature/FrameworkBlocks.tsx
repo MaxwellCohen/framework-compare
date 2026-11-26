@@ -1,9 +1,10 @@
-import type { ArtDirection, Feature, Framework, Label } from "../../data/types.ts";
+import type { ArtDirection, CellTest, Feature, Framework, Label } from "../../data/types.ts";
 import { LabelBadge, LabelGlyph, LABELS } from "../LabelBadge.tsx";
 import { NavLink } from "../links.tsx";
 import { Card } from "../Page.tsx";
 import { ArtDirectionBlock, ManualExample } from "../ManualExample.tsx";
 import { Prose } from "../Prose.tsx";
+import { TestResult } from "./TestResult.tsx";
 
 export type BlockFramework = Pick<Framework, "id" | "name" | "shortName" | "group">;
 
@@ -14,6 +15,8 @@ export interface FeatureBlock {
   exampleHtml: string | null;
   artDirection: ArtDirection | null;
   gotchasHtml: string | null;
+  /** Our own test of this cell in the framework's port, or null. */
+  test: CellTest | null;
 }
 
 type FeatureRef = Pick<Feature, "id">;
@@ -53,6 +56,12 @@ export function FrameworkOverview({
             >
               <Mark label={b.label} />
               <span class="text-ink">{b.framework.shortName}</span>
+              {b.test?.status === "fail" && (
+                <span class="text-xs text-ink-3" title="Our test failed">
+                  <span aria-hidden="true">✗</span>
+                  <span class="sr-only">(our test failed)</span>
+                </span>
+              )}
             </NavLink>
           </li>
         ))}
@@ -127,6 +136,7 @@ export function FrameworkBlock({ feature, block }: { feature: FeatureRef; block:
       class="scroll-mt-14 target:border-ink target:shadow-[0_0_0_2px_var(--color-ink)] [&:target>div:first-child]:bg-sunken"
     >
       <Prose html={block.bodyHtml} size="sm" class="max-w-prose" />
+      {block.test && <TestResult test={block.test} class="mt-4" />}
       {block.exampleHtml && <ManualExample html={block.exampleHtml} />}
       {block.artDirection && <ArtDirectionBlock art={block.artDirection} id={`${fw.id}-art-direction`} />}
       {block.gotchasHtml && (

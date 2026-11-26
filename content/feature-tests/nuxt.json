@@ -1,0 +1,109 @@
+{
+  "frameworkId": "nuxt",
+  "repo": "MaxwellCohen/nuxt-books",
+  "branch": "feature-tests",
+  "commit": "90c0e214f83e8bfc56c199a9ab131133294370c8",
+  "resultsCommit": "ae8c1e5878d19c917d2ce3e6ad52d4b83e507611",
+  "testedAt": "2026-11-26T05:08:34.665Z",
+  "features": {
+    "css-inlining": {
+      "status": "pass",
+      "evidence": "SSR HTML has 2 inline <style> tag(s), route CSS in 1; 0 <link rel=stylesheet> (none with route CSS); computed color applied Note: Nuxt's default (features.inlineStyles = id => id.includes('.vue')) already inlines SFC CSS; true additionally inlines global CSS (0 stylesheet links remain).",
+      "method": "features.inlineStyles: true (nuxt.config.ts); scoped SFC <style> on the route",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/css-inlining",
+      "spec": "feature-tests/css-inlining.spec.ts"
+    },
+    "font-optimization": {
+      "status": "pass",
+      "evidence": "14 Inter @font-face (font-display: swap, local URLs) + \"Inter Fallback\" with size-adjust; preload /_nuxt/fonts/23mtYSzxPVyLoxLNpoXveb5p0hE… (font/woff2); 0 Google Fonts requests, 1 same-origin font request(s)",
+      "method": "@nuxt/fonts (official module) resolving font-family: Inter; routeRules fonts.preload",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/font-optimization",
+      "spec": "feature-tests/font-optimization.spec.ts"
+    },
+    "image-pipeline": {
+      "status": "pass",
+      "evidence": "srcset 400w/800w/1600w via /_ipx/f_webp&q_82&s_400x250…, width/height 800x500, offscreen loading=lazy (loaded before scroll: false), srcset URLs served as image/webp",
+      "method": "@nuxt/image (official module) <NuxtImg sizes format=\"webp\"> served by IPX",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/image-pipeline",
+      "spec": "feature-tests/image-pipeline.spec.ts"
+    },
+    "caching": {
+      "status": "pass",
+      "evidence": "2 API requests + SSR page within 5s TTL all got \"1795669704346-1\" (handler ran once); after 5.5s got \"1795669710027-2\" (handler call #2)",
+      "method": "Nitro defineCachedEventHandler({ maxAge: 5, swr: false })",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/caching",
+      "spec": "feature-tests/caching.spec.ts"
+    },
+    "route-prefetching": {
+      "status": "pass",
+      "evidence": "hover fetched /_nuxt/Bb6Uqt7n.js (prefetch-on=interaction), scrolling into view fetched /_nuxt/B6epUfMz.js (prefetch-on=visibility), both before click; payload requests: hover:/feature-tests/prefetch-hover/_payload.json scroll:/feature-tests/prefetch-visible/_payload.json click:/feature-tests/prefetch-visible/_payload.json",
+      "method": "<NuxtLink prefetch-on=\"interaction\"> and prefetch-on=\"visibility\"",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/route-prefetching",
+      "spec": "feature-tests/route-prefetching.spec.ts"
+    },
+    "islands": {
+      "status": "pass",
+      "evidence": "server component marker in SSR HTML but in 0 of 26 JS responses and 0 of 43 built client chunks; LazyFtCounter hydrate-on-visible became interactive",
+      "method": "experimental.componentIslands: *.server.vue server component + <LazyX hydrate-on-visible> island",
+      "claimedLabel": "experimental",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/islands",
+      "spec": "feature-tests/islands.spec.ts"
+    },
+    "render-modes": {
+      "status": "pass",
+      "evidence": "prerendered: build file exists, stable \"2026-11-26T05:08:12.216Z on server\" across requests; ssr: \"2026-11-26T05:08:32.799Z on server\" then \"2026-11-26T05:08:32.829Z on server\"; spa (ssr:false): no SSR markup, rendered in browser",
+      "method": "routeRules { prerender: true } and { ssr: false } plus default per-request SSR",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/render-modes/prerendered",
+      "spec": "feature-tests/render-modes.spec.ts"
+    },
+    "reactivity": {
+      "status": "pass",
+      "evidence": "after 3 updates text=3; page (owns ref) setup=1 renders=1; bound child setup=1 renders=4 (Vue 3.5 VDOM: the reading component's render effect re-runs, component-level granularity) Note: Passes at Vue's granularity: setup never re-runs and the state-owning component never re-renders, but the component that reads the ref re-runs its render effect (VDOM, no Vapor mode in Vue 3.5).",
+      "method": "Vue ref provided by the page and read only in a child component",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/reactivity",
+      "spec": "feature-tests/reactivity.spec.ts"
+    },
+    "bundle-analysis": {
+      "status": "pass",
+      "evidence": "nuxt analyze --no-serve (CLI labels it experimental) wrote node_modules/.cache/nuxt/.nuxt/analyze/default/client.html (928708 B) and node_modules/.cache/nuxt/.nuxt/analyze/default/nitro.html (289025 B)",
+      "method": "nuxt analyze --no-serve (built-in CLI command marked experimental)",
+      "claimedLabel": "experimental",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/bundle-analysis.spec.ts"
+    },
+    "third-party-scripts": {
+      "status": "pass",
+      "evidence": "onNuxtReady: no <script> in SSR HTML (only a low-priority rel=preload warmup), executed at 113ms after DCL 61ms; partytown:true emitted type=text/partytown, fetched only as a fetch() from /~partytown/partytown-sandbox-sw.html (worker: blob), DOM write proxied back, tag became text/partytown-x — worker runtime comes from separately installed @nuxtjs/partytown Note: 1st-party claim rests on @nuxt/scripts useScript (official module, verified: deferred onNuxtReady load). Worker offload is NOT self-contained: useScript partytown:true only renders <script type=\"text/partytown\">; in a one-off build without @nuxtjs/partytown the tag was emitted, /~partytown/partytown.js returned 404 and the script was never fetched or run. With @nuxtjs/partytown installed it runs via the worker (this spec).",
+      "method": "@nuxt/scripts useScript (trigger onNuxtReady) + useScript partytown:true with @nuxtjs/partytown",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/third-party-scripts",
+      "spec": "feature-tests/third-party-scripts.spec.ts"
+    },
+    "multi-host-deployment": {
+      "status": "pass",
+      "evidence": "NITRO_PRESET builds succeeded: vercel → .vercel/output/config.json; netlify → .netlify/functions-internal/server/main.mjs; cloudflare_module → .output/server/index.mjs; node_server → .output/server/index.mjs",
+      "method": "Nitro presets via NITRO_PRESET: vercel, netlify, cloudflare_module, node_server",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/multi-host-deployment.spec.ts"
+    }
+  }
+}
