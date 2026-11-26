@@ -1,6 +1,7 @@
 import { useLocation } from "@pracht/core";
 import { ExternalLink, NavLink, type Target } from "./links.tsx";
 import { LabelGlyph, LABEL_ORDER } from "./LabelBadge.tsx";
+import frameworkLinks from "../data/generated/framework-links.json";
 
 export const REPO_URL = "https://github.com/MaxwellCohen/books-demo";
 export const SITE_REPO_URL = "https://github.com/MaxwellCohen/framework-compare";
@@ -181,6 +182,19 @@ export function SiteFooter() {
             </NavLink>
           </p>
         </div>
+        <nav aria-label="Framework performance guides and issue trackers" class="md:col-span-2 border-t border-rule pt-6">
+          <p class="eyebrow mb-3">Framework performance guides and issue trackers</p>
+          <ul class="grid gap-x-8 gap-y-1.5 sm:grid-cols-2 lg:grid-cols-3">
+            {frameworkLinks.map((f) => (
+              <li key={f.id} class="flex flex-wrap items-baseline gap-x-2">
+                <span class="text-ink">{f.shortName}</span>
+                <ExternalLink href={f.guide}>Performance guide</ExternalLink>
+                <span aria-hidden="true" class="text-ink-3">·</span>
+                <ExternalLink href={f.issues}>Issues</ExternalLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
     </footer>
   );

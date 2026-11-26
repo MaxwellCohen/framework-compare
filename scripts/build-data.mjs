@@ -29,6 +29,7 @@ const OUT_DIR = resolve(PROJECT, "src/data/generated");
 /** Site-authored code samples for Manual cells: one `<frameworkId>.md` per framework, `## <featureId>` sections. */
 const EXAMPLES_DIR = resolve(PROJECT, "content/manual-examples");
 const GOTCHAS_FILE = resolve(PROJECT, "content/framework-gotchas.md");
+const LINKS_FILE = resolve(PROJECT, "content/framework-links.json");
 
 // ---------------------------------------------------------------------------
 // Hand-maintained maps (slugs, short names, aliases). Nothing else is.
@@ -1301,6 +1302,24 @@ capability.methodology.lowerConfidenceClaims = capability.methodology.lowerConfi
 rephraseNotFound(capability, "capability");
 rephraseNotFound(measured, "measured");
 
+// --- Site-authored per-framework links (performance guide, issue tracker).
+const frameworkLinks = existsSync(LINKS_FILE) ? JSON.parse(readFileSync(LINKS_FILE, "utf8")) : {};
+for (const fw of capability.frameworks) {
+  const l = frameworkLinks[fw.id];
+  if (!l?.performanceGuide?.url || !l?.issues) problem(`content/framework-links.json: missing links for "${fw.id}"`);
+  fw.links = {
+    performanceGuide: { url: l?.performanceGuide?.url ?? "", title: l?.performanceGuide?.title ?? "", note: l?.performanceGuide?.note ?? null },
+    issues: l?.issues ?? "",
+  };
+}
+const footerLinks = capability.frameworks.map((f) => ({
+  id: f.id,
+  name: f.name,
+  shortName: f.shortName,
+  guide: f.links.performanceGuide.url,
+  issues: f.links.issues,
+}));
+
 for (const href of unmappedLinks) {
   problem(`unmapped link target "${href}" — add it to ANCHOR_TARGETS / FILE_TARGETS in scripts/build-data.mjs`);
 }
@@ -1310,7 +1329,7 @@ bailIfProblems("validation");
 
 mkdirSync(OUT_DIR, { recursive: true });
 const written = [];
-for (const [file, data] of [["capability.json", capability], ["measured.json", measured]]) {
+for (const [file, data] of [["capability.json", capability], ["measured.json", measured], ["framework-links.json", footerLinks]]) {
   const json = `${JSON.stringify(data, null, 1)}\n`;
   writeFileSync(resolve(OUT_DIR, file), json);
   written.push(`${file} ${(Buffer.byteLength(json) / 1024).toFixed(1)} KB`);

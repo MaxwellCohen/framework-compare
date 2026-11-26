@@ -26,7 +26,15 @@
      }
     }
    ],
-   "extrasHtml": "<p><a href=\"https://nextjs.org/docs/app/guides/lazy-loading\" target=\"_blank\" rel=\"noopener\"><code>next/dynamic</code></a> lazy loading; <a href=\"https://nextjs.org/docs/app/guides/package-bundling\" target=\"_blank\" rel=\"noopener\"><code>optimizePackageImports</code></a>.</p>"
+   "extrasHtml": "<p><a href=\"https://nextjs.org/docs/app/guides/lazy-loading\" target=\"_blank\" rel=\"noopener\"><code>next/dynamic</code></a> lazy loading; <a href=\"https://nextjs.org/docs/app/guides/package-bundling\" target=\"_blank\" rel=\"noopener\"><code>optimizePackageImports</code></a>.</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://nextjs.org/docs/app/guides/production-checklist",
+     "title": "How to optimize your Next.js application for production",
+     "note": null
+    },
+    "issues": "https://github.com/vercel/next.js/issues"
+   }
   },
   {
    "id": "nuxt",
@@ -72,7 +80,15 @@
      }
     }
    ],
-   "extrasHtml": "<p><code>ssrStreaming</code>, <code>crossOriginPrefetch</code>, <code>payloadExtraction</code> (<a href=\"https://nuxt.com/docs/4.x/guide/going-further/experimental-features\" target=\"_blank\" rel=\"noopener\">experimental features</a>).</p>"
+   "extrasHtml": "<p><code>ssrStreaming</code>, <code>crossOriginPrefetch</code>, <code>payloadExtraction</code> (<a href=\"https://nuxt.com/docs/4.x/guide/going-further/experimental-features\" target=\"_blank\" rel=\"noopener\">experimental features</a>).</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://nuxt.com/docs/4.x/guide/best-practices/performance",
+     "title": "Nuxt performance · Best Practices v4",
+     "note": null
+    },
+    "issues": "https://github.com/nuxt/nuxt/issues"
+   }
   },
   {
    "id": "sveltekit",
@@ -109,7 +125,15 @@
      }
     }
    ],
-   "extrasHtml": "<p><a href=\"https://svelte.dev/docs/kit/load\" target=\"_blank\" rel=\"noopener\">streaming <code>load</code></a>; <code>linkHeaderPreload</code> / <code>bundleStrategy</code> (<a href=\"https://svelte.dev/docs/kit/@sveltejs-kit-vite#output\" target=\"_blank\" rel=\"noopener\"><code>output</code> config</a>).</p>"
+   "extrasHtml": "<p><a href=\"https://svelte.dev/docs/kit/load\" target=\"_blank\" rel=\"noopener\">streaming <code>load</code></a>; <code>linkHeaderPreload</code> / <code>bundleStrategy</code> (<a href=\"https://svelte.dev/docs/kit/@sveltejs-kit-vite#output\" target=\"_blank\" rel=\"noopener\"><code>output</code> config</a>).</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://svelte.dev/docs/kit/performance",
+     "title": "Performance • SvelteKit Docs",
+     "note": null
+    },
+    "issues": "https://github.com/sveltejs/kit/issues"
+   }
   },
   {
    "id": "solidstart",
@@ -146,7 +170,15 @@
      }
     }
    ],
-   "extrasHtml": "<p>streaming SSR with <code>deferStream</code> (<a href=\"https://docs.solidjs.com/guides/performance#server-rendering-and-streaming\" target=\"_blank\" rel=\"noopener\">performance guide</a>; option listed in the <a href=\"https://docs.solidjs.com/reference/solid-js/reactivity/create-memo\" target=\"_blank\" rel=\"noopener\"><code>createMemo</code> reference</a>).</p>"
+   "extrasHtml": "<p>streaming SSR with <code>deferStream</code> (<a href=\"https://docs.solidjs.com/guides/performance#server-rendering-and-streaming\" target=\"_blank\" rel=\"noopener\">performance guide</a>; option listed in the <a href=\"https://docs.solidjs.com/reference/solid-js/reactivity/create-memo\" target=\"_blank\" rel=\"noopener\"><code>createMemo</code> reference</a>).</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://docs.solidjs.com/guides/performance",
+     "title": "Performance - SolidJS Documentation",
+     "note": null
+    },
+    "issues": "https://github.com/solidjs/solid-start/issues"
+   }
   },
   {
    "id": "tanstack-start-react",
@@ -183,7 +215,15 @@
      }
     }
    ],
-   "extrasHtml": "<p>experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/early-hints\" target=\"_blank\" rel=\"noopener\">Early Hints</a>; experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/cdn-asset-urls\" target=\"_blank\" rel=\"noopener\"><code>transformAssets</code></a> for CDN asset URLs.</p>"
+   "extrasHtml": "<p>experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/early-hints\" target=\"_blank\" rel=\"noopener\">Early Hints</a>; experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/cdn-asset-urls\" target=\"_blank\" rel=\"noopener\"><code>transformAssets</code></a> for CDN asset URLs.</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://tanstack.com/router/latest/docs/framework/react/guide/code-splitting",
+     "title": "Code Splitting | TanStack Router Docs",
+     "note": "No dedicated performance page; closest official page (TanStack Start is built on TanStack Router)"
+    },
+    "issues": "https://github.com/TanStack/router/issues"
+   }
   },
   {
    "id": "tanstack-start-solid",
@@ -220,7 +260,15 @@
      }
     }
    ],
-   "extrasHtml": "<p>experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/early-hints\" target=\"_blank\" rel=\"noopener\">Early Hints</a>; experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/cdn-asset-urls\" target=\"_blank\" rel=\"noopener\"><code>transformAssets</code></a> for CDN asset URLs.</p>"
+   "extrasHtml": "<p>experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/early-hints\" target=\"_blank\" rel=\"noopener\">Early Hints</a>; experimental <a href=\"https://tanstack.com/start/latest/docs/framework/react/guide/cdn-asset-urls\" target=\"_blank\" rel=\"noopener\"><code>transformAssets</code></a> for CDN asset URLs.</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://tanstack.com/router/latest/docs/framework/solid/guide/code-splitting",
+     "title": "Code Splitting | TanStack Router Docs",
+     "note": "No dedicated performance page; closest official page (TanStack Start is built on TanStack Router)"
+    },
+    "issues": "https://github.com/TanStack/router/issues"
+   }
   },
   {
    "id": "pracht",
@@ -257,7 +305,15 @@
      }
     }
    ],
-   "extrasHtml": "<p>see the <a href=\"https://pracht.resynapse.dev/docs/performance\" target=\"_blank\" rel=\"noopener\">performance guide</a>.</p>"
+   "extrasHtml": "<p>see the <a href=\"https://pracht.resynapse.dev/docs/performance\" target=\"_blank\" rel=\"noopener\">performance guide</a>.</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://pracht.resynapse.dev/docs/performance",
+     "title": "Performance — pracht docs",
+     "note": null
+    },
+    "issues": "https://github.com/JoviDeCroock/pracht/issues"
+   }
   },
   {
    "id": "waku",
@@ -294,7 +350,15 @@
      }
     }
    ],
-   "extrasHtml": "<p>instant navigation (<a href=\"https://waku.gg/blog/waku-v1-rc\" target=\"_blank\" rel=\"noopener\">v1 RC post</a>).</p>"
+   "extrasHtml": "<p>instant navigation (<a href=\"https://waku.gg/blog/waku-v1-rc\" target=\"_blank\" rel=\"noopener\">v1 RC post</a>).</p>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://waku.gg/guides/building-for-production",
+     "title": "Building for Production — Waku",
+     "note": "No dedicated performance page; closest official page"
+    },
+    "issues": "https://github.com/wakujs/waku/issues"
+   }
   },
   {
    "id": "ember",
@@ -331,7 +395,15 @@
      }
     }
    ],
-   "extrasHtml": null
+   "extrasHtml": null,
+   "links": {
+    "performanceGuide": {
+     "url": "https://guides.emberjs.com/release/ember-inspector/render-performance/",
+     "title": "Rendering Performance - Ember Inspector - Ember Guides",
+     "note": "No general performance guide in current Ember Guides; closest official page"
+    },
+    "issues": "https://github.com/emberjs/ember.js/issues"
+   }
   },
   {
    "id": "astro",
@@ -368,7 +440,15 @@
      }
     }
    ],
-   "extrasHtml": "<ul>\n<li><code>&lt;ClientRouter /&gt;</code> view transitions with a simulated <code>animate</code> fallback. (<a href=\"https://docs.astro.build/en/guides/view-transitions/\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Node adapter standalone sends <code>Cache-Control: public, max-age=31536000, immutable</code> for hashed <code>_astro/</code> assets. (<a href=\"https://docs.astro.build/en/guides/integrations-guide/node/\" target=\"_blank\" rel=\"noopener\">node</a>)</li>\n<li>Astro 7: Rolldown via Vite 8, Rust <code>.astro</code> compiler, queued rendering stable and default. (<a href=\"https://astro.build/blog/astro-7/\" target=\"_blank\" rel=\"noopener\">astro-7</a>)</li>\n<li><code>security.csp</code> (astro@6.0.0+, default false) adds a per-page CSP <code>&lt;meta&gt;</code> with <code>script-src</code>/<code>style-src</code> hashes for bundled scripts and styles; it is not supported in dev mode and does not work with <code>&lt;ClientRouter /&gt;</code> view transitions or Shiki. (<a href=\"https://docs.astro.build/en/reference/configuration-reference/\" target=\"_blank\" rel=\"noopener\">configuration-reference</a>)</li>\n</ul>"
+   "extrasHtml": "<ul>\n<li><code>&lt;ClientRouter /&gt;</code> view transitions with a simulated <code>animate</code> fallback. (<a href=\"https://docs.astro.build/en/guides/view-transitions/\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Node adapter standalone sends <code>Cache-Control: public, max-age=31536000, immutable</code> for hashed <code>_astro/</code> assets. (<a href=\"https://docs.astro.build/en/guides/integrations-guide/node/\" target=\"_blank\" rel=\"noopener\">node</a>)</li>\n<li>Astro 7: Rolldown via Vite 8, Rust <code>.astro</code> compiler, queued rendering stable and default. (<a href=\"https://astro.build/blog/astro-7/\" target=\"_blank\" rel=\"noopener\">astro-7</a>)</li>\n<li><code>security.csp</code> (astro@6.0.0+, default false) adds a per-page CSP <code>&lt;meta&gt;</code> with <code>script-src</code>/<code>style-src</code> hashes for bundled scripts and styles; it is not supported in dev mode and does not work with <code>&lt;ClientRouter /&gt;</code> view transitions or Shiki. (<a href=\"https://docs.astro.build/en/reference/configuration-reference/\" target=\"_blank\" rel=\"noopener\">configuration-reference</a>)</li>\n</ul>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://docs.astro.build/en/concepts/why-astro/",
+     "title": "Why Astro? | Docs",
+     "note": "No dedicated performance page (docs.astro.build/en/guides/performance/ is 404); closest official page"
+    },
+    "issues": "https://github.com/withastro/astro/issues"
+   }
   },
   {
    "id": "react-router",
@@ -405,7 +485,15 @@
      }
     }
    ],
-   "extrasHtml": "<ul>\n<li>Lazy route discovery by default. (<a href=\"https://reactrouter.com/explanation/lazy-route-discovery\" target=\"_blank\" rel=\"noopener\">lazy-route-discovery</a>)</li>\n<li><code>splitRouteModules</code> on by default in v8.0.0; <code>&quot;enforce&quot;</code> available. Server-only exports (<code>loader</code>, <code>action</code>, <code>headers</code>) are removed from browser bundles. (<a href=\"https://reactrouter.com/explanation/code-splitting\" target=\"_blank\" rel=\"noopener\">code-splitting</a>)</li>\n<li>Web Streams server entry by default for non-Node apps (v8.2.0); <code>ssr: &quot;unstable_api-only&quot;</code> (Framework mode, v8.5.0) is experimental, as is <code>future.unstable_routePatternMatching</code> (v8.4.0), which is a Data Mode flag passed to <code>createBrowserRouter</code>, not a <code>react-router.config.ts</code> option. (<a href=\"https://reactrouter.com/changelog\" target=\"_blank\" rel=\"noopener\">changelog</a>)</li>\n</ul>"
+   "extrasHtml": "<ul>\n<li>Lazy route discovery by default. (<a href=\"https://reactrouter.com/explanation/lazy-route-discovery\" target=\"_blank\" rel=\"noopener\">lazy-route-discovery</a>)</li>\n<li><code>splitRouteModules</code> on by default in v8.0.0; <code>&quot;enforce&quot;</code> available. Server-only exports (<code>loader</code>, <code>action</code>, <code>headers</code>) are removed from browser bundles. (<a href=\"https://reactrouter.com/explanation/code-splitting\" target=\"_blank\" rel=\"noopener\">code-splitting</a>)</li>\n<li>Web Streams server entry by default for non-Node apps (v8.2.0); <code>ssr: &quot;unstable_api-only&quot;</code> (Framework mode, v8.5.0) is experimental, as is <code>future.unstable_routePatternMatching</code> (v8.4.0), which is a Data Mode flag passed to <code>createBrowserRouter</code>, not a <code>react-router.config.ts</code> option. (<a href=\"https://reactrouter.com/changelog\" target=\"_blank\" rel=\"noopener\">changelog</a>)</li>\n</ul>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://reactrouter.com/explanation/code-splitting",
+     "title": "Automatic Code Splitting  | React Router",
+     "note": "No dedicated performance page; closest official page"
+    },
+    "issues": "https://github.com/remix-run/react-router/issues"
+   }
   },
   {
    "id": "qwik-city",
@@ -442,7 +530,15 @@
      }
     }
    ],
-   "extrasHtml": "<ul>\n<li><code>qwikify$</code> hydration eagerness options. (<a href=\"https://qwik.dev/docs/integrations/react/\" target=\"_blank\" rel=\"noopener\">react</a>)</li>\n<li>Optimizer <code>$</code> boundaries make many lazy-loadable symbols. (<a href=\"https://qwik.dev/docs/advanced/optimizer/\" target=\"_blank\" rel=\"noopener\">optimizer</a>, <a href=\"https://qwik.dev/docs/concepts/think-qwik/\" target=\"_blank\" rel=\"noopener\">think-qwik</a>)</li>\n</ul>"
+   "extrasHtml": "<ul>\n<li><code>qwikify$</code> hydration eagerness options. (<a href=\"https://qwik.dev/docs/integrations/react/\" target=\"_blank\" rel=\"noopener\">react</a>)</li>\n<li>Optimizer <code>$</code> boundaries make many lazy-loadable symbols. (<a href=\"https://qwik.dev/docs/advanced/optimizer/\" target=\"_blank\" rel=\"noopener\">optimizer</a>, <a href=\"https://qwik.dev/docs/concepts/think-qwik/\" target=\"_blank\" rel=\"noopener\">think-qwik</a>)</li>\n</ul>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://qwik.dev/docs/guides/bundle/",
+     "title": "Bundle Optimization | Guides 📚 Qwik Documentation",
+     "note": "No single performance page; closest official page"
+    },
+    "issues": "https://github.com/QwikDev/qwik/issues"
+   }
   },
   {
    "id": "angular",
@@ -479,7 +575,15 @@
      }
     }
    ],
-   "extrasHtml": "<ul>\n<li><code>@defer</code> <code>prefetch</code> triggers, event replay, <code>withAppShell</code>, <code>RESPONSE_INIT</code> for runtime headers. (<a href=\"https://angular.dev/guide/templates/defer\" target=\"_blank\" rel=\"noopener\">defer</a>, <a href=\"https://angular.dev/guide/hydration\" target=\"_blank\" rel=\"noopener\">hydration</a>, <a href=\"https://angular.dev/guide/ssr\" target=\"_blank\" rel=\"noopener\">ssr</a>)</li>\n<li>Zoneless default (v21+). (<a href=\"https://angular.dev/guide/zoneless\" target=\"_blank\" rel=\"noopener\">zoneless</a>)</li>\n</ul>"
+   "extrasHtml": "<ul>\n<li><code>@defer</code> <code>prefetch</code> triggers, event replay, <code>withAppShell</code>, <code>RESPONSE_INIT</code> for runtime headers. (<a href=\"https://angular.dev/guide/templates/defer\" target=\"_blank\" rel=\"noopener\">defer</a>, <a href=\"https://angular.dev/guide/hydration\" target=\"_blank\" rel=\"noopener\">hydration</a>, <a href=\"https://angular.dev/guide/ssr\" target=\"_blank\" rel=\"noopener\">ssr</a>)</li>\n<li>Zoneless default (v21+). (<a href=\"https://angular.dev/guide/zoneless\" target=\"_blank\" rel=\"noopener\">zoneless</a>)</li>\n</ul>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://angular.dev/best-practices/performance",
+     "title": "Performance • Overview • Angular",
+     "note": null
+    },
+    "issues": "https://github.com/angular/angular/issues"
+   }
   },
   {
    "id": "marko",
@@ -516,7 +620,15 @@
      }
     }
    ],
-   "extrasHtml": "<ul>\n<li>Out-of-order HTML streaming with <code>&lt;await&gt;</code> and <code>&lt;try&gt;@placeholder</code>; lazy <code>load</code> triggers; automatic fine-grained bundling; CSP nonce support (<code>$global.cspNonce</code>). (<a href=\"https://markojs.com/docs/explanation/streaming\" target=\"_blank\" rel=\"noopener\">streaming</a>, <a href=\"https://markojs.com/docs/reference/lazy-loading\" target=\"_blank\" rel=\"noopener\">lazy-loading</a>, <a href=\"https://markojs.com/docs/explanation/fine-grained-bundling\" target=\"_blank\" rel=\"noopener\">fine-grained-bundling</a>, <a href=\"https://markojs.com/docs/reference/template\" target=\"_blank\" rel=\"noopener\">template</a>)</li>\n</ul>"
+   "extrasHtml": "<ul>\n<li>Out-of-order HTML streaming with <code>&lt;await&gt;</code> and <code>&lt;try&gt;@placeholder</code>; lazy <code>load</code> triggers; automatic fine-grained bundling; CSP nonce support (<code>$global.cspNonce</code>). (<a href=\"https://markojs.com/docs/explanation/streaming\" target=\"_blank\" rel=\"noopener\">streaming</a>, <a href=\"https://markojs.com/docs/reference/lazy-loading\" target=\"_blank\" rel=\"noopener\">lazy-loading</a>, <a href=\"https://markojs.com/docs/explanation/fine-grained-bundling\" target=\"_blank\" rel=\"noopener\">fine-grained-bundling</a>, <a href=\"https://markojs.com/docs/reference/template\" target=\"_blank\" rel=\"noopener\">template</a>)</li>\n</ul>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://markojs.com/docs/explanation/why-is-marko-fast",
+     "title": "Why is Marko Fast? | Marko",
+     "note": "Explanation page, not a tuning guide; closest official page"
+    },
+    "issues": "https://github.com/marko-js/marko/issues"
+   }
   },
   {
    "id": "fresh",
@@ -553,7 +665,15 @@
      }
     }
    ],
-   "extrasHtml": "<ul>\n<li>View Transitions via <code>f-view-transition</code> with <code>f-client-nav</code>, no polyfill. (<a href=\"https://usefresh.dev/docs/advanced/view-transitions\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Built-in OpenTelemetry support. (<a href=\"https://usefresh.dev/docs/introduction\" target=\"_blank\" rel=\"noopener\">introduction</a>)</li>\n<li>Streaming handler and <code>Server-Timing</code> middleware examples. (<a href=\"https://usefresh.dev/docs/examples/common-patterns\" target=\"_blank\" rel=\"noopener\">common-patterns</a>)</li>\n<li>Vite-hashed assets; <code>asset()</code> one-year cache lifetime. (<a href=\"https://usefresh.dev/docs/concepts/static-files\" target=\"_blank\" rel=\"noopener\">static-files</a>)</li>\n</ul>"
+   "extrasHtml": "<ul>\n<li>View Transitions via <code>f-view-transition</code> with <code>f-client-nav</code>, no polyfill. (<a href=\"https://usefresh.dev/docs/advanced/view-transitions\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Built-in OpenTelemetry support. (<a href=\"https://usefresh.dev/docs/introduction\" target=\"_blank\" rel=\"noopener\">introduction</a>)</li>\n<li>Streaming handler and <code>Server-Timing</code> middleware examples. (<a href=\"https://usefresh.dev/docs/examples/common-patterns\" target=\"_blank\" rel=\"noopener\">common-patterns</a>)</li>\n<li>Vite-hashed assets; <code>asset()</code> one-year cache lifetime. (<a href=\"https://usefresh.dev/docs/concepts/static-files\" target=\"_blank\" rel=\"noopener\">static-files</a>)</li>\n</ul>",
+   "links": {
+    "performanceGuide": {
+     "url": "https://fresh.deno.dev/docs/concepts/islands",
+     "title": "Islands | Fresh docs",
+     "note": "No dedicated performance page; closest official page"
+    },
+    "issues": "https://github.com/freshframework/fresh/issues"
+   }
   }
  ],
  "features": [
@@ -1060,7 +1180,7 @@
    "featureId": "css-inlining",
    "label": "manual",
    "points": 0,
-   "bodyHtml": "<p>There is no first-party production inlining flag documented in the <a href=\"https://docs.solidjs.com/building-apps/styling-and-assets\" target=\"_blank\" rel=\"noopener\">styling and assets docs</a> (Solid 2 start mode, this port&#39;s stack; production output is <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> tags) or in the archived <a href=\"https://v1.solidjs.com/solid-start/v2/building-your-application/css-and-styling\" target=\"_blank\" rel=\"noopener\">SolidStart v2 CSS and styling docs</a>, so you wire it yourself: import the stylesheet with <code>?inline</code> (a <a href=\"https://vite.dev/guide/features#disabling-css-injection-into-the-page\" target=\"_blank\" rel=\"noopener\">Vite CSS feature</a>) and render it in a <code>&lt;style&gt;</code> tag.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"tsx\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"./app.css?inline\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// ...</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">>{</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">meta</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.env.</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">SSR</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> ?</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">:</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">}&#x3C;/</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>solid-books/src/Document.tsx</code> (<code>optimized</code> branch). <code>NoHydration</code> keeps the CSS string out of the client bundle.</em></p>",
+   "bodyHtml": "<p>There is no first-party production inlining flag documented in the <a href=\"https://docs.solidjs.com/building-apps/styling-and-assets\" target=\"_blank\" rel=\"noopener\">styling and assets docs</a> (Solid 2 start mode, this port&#39;s stack; production output is <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> tags) or in the archived <a href=\"https://v1.solidjs.com/solid-start/v2/building-your-application/css-and-styling\" target=\"_blank\" rel=\"noopener\">SolidStart v2 CSS and styling docs</a>, so you wire it yourself: import the stylesheet with <code>?inline</code> (a <a href=\"https://vite.dev/guide/features#disabling-css-injection-into-the-page\" target=\"_blank\" rel=\"noopener\">Vite CSS feature</a>) and render it in a <code>&lt;style&gt;</code> tag.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"tsx\"><code><span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#9ECBFF\"> \"./app.css?inline\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// ...</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">>{</span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">meta</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">.env.</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">SSR</span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\"> ?</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> appCss </span><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">:</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">}&#x3C;/</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">style</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">NoHydration</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p class=\"caption\"><em>From this repo&#39;s <code>solid-books/src/Document.tsx</code> (<code>optimized</code> branch). <code>NoHydration</code> keeps the CSS string out of the client bundle.</em></p>",
    "hasSnippet": true,
    "exampleHtml": null,
    "artDirection": null,
@@ -1838,7 +1958,7 @@
    "artDirection": {
     "label": "first-party",
     "bodyHtml": "<p><code>&lt;Picture /&gt;</code> (astro@3.3.0+) emits <code>&lt;picture&gt;</code> with <code>formats</code> (default <code>webp</code>) plus a fallback <code>&lt;img&gt;</code>. Breakpoint art direction is not in the component docs; the official recipe uses <code>getImage()</code> and a hand-written <code>&lt;picture&gt;</code>/<code>&lt;source media&gt;</code>. (<a href=\"https://docs.astro.build/en/reference/modules/astro-assets/\" target=\"_blank\" rel=\"noopener\">astro-assets</a>, <a href=\"https://docs.astro.build/en/recipes/build-custom-img-component/\" target=\"_blank\" rel=\"noopener\">build-custom-img-component</a>)</p>",
-    "exampleHtml": "<p><code>&lt;Picture /&gt;</code> handles formats, not breakpoints. Astro&#39;s recipe calls <code>getImage()</code> once per crop and writes the <code>&lt;picture&gt;</code> by hand.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"astro\"><code><span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// src/components/Hero.astro</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> { getImage } </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"astro:assets\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> wide </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-wide.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> square </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-square.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> desktop</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: wide, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">1600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"avif\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> mobile</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"webp\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> fallback</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> media</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"(min-width: 768px)\"</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">={desktop.src} </span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/avif\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">={mobile.src} </span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/webp\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">img</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> src</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">={fallback.src} {</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">...</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">fallback.attributes} </span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\">alt</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"Shelves of books\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#22863A;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p>Source: <a href=\"https://docs.astro.build/en/recipes/build-custom-img-component/\" target=\"_blank\" rel=\"noopener\">Astro: build a custom image component</a></p>"
+    "exampleHtml": "<p><code>&lt;Picture /&gt;</code> handles formats, not breakpoints. Astro&#39;s recipe calls <code>getImage()</code> once per crop and writes the <code>&lt;picture&gt;</code> by hand.</p>\n<pre class=\"shiki shiki-themes github-light github-dark\" style=\"--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e\" data-lang=\"astro\"><code><span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#6A737D;--shiki-dark:#6A737D\">// src/components/Hero.astro</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> { getImage } </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"astro:assets\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> wide </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-wide.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">import</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> square </span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">from</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\"> \"../assets/hero-square.jpg\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">;</span></span>\n<span class=\"line\"></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\"> desktop</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: wide, width: </span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\">1600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#24292E;--shiki-dark:#9ECBFF\">\"avif\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\"> mobile</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">, format: </span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"webp\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#F97583\">const</span><span style=\"--shiki-light:#24292E;--shiki-dark:#79B8FF\"> fallback</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> =</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\"> await</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#B392F0\"> getImage</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">({ src: square, width: </span><span style=\"--shiki-light:#005CC5;--shiki-dark:#79B8FF\">600</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\"> });</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#6A737D\">---</span></span>\n<span class=\"line\"><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">&#x3C;</span><span style=\"--shiki-light:#6F42C1;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> media</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"(min-width: 768px)\"</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{desktop.src} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/avif\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">source</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> srcset</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{mobile.src} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">type</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"image/webp\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">  &#x3C;</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">img</span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\"> src</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">{fallback.src} {</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#F97583\">...</span><span style=\"--shiki-light:#24292E;--shiki-dark:#E1E4E8\">fallback.attributes} </span><span style=\"--shiki-light:#24292E;--shiki-dark:#B392F0\">alt</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">=</span><span style=\"--shiki-light:#032F62;--shiki-dark:#9ECBFF\">\"Shelves of books\"</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\"> /></span></span>\n<span class=\"line\"><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">&#x3C;/</span><span style=\"--shiki-light:#24292E;--shiki-dark:#85E89D\">picture</span><span style=\"--shiki-light:#D73A49;--shiki-dark:#E1E4E8\">></span></span></code></pre>\n<p>Source: <a href=\"https://docs.astro.build/en/recipes/build-custom-img-component/\" target=\"_blank\" rel=\"noopener\">Astro: build a custom image component</a></p>"
    },
    "gotchasHtml": null
   },

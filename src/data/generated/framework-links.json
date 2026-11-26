@@ -1,0 +1,107 @@
+[
+ {
+  "id": "next",
+  "name": "Next",
+  "shortName": "Next",
+  "guide": "https://nextjs.org/docs/app/guides/production-checklist",
+  "issues": "https://github.com/vercel/next.js/issues"
+ },
+ {
+  "id": "nuxt",
+  "name": "Nuxt",
+  "shortName": "Nuxt",
+  "guide": "https://nuxt.com/docs/4.x/guide/best-practices/performance",
+  "issues": "https://github.com/nuxt/nuxt/issues"
+ },
+ {
+  "id": "sveltekit",
+  "name": "SvelteKit",
+  "shortName": "SvelteKit",
+  "guide": "https://svelte.dev/docs/kit/performance",
+  "issues": "https://github.com/sveltejs/kit/issues"
+ },
+ {
+  "id": "solidstart",
+  "name": "SolidStart",
+  "shortName": "SolidStart",
+  "guide": "https://docs.solidjs.com/guides/performance",
+  "issues": "https://github.com/solidjs/solid-start/issues"
+ },
+ {
+  "id": "tanstack-start-react",
+  "name": "TanStack Start (React)",
+  "shortName": "TanStack (React)",
+  "guide": "https://tanstack.com/router/latest/docs/framework/react/guide/code-splitting",
+  "issues": "https://github.com/TanStack/router/issues"
+ },
+ {
+  "id": "tanstack-start-solid",
+  "name": "TanStack Start (Solid)",
+  "shortName": "TanStack (Solid)",
+  "guide": "https://tanstack.com/router/latest/docs/framework/solid/guide/code-splitting",
+  "issues": "https://github.com/TanStack/router/issues"
+ },
+ {
+  "id": "pracht",
+  "name": "Pracht",
+  "shortName": "Pracht",
+  "guide": "https://pracht.resynapse.dev/docs/performance",
+  "issues": "https://github.com/JoviDeCroock/pracht/issues"
+ },
+ {
+  "id": "waku",
+  "name": "Waku",
+  "shortName": "Waku",
+  "guide": "https://waku.gg/guides/building-for-production",
+  "issues": "https://github.com/wakujs/waku/issues"
+ },
+ {
+  "id": "ember",
+  "name": "Ember",
+  "shortName": "Ember",
+  "guide": "https://guides.emberjs.com/release/ember-inspector/render-performance/",
+  "issues": "https://github.com/emberjs/ember.js/issues"
+ },
+ {
+  "id": "astro",
+  "name": "Astro",
+  "shortName": "Astro",
+  "guide": "https://docs.astro.build/en/concepts/why-astro/",
+  "issues": "https://github.com/withastro/astro/issues"
+ },
+ {
+  "id": "react-router",
+  "name": "React Router",
+  "shortName": "React Router",
+  "guide": "https://reactrouter.com/explanation/code-splitting",
+  "issues": "https://github.com/remix-run/react-router/issues"
+ },
+ {
+  "id": "qwik-city",
+  "name": "Qwik City",
+  "shortName": "Qwik",
+  "guide": "https://qwik.dev/docs/guides/bundle/",
+  "issues": "https://github.com/QwikDev/qwik/issues"
+ },
+ {
+  "id": "angular",
+  "name": "Angular (SSR)",
+  "shortName": "Angular",
+  "guide": "https://angular.dev/best-practices/performance",
+  "issues": "https://github.com/angular/angular/issues"
+ },
+ {
+  "id": "marko",
+  "name": "Marko",
+  "shortName": "Marko",
+  "guide": "https://markojs.com/docs/explanation/why-is-marko-fast",
+  "issues": "https://github.com/marko-js/marko/issues"
+ },
+ {
+  "id": "fresh",
+  "name": "Fresh",
+  "shortName": "Fresh",
+  "guide": "https://fresh.deno.dev/docs/concepts/islands",
+  "issues": "https://github.com/freshframework/fresh/issues"
+ }
+]

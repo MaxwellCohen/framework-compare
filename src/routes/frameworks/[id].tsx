@@ -137,6 +137,7 @@ export async function loader({ params }: LoaderArgs) {
       app: fw.app,
       repo: fw.repo,
       deployments: fw.deployments,
+      links: fw.links,
     },
     max: { fcp: MAX_SCORE.fcp, other: MAX_SCORE.other, total: MAX_TOTAL },
     count,
@@ -227,6 +228,17 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               <dd class="text-ink-2">{fw.versionNotes}</dd>
             </>
           )}
+          <dt class="eyebrow sm:pt-0.5">Performance guide</dt>
+          <dd class="text-ink-2">
+            <ExternalLink href={fw.links.performanceGuide.url}>{fw.links.performanceGuide.title}</ExternalLink>
+            {fw.links.performanceGuide.note && (
+              <span class="block text-xs text-ink-3">{fw.links.performanceGuide.note}.</span>
+            )}
+          </dd>
+          <dt class="eyebrow sm:pt-0.5">Issues</dt>
+          <dd class="text-ink-2">
+            <ExternalLink href={fw.links.issues}>{fw.links.issues.replace(/^https?:\/\//, "")}</ExternalLink>
+          </dd>
         </dl>
       </Container>
 

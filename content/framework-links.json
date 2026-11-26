@@ -1,0 +1,62 @@
+{
+  "next": {
+    "performanceGuide": { "url": "https://nextjs.org/docs/app/guides/production-checklist", "title": "How to optimize your Next.js application for production" },
+    "issues": "https://github.com/vercel/next.js/issues"
+  },
+  "nuxt": {
+    "performanceGuide": { "url": "https://nuxt.com/docs/4.x/guide/best-practices/performance", "title": "Nuxt performance · Best Practices v4" },
+    "issues": "https://github.com/nuxt/nuxt/issues"
+  },
+  "sveltekit": {
+    "performanceGuide": { "url": "https://svelte.dev/docs/kit/performance", "title": "Performance • SvelteKit Docs" },
+    "issues": "https://github.com/sveltejs/kit/issues"
+  },
+  "solidstart": {
+    "performanceGuide": { "url": "https://docs.solidjs.com/guides/performance", "title": "Performance - SolidJS Documentation" },
+    "issues": "https://github.com/solidjs/solid-start/issues"
+  },
+  "tanstack-start-react": {
+    "performanceGuide": { "url": "https://tanstack.com/router/latest/docs/framework/react/guide/code-splitting", "title": "Code Splitting | TanStack Router Docs", "note": "No dedicated performance page; closest official page (TanStack Start is built on TanStack Router)" },
+    "issues": "https://github.com/TanStack/router/issues"
+  },
+  "tanstack-start-solid": {
+    "performanceGuide": { "url": "https://tanstack.com/router/latest/docs/framework/solid/guide/code-splitting", "title": "Code Splitting | TanStack Router Docs", "note": "No dedicated performance page; closest official page (TanStack Start is built on TanStack Router)" },
+    "issues": "https://github.com/TanStack/router/issues"
+  },
+  "pracht": {
+    "performanceGuide": { "url": "https://pracht.resynapse.dev/docs/performance", "title": "Performance — pracht docs" },
+    "issues": "https://github.com/JoviDeCroock/pracht/issues"
+  },
+  "waku": {
+    "performanceGuide": { "url": "https://waku.gg/guides/building-for-production", "title": "Building for Production — Waku", "note": "No dedicated performance page; closest official page" },
+    "issues": "https://github.com/wakujs/waku/issues"
+  },
+  "ember": {
+    "performanceGuide": { "url": "https://guides.emberjs.com/release/ember-inspector/render-performance/", "title": "Rendering Performance - Ember Inspector - Ember Guides", "note": "No general performance guide in current Ember Guides; closest official page" },
+    "issues": "https://github.com/emberjs/ember.js/issues"
+  },
+  "astro": {
+    "performanceGuide": { "url": "https://docs.astro.build/en/concepts/why-astro/", "title": "Why Astro? | Docs", "note": "No dedicated performance page (docs.astro.build/en/guides/performance/ is 404); closest official page" },
+    "issues": "https://github.com/withastro/astro/issues"
+  },
+  "react-router": {
+    "performanceGuide": { "url": "https://reactrouter.com/explanation/code-splitting", "title": "Automatic Code Splitting  | React Router", "note": "No dedicated performance page; closest official page" },
+    "issues": "https://github.com/remix-run/react-router/issues"
+  },
+  "qwik-city": {
+    "performanceGuide": { "url": "https://qwik.dev/docs/guides/bundle/", "title": "Bundle Optimization | Guides 📚 Qwik Documentation", "note": "No single performance page; closest official page" },
+    "issues": "https://github.com/QwikDev/qwik/issues"
+  },
+  "angular": {
+    "performanceGuide": { "url": "https://angular.dev/best-practices/performance", "title": "Performance • Overview • Angular" },
+    "issues": "https://github.com/angular/angular/issues"
+  },
+  "marko": {
+    "performanceGuide": { "url": "https://markojs.com/docs/explanation/why-is-marko-fast", "title": "Why is Marko Fast? | Marko", "note": "Explanation page, not a tuning guide; closest official page" },
+    "issues": "https://github.com/marko-js/marko/issues"
+  },
+  "fresh": {
+    "performanceGuide": { "url": "https://fresh.deno.dev/docs/concepts/islands", "title": "Islands | Fresh docs", "note": "No dedicated performance page; closest official page" },
+    "issues": "https://github.com/freshframework/fresh/issues"
+  }
+}

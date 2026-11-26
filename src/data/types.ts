@@ -94,6 +94,11 @@ export interface Framework {
   deployments: Deployment[];
   /** "Unscored extras" / "Other performance features not scored" entry for this framework, or null. */
   extrasHtml: string | null;
+  /** From content/framework-links.json. `note` is set when the guide is the closest page, not a dedicated one. */
+  links: {
+    performanceGuide: { url: string; title: string; note: string | null };
+    issues: string;
+  };
 }
 
 export interface Feature {
