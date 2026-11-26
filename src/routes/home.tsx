@@ -54,8 +54,8 @@ export async function loader() {
 }
 
 export function head({ data }: HeadArgs<typeof loader>) {
-  const title = `Framework Compare: how ${data.frameworks.length} web frameworks support ${data.features.length} performance features`;
-  const description = `See how ${data.frameworks.length} web meta-frameworks support ${data.features.length} performance features, from built in (1st-party) to build it yourself (Manual). Labels come from each framework's documentation. They describe capability, not measured speed.`;
+  const title = `Framework Compare: the speed features ${data.frameworks.length} web frameworks give you`;
+  const description = `Compare the ${data.features.length} features ${data.frameworks.length} web frameworks offer to make sites fast, from CSS inlining and image optimization to route prefetching and islands. See which ones each framework builds in and which you have to add yourself.`;
   return {
     title,
     meta: [
@@ -84,15 +84,18 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
   return (
     <>
       <PageHeader
-        eyebrow="Capability reference · scored from documentation"
-        title={`How ${frameworks.length} web frameworks support ${features.length} performance features`}
+        eyebrow="Performance features, compared"
+        title={`The speed features ${frameworks.length} web frameworks give you`}
         lede={
           <>
-            We read each framework's docs and gave every feature one label. <strong>1st-party</strong> means it's built
+            Frameworks ship features to make your site fast: inlined CSS, image optimization, route prefetching,
+            islands and more. This
+            compares {features.length} of them across {frameworks.length} frameworks. For each one, we checked the
+            framework's docs and gave it a label. <strong>1st-party</strong> means it's built
             in ({LABELS["first-party"].points} points). <strong>Experimental</strong> means it's built in but flagged or
             unstable, and <strong>Third-party</strong> means you add a package ({LABELS.experimental.points} point each).{" "}
             <strong>Manual</strong> means you build it yourself ({LABELS.manual.points} points). Add them up for a score
-            out of {maxTotal}. These scores come from documentation, not from measuring anything.
+            out of {maxTotal}: the higher it is, the more speed features come built in.
           </>
         }
         meta={
@@ -124,8 +127,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title="Capability matrix"
         intro={
           <>
-            Features run down the side and frameworks across the top, highest score first. Each cell links to the
-            steps for enabling that feature in that framework.
+            Speed features run down the side and frameworks across the top, highest score first. Each cell links to
+            the steps for turning that feature on in that framework.
           </>
         }
         actions={<LabelLegend />}
@@ -137,8 +140,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           label={`Capability matrix: ${features.length} features by ${frameworks.length} frameworks`}
         />
         <p class="mt-3 max-w-prose text-sm text-ink-2">
-          1st-party is worth {LABELS["first-party"].points} points, Experimental and Third-party{" "}
-          {LABELS.experimental.points}, Manual {LABELS.manual.points}. First-paint levers are the features that
+          First-paint levers are the features that
           decide how soon the browser shows the first content on screen. Together the {fcpCount} levers are worth up
           to {fcpCount * maxPoints} points, and the {otherCount} other features up to {otherCount * maxPoints}. To put a
           few frameworks side by side, use{" "}
