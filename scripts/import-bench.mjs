@@ -30,7 +30,7 @@ const file = statSync(arg).isDirectory() ? join(arg, "results.json") : arg;
 const { meta, targets } = JSON.parse(readFileSync(file, "utf8"));
 
 const capability = JSON.parse(readFileSync(join(PROJECT, "src/data/generated/capability.json"), "utf8"));
-const byApp = new Map(capability.frameworks.map((f) => [f.app, f.id]));
+const byApp = new Map(capability.frameworks.filter((f) => f.app).map((f) => [f.app, f.id]));
 
 const round = (v, d = 0) => (v == null ? null : Math.round(v * 10 ** d) / 10 ** d);
 const out = {

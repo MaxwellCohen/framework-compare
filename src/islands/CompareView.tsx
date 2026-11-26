@@ -3,7 +3,7 @@ import { useEffect, useState } from "preact/hooks";
 import { FeatureChip, FeatureName } from "../components/Chips.tsx";
 import { LabelBadge, LabelLegend, LABELS } from "../components/LabelBadge.tsx";
 import { CompareMatrix, featureHref, frameworkHref } from "../components/compare/CompareMatrix.tsx";
-import { Card, Section, Tag } from "../components/Page.tsx";
+import { Card, NoPortTag, Section, Tag } from "../components/Page.tsx";
 import { RankBadge, ScoreBar } from "../components/Score.tsx";
 import { HostTable } from "../components/benchmark/HostTable.tsx";
 import { StatusKey } from "../components/benchmark/parts.tsx";
@@ -183,6 +183,16 @@ export default function CompareView({ frameworks, features, initial, bench }: Co
                 </dd>
                 <dt class="text-ink-2">Completeness</dt>
                 <dd class="num text-right">{fw.completeness}%</dd>
+                <dt class="text-ink-2">Benchmark</dt>
+                <dd class="text-right">
+                  {fw.hasPort ? (
+                    <a href={frameworkHref(fw.id) + "#port"} class="link">
+                      Port and results
+                    </a>
+                  ) : (
+                    <NoPortTag />
+                  )}
+                </dd>
               </dl>
             </Card>
           ))}

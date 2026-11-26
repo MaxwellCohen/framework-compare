@@ -5,7 +5,7 @@ import type { HostTableRow } from "../benchmark/HostTable.tsx";
 export const MIN_PICK = 2;
 export const MAX_PICK = 4;
 
-/** One character per cell keeps the island's props small: 15 × 12 labels in 180 characters. */
+/** One character per cell keeps the island's props small: one character per framework per feature. */
 export const LABEL_CODES: Record<string, Label> = {
   f: "first-party",
   e: "experimental",
@@ -21,7 +21,7 @@ export function encodeLabel(label: Label): string {
 export type CompareFramework = Pick<
   Framework,
   "id" | "name" | "shortName" | "group" | "fcpScore" | "otherScore" | "total" | "completeness" | "rank"
-> & { tied: boolean; labels: string };
+> & { tied: boolean; labels: string; hasPort: boolean };
 
 /** Latest benchmark medians for the book list page, per framework, build and host. */
 export interface CompareBench {

@@ -56,7 +56,7 @@ Prefer no JavaScript where the platform does the job: `<details>` for disclosure
 - `TestStatus` `{ test, class? }` — the one-line status mark alone (scorecard rows).
 
 ### Matrix (`Matrix.tsx`)
-- `CapabilityMatrix` `{ frameworks, features, cells, label?, grouped? = true, totals? = true, vertical?, class? }` — features × frameworks, one linked `LabelBadge` per cell. Takes any subset (15 on home, 2–4 on compare). Needs only `id/name/shortName/fcpScore/otherScore/total` of a framework, `id/number/name/shortName/group` of a feature, `frameworkId/featureId/label/points` of a cell. Column headers go vertical above 6 frameworks.
+- `CapabilityMatrix` `{ frameworks, features, cells, label?, grouped? = true, totals? = true, vertical?, class? }` — features × frameworks, one linked `LabelBadge` per cell. Takes any subset (all of them on home, 2–4 on compare). Needs only `id/name/shortName/fcpScore/otherScore/total` of a framework, `id/number/name/shortName/group` of a feature, `frameworkId/featureId/label/points` of a cell. Column headers go vertical above 6 frameworks.
 - Primitives for other tables (ranking, measured runs): `Matrix` `{ label, scrollHint? = true, class? }` > `MatrixHead` `{ corner? }` > `MatrixColHeader` `{ to?, vertical?, title? }`; `<tbody>`/`<tfoot>` > `MatrixRow` > `MatrixRowHeader` `{ to? }` + `MatrixCell` `{ to?, label?, class? }`; `MatrixGroupRow` `{ span, aside? }` for a divider row.
 - Behaviour is CSS only: sticky header row and first column, row and column highlight on hover/focus (up to 17 columns), own scroll container (max height = viewport), right-edge fade and a text hint while columns are off-screen. Do not wrap it in another `overflow` container.
 

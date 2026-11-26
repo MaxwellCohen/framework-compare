@@ -17,7 +17,7 @@ import CompareView from "../islands/CompareView.tsx";
  * for every framework, plus feature names and one-line summaries. No `*Html`.
  */
 export async function loader() {
-  const { features, frameworksByRank, getCell, benchmark, benchBranchRank, benchBuildName, benchHostRank, BENCH_HOME_PATH } =
+  const { features, frameworksByRank, getCell, hasPort, benchmark, benchBranchRank, benchBuildName, benchHostRank, BENCH_HOME_PATH } =
     await import("../data/index.ts");
   const ranked = frameworksByRank();
 
@@ -32,6 +32,7 @@ export async function loader() {
     completeness: f.completeness,
     rank: f.rank,
     tied: ranked.some((o) => o.id !== f.id && o.rank === f.rank),
+    hasPort: hasPort(f),
     labels: features.map((feature) => encodeLabel(getCell(f.id, feature.id).label)).join(""),
   }));
 

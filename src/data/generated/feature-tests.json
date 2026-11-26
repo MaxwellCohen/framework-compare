@@ -5,10 +5,10 @@
    "repo": "MaxwellCohen/angular-books",
    "repoUrl": "https://github.com/MaxwellCohen/angular-books",
    "branch": "feature-tests",
-   "commit": "21912d0adc576df6103546b5636f7eead6dd2808",
-   "resultsCommit": "30cb0cf741bc7adf22ec77ce387ebf88523b68f2",
-   "testsUrl": "https://github.com/MaxwellCohen/angular-books/tree/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests",
-   "testedAt": "2026-11-26T04:51:21.751Z"
+   "commit": "2f250dc83ecd68f329dbfd752800f0e69ab06945",
+   "resultsCommit": "31e38f276f5400ff167041d5ffa5dbe09f1acc2f",
+   "testsUrl": "https://github.com/MaxwellCohen/angular-books/tree/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests",
+   "testedAt": "2026-11-26T05:20:15.548Z"
   },
   {
    "frameworkId": "astro",
@@ -159,7 +159,7 @@
    "evidence": "inline <style> contains .bg-[#0a0b0c] rule from styles-2UZAATGM.css; stylesheet links: <link rel=\"stylesheet\" href=\"styles-2UZAATGM.css\" media=\"print\" data-beasties-media=\"all\">",
    "method": "optimization.styles.inlineCritical (default true in production): Beasties inlines the critical rules of the global stylesheet into the SSR HTML",
    "testRoute": "/feature-tests/css-inlining",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/css-inlining.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/css-inlining.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -170,7 +170,7 @@
    "evidence": "fonts.inline: Google CSS inlined=true, <link> to googleapis left=false, font-display:swap=true, preload as=font=false, preconnect gstatic=true, font files from Google=1 (https://fonts.gstatic.com/s/lobster/v32/neILzCirqoswsqX9zoKmMw.woff2); assertion: Error: self-hosted: no requests to fonts.googleapis.com / fonts.gstatic.com expect(received).toEqual(expected) // deep equality - Expected - 1 + Received + 3 - Array [] + Array [ + \"https://fonts.gstatic.com/s/lobster/v32/neILzCirqoswsqX9zoKmMw.woff2\", + ]",
    "method": "optimization.fonts.inline (default true) inlines a Google Fonts <link> from index.feature-tests.html at build time",
    "testRoute": "/feature-tests/font-optimization",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/font-optimization.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/font-optimization.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": "manual"
   },
@@ -181,7 +181,7 @@
    "evidence": "srcset=\"https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,w_16,h_11/sample.jpg 16w, https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,w_32,h_21/sample…\" (16 widths), width/height=800x533, offscreen loading=lazy (loaded before scroll=false), SSR preload link=true, https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,w_640,h_426/sample.jpg -> 200 image/avif; resizing/format done by Cloudinary, not Angular",
    "method": "NgOptimizedImage (ngSrc, sizes, priority) with the built-in provideCloudinaryLoader (Cloudinary public demo cloud does the resizing/format)",
    "testRoute": "/feature-tests/image-pipeline",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/image-pipeline.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/image-pipeline.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -189,10 +189,10 @@
    "frameworkId": "angular",
    "featureId": "caching",
    "status": "pass",
-   "evidence": "prerendered stamp 1795668308348 == 1795668308348 across requests (live API counter 1->2); hydration made 0 /api/ft/now requests (ng-state transfer cache), shown=1795668308348; server route Cache-Control=\"public, max-age=0, s-maxage=60, stale-while-revalidate=300\" but its stamp changes per request locally (1795668418406 vs 1795668418741): no server/data cache or ISR, reuse only via a CDN honoring s-maxage",
+   "evidence": "prerendered stamp 1795670381998 == 1795670381998 across requests (live API counter 1->2); hydration made 0 /api/ft/now requests (ng-state transfer cache), shown=1795670381998; server route Cache-Control=\"public, max-age=0, s-maxage=60, stale-while-revalidate=300\" but its stamp changes per request locally (1795670391595 vs 1795670391622): no server/data cache or ISR, reuse only via a CDN honoring s-maxage",
    "method": "RenderMode.Prerender + default HttpClient transfer cache (provideClientHydration) + per-route ServerRoute headers (Cache-Control s-maxage)",
    "testRoute": "/feature-tests/caching",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/caching.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/caching.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -200,10 +200,10 @@
    "frameworkId": "angular",
    "featureId": "route-prefetching",
    "status": "pass",
-   "evidence": "PreloadAllModules fetched target route chunk chunk-DpSJSo2s.js on page load before any click/hover (eager, not hover/viewport-driven); @defer prefetch on hover fetched its chunk on hover (not before); link click fetched 0 JS files",
-   "method": "provideRouter(..., withPreloading(PreloadAllModules)) for lazy routes + @defer (on interaction; prefetch on hover)",
+   "evidence": "withPreloading(FlaggedPreloading) fetched target route chunk chunk-DpSJSo2s.js on page load before any click/hover (eager, not hover/viewport-driven); @defer prefetch on hover fetched its chunk on hover (not before); link click fetched 0 JS files",
+   "method": "provideRouter(..., withPreloading(FlaggedPreloading)) (a PreloadingStrategy that preloads routes with data.preload) for lazy routes + @defer (on interaction; prefetch on hover)",
    "testRoute": "/feature-tests/route-prefetching",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/route-prefetching.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/route-prefetching.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -211,10 +211,10 @@
    "frameworkId": "angular",
    "featureId": "islands",
    "status": "pass",
-   "evidence": "24 JS files downloaded, none contain the static marker (leaked: 0); island chunk chunk-BYF_c7qp.js loaded on interaction (before interaction: false); counter 0 -> 2 after clicks",
+   "evidence": "9 JS files downloaded, none contain the static marker (leaked: 0); island chunk chunk-BYF_c7qp.js loaded on interaction (before interaction: false); counter 0 -> 2 after clicks",
    "method": "Incremental hydration: @defer (hydrate never) static card + @defer (hydrate on interaction) counter island, default-on with provideClientHydration()",
    "testRoute": "/feature-tests/islands",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/islands.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/islands.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -222,10 +222,10 @@
    "frameworkId": "angular",
    "featureId": "render-modes",
    "status": "pass",
-   "evidence": "prerendered: build file exists, stamp stable 2026-11-26T04:45:07.736Z == 2026-11-26T04:45:07.736Z; server: stamp changes 2026-11-26T04:51:02.774Z -> 2026-11-26T04:51:03.214Z; client: response is the CSR shell (no stamp), rendered in browser",
+   "evidence": "prerendered: build file exists, stamp stable 2026-11-26T05:19:41.996Z == 2026-11-26T05:19:41.996Z; server: stamp changes 2026-11-26T05:20:13.634Z -> 2026-11-26T05:20:13.714Z; client: response is the CSR shell (no stamp), rendered in browser",
    "method": "ServerRoute[] in app.routes.server.ts with RenderMode.Prerender / RenderMode.Server / RenderMode.Client on different routes",
    "testRoute": "/feature-tests/render-modes/prerendered",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/render-modes.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/render-modes.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -233,10 +233,10 @@
    "frameworkId": "angular",
    "featureId": "reactivity",
    "status": "fail",
-   "evidence": "count 0->3; constructors parent 1->1, child 1->1; 3 signal.set() calls from outside Angular: parent template runs 0->1, child (signal-reading) template runs 0->4; 1 (click) handler: parent 1->2, child 4->5. Granularity is the component view (its whole template update pass re-runs), not the text node; assertion: Error: expect(received).toBe(expected) // Object.is equality Expected: 0 Received: 1",
+   "evidence": "count 0->3; constructors parent 1->1, child 1->1; 3 signal.set() calls from outside Angular: parent template runs 1->1, child (signal-reading) template runs 1->4; 1 (click) handler: parent 1->2, child 4->5. Granularity is the component view (its whole template update pass re-runs), not the text node; assertion: Error: signal-reading component template re-ran expect(received).toBe(expected) // Object.is equality Expected: 1 Received: 4",
    "method": "signal() read in an OnPush child template (zoneless default); render counters on parent and child templates + constructors",
    "testRoute": "/feature-tests/reactivity",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/reactivity.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/reactivity.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -244,10 +244,10 @@
    "frameworkId": "angular",
    "featureId": "bundle-analysis",
    "status": "pass",
-   "evidence": "browser-stats.json (319 inputs, 38 outputs) from first-party --stats-json; report.html 210 KB from third-party esbuild-visualizer (no first-party viewer)",
+   "evidence": "browser-stats.json (320 inputs, 38 outputs) from first-party --stats-json; report.html 210 KB from third-party esbuild-visualizer (no first-party viewer)",
    "method": "ng build --stats-json (first-party esbuild metafile) + esbuild-visualizer (third-party) to render report.html",
    "testRoute": null,
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/bundle-analysis.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/bundle-analysis.spec.ts",
    "testedLabel": "third-party",
    "suggestedLabel": null
   },
@@ -255,10 +255,10 @@
    "frameworkId": "angular",
    "featureId": "third-party-scripts",
    "status": "pass",
-   "evidence": "not in SSR HTML; injected into <body> async=true; request started at 4113ms vs FCP 1756ms / DCL 2037ms; window.__ftThirdParty set",
+   "evidence": "not in SSR HTML; injected into <body> async=true; request started at 160ms vs FCP 76ms / DCL 114ms; window.__ftThirdParty set",
    "method": "Hand-rolled: afterNextRender + requestIdleCallback injects an async <script src=/ft/third-party.js>",
    "testRoute": "/feature-tests/third-party-scripts",
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/third-party-scripts.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/third-party-scripts.spec.ts",
    "testedLabel": "manual",
    "suggestedLabel": null
   },
@@ -269,7 +269,7 @@
    "evidence": "node -> dist-ft/node/{browser,server/server.mjs} (1137 KB); cloudflare -> dist-ft/cloudflare/{browser,server/server.mjs} (247 KB); netlify -> dist-ft/netlify/{browser,server/server.mjs} (248 KB); Vercel reuses the node build via api/index.js; each host needs a hand-written SSR entry",
    "method": "Hand-written SSR entries per host (server.ts Express/AngularNodeAppEngine, server.cloudflare.ts + server.netlify.ts AngularAppEngine) chosen by angular.json configurations",
    "testRoute": null,
-   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/30cb0cf741bc7adf22ec77ce387ebf88523b68f2/feature-tests/multi-host-deployment.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/angular-books/blob/31e38f276f5400ff167041d5ffa5dbe09f1acc2f/feature-tests/multi-host-deployment.spec.ts",
    "testedLabel": "manual",
    "suggestedLabel": null
   },
@@ -678,7 +678,7 @@
    "testRoute": "/feature-tests/caching",
    "specUrl": "https://github.com/MaxwellCohen/marko-books/blob/4f62360a96b1cccffa0b26eb5fe3b4cede3c57e2/feature-tests/caching.spec.ts",
    "testedLabel": "first-party",
-   "suggestedLabel": "manual"
+   "suggestedLabel": null
   },
   {
    "frameworkId": "marko",
@@ -1404,7 +1404,7 @@
    "testRoute": "/feature-tests/api/manual-cache",
    "specUrl": "https://github.com/MaxwellCohen/solid-books/blob/46e94d0d31529f0c1abaa68594340a7affc46c19/feature-tests/caching.spec.ts",
    "testedLabel": "manual",
-   "suggestedLabel": "third-party"
+   "suggestedLabel": null
   },
   {
    "frameworkId": "solidstart",

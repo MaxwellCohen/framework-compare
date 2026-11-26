@@ -58,5 +58,21 @@
   "fresh": {
     "performanceGuide": { "url": "https://fresh.deno.dev/docs/concepts/islands", "title": "Islands | Fresh docs", "note": "No dedicated performance page; closest official page" },
     "issues": "https://github.com/freshframework/fresh/issues"
+  },
+  "analog": {
+    "performanceGuide": { "url": "https://analogjs.org/docs/features/server/static-site-generation", "title": "Static Site Generation | Analog", "note": "No dedicated performance page; closest official page" },
+    "issues": "https://github.com/analogjs/analog/issues"
+  },
+  "vike": {
+    "performanceGuide": { "url": "https://vike.dev/preloading", "title": "Preloading | Vike", "note": "No dedicated performance page; closest official page" },
+    "issues": "https://github.com/vikejs/vike/issues"
+  },
+  "redwoodsdk": {
+    "performanceGuide": { "url": "https://docs.rwsdk.com/guides/optimize/react-compiler", "title": "React Compiler | RedwoodSDK Docs", "note": "The only page in the Optimize guides; closest official page" },
+    "issues": "https://github.com/redwoodjs/sdk/issues"
+  },
+  "remix": {
+    "performanceGuide": { "url": "https://docs.remix.run/files-and-assets/", "title": "Files and Assets | Remix Guides", "note": "No dedicated performance page; closest official page" },
+    "issues": "https://github.com/remix-run/remix/issues"
   }
 }

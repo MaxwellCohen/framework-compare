@@ -18,11 +18,11 @@ import { href } from "../pracht-routes.ts";
  * sorted. `latest` is null when no run has been imported.
  */
 export async function loader() {
-  const { benchmark, frameworks, benchBuildName, benchBranchRank, benchHostRank: hostRank, benchPathRank, BENCH_HOME_PATH } =
+  const { benchmark, frameworks, benchBuildName, benchBranchRank, benchHostRank: hostRank, benchPathRank, BENCH_HOME_PATH, hasPort } =
     await import("../data/index.ts");
   const history = benchmark.history.map((h) => ({ date: h.date, dateText: longDate(h.date), targets: h.targets, withData: h.withData }));
   const run = benchmark.latest;
-  if (!run) return { latest: null, history, frameworkCount: frameworks.length };
+  if (!run) return { latest: null, history, frameworkCount: frameworks.filter(hasPort).length, noPort: [] };
 
   const fwById = new Map(frameworks.map((f) => [f.id, f]));
   const fwOrder = (id: FrameworkId) => fwById.get(id)?.order ?? 999;
@@ -138,13 +138,16 @@ export async function loader() {
     .filter((g) => g.rows.length);
 
   const withDataIds = new Set(run.targets.filter((t) => t.median).map((t) => t.frameworkId));
+  const slimFw = (f: (typeof frameworks)[number]) => ({ id: f.id, name: f.name, shortName: f.shortName });
+  const noPort = frameworks.filter((f) => !hasPort(f)).sort((a, b) => a.order - b.order).map(slimFw);
   const missing = frameworks
-    .filter((f) => !withDataIds.has(f.id))
+    .filter((f) => hasPort(f) && !withDataIds.has(f.id))
     .sort((a, b) => a.order - b.order)
-    .map((f) => ({ id: f.id, name: f.name, shortName: f.shortName }));
+    .map(slimFw);
 
   return {
-    frameworkCount: frameworks.length,
+    frameworkCount: frameworks.filter(hasPort).length,
+    noPort,
     history,
     latest: {
       date: run.date,
@@ -315,12 +318,12 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         }
       />
 
-      {(l.aborted || l.errors > 0 || l.coldSuspect > 0 || l.missing.length > 0) && (
+      {(l.aborted || l.errors > 0 || l.coldSuspect > 0 || l.missing.length > 0 || data.noPort.length > 0) && (
         <Container class="py-6">
           <Callout kind="caveat" title={`Coverage: ${l.withData} of ${l.targetCount} targets`}>
             {l.aborted && <p class="font-semibold text-ink">This run stopped early, so its results are partial.</p>}
             <p>
-              {l.frameworksWithData} of {data.frameworkCount} frameworks have data in this run.
+              {l.frameworksWithData} of {data.frameworkCount} frameworks with a Books port have data in this run.
               {l.errors > 0 && ` ${l.errors} ${l.errors === 1 ? "target" : "targets"} failed.`}
               {l.coldSuspect > 0 &&
                 ` ${l.coldSuspect} ${l.coldSuspect === 1 ? "target was" : "targets were"} cold on every run, so ${l.coldSuspect === 1 ? "its" : "their"} median includes cold runs.`}
@@ -329,6 +332,18 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               <p>
                 No data:{" "}
                 {l.missing.map((f, i) => (
+                  <>
+                    {i > 0 && ", "}
+                    <FrameworkName framework={f} />
+                  </>
+                ))}
+                .
+              </p>
+            )}
+            {data.noPort.length > 0 && (
+              <p>
+                No Books port yet:{" "}
+                {data.noPort.map((f, i) => (
                   <>
                     {i > 0 && ", "}
                     <FrameworkName framework={f} />

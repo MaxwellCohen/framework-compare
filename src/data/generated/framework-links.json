@@ -103,5 +103,33 @@
   "shortName": "Fresh",
   "guide": "https://fresh.deno.dev/docs/concepts/islands",
   "issues": "https://github.com/freshframework/fresh/issues"
+ },
+ {
+  "id": "analog",
+  "name": "Analog",
+  "shortName": "Analog",
+  "guide": "https://analogjs.org/docs/features/server/static-site-generation",
+  "issues": "https://github.com/analogjs/analog/issues"
+ },
+ {
+  "id": "vike",
+  "name": "Vike",
+  "shortName": "Vike",
+  "guide": "https://vike.dev/preloading",
+  "issues": "https://github.com/vikejs/vike/issues"
+ },
+ {
+  "id": "redwoodsdk",
+  "name": "RedwoodSDK",
+  "shortName": "RedwoodSDK",
+  "guide": "https://docs.rwsdk.com/guides/optimize/react-compiler",
+  "issues": "https://github.com/redwoodjs/sdk/issues"
+ },
+ {
+  "id": "remix",
+  "name": "Remix 3",
+  "shortName": "Remix 3",
+  "guide": "https://docs.remix.run/files-and-assets/",
+  "issues": "https://github.com/remix-run/remix/issues"
  }
 ]

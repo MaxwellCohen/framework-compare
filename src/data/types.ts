@@ -25,7 +25,11 @@ export type FrameworkId =
   | "qwik-city"
   | "angular"
   | "marko"
-  | "fresh";
+  | "fresh"
+  | "analog"
+  | "vike"
+  | "redwoodsdk"
+  | "remix";
 
 /**
  * Stable slugs, in source order. The source's "<picture>" row (section 8) is
@@ -54,7 +58,7 @@ export type Points = 0 | 1 | 2;
 /** "fcp" = the five critical-path levers (max 10); "other" = six more (max 12). */
 export type FeatureGroup = "fcp" | "other";
 
-/** "core" = the nine frameworks with full how-to sections; "additional" = six scored from bullets. */
+/** "core" = the nine frameworks with full how-to sections; "additional" = the ones scored from bullets. */
 export type FrameworkGroup = "core" | "additional";
 
 export type Host = "vercel" | "netlify" | "cloudflare";
@@ -87,9 +91,9 @@ export interface Framework {
   completeness: number;
   /** Shared ranks allowed (1, 1, 3 …). */
   rank: number;
-  /** App name in the parent repo, e.g. "pracht-books". */
-  app: string;
-  /** GitHub URL of the port, from the README table. */
+  /** App name in the parent repo, e.g. "pracht-books". Null when the framework has no Books port. */
+  app: string | null;
+  /** GitHub URL of the port, from the README table. Null without a port. */
   repo: string | null;
   deployments: Deployment[];
   /** "Unscored extras" / "Other performance features not scored" entry for this framework, or null. */
@@ -131,7 +135,7 @@ export interface ArtDirection {
   exampleHtml: string | null;
 }
 
-/** One framework × feature cell. There are exactly 15 × 11 = 165. */
+/** One framework × feature cell. One per framework per feature. */
 export interface Cell {
   frameworkId: FrameworkId;
   featureId: FeatureId;

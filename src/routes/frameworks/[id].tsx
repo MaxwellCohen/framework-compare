@@ -5,6 +5,7 @@ import {
   ExternalLink,
   FrameworkName,
   NavLink,
+  NO_PORT,
   PageHeader,
   Pager,
   Prose,
@@ -224,7 +225,8 @@ export function head({ data }: HeadArgs<typeof loader>) {
         content:
           `What ${fw.name}'s documentation says it provides for ${data.featureCount} performance features: ` +
           `${fw.total} of ${max.total} points (${fw.fcpScore}/${max.fcp} first paint, ${fw.otherScore}/${max.other} other), ` +
-          `rank ${fw.rank} of ${count}. How to enable each feature, and links to the ${fw.app} port.`,
+          `rank ${fw.rank} of ${count}. How to enable each feature` +
+          (fw.app ? `, and links to the ${fw.app} port.` : `. ${NO_PORT}.`),
       },
     ],
   };
@@ -365,9 +367,22 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section
         id="port"
         title="The port"
-        intro="The books demo app built with this framework, and where each branch is deployed."
+        intro={
+          fw.app
+            ? "The books demo app built with this framework, and where each branch is deployed."
+            : undefined
+        }
         class="scroll-mt-4 border-t border-rule"
       >
+        {fw.app === null ? (
+          <div class="max-w-[56rem]">
+            <p class="font-semibold text-ink">{NO_PORT}</p>
+            <p class="mt-1 max-w-prose text-sm text-ink-2">
+              {fw.name} has no repository, deployments, benchmark runs or FCP band data on this site. Its labels and
+              score come from the vendor documentation at the version checked above.
+            </p>
+          </div>
+        ) : (
         <div class="max-w-[56rem]">
           <dl class="mb-4 grid gap-x-8 gap-y-2 text-sm sm:grid-cols-[max-content_minmax(0,1fr)]">
             <dt class="eyebrow sm:pt-0.5">App</dt>
@@ -387,7 +402,21 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <p class="text-sm text-ink-3">No deployments are listed for this port.</p>
           )}
         </div>
+        )}
       </Section>
+
+      {fw.app === null && (
+        <Section id="benchmark" title="Latest benchmark" class="scroll-mt-4 border-t border-rule">
+          <p class="font-semibold text-ink">{NO_PORT}</p>
+          <p class="mt-1 max-w-prose text-sm text-ink-2">
+            The{" "}
+            <NavLink to={{ route: "benchmark" }} class="link">
+              benchmark
+            </NavLink>{" "}
+            runs against deployed ports, so there are no numbers for {fw.name}.
+          </p>
+        </Section>
+      )}
 
       {data.bench && (
         <Section

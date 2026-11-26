@@ -4,7 +4,7 @@ import { ClaimList, DocSection, RankingTable, Toc, VersionList } from "../compon
 import type { FeatureId, Label } from "../data/types.ts";
 
 export async function loader() {
-  const { capability, featureTests, frameworks, getFramework, measured, MAX_SCORE } = await import("../data/index.ts");
+  const { capability, featureTests, frameworks, getFramework, hasPort, measured, MAX_SCORE } = await import("../data/index.ts");
   const { disclaimerHtml: _disclaimer, additionalFrameworksHtml: _additional, ...m } = capability.methodology;
   const slim = (f: (typeof frameworks)[number]) => ({
     id: f.id,
@@ -25,6 +25,7 @@ export async function loader() {
       };
     }),
     frameworks: frameworks.map(slim),
+    noPort: frameworks.filter((f) => !hasPort(f)).map((f) => f.name),
     featureCount: capability.features.length,
     tests: {
       ports: featureTests.frameworks.length,
@@ -130,6 +131,13 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               </NavLink>{" "}
               has our latest PageSpeed Insights run. No label, score or rank on this page uses them.
             </p>
+            {data.noPort.length > 0 && (
+              <p class="mt-3 max-w-prose text-ink-2">
+                {total - data.noPort.length} of the {total} frameworks have a port of the Books demo app. No Books port yet:{" "}
+                {data.noPort.join(", ")}. These are labeled and ranked from vendor docs like the rest, and have no
+                deployments, benchmark runs or FCP data.
+              </p>
+            )}
           </DocSection>
 
           <DocSection id="labels" index="02" title="How to read the labels">
