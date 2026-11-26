@@ -215,3 +215,70 @@ const swScript = `if('serviceWorker' in navigator)addEventListener('load',functi
 ```
 
 Source: [Using Service Workers (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers) · [TanStack Start document head](https://tanstack.com/router/latest/docs/framework/solid/guide/document-head-management)
+
+## streaming-ssr
+
+The server entry renders with `defaultStreamHandler`. A loader returns a slow promise without awaiting it, and `<Await>` shows its fallback until the promise resolves and the rest of the HTML streams in.
+
+```tsx
+// src/server.ts
+import { createStartHandler, defaultStreamHandler } from '@tanstack/solid-start/server'
+import { createServerEntry } from '@tanstack/solid-start/server-entry'
+
+const processRequest = createStartHandler(defaultStreamHandler)
+export default createServerEntry({ fetch: (request, opts) => processRequest(request, opts) })
+```
+
+```tsx
+// src/routes/$id.tsx
+import { createFileRoute, Await } from '@tanstack/solid-router'
+
+export const Route = createFileRoute('/$id')({
+  loader: async ({ params }) => ({
+    book: await getBook(params.id),       // awaited: in the first chunk
+    reviews: getReviews(params.id),       // not awaited: streamed later
+  }),
+  component: BookPage,
+})
+
+function BookPage() {
+  const data = Route.useLoaderData()
+  return (
+    <>
+      <h1>{data().book.title}</h1>
+      <Await promise={data().reviews} fallback={<p>Loading reviews…</p>}>
+        {(reviews) => <ul>{reviews.map((r) => <li>{r.text}</li>)}</ul>}
+      </Await>
+    </>
+  )
+}
+```
+
+Source: [TanStack Start: Server Entry Point](https://tanstack.com/start/latest/docs/framework/solid/guide/server-entry-point) · [TanStack Router: Deferred Data Loading](https://tanstack.com/router/latest/docs/framework/solid/guide/deferred-data-loading)
+
+## early-hints
+
+Pass `onEarlyHints` to `handler.fetch()` in the server entry. It receives the manifest's preload links, which you send with the runtime's 103 API. `responseLinkHeader: true` puts them in a `Link` header instead.
+
+```tsx
+// src/server.ts
+import handler from '@tanstack/solid-start/server-entry'
+import type { ServerRequest } from 'srvx'
+
+export default {
+  fetch(request: Request) {
+    const serverRequest = request as ServerRequest
+    return handler.fetch(request, {
+      onEarlyHints: ({ phase, allLinks }) => {
+        if (phase !== 'dynamic') return
+        const response = serverRequest.runtime?.node?.res
+        if (response?.writeEarlyHints && allLinks.length) {
+          response.writeEarlyHints({ link: allLinks })
+        }
+      },
+    })
+  },
+}
+```
+
+Source: [TanStack Start: Early Hints](https://tanstack.com/start/latest/docs/framework/solid/guide/early-hints)

@@ -342,3 +342,31 @@ export default async (_ctx: unknown, next: () => Promise<Response>) => {
 ```
 
 Source: [Marko Run: file-based routing](https://markojs.com/docs/marko-run/file-based-routing)
+
+## streaming-ssr
+
+The handler passes the queries to the page as unresolved promises. Each `<await>` sits in a `<try>` with `@placeholder`, so the skeleton is sent first and the grid streams in when its promise resolves.
+
+```ts
+// src/routes/+handler.ts
+export const GET = Run.GET((ctx, next) => {
+  const params = parseSearchParams(ctx.search ?? {});
+  return next({
+    books: loadBooksPage(params),   // not awaited
+    count: loadBooksCount(params),  // not awaited
+  });
+});
+```
+
+```marko
+// src/routes/+page.marko
+<try>
+  <await|books|=$global.data.books>
+    <book-grid books=books/>
+  </await>
+  <@placeholder><book-grid-skeleton/></@placeholder>
+  <@catch|err|><error-state title="Can't load books" body=err.message/></@catch>
+</try>
+```
+
+Source: [Marko: Streaming](https://markojs.com/docs/explanation/streaming)

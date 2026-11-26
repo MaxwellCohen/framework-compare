@@ -288,3 +288,59 @@ export const onGet: RequestHandler = async ({ headers }) => {
 ```
 
 Source: [Qwik City: caching and response headers](https://qwik.dev/docs/caching/)
+
+## streaming-ssr
+
+Return an async function from `routeLoader$` and render it with `<Resource>`. The HTML above the resource streams first, and the rest follows when the data resolves.
+
+```tsx
+// src/routes/books/[id]/index.tsx
+import { Resource, component$ } from '@builder.io/qwik'
+import { routeLoader$ } from '@builder.io/qwik-city'
+
+export const useReviews = routeLoader$(({ params }) => {
+  // returning a function defers it: rendering doesn't wait here
+  return async () => {
+    const res = await fetch(`https://api.example.com/books/${params.id}/reviews`)
+    return (await res.json()) as { id: string; text: string }[]
+  }
+})
+
+export default component$(() => {
+  const reviews = useReviews()
+  return (
+    <>
+      <h1>Reviews</h1>
+      <Resource
+        value={reviews}
+        onPending={() => <p>Loading…</p>}
+        onResolved={(list) => <ul>{list.map((r) => <li key={r.id}>{r.text}</li>)}</ul>}
+      />
+    </>
+  )
+})
+```
+
+Source: [Qwik: Streaming deferred loaders](https://qwik.dev/docs/cookbook/streaming-deferred-loaders/)
+
+## service-worker
+
+`@qwikdev/pwa` adds a `qwikPwa()` Vite plugin and a `setupPwa()` call in the service worker route. It precaches the built `q-*.js` files, images and `public/` assets.
+
+```ts
+// vite.config.ts (npm install -D @qwikdev/pwa)
+import { qwikPwa } from '@qwikdev/pwa'
+// …
+plugins: [qwikCity(), qwikVite(), qwikPwa()],
+```
+
+```ts
+// src/routes/service-worker.ts
+import { setupServiceWorker } from '@builder.io/qwik-city/service-worker'
+import { setupPwa } from '@qwikdev/pwa/sw'
+
+setupServiceWorker()
+setupPwa()
+```
+
+Source: [QwikDev/pwa README](https://github.com/QwikDev/pwa)

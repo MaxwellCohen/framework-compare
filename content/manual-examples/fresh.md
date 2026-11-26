@@ -366,3 +366,36 @@ app.use(async (ctx) => {
 ```
 
 Source: [Fresh middleware](https://usefresh.dev/docs/concepts/middleware)
+
+## streaming-ssr
+
+Write the route handler yourself and return a `ReadableStream` of HTML. The shell and a placeholder go out first. When the query resolves, the handler sends the rendered grid and a small script that swaps it in. This page skips Fresh's layouts and islands.
+
+```tsx
+// routes/books.tsx
+import { define } from "@/utils.ts";
+import { renderToString } from "preact-render-to-string";
+
+export const handler = define.handlers({
+  GET() {
+    const enc = new TextEncoder();
+    const body = new ReadableStream({
+      async start(controller) {
+        controller.enqueue(enc.encode(
+          `<!doctype html><html><head><link rel="stylesheet" href="/styles.css"></head>` +
+          `<body><main id="grid">Loading…</main>`,
+        ));
+        const books = await getBooks();
+        controller.enqueue(enc.encode(
+          `<template id="grid-html">${renderToString(<BookGrid books={books} />)}</template>` +
+          `<script>document.getElementById("grid").replaceWith(document.getElementById("grid-html").content)</script></body></html>`,
+        ));
+        controller.close();
+      },
+    });
+    return new Response(body, { headers: { "Content-Type": "text/html; charset=utf-8" } });
+  },
+});
+```
+
+Source: [Fresh: Common patterns](https://usefresh.dev/docs/examples/common-patterns)

@@ -335,3 +335,35 @@ export function headers() {
 ```
 
 Source: [React Router: HTTP headers](https://reactrouter.com/how-to/headers)
+
+## streaming-ssr
+
+The loader awaits the critical data and returns the slow promise as-is. The component renders that promise with `<Await>` inside `<Suspense>`, so the fallback goes out first.
+
+```tsx
+// app/routes/book.tsx
+import { Suspense } from 'react'
+import { Await } from 'react-router'
+import type { Route } from './+types/book'
+
+export async function loader({ params }: Route.LoaderArgs) {
+  const reviews = getReviews(params.id) // NOT awaited
+  const book = await getBook(params.id)
+  return { book, reviews }
+}
+
+export default function Book({ loaderData }: Route.ComponentProps) {
+  return (
+    <>
+      <h1>{loaderData.book.title}</h1>
+      <Suspense fallback={<p>Loading reviews…</p>}>
+        <Await resolve={loaderData.reviews}>
+          {(reviews) => <ul>{reviews.map((r) => <li key={r.id}>{r.text}</li>)}</ul>}
+        </Await>
+      </Suspense>
+    </>
+  )
+}
+```
+
+Source: [React Router: Streaming with Suspense](https://reactrouter.com/how-to/suspense)

@@ -175,3 +175,35 @@ export default (): MiddlewareHandler => async (c, next) => {
 ```
 
 Source: [Hono middleware](https://hono.dev/docs/guides/middleware)
+
+## streaming-ssr
+
+Make the slow part an async server component and wrap it in `<Suspense>`. Waku sends the page shell with the fallback first, then streams the pagination once its count query resolves.
+
+```tsx
+// src/pages/index.tsx
+import { Suspense } from 'react';
+
+export default async function HomePage({ query }: { query: string }) {
+  const searchParams = parseSearchParams(queryToRecord(query));
+  const books = await getBooksPage(toBookQuery(searchParams));
+  return (
+    <div>
+      <BookGrid books={books} searchParams={searchParams} />
+      <footer>
+        <Suspense fallback={<BookPaginationSkeleton />}>
+          <BookPagination searchParams={searchParams} />
+        </Suspense>
+      </footer>
+    </div>
+  );
+}
+
+// src/features/book/components/book-pagination.tsx
+export async function BookPagination({ searchParams }: { searchParams: SearchParams }) {
+  const totalResults = await getBooksCount(toBookFilters(toBookQuery(searchParams)));
+  // … render page links
+}
+```
+
+Source: [Waku: Redirects and not found](https://waku.gg/guides/redirects-and-not-found) · [React: Suspense](https://react.dev/reference/react/Suspense)
