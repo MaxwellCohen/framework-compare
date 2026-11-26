@@ -55,7 +55,7 @@ export async function loader() {
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const title = `Framework Compare: the speed features meta-frameworks give you`;
-  const description = `Compare the ${data.features.length} features ${data.frameworks.length} web frameworks offer to make sites fast, from CSS inlining and image optimization to route prefetching and islands. See which ones each framework builds in and which you have to add yourself.`;
+  const description = `Compare the ${data.features.length} features ${data.frameworks.length} meta-frameworks offer to make sites fast, from CSS inlining and image optimization to route prefetching and islands. See which ones each framework builds in and which you have to add yourself.`;
   return {
     title,
     meta: [

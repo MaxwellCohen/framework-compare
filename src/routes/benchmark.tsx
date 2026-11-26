@@ -222,29 +222,6 @@ function Reproduce({ history }: { history: { date: string; dateText: string; tar
   );
 }
 
-function Caveats({ l }: { l: Latest }) {
-  return (
-    <Callout kind="caveat" title="What these numbers are, and are not">
-      <ul class="grid list-disc gap-1 pl-5">
-        <li>Lab data: a Lighthouse run in Google's data centre, not visits from real users.</li>
-        <li>
-          {l.strategy === "mobile" ? "Mobile emulation" : `Strategy: ${l.strategy}`}: Lighthouse's throttled network and slowed CPU,
-          not a real phone.
-        </li>
-        <li>One location: each test runs from a Google data centre, so a host's distance to it affects the result.</li>
-        <li>A snapshot: the same deployment can score differently in the next run. Small gaps between rows may not repeat.</li>
-        <li>
-          Not the{" "}
-          <NavLink to={{ route: "home", hash: "matrix" }} class="link">
-            capability labels
-          </NavLink>
-          : those come from documentation. The ports also differ in how much tuning each build got.
-        </li>
-      </ul>
-    </Callout>
-  );
-}
-
 export function Component({ data }: RouteComponentProps<typeof loader>) {
   const l = data.latest;
 
@@ -310,8 +287,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         }
       />
 
-      <Container class="grid gap-4 py-6 lg:grid-cols-2">
-        <Caveats l={l} />
+      {(l.aborted || l.errors > 0 || l.coldSuspect > 0 || l.missing.length > 0) && (
+        <Container class="py-6">
         <Callout kind="caveat" title={`Coverage: ${l.withData} of ${l.targetCount} targets`}>
           {l.aborted && <p class="font-semibold text-ink">This run stopped early, so its results are partial.</p>}
           <p>
@@ -334,6 +311,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           )}
         </Callout>
       </Container>
+      )}
 
       <JumpNav
         route="benchmark"

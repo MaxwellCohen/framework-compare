@@ -90,7 +90,7 @@ export function head({ data }: HeadArgs<typeof loader>) {
     meta: [
       {
         name: "description",
-        content: `${feature.summary} Documented support across ${blocks.length} web frameworks (${tallyText}), with how to enable it in each.`,
+        content: `${feature.summary} Documented support across ${blocks.length} meta-frameworks (${tallyText}), with how to enable it in each.`,
       },
     ],
   };

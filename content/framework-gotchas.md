@@ -147,4 +147,4 @@ A feature with no section here keeps the source list unchanged.
 - Waku's Deno, Bun, and Lambda adapters are experimental.
 
 ### general
-- Presets and adapters change the build output, not your caching: this repo still hand-writes host-specific caches (see [section 4](#4-data-and-html-caching)).
+- Presets and adapters change the build output; they don't set up data caching. Most ports here still write their own host-specific cache code (see [section 4](#4-data-and-html-caching)).

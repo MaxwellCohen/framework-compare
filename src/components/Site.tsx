@@ -153,8 +153,7 @@ export function SiteFooter() {
             pages.
           </p>
           <p>
-            This comparison was researched and written with AI help and may contain errors. Check the linked sources
-            before you rely on a claim. The{" "}
+            The{" "}
             <NavLink to={{ route: "methodology" }} class="link">
               methodology
             </NavLink>{" "}
