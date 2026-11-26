@@ -43,7 +43,7 @@ export function head() {
       {
         name: "description",
         content:
-          "How Framework Compare labels what each framework supports, how the scores and the completeness ranking are calculated, which versions were checked, and which claims are uncertain. Labels come from vendor documentation, read with AI assistance.",
+          "How Framework Compare labels what each framework supports, how the scores and the completeness ranking are calculated, which versions were checked, and which claims are uncertain. Every label comes from the vendor’s own documentation.",
       },
     ],
   };
@@ -78,7 +78,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         meta={
           <>
             <Tag>From vendor documentation</Tag>
-            <Tag>AI-assisted</Tag>
           </>
         }
       />
