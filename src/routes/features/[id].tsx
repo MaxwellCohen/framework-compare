@@ -1,7 +1,6 @@
 import { notFound } from "@pracht/core";
 import type { HeadArgs, LoaderArgs, RouteComponentProps } from "@pracht/core";
 import {
-  Callout,
   featureNo,
   NavLink,
   PageHeader,
@@ -176,18 +175,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             </div>
 
             <h3 id="vendor-docs" class="eyebrow mt-10 mb-3 scroll-mt-20">
-              Additional frameworks · scored from vendor docs
+              Additional frameworks
             </h3>
-            <Callout kind="caveat" title="Scored from vendor docs" class="mb-4">
-              <p>
-                These {additional.length} frameworks were labelled from their documentation, without trying the feature
-                in a port. Each entry is one paragraph with links to the docs it cites. Manual entries add a short example written for this site.{" "}
-                <NavLink to={{ route: "methodology", hash: "additional-frameworks" }}>
-                  About the additional frameworks
-                </NavLink>
-                .
-              </p>
-            </Callout>
             <div class="grid gap-4">
               {additional.map((b) => (
                 <FrameworkBlock key={b.framework.id} feature={feature} block={b} />

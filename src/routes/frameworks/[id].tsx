@@ -1,7 +1,6 @@
 import { notFound } from "@pracht/core";
 import type { HeadArgs, LoaderArgs, RouteComponentProps } from "@pracht/core";
 import {
-  Callout,
   Container,
   ExternalLink,
   FrameworkName,
@@ -244,18 +243,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             </NavLink>
           </dd>
         </dl>
-        {additional && (
-          <Callout kind="caveat" title="Labelled from vendor docs" class="mt-5 max-w-[56rem]">
-            <p>
-              The labels on this page come from {fw.name}'s documentation. They were not checked in the {fw.app} port.
-              Each how-to is one paragraph with links to the docs it cites. Manual entries add a short example written for this site.{" "}
-              <NavLink to={{ route: "methodology", hash: "additional-frameworks" }}>
-                About the additional frameworks
-              </NavLink>
-              .
-            </p>
-          </Callout>
-        )}
       </Container>
 
       <Section
