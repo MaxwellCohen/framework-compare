@@ -86,3 +86,237 @@ export default { fetch: (request: Request) => handle(request) };
 ```
 
 Source: [Angular SSR](https://angular.dev/guide/ssr)
+
+## css-inlining
+
+Critical CSS inlining is part of the production `optimization` setting. Angular inlines the CSS the first page needs and loads the rest of the stylesheet async.
+
+```json
+// angular.json
+{
+  "projects": {
+    "books": {
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "configurations": {
+            "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": { "minify": true, "inlineCritical": true },
+                "fonts": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Source: [Angular: Workspace configuration](https://angular.dev/reference/configs/workspace-config)
+
+## font-optimization
+
+Link a Google Fonts stylesheet in `index.html` as usual. With `optimization.fonts.inline` on, the production build downloads that CSS and inlines it into the HTML, removing one render-blocking request.
+
+```html
+<!-- src/index.html -->
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+```
+
+```json
+// angular.json (production configuration; needs internet access at build time)
+"optimization": {
+  "fonts": { "inline": true }
+}
+```
+
+Source: [Angular: Workspace configuration](https://angular.dev/reference/configs/workspace-config)
+
+## image-pipeline
+
+`NgOptimizedImage` with a built-in loader. The loader builds CDN URLs for each `ngSrcset` width; `priority` marks the LCP image and `placeholder` shows a low-res blur from the same CDN.
+
+```ts
+// src/app/app.config.ts
+import { provideImgixLoader } from '@angular/common';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideImgixLoader('https://books.imgix.net/')],
+};
+
+// src/app/book/book-cover.ts
+import { NgOptimizedImage } from '@angular/common';
+
+@Component({
+  selector: 'app-book-cover',
+  imports: [NgOptimizedImage],
+  template: `
+    <img [ngSrc]="src()" width="400" height="600" [alt]="title()"
+         ngSrcset="200w, 400w, 800w" sizes="(max-width: 640px) 50vw, 200px"
+         [priority]="priority()" placeholder />
+  `,
+})
+export class BookCover { /* … */ }
+```
+
+Source: [Angular: Getting started with NgOptimizedImage](https://angular.dev/guide/image-optimization)
+
+## caching
+
+Prerender stable pages at build time, and let the HttpClient transfer cache hand SSR responses to the browser so hydration does not fetch them again.
+
+```ts
+// src/app/app.routes.server.ts
+export const serverRoutes: ServerRoute[] = [
+  { path: 'about', renderMode: RenderMode.Prerender },
+  { path: '**', renderMode: RenderMode.Server, headers: { 'Cache-Control': 'public, max-age=60' } },
+];
+
+// src/app/app.config.ts
+import { provideClientHydration, withHttpTransferCacheOptions } from '@angular/platform-browser';
+
+providers: [
+  provideClientHydration(
+    withHttpTransferCacheOptions({
+      includeHeaders: ['ETag', 'Cache-Control'],
+      filter: (req) => !req.url.includes('/api/profile'),
+      includePostRequests: false,
+    }),
+  ),
+],
+```
+
+Source: [Angular: Server and hybrid rendering](https://angular.dev/guide/ssr)
+
+## route-prefetching
+
+The router preloads nothing by default (`NoPreloading`). Add `withPreloading(PreloadAllModules)` to fetch every lazy route chunk after the app starts. `@defer` blocks take their own `prefetch` trigger.
+
+```ts
+// src/app/app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter, withPreloading, PreloadAllModules } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes, withPreloading(PreloadAllModules))],
+};
+```
+
+```html
+<!-- any template: load the chunk on interaction, prefetch it when the browser is idle -->
+@defer (on interaction; prefetch on idle) {
+  <app-book-reviews />
+} @placeholder {
+  <button>Show reviews</button>
+}
+```
+
+Source: [Angular: Customizing route behavior](https://angular.dev/guide/routing/customizing-route-behavior)
+
+## islands
+
+Incremental hydration is on by default with `provideClientHydration()`. A `@defer` block with a `hydrate` trigger renders on the server and stays dehydrated until the trigger fires.
+
+```ts
+// src/app/app.config.ts
+providers: [provideClientHydration()],
+```
+
+```html
+<!-- src/app/pages/book.page.ts template -->
+<app-book-detail [book]="book()" />
+
+@defer (hydrate on viewport) {
+  <app-related-books [bookId]="book().id" />
+}
+
+@defer (on viewport; hydrate never) {
+  <app-static-footer />
+}
+```
+
+Source: [Angular: Incremental hydration](https://angular.dev/guide/incremental-hydration)
+
+## render-modes
+
+Each route picks a render mode in `app.routes.server.ts`: per-request SSR, build-time prerender, or client-only.
+
+```ts
+// src/app/app.routes.server.ts
+import { inject } from '@angular/core';
+import { RenderMode, PrerenderFallback, ServerRoute } from '@angular/ssr';
+
+export const serverRoutes: ServerRoute[] = [
+  { path: '', renderMode: RenderMode.Server },
+  { path: 'about', renderMode: RenderMode.Prerender },
+  { path: 'account', renderMode: RenderMode.Client },
+  {
+    path: 'book/:id',
+    renderMode: RenderMode.Prerender,
+    fallback: PrerenderFallback.Server,
+    async getPrerenderParams() {
+      const ids = await inject(BooksApi).topIds();
+      return ids.map((id) => ({ id }));
+    },
+  },
+  { path: '**', renderMode: RenderMode.Server, status: 404 },
+];
+```
+
+Source: [Angular: Server and hybrid rendering](https://angular.dev/guide/ssr)
+
+## reactivity
+
+From the Books port's cover component: `input()` and `signal()` hold state, `computed()` derives from them, and the template re-renders only what reads a changed signal.
+
+```ts
+// src/app/book/book-cover.ts
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-book-cover',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    @if (showImage()) {
+      <img [src]="readySrc()" [alt]="title()" (error)="failedSrc.set(readySrc())" />
+    } @else {
+      <div role="img">Cover unavailable</div>
+    }
+  `,
+})
+export class BookCover {
+  readonly title = input.required<string>();
+  readonly src = input.required<string | null>();
+  protected readonly failedSrc = signal<string | null>(null);
+  protected readonly readySrc = computed(() => getLargeBookImageUrl(this.src() ?? EMPTY_IMAGE_URL));
+  protected readonly showImage = computed(() => this.readySrc() !== this.failedSrc());
+}
+```
+
+Source: [Angular: Signals](https://angular.dev/guide/signals)
+
+## bundle-analysis
+
+`--stats-json` writes `browser-stats.json` (and `server-stats.json` with SSR). Load it into the esbuild analyzer at esbuild.github.io/analyze. Budgets in `angular.json` fail the build when bundles grow.
+
+```sh
+ng build --stats-json
+# then open https://esbuild.github.io/analyze/ and load dist/books/browser-stats.json
+```
+
+```json
+// angular.json, configurations.production
+"budgets": [
+  { "type": "initial", "maximumWarning": "500kB", "maximumError": "1MB" },
+  { "type": "anyComponentStyle", "maximumWarning": "4kB", "maximumError": "8kB" }
+]
+```
+
+Source: [Angular CLI: ng build](https://angular.dev/cli/build)

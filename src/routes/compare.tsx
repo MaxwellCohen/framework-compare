@@ -1,6 +1,15 @@
 import type { HeadArgs, RouteComponentProps } from "@pracht/core";
 import { Container, NavLink, PageHeader } from "../components/index.ts";
-import { encodeLabel, MAX_PICK, MIN_PICK, type CompareFeature, type CompareFramework } from "../components/compare/model.ts";
+import {
+  encodeLabel,
+  MAX_PICK,
+  MIN_PICK,
+  type CompareBench,
+  type CompareFeature,
+  type CompareFramework,
+} from "../components/compare/model.ts";
+import type { HostTableRow } from "../components/benchmark/HostTable.tsx";
+import { longDate } from "../components/benchmark/format.ts";
 import CompareView from "../islands/CompareView.tsx";
 
 /**
@@ -8,7 +17,8 @@ import CompareView from "../islands/CompareView.tsx";
  * for every framework, plus feature names and one-line summaries. No `*Html`.
  */
 export async function loader() {
-  const { features, frameworksByRank, getCell } = await import("../data/index.ts");
+  const { features, frameworksByRank, getCell, benchmark, benchBranchRank, benchBuildName, benchHostRank, BENCH_HOME_PATH } =
+    await import("../data/index.ts");
   const ranked = frameworksByRank();
 
   const frameworks: CompareFramework[] = ranked.map((f) => ({
@@ -34,7 +44,38 @@ export async function loader() {
     summary: f.summary,
   }));
 
+  // Latest benchmark, book list page only, so the island's props stay small.
+  const run = benchmark.latest;
+  let bench: CompareBench | null = null;
+  if (run) {
+    const rows: Partial<Record<string, HostTableRow[]>> = {};
+    const targets = run.targets
+      .filter((t) => t.path === BENCH_HOME_PATH)
+      .sort(
+        (a, b) =>
+          benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId) ||
+          benchHostRank(a.host) - benchHostRank(b.host),
+      );
+    for (const t of targets) {
+      (rows[t.frameworkId] ??= []).push({
+        key: `${t.branch}|${t.host}`,
+        build: benchBuildName(t.branch, t.frameworkId),
+        branch: t.branch,
+        path: t.path,
+        host: t.host,
+        url: t.url,
+        median: t.median,
+        runs: t.runs,
+        usedRuns: t.usedRuns,
+        coldSuspect: t.coldSuspect,
+        error: t.error,
+      });
+    }
+    bench = { date: run.date, dateText: longDate(run.date), path: BENCH_HOME_PATH, runsPerTarget: run.runsPerTarget, rows };
+  }
+
   return {
+    bench,
     frameworks,
     features: compareFeatures,
     // Default selection: the top three by rank.
@@ -85,7 +126,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           </p>
         </Container>
       </noscript>
-      <CompareView frameworks={data.frameworks} features={data.features} initial={data.initial} />
+      <CompareView frameworks={data.frameworks} features={data.features} initial={data.initial} bench={data.bench} />
     </>
   );
 }

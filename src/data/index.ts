@@ -39,7 +39,7 @@ export const features: Feature[] = capability.features;
 export const cells: Cell[] = capability.cells;
 export const ranking = capability.ranking;
 
-/** 2 points per feature: fcp 10, other 14, total 24 with the current 5 + 7 features. */
+/** 2 points per feature in each group. */
 export const MAX_SCORE: Record<FeatureGroup, number> = {
   fcp: 2 * capability.features.filter((f) => f.group === "fcp").length,
   other: 2 * capability.features.filter((f) => f.group === "other").length,
@@ -148,6 +148,14 @@ export function benchPathRank(path: string): number {
   if (path === BENCH_HOME_PATH) return -1;
   const i = benchmark.latest?.paths.indexOf(path) ?? -1;
   return i === -1 ? 999 : i;
+}
+
+const HOST_ORDER = ["vercel", "netlify", "cloudflare"];
+
+/** Sort key for hosts: Vercel, Netlify, Cloudflare, then anything else. */
+export function benchHostRank(host: string): number {
+  const i = HOST_ORDER.indexOf(host);
+  return i === -1 ? HOST_ORDER.length : i;
 }
 
 /** One framework's builds in the latest run, by path then branch. Empty when it has no data. */
