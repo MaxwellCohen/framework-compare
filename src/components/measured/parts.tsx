@@ -1,11 +1,11 @@
 import type { ComponentChildren } from "preact";
-import type { BuildKind, Host } from "../../data/types.ts";
+import type { Host } from "../../data/types.ts";
 import { Container } from "../Page.tsx";
 import { NavLink } from "../links.tsx";
 import { MarkerKey } from "./LaneChart.tsx";
 
 /** Shared FCP scale for every chart on the page: the bands run 0.9–2.8 s. */
-export const FCP_DOMAIN: [number, number] = [0.8, 2.9];
+export const FCP_DOMAIN: [number, number] = [0.7, 2.9];
 export const FCP_TICKS = [1, 1.5, 2, 2.5];
 
 export const HOSTS: { id: Host; label: string; series: 1 | 2 | 3 }[] = [
@@ -14,13 +14,6 @@ export const HOSTS: { id: Host; label: string; series: 1 | 2 | 3 }[] = [
   { id: "cloudflare", label: "Cloudflare", series: 3 },
 ];
 
-export const BUILD_TEXT: Record<BuildKind, string> = {
-  baseline: "baseline",
-  "basic-cache": "basic cache",
-  optimized: "optimized",
-  "max-optimized": "max optimized",
-  cached: "cached",
-};
 
 /** Sections below the sticky jump nav need this so anchors land clear of it. */
 export const ANCHOR = "scroll-mt-14";
@@ -55,16 +48,25 @@ export function JumpNav({
 }
 
 /** Legend for the run charts: host marker shapes, build fill, band shading. */
-export function RunLegend({ builds, bands = true }: { builds?: { hollow: string; filled: string }; bands?: boolean }) {
+export function RunLegend({
+  builds,
+  hosts = true,
+  bands = true,
+}: {
+  builds?: { hollow: string; filled: string };
+  hosts?: boolean;
+  bands?: boolean;
+}) {
   const item = "flex items-center gap-1.5";
   return (
     <ul class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-2" aria-label="Chart key">
-      {HOSTS.map((h) => (
-        <li key={h.id} class={item}>
-          <MarkerKey series={h.series} />
-          {h.label}
-        </li>
-      ))}
+      {hosts &&
+        HOSTS.map((h) => (
+          <li key={h.id} class={item}>
+            <MarkerKey series={h.series} />
+            {h.label}
+          </li>
+        ))}
       {builds && (
         <>
           <li class={item}>
@@ -87,23 +89,6 @@ export function RunLegend({ builds, bands = true }: { builds?: { hollow: string;
   );
 }
 
-/** Renders a source row label, turning `backticked` spans into <code>. */
-export function RowLabel({ text }: { text: string }) {
-  const parts = text.split("`");
-  return (
-    <span class="text-ink">
-      {parts.map((p, i) =>
-        i % 2 ? (
-          <code key={i} class="num rounded-xs border border-rule bg-sunken px-1 text-xs">
-            {p}
-          </code>
-        ) : (
-          p
-        ),
-      )}
-    </span>
-  );
-}
 
 /** A sub-heading inside a section, with an anchor. */
 export function SubHeading({ id, kicker, children }: { id?: string; kicker?: ComponentChildren; children: ComponentChildren }) {

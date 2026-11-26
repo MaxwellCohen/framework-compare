@@ -26,6 +26,7 @@ const site = read("src/data/site.json");
 const capability = read("src/data/generated/capability.json");
 const measured = read("src/data/generated/measured.json");
 const benchmark = read("src/data/generated/benchmark.json");
+const story = read("content/fcp-story.json");
 
 const ORIGIN = (process.env.SITE_URL || site.url).replace(/\/+$/, "");
 const abs = (path) => ORIGIN + path;
@@ -192,9 +193,12 @@ function sources(...fragments) {
 
 /** Plain text that names an HTML tag, made safe for markdown: `<style>` becomes code. */
 const plain = (text) => text.replace(/<[^<>\s][^<>]*>/g, (tag) => `\`${tag}\``);
-const summaryCut = measured.summaryHtml.indexOf("</p>") + 4;
-/** The FCP summary with the band table after its lead paragraph, where the page puts it. */
-const fcpSummary = () => [md(measured.summaryHtml.slice(0, summaryCut)), bandsTable(), md(measured.summaryHtml.slice(summaryCut))].join("\n\n");
+/** The FCP summary and band table, as on /measured. */
+const fcpSummary = () =>
+  [
+    `FCP values bunch into ${measured.bands.length} groups with gaps between them. Each group matches how many requests have to finish one after another before the page can paint. Take one request out of that chain and the app drops a whole band.`,
+    bandsTable(),
+  ].join("\n\n");
 
 const row = (cols) => `| ${cols.join(" | ")} |`;
 const tableMd = (head, rows) => [row(head), row(head.map(() => "---")), ...rows.map(row)].join("\n");
@@ -452,30 +456,78 @@ write(
   ].join("\n\n"),
 );
 
+/** Same rules as bandOf() in src/routes/measured.tsx: clamp at the ends, null in a gap. */
+const bandOf = (value) => {
+  const v = Math.round(value * 10) / 10;
+  const bs = measured.bands;
+  if (v < bs[0].min) return bs[0];
+  if (v > bs[bs.length - 1].max) return bs[bs.length - 1];
+  return bs.find((b) => v >= b.min && v <= b.max) ?? null;
+};
+const bandLabel = (v) => {
+  const b = bandOf(v);
+  if (b) return b.name;
+  const i = measured.bands.findIndex((b) => b.min > Math.round(v * 10) / 10);
+  return `between ${measured.bands[i - 1].name} and ${measured.bands[i].name}`;
+};
+const medianOf = (vs) => {
+  const s = [...vs].sort((a, b) => a - b);
+  return s.length ? (s.length % 2 ? s[s.length >> 1] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null;
+};
+/** Home-page FCP per port, naive (default settings) vs optimized: median across hosts, seconds. Same as fcpPairs() in src/data/index.ts. */
+const fcpPairs = run
+  ? [...new Set(run.targets.map((t) => t.frameworkId))]
+      .map((id) => {
+        const of = (build) =>
+          medianOf(run.targets.filter((t) => t.frameworkId === id && t.path === "/" && buildName(t) === build && t.median?.fcp != null).map((t) => t.median.fcp / 1000));
+        return { frameworkId: id, naive: of("baseline"), optimized: of("optimized") };
+      })
+      .filter((p) => p.naive != null && p.optimized != null)
+      .sort((a, b) => b.naive - a.naive || b.optimized - a.optimized)
+  : [];
+/** Earlier single-run averages, naive vs optimized, for the ports measured with the full Google Fonts waterfall. */
+const earlierPairs = measured.averages
+  .filter((a) => a.build === "baseline")
+  .map((a) => ({ frameworkId: a.frameworkId, naive: a.fcp, optimized: measured.averages.find((o) => o.frameworkId === a.frameworkId && o.build === "optimized")?.fcp ?? null }))
+  .filter((p) => p.optimized != null);
+const fwName = (id) => frameworks.find((f) => f.id === id)?.name ?? id;
+const pairTable = (pairs, digits) =>
+  tableMd(
+    ["Port", "Naive FCP", "Optimized FCP", "Band"],
+    pairs.map((p) => {
+      const [a, b] = [bandLabel(p.naive), bandLabel(p.optimized)];
+      return [fwName(p.frameworkId), `${p.naive.toFixed(digits)} s`, `${p.optimized.toFixed(digits)} s`, a === b ? `${b} either way` : `${a} → ${b}`];
+    }),
+  );
+
 write(
   "measured.md",
   [
     `# Why FCP comes in ${measured.bands.length} bands`,
+    `The same Books app in ${fcpPairs.length} frameworks, built twice each: once with the framework's default settings (naive) and once optimized. Mobile Lighthouse, simulated Slow 4G, 4× CPU throttle.`,
     fcpSummary(),
-    "## Bands",
-    ...measured.bands.flatMap((b) => [`### ${b.name} (${b.min}–${b.max} s): ${b.anatomyTitle}`, md(b.anatomyHtml)]),
-    "## Why the result is bands",
-    md(measured.whyBandsHtml),
-    "## Why the basic-cache run spans every band",
-    md(measured.whyBasicCacheHtml),
-    "## How to move an app down a band",
+    "## Every port, naive vs optimized",
+    `Home-page FCP. Each figure is the median across ${run?.hosts.length ?? 0} hosts (${run?.hosts.join(", ") ?? ""}) of each host's median PageSpeed Insights run. Per-host numbers: ${abs("/benchmark.md")}`,
+    pairTable(fcpPairs, 2),
+    "## What each band waits on",
+    ...measured.bands.flatMap((b) => [`### ${b.name} (${b.min}–${b.max} s): ${b.anatomyTitle}`, md(story.bands[b.id] ?? b.anatomyHtml)]),
+    "## Why FCP moves in steps",
+    md(story.whyHtml),
+    "## Where the Baseline band comes from",
+    md(story.earlierHtml),
+    pairTable(earlierPairs, 1),
+    md(story.earlierNoteHtml),
+    "## How to move an app into a faster band",
     ...measured.steps.flatMap((s, i) => [`### ${i + 1}. ${s.title}`, md(s.html)]),
-    "## Runs",
-    ...measured.runs.flatMap((r) => [
-      `### ${r.date}: ${r.title}`,
-      tableMd(
-        ["App", "Build", "Vercel", "Netlify", "Cloudflare"],
-        r.samples.map((s) => [md(`<p>${s.rowLabel.replace(/`([^`]*)`/g, "<code>$1</code>")}</p>`), s.build, ...["vercel", "netlify", "cloudflare"].map((h) => (s.fcp[h] == null ? "n/a" : `${s.fcp[h]} s`))]),
-      ),
-      md(r.commentaryHtml),
-    ]),
+    "## In one sentence",
+    md(measured.oneSentenceHtml),
     "## Limits of these measurements",
-    md(measured.caveatsHtml),
+    [
+      "- **Lab data only.** Mobile Lighthouse results on a cold, throttled first load. Real users with warm caches, faster connections or repeat visits see different numbers.",
+      "- **First load only.** Prefetching, navigating on pointer-down and keeping data in memory make an app feel faster after the first page, and FCP doesn't capture any of them.",
+      "- **One host can sit a band higher.** A cold cache or a cold worker adds a step on that host alone. The medians smooth that out; the benchmark page shows each host.",
+      "- **Inlined CSS isn't cached separately.** It downloads again with every HTML response, which suits small stylesheets and hurts large ones.",
+    ].join("\n"),
     twinFooter("/measured"),
   ].join("\n\n"),
 );
@@ -578,6 +630,8 @@ write("api/benchmark.json", {
 
 write("api/fcp-bands.json", {
   bands: measured.bands.map((b) => ({ id: b.id, name: b.name, minSeconds: b.min, maxSeconds: b.max, shape: b.shape })),
+  pairs: fcpPairs.map((p) => ({ frameworkId: p.frameworkId, naiveSeconds: p.naive, optimizedSeconds: p.optimized, naiveBand: bandOf(p.naive)?.id ?? null, optimizedBand: bandOf(p.optimized)?.id ?? null })),
+  runDate: run?.date ?? null,
   runs: measured.runs.map((r) => ({ date: r.date, title: r.title, samples: r.samples })),
   url: abs("/measured"),
   markdownUrl: abs("/measured.md"),
@@ -672,10 +726,12 @@ write("api/index.json", {
     },
     {
       url: abs("/api/fcp-bands.json"),
-      description: `The ${measured.bands.length} FCP bands and the September 2026 Lighthouse runs they come from.`,
+      description: `The ${measured.bands.length} FCP bands, where each port's naive and optimized builds land, and the earlier single Lighthouse runs.`,
       schema: {
         "bands[]": "{ id, name, minSeconds, maxSeconds, shape }",
-        "runs[]": "{ date, title, samples[]: { frameworkId, rowLabel, build, fcp: { vercel, netlify, cloudflare } in seconds or null } }",
+        "pairs[]": "{ frameworkId, naiveSeconds, optimizedSeconds, naiveBand, optimizedBand }: home-page FCP from the latest benchmark run, median across hosts. naive = default settings. Bands are band ids, or null for a value in the gap between two bands.",
+        runDate: "string | null. Date of the benchmark run behind pairs[].",
+        "runs[]": "Earlier single Lighthouse runs, read from screenshots. { date, title, samples[]: { frameworkId, rowLabel, build, fcp: { vercel, netlify, cloudflare } in seconds or null } }",
         url: "string",
         markdownUrl: "string",
       },
@@ -701,7 +757,7 @@ write(
     [
       `- [Matrix and ranking](${abs("/index.md")}): every label in two tables, plus the ranking of all ${frameworks.length} meta-frameworks`,
       `- [Methodology](${abs("/methodology.md")}): what each label means, how scores and ranks are calculated, versions checked`,
-      `- [FCP bands](${abs("/measured.md")}): why First Contentful Paint clusters into ${measured.bands.length} bands, from September 2026 Lighthouse runs`,
+      `- [FCP bands](${abs("/measured.md")}): why First Contentful Paint clusters into ${measured.bands.length} bands, naive vs optimized for every port`,
       `- [Benchmark](${abs("/benchmark.md")}): ${run ? `PageSpeed Insights medians from the run of ${run.date}` : "PageSpeed Insights medians"}`,
       `- [Compare](${abs("/compare")}): interactive side-by-side view of 2 to 4 frameworks (HTML only)`,
     ].join("\n"),
@@ -716,7 +772,7 @@ write(
       `- [Features](${abs("/api/features.json")}): groups, summaries, label counts`,
       `- [Matrix](${abs("/api/matrix.json")}): all ${cells.length} cells with label, points and source URLs`,
       `- [Benchmark](${abs("/api/benchmark.json")}): medians per deployment and per build`,
-      `- [FCP bands](${abs("/api/fcp-bands.json")}): band ranges and the runs behind them`,
+      `- [FCP bands](${abs("/api/fcp-bands.json")}): band ranges and where each port's naive and optimized builds land`,
     ].join("\n"),
     "## Optional",
     [
