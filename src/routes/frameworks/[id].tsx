@@ -43,6 +43,7 @@ import {
   MAX_TOTAL,
 } from "../../data/index.ts";
 import type { FeatureGroup, Framework, Label } from "../../data/index.ts";
+import { markdownAlternate, pageLd } from "../../agents.ts";
 
 function pagerItem(f: Framework | undefined) {
   return f ? { id: f.id, name: f.name, rank: f.rank } : null;
@@ -217,18 +218,18 @@ export function getStaticPaths() {
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const { framework: fw, max, count } = data;
+  const path = `/frameworks/${fw.id}`;
+  const title = `${fw.name}: ${fw.total}/${max.total} on documented performance features — Framework Compare`;
+  const description =
+    `What ${fw.name}'s documentation says it provides for ${data.featureCount} performance features: ` +
+    `${fw.total} of ${max.total} points (${fw.fcpScore}/${max.fcp} first paint, ${fw.otherScore}/${max.other} other), ` +
+    `rank ${fw.rank} of ${count}. How to enable each feature` +
+    (fw.app ? `, and links to the ${fw.app} port.` : `. ${NO_PORT}.`);
   return {
-    title: `${fw.name}: ${fw.total}/${max.total} on documented performance features — Framework Compare`,
-    meta: [
-      {
-        name: "description",
-        content:
-          `What ${fw.name}'s documentation says it provides for ${data.featureCount} performance features: ` +
-          `${fw.total} of ${max.total} points (${fw.fcpScore}/${max.fcp} first paint, ${fw.otherScore}/${max.other} other), ` +
-          `rank ${fw.rank} of ${count}. How to enable each feature` +
-          (fw.app ? `, and links to the ${fw.app} port.` : `. ${NO_PORT}.`),
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate(path)],
+    script: [pageLd("TechArticle", path, title, description, fw.name)],
   };
 }
 

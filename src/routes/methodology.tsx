@@ -2,6 +2,7 @@ import type { RouteComponentProps } from "@pracht/core";
 import { Callout, Container, LabelBadge, LABELS, NavLink, PageHeader, Prose, Tag } from "../components/index.ts";
 import { ClaimList, DocSection, RankingTable, Toc, VersionList } from "../components/methodology/parts.tsx";
 import type { FeatureId, Label } from "../data/types.ts";
+import { markdownAlternate, pageLd } from "../agents.ts";
 
 export async function loader() {
   const { capability, featureTests, frameworks, getFramework, hasPort, measured, MAX_SCORE } = await import("../data/index.ts");
@@ -51,15 +52,14 @@ export async function loader() {
 }
 
 export function head() {
+  const title = "Methodology: how labels, scores and the ranking work — Framework Compare";
+  const description =
+    "How Framework Compare labels what each framework supports, how the scores and the completeness ranking are calculated, which versions were checked, and which claims are uncertain. Every label comes from the vendor’s own documentation.";
   return {
-    title: "Methodology: how labels, scores and the ranking work — Framework Compare",
-    meta: [
-      {
-        name: "description",
-        content:
-          "How Framework Compare labels what each framework supports, how the scores and the completeness ranking are calculated, which versions were checked, and which claims are uncertain. Every label comes from the vendor’s own documentation.",
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate("/methodology")],
+    script: [pageLd("WebPage", "/methodology", title, description)],
   };
 }
 

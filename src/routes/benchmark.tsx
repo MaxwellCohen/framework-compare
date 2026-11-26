@@ -11,6 +11,7 @@ import { ANCHOR, JumpNav } from "../components/measured/parts.tsx";
 import BenchTable from "../islands/BenchTable.tsx";
 import type { FrameworkId } from "../data/types.ts";
 import { href } from "../pracht-routes.ts";
+import { markdownAlternate, pageLd } from "../agents.ts";
 
 
 /**
@@ -181,16 +182,15 @@ export async function loader() {
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const l = data.latest;
+  const title = l ? `Benchmark: PageSpeed Insights run of ${l.dateText} — Framework Compare` : "Benchmark — Framework Compare";
+  const description = l
+    ? `Mobile Lighthouse lab results (PageSpeed Insights) for the Books demo app in each framework, run on ${l.dateText}: Performance score, FCP, LCP, TBT, CLS, Speed Index, TTI and document time for ${l.withData} of ${l.targetCount} deployments. One run, one location; numbers vary from run to run.`
+    : "Our own PageSpeed Insights benchmark of the Books demo app in each framework. No run has been published yet.";
   return {
-    title: l ? `Benchmark: PageSpeed Insights run of ${l.dateText} — Framework Compare` : "Benchmark — Framework Compare",
-    meta: [
-      {
-        name: "description",
-        content: l
-          ? `Mobile Lighthouse lab results (PageSpeed Insights) for the Books demo app in each framework, run on ${l.dateText}: Performance score, FCP, LCP, TBT, CLS, Speed Index, TTI and document time for ${l.withData} of ${l.targetCount} deployments. One run, one location; numbers vary from run to run.`
-          : "Our own PageSpeed Insights benchmark of the Books demo app in each framework. No run has been published yet.",
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate("/benchmark")],
+    script: [pageLd("WebPage", "/benchmark", title, description)],
   };
 }
 

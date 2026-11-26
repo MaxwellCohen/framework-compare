@@ -18,6 +18,7 @@ import {
 import { LabelTally } from "../../components/feature/LabelTally.tsx";
 import { features, featuresInGroup, frameworks, getCell, getCellTest, getFeature, LABEL_TEXT, MAX_SCORE, MAX_TOTAL } from "../../data/index.ts";
 import type { Feature, Label } from "../../data/index.ts";
+import { markdownAlternate, pageLd } from "../../agents.ts";
 
 /** The source's own shorthand for labels, which appears inside some `*Html` fields. */
 const SOURCE_MARKS = /[✅\u{1F9EA}\u{1F527}]/u;
@@ -96,14 +97,14 @@ export function getStaticPaths() {
 
 export function head({ data }: HeadArgs<typeof loader>) {
   const { feature, blocks, tallyText } = data;
+  const path = `/features/${feature.id}`;
+  const title = `${feature.name}: support in ${blocks.length} frameworks — Framework Compare`;
+  const description = `${feature.summary} Documented support across ${blocks.length} meta-frameworks (${tallyText}), with how to enable it in each.`;
   return {
-    title: `${feature.name}: support in ${blocks.length} frameworks — Framework Compare`,
-    meta: [
-      {
-        name: "description",
-        content: `${feature.summary} Documented support across ${blocks.length} meta-frameworks (${tallyText}), with how to enable it in each.`,
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate(path)],
+    script: [pageLd("TechArticle", path, title, description, feature.name)],
   };
 }
 

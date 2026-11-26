@@ -7,10 +7,11 @@
     "node": ">=22.18"
   },
   "scripts": {
-    "build": "pracht build",
+    "build": "node scripts/build-agent-files.mjs && pracht build",
+    "agent-files": "node scripts/build-agent-files.mjs",
     "data": "node scripts/build-data.mjs",
     "data:reviewed": "BENCH_SOURCE_REF=docs/comparison-doc-revisions node scripts/build-data.mjs",
-    "dev": "pracht typegen && pracht dev",
+    "dev": "node scripts/build-agent-files.mjs && pracht typegen && pracht dev",
     "typegen": "pracht typegen",
     "typecheck": "pracht typegen && tsrs --noEmit && tsrs --noEmit --project tsconfig.client.json",
     "preview": "pracht preview",
