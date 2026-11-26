@@ -6,8 +6,6 @@ import {
   NavLink,
   PageHeader,
   Section,
-  Stat,
-  StatGroup,
 } from "../components/index.ts";
 import { markdownAlternate, matrixLd } from "../agents.ts";
 import { RankingTable } from "../components/home/RankingTable.tsx";
@@ -122,18 +120,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               Benchmark: our latest PageSpeed Insights run
             </NavLink>
           </>
-        }
-        aside={
-          <StatGroup cols={2} class="lg:w-80">
-            <Stat label="Frameworks" value={frameworks.length} hint={
-                data.ported === frameworks.length
-                  ? "each with its own port of the books demo"
-                  : `${data.ported} with a port of the books demo`
-              } />
-            <Stat label="Features" value={features.length} hint={`${fcpCount} first-paint levers, ${otherCount} other`} />
-            <Stat label="Labels" value={cells.length} hint="one per framework and feature" />
-            <Stat label="Top score" value={topScore} unit={`/${maxTotal}`} hint={listNames(leaders.map((f) => f.name))} />
-          </StatGroup>
         }
       />
 
