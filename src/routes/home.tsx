@@ -92,10 +92,11 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title={`How ${frameworks.length} web frameworks support ${features.length} performance features`}
         lede={
           <>
-            Every framework gets one label per feature, based on its own documentation: 1st-party (built in),
-            Experimental (built in, but flagged or unstable), Third-party (needs an outside package) or Manual (you build it
-            yourself). Each label is worth points, and the points add up to a score out of {maxTotal}. Nothing on
-            this page was measured.
+            We read each framework's docs and gave every feature one label. <strong>1st-party</strong> means it's built
+            in ({LABELS["first-party"].points} points). <strong>Experimental</strong> means it's built in but flagged or
+            unstable, and <strong>Third-party</strong> means you add a package ({LABELS.experimental.points} point each).{" "}
+            <strong>Manual</strong> means you build it yourself ({LABELS.manual.points} points). Add them up for a score
+            out of {maxTotal}. These scores come from documentation, not from measuring anything.
           </>
         }
         meta={
