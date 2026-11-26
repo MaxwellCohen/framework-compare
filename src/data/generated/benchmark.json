@@ -2,11 +2,11 @@
  "latest": {
   "date": "2026-11-26",
   "startedAt": "2026-11-26T19:17:50.377Z",
-  "finishedAt": "2026-11-26T20:39:50.094Z",
+  "finishedAt": "2026-11-26T20:46:02.231Z",
   "tool": "PageSpeed Insights v5 (Lighthouse lab run)",
   "strategy": "mobile",
   "runsPerTarget": 3,
-  "psiRequests": 924,
+  "psiRequests": 981,
   "aborted": false,
   "paths": [
    "/",
@@ -4769,6 +4769,294 @@
     "usedRuns": 3,
     "coldSuspect": false,
     "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://analog-books.vercel.app/",
+    "median": {
+     "perf": 83,
+     "fcp": 1509,
+     "lcp": 4358,
+     "tbt": 60,
+     "si": 2514,
+     "tti": 4358,
+     "cls": 0,
+     "doc": 154,
+     "fcpObs": 1324,
+     "lcpObs": 1324
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://analog-books.vercel.app/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 1507,
+     "lcp": 2587,
+     "tbt": 3,
+     "si": 1507,
+     "tti": 2587,
+     "cls": 0,
+     "doc": 98,
+     "fcpObs": 231,
+     "lcpObs": 231
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://analog-books.netlify.app/",
+    "median": {
+     "perf": 81,
+     "fcp": 1541,
+     "lcp": 4359,
+     "tbt": 133,
+     "si": 4436,
+     "tti": 4359,
+     "cls": 0,
+     "doc": 305,
+     "fcpObs": 2481,
+     "lcpObs": 2481
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://analog-books.netlify.app/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 1508,
+     "lcp": 2559,
+     "tbt": 26,
+     "si": 1508,
+     "tti": 2559,
+     "cls": 0.001,
+     "doc": 151,
+     "fcpObs": 300,
+     "lcpObs": 300
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://analog-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 83,
+     "fcp": 1510,
+     "lcp": 4357,
+     "tbt": 34,
+     "si": 3946,
+     "tti": 4357,
+     "cls": 0,
+     "doc": 222,
+     "fcpObs": 2350,
+     "lcpObs": 2350
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://analog-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1519,
+     "lcp": 2710,
+     "tbt": 9,
+     "si": 2477,
+     "tti": 2710,
+     "cls": 0,
+     "doc": 554,
+     "fcpObs": 1332,
+     "lcpObs": 1332
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://analog-books-optimized.vercel.app/",
+    "median": {
+     "perf": 93,
+     "fcp": 905,
+     "lcp": 3184,
+     "tbt": 52,
+     "si": 905,
+     "tti": 3184,
+     "cls": 0,
+     "doc": 121,
+     "fcpObs": 270,
+     "lcpObs": 270
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://analog-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 100,
+     "fcp": 905,
+     "lcp": 1684,
+     "tbt": 25,
+     "si": 905,
+     "tti": 2186,
+     "cls": 0,
+     "doc": 89,
+     "fcpObs": 283,
+     "lcpObs": 283
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://analog-books-max-optimized.netlify.app/",
+    "median": {
+     "perf": 91,
+     "fcp": 906,
+     "lcp": 3455,
+     "tbt": 34,
+     "si": 1231,
+     "tti": 3455,
+     "cls": 0.003,
+     "doc": 108,
+     "fcpObs": 270,
+     "lcpObs": 270
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://analog-books-max-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 921,
+     "lcp": 2318,
+     "tbt": 50,
+     "si": 2603,
+     "tti": 2318,
+     "cls": 0,
+     "doc": 149,
+     "fcpObs": 1321,
+     "lcpObs": 1321
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://analog-books-optimized.to-email-max.workers.dev/",
+    "median": {
+     "perf": 91,
+     "fcp": 906,
+     "lcp": 3459,
+     "tbt": 70,
+     "si": 1181,
+     "tti": 3459,
+     "cls": 0,
+     "doc": 129,
+     "fcpObs": 421,
+     "lcpObs": 421
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "analog",
+    "app": "analog-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://analog-books-optimized.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 908,
+     "lcp": 2305,
+     "tbt": 68,
+     "si": 2331,
+     "tti": 2305,
+     "cls": 0,
+     "doc": 236,
+     "fcpObs": 1399,
+     "lcpObs": 1399
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
    }
   ],
   "builds": [
@@ -6091,6 +6379,86 @@
     "doc": 185,
     "fcpObs": 1007,
     "lcpObs": 1007
+   },
+   {
+    "frameworkId": "analog",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 82,
+    "fcp": 1520,
+    "lcp": 4358,
+    "tbt": 76,
+    "si": 3632,
+    "tti": 4358,
+    "cls": 0,
+    "doc": 227,
+    "fcpObs": 2052,
+    "lcpObs": 2052
+   },
+   {
+    "frameworkId": "analog",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 97,
+    "fcp": 1511,
+    "lcp": 2619,
+    "tbt": 13,
+    "si": 1831,
+    "tti": 2619,
+    "cls": 0,
+    "doc": 268,
+    "fcpObs": 621,
+    "lcpObs": 621
+   },
+   {
+    "frameworkId": "analog",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 92,
+    "fcp": 906,
+    "lcp": 3366,
+    "tbt": 52,
+    "si": 1106,
+    "tti": 3366,
+    "cls": 0.001,
+    "doc": 119,
+    "fcpObs": 320,
+    "lcpObs": 320
+   },
+   {
+    "frameworkId": "analog",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 99,
+    "fcp": 911,
+    "lcp": 2102,
+    "tbt": 48,
+    "si": 1946,
+    "tti": 2270,
+    "cls": 0,
+    "doc": 158,
+    "fcpObs": 1001,
+    "lcpObs": 1001
    }
   ]
  },
@@ -6600,8 +6968,8 @@
   },
   {
    "date": "2026-11-26",
-   "targets": 198,
-   "withData": 198,
+   "targets": 210,
+   "withData": 210,
    "builds": [
     {
      "frameworkId": "next",
@@ -7130,6 +7498,38 @@
      "fcp": 912,
      "lcp": 2924,
      "perf": 95
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1520,
+     "lcp": 4358,
+     "perf": 82
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1511,
+     "lcp": 2619,
+     "perf": 97
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 906,
+     "lcp": 3366,
+     "perf": 92
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 911,
+     "lcp": 2102,
+     "perf": 99
     }
    ]
   }
