@@ -52,6 +52,11 @@ const FRAMEWORKS = {
   "Angular (SSR)": { id: "angular", shortName: "Angular" },
   Marko: { id: "marko", shortName: "Marko" },
   Fresh: { id: "fresh", shortName: "Fresh" },
+  // `port: false` = no Books port: no README deployment rows, no app, no repo.
+  Analog: { id: "analog", shortName: "Analog", port: false },
+  Vike: { id: "vike", shortName: "Vike", port: false },
+  RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK", port: false },
+  "Remix 3": { id: "remix", shortName: "Remix 3", port: false },
 };
 
 /** Section number (1–12) → slug + short name. */
@@ -737,7 +742,9 @@ function buildCapability() {
     const r = rankById.get(fw.id);
     const d = deploys.get(fw.id);
     if (!r) problem(`${name}: missing from the ranking table`);
-    if (!d) problem(`${name}: no deployment rows in README.md`);
+    const hasPort = fw.port !== false;
+    if (hasPort && !d) problem(`${name}: no deployment rows in README.md`);
+    if (!hasPort && d) problem(`${name}: has README deployment rows; remove "port: false" from FRAMEWORKS`);
     return {
       id: fw.id,
       name,
@@ -751,7 +758,7 @@ function buildCapability() {
       total: r?.total ?? -1,
       completeness: r?.completeness ?? -1,
       rank: r?.rank ?? -1,
-      app: d?.app ?? "",
+      app: d?.app ?? null,
       repo: d?.repo ?? null,
       deployments: d?.deployments ?? [],
       extrasHtml: extras.get(fw.id) ?? null,
@@ -901,9 +908,9 @@ function foldFeatures({ frameworks, features, cells }) {
 }
 
 function validateCapability({ frameworks, features, cells, ranking, tableLabel, tableScore }) {
-  if (frameworks.length !== 15) problem(`expected 15 frameworks, found ${frameworks.length}`);
   if (features.length !== 12) problem(`expected 12 features, found ${features.length}`);
-  if (cells.length !== 180) problem(`expected 180 cells, found ${cells.length}`);
+  const expectedCells = frameworks.length * features.length;
+  if (cells.length !== expectedCells) problem(`expected ${expectedCells} cells, found ${cells.length}`);
   if (ranking.length !== frameworks.length) problem(`ranking has ${ranking.length} rows for ${frameworks.length} frameworks`);
 
   const sameSet = (a, b) => a.length === b.length && a.every((x, i) => x === b[i]);
@@ -946,7 +953,7 @@ function validateCapability({ frameworks, features, cells, ranking, tableLabel, 
     const pct = Math.round((fw.total / 24) * 100);
     if (fw.completeness !== pct) problem(`${fw.name}: completeness ${fw.completeness}% ≠ round(${fw.total}/24) = ${pct}%`);
     if (!fw.version) problem(`${fw.name}: empty version`);
-    if (!fw.app) problem(`${fw.name}: empty app`);
+    if (FRAMEWORKS[fw.name].port !== false && !fw.app) problem(`${fw.name}: empty app`);
   }
 
   // Ranks must be competition ranks by total (ties share, 1, 1, 3 …).

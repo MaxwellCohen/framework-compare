@@ -77,6 +77,11 @@ export function featuresInGroup(group: FeatureGroup): Feature[] {
   return features.filter((f) => f.group === group);
 }
 
+/** False for a framework that is scored from vendor docs only: no Books port, so no deploys, benchmark or FCP data. */
+export function hasPort(f: Pick<Framework, "app">): boolean {
+  return f.app !== null;
+}
+
 /** Frameworks sorted by rank, ties in source column order. */
 export function frameworksByRank(): Framework[] {
   return [...frameworks].sort((a, b) => a.rank - b.rank || a.order - b.order);

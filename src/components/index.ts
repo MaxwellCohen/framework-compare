@@ -13,7 +13,7 @@ export {
   CapabilityMatrix,
 } from "./Matrix.tsx";
 export { Prose } from "./Prose.tsx";
-export { Container, PageHeader, Section, Card, Callout, Breadcrumbs, Tag, Pager } from "./Page.tsx";
+export { Container, PageHeader, Section, Card, Callout, Breadcrumbs, Tag, NoPortTag, NO_PORT, Pager } from "./Page.tsx";
 export { FrameworkName, FrameworkChip, FeatureName, FeatureChip, featureNo } from "./Chips.tsx";
 export { DotChart, BarChart, type ChartSeries, type DotChartRow } from "./Chart.tsx";
 export { SiteHeader, SiteFooter, ThemeToggle, REPO_URL } from "./Site.tsx";

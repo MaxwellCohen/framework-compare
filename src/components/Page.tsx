@@ -255,6 +255,13 @@ export function Tag({
   );
 }
 
+/** Shown wherever a framework's port, deploy, benchmark or FCP data would go and it has no Books port. */
+export const NO_PORT = "No Books port yet";
+
+export function NoPortTag({ class: cls = "" }: { class?: string }) {
+  return <Tag class={cls}>{NO_PORT}</Tag>;
+}
+
 /**
  * Previous / next links at the foot of a feature or framework page.
  *   <Pager prev={{ label: "Font optimization", kicker: "Feature 02", to: {...} }} next={...} />

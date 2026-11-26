@@ -12,7 +12,7 @@ import { NavLink, type Target } from "./links.tsx";
        <MatrixColHeader to={…} vertical>Next.js</MatrixColHeader> …
      </MatrixHead>
      <tbody>
-       <MatrixGroupRow span={15}>First-paint levers</MatrixGroupRow>
+       <MatrixGroupRow span={frameworks.length}>First-paint levers</MatrixGroupRow>
        <MatrixRow>
          <MatrixRowHeader to={…}>CSS inlining</MatrixRowHeader>
          <MatrixCell to={…} label="Next.js, CSS inlining: First-party"> … </MatrixCell> …
@@ -77,7 +77,7 @@ export function MatrixHead({ corner, children }: { corner?: ComponentChildren; c
 
 /**
  * Column header (`<th scope="col">`). `vertical` sets the label bottom-to-top so
- * 15 columns fit a laptop; use horizontal for ≤ 6 columns. `to` links the header.
+ * Many columns fit a laptop; use horizontal for ≤ 6 columns. `to` links the header.
  */
 export function MatrixColHeader({
   children,
@@ -179,7 +179,7 @@ const GROUPS: { id: FeatureGroup; title: string; max: string }[] = [
 
 /**
  * Features (rows) × frameworks (columns), one `LabelBadge` per cell.
- * Pass any subset: all 15 frameworks on the home page, 2–4 on compare, or a
+ * Pass any subset: every framework on the home page, 2–4 on compare, or a
  * subset of features. Columns render in the order given.
  *
  * Each cell links to the feature page at `#<frameworkId>` — feature pages
