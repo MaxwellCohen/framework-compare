@@ -46,3 +46,133 @@ export const Route = createRootRoute({
   // …
 });
 ```
+
+## caching
+
+Give a route a `headers` function to set `Cache-Control` on its document response. Add `prerender` to `tanstackStart()` for pages that should be built ahead of time.
+
+```tsx
+// src/routes/$id.tsx
+import { createFileRoute } from '@tanstack/solid-router'
+
+export const Route = createFileRoute('/$id')({
+  loader: ({ params }) => getBook(params.id),
+  headers: () => ({
+    // Cache at CDN for 1 hour, allow stale content for up to 1 day
+    'Cache-Control':
+      'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
+  }),
+  // …
+})
+```
+
+Source: [TanStack Start: Incremental Static Regeneration (ISR)](https://tanstack.com/start/latest/docs/framework/react/guide/isr)
+
+## route-prefetching
+
+`defaultPreload: 'intent'` makes every router `<Link>` preload its route on hover or focus. The port's `FastLink` is a plain `<a>`, so it calls `router.preloadRoute()` itself on the same events.
+
+```tsx
+// src/router.tsx
+const router = createTanStackRouter({
+  routeTree,
+  defaultPreload: 'intent',
+  defaultPreloadStaleTime: 0,
+})
+```
+
+```tsx
+// src/components/ui/fast-link.tsx
+const router = useRouter()
+
+function warm() {
+  const url = new URL(props.href, 'http://tanstack-solid-books.local')
+  const id = url.pathname === '/' ? undefined : url.pathname.slice(1)
+  const search = Object.fromEntries(url.searchParams)
+  void router
+    .preloadRoute(id ? { to: '/$id', params: { id }, search } : { to: '/', search })
+    .catch(() => {})
+}
+
+return <a href={props.href} onFocus={warm} onMouseEnter={warm}>{props.children}</a>
+```
+
+Source: [TanStack Router: Preloading](https://tanstack.com/router/latest/docs/framework/solid/guide/preloading)
+
+## reactivity
+
+`createSignal` returns a getter and a setter. Reading `quantity()` in JSX subscribes that text node, so a click updates only that node. The component function does not run again.
+
+```tsx
+import { createSignal } from 'solid-js'
+
+export function LineItem() {
+  const [quantity, setQuantity] = createSignal(1)
+  const price = 12
+
+  return (
+    <div>
+      <button type="button" onClick={() => setQuantity(quantity() - 1)}>−</button>
+      <span>{quantity()}</span>
+      <button type="button" onClick={() => setQuantity(quantity() + 1)}>+</button>
+      <p>Subtotal: ${quantity() * price}</p>
+    </div>
+  )
+}
+```
+
+Source: [Solid: Reactivity](https://docs.solidjs.com/concepts/reactivity)
+
+## bundle-analysis
+
+Add `rollup-plugin-visualizer` to the plugin list. `vite build` then writes a treemap of the bundle to `stats.html`.
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import { tanstackStart } from '@tanstack/solid-start/plugin/vite'
+import viteSolid from '@solidjs/vite-plugin'
+import { visualizer } from 'rollup-plugin-visualizer'
+
+export default defineConfig({
+  plugins: [
+    tanstackStart(),
+    viteSolid({ ssr: true }),
+    visualizer({ filename: 'stats.html', gzipSize: true }),
+  ],
+})
+```
+
+Source: [rollup-plugin-visualizer: README](https://github.com/btd/rollup-plugin-visualizer)
+
+## multi-host-deployment
+
+The port picks one host plugin at build time: `@cloudflare/vite-plugin` on Cloudflare, `@netlify/vite-plugin-tanstack-start` on Netlify, and Nitro everywhere else (Vercel included).
+
+```ts
+// vite.config.ts
+import { defineConfig, type PluginOption } from 'vite'
+import { tanstackStart } from '@tanstack/solid-start/plugin/vite'
+import viteSolid from '@solidjs/vite-plugin'
+import { nitro } from 'nitro/vite'
+
+const isCloudflare = Boolean(process.env.CLOUDFLARE || process.env.WORKERS_CI || process.env.CF_PAGES)
+const isNetlify = Boolean(process.env.NETLIFY)
+
+export default defineConfig(async () => {
+  const plugins: PluginOption[] = []
+  if (isCloudflare) {
+    const { cloudflare } = await import('@cloudflare/vite-plugin')
+    plugins.push(cloudflare({ viteEnvironment: { name: 'ssr' } }))
+  } else if (isNetlify) {
+    const netlify = (await import('@netlify/vite-plugin-tanstack-start')).default
+    plugins.push(netlify())
+  } else {
+    plugins.push(nitro())
+  }
+  plugins.push(tanstackStart(), viteSolid({ ssr: true }))
+  return { plugins }
+})
+```
+
+Source: [TanStack Start: Hosting](https://tanstack.com/start/latest/docs/framework/solid/guide/hosting)
