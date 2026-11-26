@@ -300,3 +300,66 @@ export const onRequest = defineMiddleware(async (_context, next) => {
 ```
 
 Source: [Astro middleware](https://docs.astro.build/en/guides/middleware/)
+
+## streaming-ssr
+
+On-demand pages stream by default. Put a slow fetch in its own component: the HTML above it is sent while it waits.
+
+```astro
+---
+// src/pages/books/[id].astro
+export const prerender = false; // render on demand
+import Layout from "../../layouts/Layout.astro";
+import BookDetail from "../../components/BookDetail.astro";
+import Reviews from "../../components/Reviews.astro";
+---
+<Layout title="Book">
+  <BookDetail id={Astro.params.id} />
+  <!-- head, header and BookDetail are already sent while Reviews awaits -->
+  <Reviews id={Astro.params.id} />
+</Layout>
+```
+
+```astro
+---
+// src/components/Reviews.astro
+const res = await fetch(`https://api.example.com/books/${Astro.props.id}/reviews`);
+const reviews = await res.json();
+---
+<ul>{reviews.map((r) => <li>{r.text}</li>)}</ul>
+```
+
+Source: [Astro: On-demand rendering, HTML streaming](https://docs.astro.build/en/guides/on-demand-rendering/#html-streaming), [Astro: Streaming for page performance](https://docs.astro.build/en/recipes/streaming-improve-page-performance/)
+
+## service-worker
+
+Add the `@vite-pwa/astro` integration, which generates a Workbox worker and precache manifest at build time. Register it from the main layout.
+
+```js
+// astro.config.mjs (npm install -D @vite-pwa/astro)
+import { defineConfig } from "astro/config";
+import AstroPWA from "@vite-pwa/astro";
+
+export default defineConfig({
+  integrations: [AstroPWA({ workbox: { navigateFallback: "/404" } })],
+});
+```
+
+```astro
+---
+// src/layouts/Layout.astro
+import { pwaInfo } from "virtual:pwa-info";
+---
+<head>
+  <script src="/src/pwa.ts"></script>
+  {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+</head>
+```
+
+```ts
+// src/pwa.ts
+import { registerSW } from "virtual:pwa-register";
+registerSW({ immediate: true });
+```
+
+Source: [Vite PWA: Astro](https://vite-pwa-org.netlify.app/frameworks/astro)

@@ -295,3 +295,31 @@ return reply.header('Link', LINK).type('text/html').send(html);
 ```
 
 Source: [Fastify Reply: `.header()`](https://fastify.dev/docs/latest/Reference/Reply/#headerkey-value)
+
+## streaming-ssr
+
+Return a `ReadableStream` from the request handler. It sends the top of the HTML template right away, then waits for the Ember render and sends the rest. The status code is fixed at 200 once the first chunk is out.
+
+```js
+// server/handle-request.js
+import { assembleHTML } from 'vite-ember-ssr/server';
+
+const HEAD_MARKER = '<!-- VITE_EMBER_SSR_HEAD -->';
+// … in handleFetch, for page requests
+const template = await getTemplate();
+const early = template.slice(0, template.indexOf(HEAD_MARKER));
+const encoder = new TextEncoder();
+
+const body = new ReadableStream({
+  async start(controller) {
+    controller.enqueue(encoder.encode(early)); // charset, viewport, favicon
+    const emberApp = await getEmberApp();
+    const rendered = await emberApp.renderRoute(`${url.pathname}${url.search}`, { settledTimeout: 8000 });
+    controller.enqueue(encoder.encode(assembleHTML(template, rendered).slice(early.length)));
+    controller.close();
+  },
+});
+return new Response(body, { headers: { 'content-type': 'text/html; charset=utf-8' } });
+```
+
+Source: [vite-ember-ssr](https://github.com/evoactivity/vite-ember-ssr) · [MDN: ReadableStream](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream)

@@ -339,3 +339,65 @@ export const serverRoutes: ServerRoute[] = [
 ```
 
 Source: [Angular SSR: setting headers and status codes](https://angular.dev/guide/ssr)
+
+## streaming-ssr
+
+Angular renders the whole document before sending it. To get bytes out sooner, flush a fixed `<head>` from the Express handler while Angular renders, then send the rest of Angular's HTML. The status code and head are fixed before rendering starts.
+
+```ts
+// src/server.ts
+import { AngularNodeAppEngine } from '@angular/ssr/node';
+import express from 'express';
+
+const app = express();
+const angularApp = new AngularNodeAppEngine();
+// Copy the <head> of the built index.server.html, with its hashed CSS link.
+const HEAD = `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Books</title>
+<link rel="stylesheet" href="/styles-HASH.css"></head>`;
+
+app.use(async (req, res, next) => {
+  if (!req.accepts('html')) return next();
+  res.status(200).type('html').write(HEAD); // sent before Angular renders
+  const response = await angularApp.handle(req);
+  const html = response ? await response.text() : '<body></body>';
+  res.end(html.slice(html.indexOf('</head>') + '</head>'.length)); // body only
+});
+```
+
+Source: [Angular: Server-side rendering](https://angular.dev/guide/ssr)
+
+## service-worker
+
+`ng add @angular/pwa` adds `@angular/service-worker`, registers it in the app config and creates `ngsw-config.json`. The build writes the asset manifest the worker uses.
+
+```ts
+// src/app/app.config.ts
+import { ApplicationConfig, isDevMode } from '@angular/core';
+import { provideServiceWorker } from '@angular/service-worker';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
+  ],
+};
+```
+
+```json
+// ngsw-config.json
+{
+  "index": "/index.html",
+  "assetGroups": [
+    { "name": "app", "installMode": "prefetch",
+      "resources": { "files": ["/favicon.ico", "/index.html", "/*.css", "/*.js"] } }
+  ],
+  "dataGroups": [
+    { "name": "api", "urls": ["/api/**"],
+      "cacheConfig": { "strategy": "performance", "maxSize": 100, "maxAge": "1d" } }
+  ]
+}
+```
+
+Source: [Angular: Getting started with service workers](https://angular.dev/ecosystem/service-workers/getting-started), [Angular: Service worker configuration](https://angular.dev/ecosystem/service-workers/config)
