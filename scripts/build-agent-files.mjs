@@ -290,10 +290,32 @@ const benchMethod = () =>
     ? `Tool: ${run.tool}, ${run.strategy} strategy. ${run.runsPerTarget} measured runs per deployment, median reported; cold runs are left out of the median when a warm run exists. Each build's figure is the average of its hosts' medians (${run.hosts.join(", ")}). Pages measured: ${run.paths.map(pathName).join(" and ")}. Times are lab values from one run on ${run.date}. FCP is the Lighthouse estimate for simulated Slow 4G; Raw FCP, where shown, is the first paint in the real, unthrottled load that estimate is built from. Builds in the same FCP band (${abs("/measured.md")}) are a tie, so read "fastest first" as band order.`
     : "No benchmark run has been published yet.";
 
+/** Book list, per framework: baseline build → the optimized build with the lowest LCP. Same as the lead chart on /benchmark. */
+function gainsTable() {
+  const home = run.builds.filter((b) => b.path === "/");
+  const rows = [...new Set(home.map((b) => b.frameworkId))]
+    .map((id) => {
+      const bs = home.filter((b) => b.frameworkId === id);
+      const base = bs.find((b) => buildName(b) === "baseline");
+      const opt = bs.filter((b) => b !== base && b.lcp != null).sort((a, b) => a.lcp - b.lcp || branchRank(a) - branchRank(b))[0];
+      return { id, base, opt };
+    })
+    .filter((r) => r.opt)
+    .sort((a, b) => a.opt.lcp - b.opt.lcp || fwById.get(a.id).order - fwById.get(b.id).order);
+  const pair = (k, r) => `${seconds(r.base?.[k])} → ${seconds(r.opt[k])}`;
+  return tableMd(
+    ["Framework", "Optimized build", "FCP, default → optimized", "LCP, default → optimized"],
+    rows.map((r) => [fwById.get(r.id)?.name ?? r.id, buildName(r.opt), pair("fcp", r), pair("lcp", r)]),
+  );
+}
+
 function benchmarkBody(level = "##") {
   if (!run) return benchMethod();
   return [
     benchMethod(),
+    `${level} What each framework's optimizations buy, ${pathName("/")}`,
+    "Each framework's build on default settings next to its build tuned with the speed features the framework offers. Sorted by optimized LCP, fastest first.",
+    gainsTable(),
     ...run.paths.flatMap((p) => [`${level} Medians, ${pathName(p)}, fastest FCP first`, benchTable(benchSorted(p))]),
   ].join("\n\n");
 }

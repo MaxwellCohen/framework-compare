@@ -4,15 +4,24 @@ import type { BuildTableRow } from "../components/benchmark/BuildTable.tsx";
 import { HostTable, type HostTableGroup } from "../components/benchmark/HostTable.tsx";
 import { FieldTable, type FieldTableGroup } from "../components/benchmark/FieldTable.tsx";
 import { MetricGuide } from "../components/benchmark/MetricGuide.tsx";
-import { RangeChart, RangeKey, rangeDomain, type RangeGroup } from "../components/benchmark/RangeChart.tsx";
+import { rangeDomain } from "../components/benchmark/RangeChart.tsx";
+import { LaneChart, type LaneGroup } from "../components/measured/LaneChart.tsx";
 import { StatusKey } from "../components/benchmark/parts.tsx";
 import { COLD_DOC_MS, hostName, listText, longDate, pathName, utcTime } from "../components/benchmark/format.ts";
-import { ANCHOR, JumpNav } from "../components/measured/parts.tsx";
+import { ANCHOR, JumpNav, RunLegend } from "../components/measured/parts.tsx";
 import BenchTable from "../islands/BenchTable.tsx";
 import type { FrameworkId } from "../data/types.ts";
 import { href } from "../pracht-routes.ts";
 import { markdownAlternate, pageLd } from "../agents.ts";
 
+
+/** "LCP −2.8 s", or null when either build has no value or nothing changed. */
+function saved(metric: string, v: { from: number | null; to: number | null }): string | null {
+  if (v.from == null || v.to == null) return null;
+  const d = v.from - v.to;
+  if (Math.abs(d) < 0.05) return `${metric} about the same`;
+  return `${metric} ${d > 0 ? "−" : "+"}${Math.abs(d).toFixed(1)} s`;
+}
 
 /**
  * Everything the page prints from the latest bench run, already grouped and
@@ -33,35 +42,31 @@ export async function loader() {
   const hostNote = (hs: string[]) =>
     hs.length >= hosts.length ? undefined : hs.length === 1 ? `${hostName(hs[0])} only` : listText(hs.map(hostName));
 
-  // Main chart: the book list, one group per framework, one row per build.
-  // Groups sort by their best (lowest) LCP; a group with no LCP goes last.
+  // Main chart: the book list, one group per framework. Each lane runs from the
+  // baseline build (framework defaults) to the fastest optimized build, for FCP
+  // and LCP. Groups sort by the optimized LCP, fastest first.
   const home = run.builds.filter((b) => b.path === BENCH_HOME_PATH);
   const homeIds = [...new Set(home.map((b) => b.frameworkId))];
-  const best = (id: FrameworkId, k: "lcp" | "fcp") => {
-    const vs = home.filter((b) => b.frameworkId === id).map((b) => b[k]).filter((v): v is number => v != null);
-    return vs.length ? Math.min(...vs) : Infinity;
-  };
-  const chartGroups = homeIds
-    .sort((a, b) => best(a, "lcp") - best(b, "lcp") || best(a, "fcp") - best(b, "fcp") || fwOrder(a) - fwOrder(b))
+  const gains = homeIds
     .map((id) => {
       const f = fwById.get(id);
+      const builds = home.filter((b) => b.frameworkId === id);
+      const base = builds.find((b) => benchBuildName(b.branch, id) === "baseline");
+      const opt = builds
+        .filter((b) => b !== base && b.lcp != null)
+        .sort((a, b) => a.lcp! - b.lcp! || benchBranchRank(a.branch, id) - benchBranchRank(b.branch, id))[0];
       return {
         key: id,
         framework: { id, name: f?.name ?? id, shortName: f?.shortName ?? id },
-        rows: home
-          .filter((b) => b.frameworkId === id)
-          .sort((a, b) => benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId))
-          .map((b) => ({
-            key: b.branch,
-            name: benchBuildName(b.branch, b.frameworkId),
-            title: `Branch: ${b.branch}. Average of ${listText(b.hosts.map(hostName))}.`,
-            note: hostNote(b.hosts),
-            fcp: b.fcp,
-            lcp: b.lcp,
-          })),
+        build: opt ? benchBuildName(opt.branch, id) : null,
+        hosts: opt ? hostNote(opt.hosts) : undefined,
+        fcp: { from: base?.fcp != null ? base.fcp / 1000 : null, to: opt?.fcp != null ? opt.fcp / 1000 : null },
+        lcp: { from: base?.lcp != null ? base.lcp / 1000 : null, to: opt?.lcp != null ? opt.lcp / 1000 : null },
       };
-    });
-  const chartMax = Math.max(0, ...home.flatMap((b) => [b.fcp ?? 0, b.lcp ?? 0]));
+    })
+    .filter((g) => g.lcp.to != null)
+    .sort((a, b) => a.lcp.to! - b.lcp.to! || (a.fcp.to ?? 99) - (b.fcp.to ?? 99) || fwOrder(a.key) - fwOrder(b.key));
+  const chartMax = Math.max(0, ...gains.flatMap((g) => [g.fcp.from ?? 0, g.lcp.from ?? 0, g.lcp.to ?? 0]));
 
   // Builds table: every framework × build × path.
   const tableRows: BuildTableRow[] = run.builds.map((b) => ({
@@ -171,7 +176,7 @@ export async function loader() {
       frameworksWithData: withDataIds.size,
       missing,
       buildCount: run.builds.length,
-      chartGroups,
+      gains,
       chartMax,
       tableRows,
       hostGroups,
@@ -283,7 +288,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
   const runsText = `${l.runsPerTarget} measured ${l.runsPerTarget === 1 ? "run" : "runs"}`;
   const hostText = listText(l.hosts.map(hostName));
   const pathText = listText(l.paths.map((p) => `${pathName(p).toLowerCase()} (${p})`));
-  const domain = rangeDomain(l.chartMax || null);
+  const domain = rangeDomain(l.chartMax ? l.chartMax * 1000 : null);
 
   return (
     <>
@@ -292,7 +297,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
         title="Benchmark"
         lede={
           <>
-            We ran PageSpeed Insights against every deployment of the Books demo app on {l.dateText}. Each target is one
+            How much faster each meta-framework makes the same app when you use the speed features it ships. We ran
+            PageSpeed Insights against every deployment of the Books demo app on {l.dateText}. Each target is one
             build on one host and one page: the {pathText}. Each figure is the median of {runsText} per target, after a
             warm-up. Runs whose document took over {COLD_DOC_MS} ms count as cold and are left out of the median when
             other runs exist.
@@ -360,7 +366,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <JumpNav
         route="benchmark"
         items={[
-          { hash: "ranking", label: "Book list" },
+          { hash: "ranking", label: "Optimizations" },
           { hash: "builds", label: "All builds" },
           { hash: "hosts", label: "By host" },
           ...(l.fieldCount ? [{ hash: "field", label: "Field data" }] : []),
@@ -371,40 +377,52 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
 
       <Section
         id="ranking"
-        title="Book list: FCP and LCP by build"
+        title="What each framework’s optimizations buy"
         class={ANCHOR}
         intro={
           <>
-            First Contentful Paint (FCP) is when the first text or image appears. Largest Contentful Paint (LCP) is when the
-            largest one appears. Each row is one build of the {pathName(l.homePath).toLowerCase()} page ({l.homePath}), averaged
-            across the hosts that returned data. Frameworks are sorted by their lowest LCP in this run; the baseline build
-            comes first, then the optimized ones.
+            Every framework runs the same Books app twice: once on its default settings, and once tuned with the speed
+            features it offers. Each row shows what that tuning bought on the {pathName(l.homePath).toLowerCase()} page (
+            {l.homePath}): First Contentful Paint (FCP), when the first text appears, and Largest Contentful Paint (LCP), when
+            the largest image or block of text appears. Frameworks are sorted by their optimized LCP, fastest first.
           </>
         }
       >
-        {l.chartGroups.length ? (
+        {l.gains.length ? (
           <div class="max-w-[64rem]">
-            <RangeChart
-              groups={l.chartGroups.map(
-                (g): RangeGroup => ({
+            <LaneChart
+              groups={l.gains.map(
+                (g): LaneGroup => ({
                   key: g.key,
-                  name: g.framework.name,
                   label: <FrameworkName framework={g.framework} />,
-                  rows: g.rows,
+                  note: [
+                    g.fcp.from != null && g.fcp.from < 1 ? "fast FCP by default" : saved("FCP", g.fcp),
+                    saved("LCP", g.lcp),
+                    g.build && g.build !== "optimized" ? `${g.build} build` : null,
+                    g.hosts,
+                  ]
+                    .filter(Boolean)
+                    .join(" · "),
+                  lanes: [
+                    { key: "fcp", name: "FCP", series: 1, from: g.fcp.from, value: g.fcp.to },
+                    { key: "lcp", name: "LCP", series: 2, from: g.lcp.from, value: g.lcp.to },
+                  ],
                 }),
               )}
-              max={domain.max}
+              domain={[0, domain.max]}
               ticks={domain.ticks}
-              legend={<RangeKey />}
+              digits={2}
+              paired
+              valueHeader="Default → optimized, s"
+              legend={<RunLegend hosts={false} bands={false} builds={{ hollow: "default settings", filled: "optimized" }} />}
               caption={
                 <>
-                  Seconds, median of {runsText} per target, then averaged across hosts. Lower is better. A row with fewer
-                  than {l.hosts.length} hosts names the ones it has, so its average is not directly comparable with the
-                  others. The glyph beside each value is its Core Web Vitals status.
+                  Seconds, mobile Lighthouse through PageSpeed Insights. Each value is the median of {runsText} per host,
+                  averaged across {l.hosts.length} hosts. Lower is better. Where a framework has more than one optimized build,
+                  the row shows the one with the lowest LCP. Every build and host is in the tables below.
                 </>
               }
             />
-            <StatusKey class="mt-4" />
           </div>
         ) : (
           <p class="text-ink-3">This run has no data for the book list page.</p>
