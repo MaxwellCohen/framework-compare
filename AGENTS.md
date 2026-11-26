@@ -47,6 +47,10 @@ This app uses **manifest routing**.
 - More skills — audits, testing scaffolds, and the `add-*` integrations — are published at https://pracht.resynapse.dev/.well-known/agent-skills/index.json. Run `pracht skills list` to see the catalog and `pracht skills add <name...>` to install one; do not hand-write a SKILL.md that already exists there.
 - `.mcp.json` — registers the `pracht dev-mcp` server so MCP clients can inspect the app graph, run doctor/verify, and scaffold natively
 
+## Adding a framework or a Books port
+
+Follow `ADDING-A-FRAMEWORK.md` step by step. A framework touches the comparison doc, the books-demo README, `scripts/build-data.mjs` (`FRAMEWORKS`, `APPS`), `scripts/import-feature-tests.mjs`, `src/data/types.ts`, `content/framework-links.json`, `content/manual-examples/`, `content/optimizations.json` and the benchmark, and skipping one either fails the data script or leaves the framework missing from a page.
+
 ## For agents reading the site
 
 The deployed site serves the same data as text and JSON, so an agent does not need to parse the HTML:
