@@ -199,3 +199,49 @@ export function getCellTest(frameworkId: FrameworkId, featureId: FeatureId): Cel
     testedAs: r.testedLabel && r.testedLabel !== getCell(frameworkId, featureId).label ? r.testedLabel : null,
   };
 }
+
+// ---------------------------------------------------------------------------
+// Naive vs optimized FCP per port (for /measured), from the latest run.
+// ---------------------------------------------------------------------------
+
+export interface FcpPair {
+  frameworkId: FrameworkId;
+  /** Median across hosts of each host's median FCP, in seconds. */
+  naive: number | null;
+  optimized: number | null;
+  /** Per-host medians in seconds, host order as in the run. */
+  naiveByHost: (number | null)[];
+  optimizedByHost: (number | null)[];
+}
+
+function median(values: number[]): number | null {
+  if (!values.length) return null;
+  const s = [...values].sort((a, b) => a - b);
+  const m = s.length >> 1;
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+}
+
+/**
+ * Home-page FCP of each port's naive (default-settings) build against its
+ * optimized build. The max-optimized Nuxt build is left out: `optimized` is
+ * the comparable build for every port.
+ */
+export function fcpPairs(): FcpPair[] {
+  const run = benchmark.latest;
+  if (!run) return [];
+  const hosts = [...run.hosts].sort((a, b) => benchHostRank(a) - benchHostRank(b));
+  const ids = [...new Set(run.targets.map((t) => t.frameworkId))];
+  const byHost = (id: FrameworkId, build: string) =>
+    hosts.map((h) => {
+      const t = run.targets.find(
+        (t) => t.frameworkId === id && t.host === h && t.path === BENCH_HOME_PATH && benchBuildName(t.branch, id) === build,
+      );
+      return t?.median?.fcp != null ? t.median.fcp / 1000 : null;
+    });
+  return ids.map((id) => {
+    const naiveByHost = byHost(id, "baseline");
+    const optimizedByHost = byHost(id, "optimized");
+    const ok = (v: (number | null)[]) => v.filter((x): x is number => x != null);
+    return { frameworkId: id, naive: median(ok(naiveByHost)), optimized: median(ok(optimizedByHost)), naiveByHost, optimizedByHost };
+  });
+}
