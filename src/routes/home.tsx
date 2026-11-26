@@ -1,6 +1,5 @@
 import type { HeadArgs, RouteComponentProps } from "@pracht/core";
 import {
-  Callout,
   CapabilityMatrix,
   LABELS,
   Container,
@@ -121,18 +120,6 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           </StatGroup>
         }
       />
-
-      <Container class="pt-6">
-        <Callout kind="caveat" title="Capability, not speed">
-          <p>
-            A label records what the documentation says a framework provides and how much of it you have to build
-            yourself. It does not tell you how fast a site built with that framework will be, and a higher score does
-            not mean a faster site. Timings from real deployments are on the{" "}
-            <NavLink to={{ route: "measured" }}>Measured</NavLink> and <NavLink to={{ route: "benchmark" }}>Benchmark</NavLink>{" "}
-            pages.
-          </p>
-        </Callout>
-      </Container>
 
       <Section
         id="matrix"
