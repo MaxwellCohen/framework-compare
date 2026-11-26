@@ -1,0 +1,109 @@
+{
+  "frameworkId": "astro",
+  "repo": "MaxwellCohen/astro-books",
+  "branch": "feature-tests",
+  "commit": "545dded0161655f442235ba0e1ca9e625091da35",
+  "resultsCommit": "bdf27d72af26918298430334b01617f5337b7cae",
+  "testedAt": "2026-11-26T04:53:54.255Z",
+  "features": {
+    "css-inlining": {
+      "status": "pass",
+      "evidence": "inline <style> contains the route's scoped .ft-css-marker rule; 0 <link rel=stylesheet> in the HTML",
+      "method": "build.inlineStylesheets: 'always' in astro.config.mjs",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/css-inlining",
+      "spec": "feature-tests/css-inlining.spec.ts"
+    },
+    "font-optimization": {
+      "status": "pass",
+      "evidence": "preload /_astro/fonts/f528153258489182.woff2; 2 @font-face with font-display:swap incl. size-adjusted fallback; font served from /_astro/fonts, 0 Google Fonts requests; document.fonts reports Geist FT loaded",
+      "method": "top-level fonts config (fontProviders.local, Geist woff2) + <Font cssVariable preload /> from astro:assets",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/font-optimization",
+      "spec": "feature-tests/font-optimization.spec.ts"
+    },
+    "image-pipeline": {
+      "status": "pass",
+      "evidence": "srcset has 7 widths (640w 750w 800w 828w 1080w 1280w 1600w); width=800 height=500; offscreen img loading=lazy; /_astro/sample.BUWB0WDE_2a5ofF.webp → image/webp",
+      "method": "<Image layout=\"constrained\" /> from astro:assets with the default Sharp service",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/image-pipeline",
+      "spec": "feature-tests/image-pipeline.spec.ts"
+    },
+    "caching": {
+      "status": "pass",
+      "evidence": "2nd request reused stamp 1795668812089-0oi2tq (x-astro-cache: HIT); after invalidate → new stamp; after 6.5 s TTL → new stamp again",
+      "method": "cache: { provider: memoryCache() } + Astro.cache.set({ maxAge: 5, tags }) + cache.invalidate({ tags })",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/caching-invalidate",
+      "spec": "feature-tests/caching.spec.ts"
+    },
+    "route-prefetching": {
+      "status": "pass",
+      "evidence": "no request for the target on load; hover fired GET /feature-tests/prefetch-target 42 ms before the click",
+      "method": "prefetch: { prefetchAll: true, defaultStrategy: 'hover' } + data-astro-prefetch=\"hover\"",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/route-prefetching",
+      "spec": "feature-tests/route-prefetching.spec.ts"
+    },
+    "islands": {
+      "status": "pass",
+      "evidence": "island counter reached 2 after hydration; 7 JS files fetched, marker of the static component found in 0 of them; island code found in client JS",
+      "method": "Solid component with client:load (island) next to a Solid component with no client directive (@astrojs/solid-js)",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/islands",
+      "spec": "feature-tests/islands.spec.ts"
+    },
+    "render-modes": {
+      "status": "pass",
+      "evidence": "dist/client/feature-tests/render-modes/index.html exists and its stamp is stable across requests; /render-modes/ssr has no HTML in build output and its stamp changed between requests",
+      "method": "output: 'server' with export const prerender = true / false per page",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/render-modes",
+      "spec": "feature-tests/render-modes.spec.ts"
+    },
+    "reactivity": {
+      "status": "pass",
+      "evidence": "count text went 0 → 3 after 3 clicks; component render counter stayed at 1",
+      "method": "Solid signal (createSignal) in a client:load island via the official @astrojs/solid-js integration",
+      "claimedLabel": "first-party",
+      "suggestedLabel": "third-party",
+      "testRoute": "/feature-tests/reactivity",
+      "spec": "feature-tests/reactivity.spec.ts"
+    },
+    "bundle-analysis": {
+      "status": "pass",
+      "evidence": "ANALYZE=1 astro build wrote feature-tests/reports/bundle-stats.html (188 kB treemap)",
+      "method": "rollup-plugin-visualizer added to vite.plugins when ANALYZE=1 (Astro \"analyze bundle size\" recipe)",
+      "claimedLabel": "third-party",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/bundle-analysis.spec.ts"
+    },
+    "third-party-scripts": {
+      "status": "pass",
+      "evidence": "tag is type=text/partytown and nothing in <head> is parser-blocking; the script was fetched by the Partytown worker (resourceType fetch, never as <script>), set body[data-third-party-ran] through the DOM proxy, and its window global is absent on the main thread",
+      "method": "@astrojs/partytown integration + <script type=\"text/partytown\" src=\"/ft-third-party.js\">",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/third-party-scripts",
+      "spec": "feature-tests/third-party-scripts.spec.ts"
+    },
+    "multi-host-deployment": {
+      "status": "pass",
+      "evidence": "3 builds succeeded: vercel → .vercel/output/{config.json,functions/_render.func}; netlify → .netlify/v1/functions/ssr; node → dist/server/entry.mjs",
+      "method": "official adapters picked by env in astro.config.mjs: @astrojs/vercel, @astrojs/netlify, @astrojs/node",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/multi-host-deployment.spec.ts"
+    }
+  }
+}

@@ -20,3 +20,25 @@ return (
   </picture>
 );
 ```
+
+## reactivity
+
+Install `@preact/signals`. Passing the signal itself into JSX (`{count}`, not `{count.value}`) binds it straight to the text node, so the component does not re-render when it changes.
+
+```tsx
+// src/components/counter.tsx
+import { signal } from '@preact/signals'
+
+const count = signal(0)
+
+export function Counter() {
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => count.value++}>click me</button>
+    </div>
+  )
+}
+```
+
+Source: [Preact: Signals](https://preactjs.com/guide/v11/signals/)

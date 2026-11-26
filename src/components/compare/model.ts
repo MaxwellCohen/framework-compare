@@ -1,4 +1,5 @@
 import type { Feature, Framework, FrameworkId, Label } from "../../data/types.ts";
+import type { HostTableRow } from "../benchmark/HostTable.tsx";
 
 /** Bounds of the compare selection. */
 export const MIN_PICK = 2;
@@ -21,6 +22,15 @@ export type CompareFramework = Pick<
   Framework,
   "id" | "name" | "shortName" | "group" | "fcpScore" | "otherScore" | "total" | "completeness" | "rank"
 > & { tied: boolean; labels: string; hasPort: boolean };
+
+/** Latest benchmark medians for the book list page, per framework, build and host. */
+export interface CompareBench {
+  date: string;
+  dateText: string;
+  path: string;
+  runsPerTarget: number;
+  rows: Partial<Record<FrameworkId, HostTableRow[]>>;
+}
 
 export type CompareFeature = Pick<Feature, "id" | "number" | "name" | "shortName" | "group" | "summary">;
 

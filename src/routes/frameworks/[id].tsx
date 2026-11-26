@@ -20,11 +20,14 @@ import { LabelTally } from "../../components/feature/LabelTally.tsx";
 import { Deployments, ScorecardGroup, type ScorecardRow } from "../../components/framework/Scorecard.tsx";
 import { BuildTable, type BuildTableRow } from "../../components/benchmark/BuildTable.tsx";
 import { StatusKey } from "../../components/benchmark/parts.tsx";
-import { longDate } from "../../components/benchmark/format.ts";
+import { COLD_DOC_MS, longDate } from "../../components/benchmark/format.ts";
+import { HostTable, type HostTableRow } from "../../components/benchmark/HostTable.tsx";
+import { FieldTable, type FieldTableRow } from "../../components/benchmark/FieldTable.tsx";
 import {
   benchBranchRank,
   benchBuildName,
   benchBuildsFor,
+  benchHostRank,
   benchPathRank,
   benchmark,
   cells,
@@ -32,7 +35,9 @@ import {
   frameworks,
   frameworksByRank,
   getCell,
+  getCellTest,
   getFramework,
+  getTestRun,
   LABEL_TEXT,
   MAX_SCORE,
   MAX_TOTAL,
@@ -69,6 +74,7 @@ export async function loader({ params }: LoaderArgs) {
         exampleHtml: cell.exampleHtml,
         artDirection: cell.artDirection,
         gotchasHtml: cell.gotchasHtml,
+        test: getCellTest(fw.id, feature.id),
         comparison:
           (same === 1
             ? `${text}: the only framework of ${count} with this label. `
@@ -107,8 +113,44 @@ export async function loader({ params }: LoaderArgs) {
     lcp: b.lcp,
     tbt: b.tbt,
     cls: b.cls,
-    hosts: b.hosts,
+    si: b.si,
+    tti: b.tti ?? null,
+    doc: b.doc,
+    hosts: [...b.hosts].sort((x, y) => benchHostRank(x) - benchHostRank(y)),
   }));
+  // The same run before averaging: one row per build, page and host.
+  const targets = (run?.targets ?? [])
+    .filter((t) => t.frameworkId === fw.id)
+    .sort(
+      (a, b) =>
+        benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId) ||
+        benchPathRank(a.path) - benchPathRank(b.path) ||
+        benchHostRank(a.host) - benchHostRank(b.host),
+    );
+  const hostRows: HostTableRow[] = targets.map((t) => ({
+    key: `${t.branch}|${t.path}|${t.host}`,
+    build: benchBuildName(t.branch, t.frameworkId),
+    branch: t.branch,
+    path: t.path,
+    host: t.host,
+    url: t.url,
+    median: t.median,
+    runs: t.runs,
+    usedRuns: t.usedRuns,
+    coldSuspect: t.coldSuspect,
+    error: t.error,
+  }));
+  const fieldRows: FieldTableRow[] = targets
+    .filter((t) => t.field)
+    .map((t) => ({
+      key: `${t.branch}|${t.path}|${t.host}`,
+      build: benchBuildName(t.branch, t.frameworkId),
+      branch: t.branch,
+      path: t.path,
+      host: t.host,
+      url: t.url,
+      field: t.field!,
+    }));
   const bench =
     run && benchRows.length
       ? {
@@ -118,11 +160,28 @@ export async function loader({ params }: LoaderArgs) {
           hostCount: run.hosts.length,
           paths: [...new Set(benchRows.map((r) => r.path))].sort((a, b) => benchPathRank(a) - benchPathRank(b)),
           rows: benchRows,
+          hostRows,
+          fieldRows,
         }
       : null;
 
+  const testRun = getTestRun(fw.id);
+  const testRows = groups.flatMap((g) => g.rows).filter((r) => r.test && r.test.status !== "n/a");
+  const tests = testRun
+    ? {
+        url: testRun.testsUrl,
+        repo: testRun.repo,
+        shortCommit: testRun.resultsCommit.slice(0, 7),
+        date: testRun.testedAt.slice(0, 10),
+        tested: testRows.length,
+        passed: testRows.filter((r) => r.test!.status === "pass").length,
+        failed: testRows.filter((r) => r.test!.status === "fail").map((r) => r.feature.name),
+      }
+    : null;
+
   return {
     bench,
+    tests,
     framework: {
       id: fw.id,
       name: fw.name,
@@ -267,6 +326,29 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
                 does.
               </p>
             </div>
+            {data.tests && (
+              <div class="sm:col-span-2">
+                <p class="eyebrow mb-2">Tested in our port</p>
+                <p class="text-sm text-ink-2">
+                  The {fw.app} port passes{" "}
+                  <span class="num font-semibold text-ink">
+                    {data.tests.passed}/{data.tests.tested}
+                  </span>{" "}
+                  feature tests
+                  {data.tests.failed.length ? ` (failed: ${data.tests.failed.join(", ")})` : ""}. Run on{" "}
+                  <span class="num">{data.tests.date}</span> at{" "}
+                  <ExternalLink href={data.tests.url}>
+                    <span class="num">
+                      {data.tests.repo}@{data.tests.shortCommit}
+                    </span>
+                  </ExternalLink>
+                  .{" "}
+                  <NavLink to={{ route: "methodology", hash: "feature-tests" }} class="link">
+                    How we test labels
+                  </NavLink>
+                </p>
+              </div>
+            )}
           </div>
           <div class="grid gap-6">
             {groups.map((g) => (
@@ -344,26 +426,58 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             <>
               Mobile Lighthouse lab results from PageSpeed Insights on{" "}
               <time dateTime={data.bench.date}>{data.bench.dateText}</time>: the median of {data.bench.runsPerTarget}{" "}
-              {data.bench.runsPerTarget === 1 ? "run" : "runs"} per host, averaged across the hosts listed. One run from one
-              location; the numbers vary from run to run.
+              {data.bench.runsPerTarget === 1 ? "run" : "runs"} per host, averaged across the hosts listed. The{" "}
+              <NavLink to={{ route: "benchmark", hash: "metrics" }} class="link">
+                benchmark page
+              </NavLink>{" "}
+              explains each metric and has every other framework.
             </>
           }
           actions={
             <NavLink to={{ route: "benchmark" }} class="link">
-              All frameworks and caveats
+              All frameworks
             </NavLink>
           }
           class="scroll-mt-4 border-t border-rule"
         >
-          <div class="max-w-[56rem]">
-            <BuildTable
-              rows={data.bench.rows}
-              paths={data.bench.paths}
-              hostCount={data.bench.hostCount}
-              showFramework={false}
-              label={`${fw.name}: latest benchmark per build and page`}
-            />
-            <StatusKey class="mt-3" />
+          <div class="grid gap-8 [&>*]:min-w-0">
+            <div>
+              <BuildTable
+                rows={data.bench.rows}
+                paths={data.bench.paths}
+                hostCount={data.bench.hostCount}
+                showFramework={false}
+                label={`${fw.name}: latest benchmark per build and page`}
+              />
+              <StatusKey class="mt-3" />
+            </div>
+            <div>
+              <h3 id="benchmark-hosts" class="mb-1 font-semibold text-ink">
+                Per host
+              </h3>
+              <p class="mb-3 max-w-[44rem] text-sm text-ink-2">
+                The medians above before averaging. Runs is how many measured runs went into each median. Host names link to
+                the deployment.
+              </p>
+              <HostTable
+                groups={[{ key: fw.id, name: fw.name, rows: data.bench.hostRows }]}
+                coldMs={COLD_DOC_MS}
+                label={`${fw.name}: latest benchmark per build, page and host`}
+              />
+            </div>
+            {data.bench.fieldRows.length > 0 && (
+              <div>
+                <h3 id="benchmark-field" class="mb-1 font-semibold text-ink">
+                  Field data from real visits
+                </h3>
+                <p class="mb-3 max-w-[44rem] text-sm text-ink-2">
+                  Chrome UX Report data for the URLs with enough real Chrome traffic: the 75th percentile of visits over the
+                  last 28 days.
+                </p>
+                <FieldTable groups={[{ key: fw.id, name: fw.name, rows: data.bench.fieldRows }]} />
+                <StatusKey class="mt-3" metrics={["lcp", "inp", "cls", "fcp", "ttfb"]} />
+              </div>
+            )}
           </div>
         </Section>
       )}
