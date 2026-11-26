@@ -23,6 +23,8 @@ export interface BuildTableRow {
   path: string;
   perf: number | null;
   fcp: number | null;
+  /** Unthrottled FCP; null for runs that did not record it. */
+  fcpObs: number | null;
   lcp: number | null;
   tbt: number | null;
   cls: number | null;
@@ -33,7 +35,7 @@ export interface BuildTableRow {
   hosts: string[];
 }
 
-type LabMetric = Extract<BenchMetricKey, "perf" | "fcp" | "lcp" | "tbt" | "cls" | "si" | "tti" | "doc">;
+type LabMetric = Extract<BenchMetricKey, "perf" | "fcp" | "fcpObs" | "lcp" | "tbt" | "cls" | "si" | "tti" | "doc">;
 export type SortKey = "framework" | LabMetric | "hosts";
 export interface SortState {
   key: SortKey;
@@ -42,7 +44,8 @@ export interface SortState {
 
 const METRIC_COLS: { key: LabMetric; label: string; title: string }[] = [
   { key: "perf", label: "Perf", title: "Lighthouse Performance score, 0–100, higher is better" },
-  { key: "fcp", label: "FCP", title: "First Contentful Paint, seconds" },
+  { key: "fcp", label: "FCP", title: "First Contentful Paint, seconds (Lighthouse estimate for Slow 4G)" },
+  { key: "fcpObs", label: "Raw FCP", title: "First Contentful Paint in the real, unthrottled load the estimate was built from, seconds" },
   { key: "lcp", label: "LCP", title: "Largest Contentful Paint, seconds" },
   { key: "tbt", label: "TBT", title: "Total Blocking Time, milliseconds" },
   { key: "cls", label: "CLS", title: "Cumulative Layout Shift" },
@@ -54,7 +57,7 @@ const METRIC_COLS: { key: LabMetric; label: string; title: string }[] = [
 /** Column sets for the /benchmark toggle. Every set keeps the score. */
 export const COLUMN_SETS = {
   all: { label: "All", metrics: METRIC_COLS.map((c) => c.key) },
-  vitals: { label: "Paint and layout", metrics: ["perf", "fcp", "lcp", "cls"] },
+  vitals: { label: "Paint and layout", metrics: ["perf", "fcp", "fcpObs", "lcp", "cls"] },
   timing: { label: "Load and script", metrics: ["perf", "tbt", "si", "tti", "doc"] },
 } satisfies Record<string, { label: string; metrics: LabMetric[] }>;
 export type ColumnSet = keyof typeof COLUMN_SETS;
@@ -98,7 +101,10 @@ export function BuildTable({
   /** Makes the column headers sort buttons. */
   onSort?: (key: SortKey) => void;
 }) {
-  const metricCols = metrics ? METRIC_COLS.filter((c) => metrics.includes(c.key)) : METRIC_COLS;
+  // Raw FCP only exists for newer runs; leave the column out when no row has it.
+  const metricCols = (metrics ? METRIC_COLS.filter((c) => metrics.includes(c.key)) : METRIC_COLS).filter(
+    (c) => c.key !== "fcpObs" || rows.some((r) => r.fcpObs != null),
+  );
   const cols = 2 + metricCols.length; // path, metrics…, hosts (row header not counted)
   const ariaSort = (key: SortKey) =>
     sort?.key === key ? (sort.dir === "asc" ? "ascending" : "descending") : onSort ? "none" : undefined;

@@ -366,10 +366,14 @@ function extract(body) {
     return { bad: lh?.runtimeError?.message || lh?.runtimeError?.code || 'no performance score' };
   }
   const a = (id) => num(lh.audits?.[id]?.numericValue);
+  const obs = lh.audits?.metrics?.details?.items?.[0];
   const run = {
     perf: Math.round(score * 100), fcp: a('first-contentful-paint'), lcp: a('largest-contentful-paint'),
     tbt: a('total-blocking-time'), si: a('speed-index'), tti: a('interactive'), cls: a('cumulative-layout-shift'),
     doc: docMs(lh), fetchTime: lh.fetchTime ?? null,
+    // What the unthrottled page load actually did. PSI simulates throttling, so fcp/lcp above are
+    // estimates built from this trace; these are the times the browser really painted.
+    fcpObs: num(obs?.observedFirstContentfulPaint), lcpObs: num(obs?.observedLargestContentfulPaint),
   };
   let field = null;
   const m = body?.loadingExperience?.metrics;
@@ -445,7 +449,7 @@ function summarize(t) {
   t.coldSuspect = nonCold.length === 0;
   const use = nonCold.length ? nonCold : t.runs;
   t.median = {};
-  for (const k of ['perf', 'fcp', 'lcp', 'tbt', 'si', 'tti', 'cls', 'doc']) t.median[k] = median(use.map((r) => r[k]));
+  for (const k of ['perf', 'fcp', 'lcp', 'tbt', 'si', 'tti', 'cls', 'doc', 'fcpObs', 'lcpObs']) t.median[k] = median(use.map((r) => r[k]));
   t.field = [...t.runs].reverse().find((r) => r.field)?.field ?? null;
 }
 
@@ -531,10 +535,10 @@ function writeOutputs(dir, args, meta, targets, final = false) {
     mdTable(['Framework', 'Build', 'Path', 'Avg Perf', 'Avg FCP (s)', 'Avg LCP (s)', 'Avg CLS', 'Avg TBT (ms)'], aggregate(targets, args)), '',
   ].join('\n');
   fs.writeFileSync(path.join(dir, 'summary.md'), md);
-  const csvHead = ['app', 'framework', 'branch', 'host', 'path', 'strategy', 'perf', 'fcp_ms', 'lcp_ms', 'cls', 'tbt_ms', 'si_ms', 'tti_ms', 'doc_ms', 'cwv', 'warm', 'runs', 'error'];
+  const csvHead = ['app', 'framework', 'branch', 'host', 'path', 'strategy', 'perf', 'fcp_ms', 'lcp_ms', 'cls', 'tbt_ms', 'si_ms', 'tti_ms', 'doc_ms', 'fcp_observed_ms', 'lcp_observed_ms', 'cwv', 'warm', 'runs', 'error'];
   const csv = sorted.map((t) => {
     const m = t.median ?? {};
-    return [t.app, t.framework, t.branch, t.host, t.path, t.strategy, m.perf, m.fcp, m.lcp, m.cls, m.tbt, m.si, m.tti, m.doc,
+    return [t.app, t.framework, t.branch, t.host, t.path, t.strategy, m.perf, m.fcp, m.lcp, m.cls, m.tbt, m.si, m.tti, m.doc, m.fcpObs, m.lcpObs,
       t.median ? cwv(m) : '', t.warm?.ok ? 'yes' : 'no', t.runs.length, t.error ?? ''].map((v) => csvCell(v ?? '')).join(',');
   });
   fs.writeFileSync(path.join(dir, 'summary.csv'), [csvHead.join(','), ...csv].join('\n') + '\n');

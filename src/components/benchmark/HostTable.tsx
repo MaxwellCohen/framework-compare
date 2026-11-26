@@ -32,10 +32,11 @@ export interface HostTableGroup {
 }
 
 const SERIES: Record<string, 1 | 2 | 3 | undefined> = { vercel: 1, netlify: 2, cloudflare: 3 };
-const METRICS = ["perf", "fcp", "lcp", "tbt", "cls", "si", "tti", "doc"] as const;
+const METRICS = ["perf", "fcp", "fcpObs", "lcp", "tbt", "cls", "si", "tti", "doc"] as const;
 const HEADS: Record<(typeof METRICS)[number], [string, string]> = {
   perf: ["Perf", "Lighthouse Performance score, 0–100"],
-  fcp: ["FCP", "First Contentful Paint, seconds"],
+  fcp: ["FCP", "First Contentful Paint, seconds (Lighthouse estimate for Slow 4G)"],
+  fcpObs: ["Raw FCP", "First Contentful Paint in the real, unthrottled load the estimate was built from, seconds"],
   lcp: ["LCP", "Largest Contentful Paint, seconds"],
   tbt: ["TBT", "Total Blocking Time, milliseconds"],
   cls: ["CLS", "Cumulative Layout Shift"],
@@ -88,13 +89,15 @@ export function HostTable({
   showPath?: boolean;
   label?: string;
 }) {
-  const span = (showPath ? 2 : 1) + METRICS.length + (status ? 2 : 0);
+  // Raw FCP only exists for newer runs; leave the column out when no row has it.
+  const metrics = METRICS.filter((m) => m !== "fcpObs" || groups.some((g) => g.rows.some((r) => r.median?.fcpObs != null)));
+  const span = (showPath ? 2 : 1) + metrics.length + (status ? 2 : 0);
   return (
     <Matrix label={label}>
       <MatrixHead corner="Build">
         {showPath && <MatrixColHeader>Path</MatrixColHeader>}
         <MatrixColHeader>Host</MatrixColHeader>
-        {METRICS.map((m) => (
+        {metrics.map((m) => (
           <MatrixColHeader key={m} title={HEADS[m][1]}>
             <span class="ml-auto">{HEADS[m][0]}</span>
           </MatrixColHeader>
@@ -127,7 +130,7 @@ export function HostTable({
                   </ExternalLink>
                 </span>
               </td>
-              {METRICS.map((m) => (
+              {metrics.map((m) => (
                 <td key={m} class="mx-cell !text-right">
                   <MetricValue metric={m} value={r.median?.[m]} unit={false} />
                 </td>

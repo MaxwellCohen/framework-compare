@@ -66,6 +66,9 @@ const out = {
               tti: round(m.tti),
               cls: round(m.cls, 3),
               doc: round(m.doc),
+              // Unthrottled paint times from the same trace; absent in runs before 2026-11-26.
+              ...(m.fcpObs != null ? { fcpObs: round(m.fcpObs) } : {}),
+              ...(m.lcpObs != null ? { lcpObs: round(m.lcpObs) } : {}),
             }
           : null,
         // CrUX p75 for this URL, only when PSI had page-level field data (no origin fallback).

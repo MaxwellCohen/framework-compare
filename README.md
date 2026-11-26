@@ -54,6 +54,12 @@ markdown sources.
 from the Actions tab, and commits the results, which redeploys the site. It
 needs a `PSI_API_KEY` repository secret.
 
+## Adding a framework
+
+See [ADDING-A-FRAMEWORK.md](ADDING-A-FRAMEWORK.md) for the full checklist:
+scoring it in the comparison doc, building and deploying the Books port, registering
+it here and benchmarking it.
+
 ## Files for agents and crawlers
 
 `scripts/build-agent-files.mjs` runs before `pracht build` and writes these into

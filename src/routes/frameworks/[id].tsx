@@ -12,8 +12,6 @@ import {
   RankBadge,
   ScoreBar,
   Section,
-  Stat,
-  StatGroup,
   Tag,
 } from "../../components/index.ts";
 import { LabelTally } from "../../components/feature/LabelTally.tsx";
@@ -111,6 +109,7 @@ export async function loader({ params }: LoaderArgs) {
     path: b.path,
     perf: b.perf,
     fcp: b.fcp,
+    fcpObs: b.fcpObs ?? null,
     lcp: b.lcp,
     tbt: b.tbt,
     cls: b.cls,
@@ -267,16 +266,12 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
                 </>
               )}
             </span>
+            <span class="num text-sm text-ink-2">
+              {fw.total}/{max.total} points: {fw.fcpScore}/{max.fcp} first-paint, {fw.otherScore}/{max.other} other ·{" "}
+              {fw.completeness}% complete
+            </span>
             <ScoreBar fcp={fw.fcpScore} other={fw.otherScore} fcpMax={max.fcp} otherMax={max.other} />
           </>
-        }
-        aside={
-          <StatGroup cols={4} class="lg:w-[30rem]">
-            <Stat label="Total" value={fw.total} unit={`/${max.total}`} />
-            <Stat label="Completeness" value={fw.completeness} unit="%" />
-            <Stat label="First-paint" value={fw.fcpScore} unit={`/${max.fcp}`} />
-            <Stat label="Other" value={fw.otherScore} unit={`/${max.other}`} />
-          </StatGroup>
         }
       />
 

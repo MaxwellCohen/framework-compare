@@ -68,9 +68,26 @@ function bandLabel(v: number, bands: Band[]): string {
   return `between ${bands[i - 1].name} and ${bands[i].name}`;
 }
 
+/** Band position for sorting: the band's index, or halfway between two bands for a value in a gap. */
+function bandRank(v: number, bands: Band[]): number {
+  const b = bandOf(v, bands);
+  if (b) return bands.indexOf(b);
+  return bands.findIndex((b) => b.min > Math.round(v * 10) / 10) - 0.5;
+}
+
+/**
+ * Rows sort by band, not by value: inside a band the differences are noise in the
+ * Lighthouse estimate, so a port listed first within a band isn't faster.
+ */
 function pairGroups(pairs: Pair[], fw: Map<FrameworkId, Fw>, bands: Band[]): LaneGroup[] {
+  const name = (id: FrameworkId) => fw.get(id)?.name ?? id;
   return [...pairs]
-    .sort((a, b) => b.naive - a.naive || b.optimized - a.optimized)
+    .sort(
+      (a, b) =>
+        bandRank(b.naive, bands) - bandRank(a.naive, bands) ||
+        bandRank(b.optimized, bands) - bandRank(a.optimized, bands) ||
+        name(a.frameworkId).localeCompare(name(b.frameworkId)),
+    )
     .map((p) => {
       const from = bandLabel(p.naive, bands);
       const to = bandLabel(p.optimized, bands);
@@ -213,7 +230,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             caption={
               <>
                 Home-page FCP in seconds, mobile Lighthouse through PageSpeed Insights. Each figure is the median across{" "}
-                {data.hosts.length} hosts of each host’s median run. Rows are sorted by the naive build, slowest first. Per-host
+                {data.hosts.length} hosts of each host’s median run. Rows are sorted by band, slowest naive band first, then by
+                name. Inside a band the order says nothing about speed. Per-host
                 numbers and the other metrics are on <NavLink to={{ route: "benchmark" }} class="link">Benchmark</NavLink>.
               </>
             }
@@ -329,6 +347,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Section id="caveats" title="Caveats" width="prose" class={`border-t border-rule ${ANCHOR}`}>
         <Callout kind="caveat" title="Limits of these measurements">
           <ul class="grid gap-2">
+            <li dangerouslySetInnerHTML={{ __html: data.story.tieHtml }} />
             <li>
               <strong>Lab data only.</strong> These are mobile Lighthouse results on a cold, throttled first load. Real users
               with warm caches, faster connections or repeat visits see different numbers.

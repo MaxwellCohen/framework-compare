@@ -35,6 +35,13 @@ const LAB: Entry[] = [
     source: { href: `${WEB_DEV}fcp`, name: "web.dev: FCP" },
   },
   {
+    key: "fcpObs",
+    short: "Raw FCP",
+    text: "PageSpeed Insights loads the page at full speed, then estimates what FCP would be on Slow 4G. Raw FCP is when that real load first painted. Use it to check the estimate: when two builds' FCP differ by a few tenths but Raw FCP doesn't, the gap comes from the estimate.",
+    good: "no set threshold",
+    source: { href: "https://github.com/GoogleChrome/lighthouse/blob/main/docs/throttling.md", name: "Lighthouse: throttling" },
+  },
+  {
     key: "lcp",
     short: "LCP",
     cwv: true,

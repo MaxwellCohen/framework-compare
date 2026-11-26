@@ -27,6 +27,7 @@ const capability = read("src/data/generated/capability.json");
 const measured = read("src/data/generated/measured.json");
 const benchmark = read("src/data/generated/benchmark.json");
 const story = read("content/fcp-story.json");
+const changes = read("content/optimizations.json");
 
 const ORIGIN = (process.env.SITE_URL || site.url).replace(/\/+$/, "");
 const abs = (path) => ORIGIN + path;
@@ -262,8 +263,9 @@ const run = benchmark.latest;
 
 /** `first` picks the leading column: the framework name, or the page measured. */
 function benchTable(builds, first = "framework") {
+  const raw = builds.some((b) => b.fcpObs != null);
   return tableMd(
-    [first === "page" ? "Page" : "Framework", "Build", "Branch", "Hosts", "Performance", "FCP", "LCP", "TBT", "CLS"],
+    [first === "page" ? "Page" : "Framework", "Build", "Branch", "Hosts", "Performance", "FCP", ...(raw ? ["Raw FCP"] : []), "LCP", "TBT", "CLS"],
     builds.map((b) => [
       first === "page" ? pathName(b.path) : (fwById.get(b.frameworkId)?.name ?? b.frameworkId),
       buildName(b),
@@ -271,6 +273,7 @@ function benchTable(builds, first = "framework") {
       b.hosts.join(", "),
       n(b.perf),
       seconds(b.fcp),
+      ...(raw ? [seconds(b.fcpObs)] : []),
       seconds(b.lcp),
       b.tbt == null ? "n/a" : `${n(b.tbt)} ms`,
       n(b.cls, 3),
@@ -285,13 +288,41 @@ const benchSorted = (path) =>
 
 const benchMethod = () =>
   run
-    ? `Tool: ${run.tool}, ${run.strategy} strategy. ${run.runsPerTarget} measured runs per deployment, median reported; cold runs are left out of the median when a warm run exists. Each build's figure is the average of its hosts' medians (${run.hosts.join(", ")}). Pages measured: ${run.paths.map(pathName).join(" and ")}. Times are lab values from one run on ${run.date}.`
+    ? `Tool: ${run.tool}, ${run.strategy} strategy. ${run.runsPerTarget} measured runs per deployment, median reported; cold runs are left out of the median when a warm run exists. Each build's figure is the average of its hosts' medians (${run.hosts.join(", ")}). Pages measured: ${run.paths.map(pathName).join(" and ")}. Times are lab values from one run on ${run.date}. FCP is the Lighthouse estimate for simulated Slow 4G; Raw FCP, where shown, is the first paint in the real, unthrottled load that estimate is built from. Builds in the same FCP band (${abs("/measured.md")}) are a tie, so read "fastest first" as band order.`
     : "No benchmark run has been published yet.";
+
+/** Book list, per framework: baseline build → the optimized build with the lowest LCP. Same as the lead chart on /benchmark. */
+function gainsTable() {
+  const home = run.builds.filter((b) => b.path === "/");
+  const rows = [...new Set(home.map((b) => b.frameworkId))]
+    .map((id) => {
+      const bs = home.filter((b) => b.frameworkId === id);
+      const base = bs.find((b) => buildName(b) === "baseline");
+      const opt = bs.filter((b) => b !== base && b.lcp != null).sort((a, b) => a.lcp - b.lcp || branchRank(a) - branchRank(b))[0];
+      return { id, base, opt };
+    })
+    .filter((r) => r.opt)
+    .sort((a, b) => a.opt.lcp - b.opt.lcp || fwById.get(a.id).order - fwById.get(b.id).order);
+  const pair = (k, r) => `${seconds(r.base?.[k])} → ${seconds(r.opt[k])}`;
+  return tableMd(
+    ["Framework", "Optimized build", "FCP, default → optimized", "LCP, default → optimized", "What the optimized build changes (framework features in bold)"],
+    rows.map((r) => [
+      fwById.get(r.id)?.name ?? r.id,
+      buildName(r.opt),
+      pair("fcp", r),
+      pair("lcp", r),
+      (changes[r.id] ?? []).map((c) => (c.framework ? `**${c.label}**` : c.label)).join(", ") || "n/a",
+    ]),
+  );
+}
 
 function benchmarkBody(level = "##") {
   if (!run) return benchMethod();
   return [
     benchMethod(),
+    `${level} What each framework's optimizations buy, ${pathName("/")}`,
+    "Each framework's build on default settings next to its optimized build. Changes in bold use an API or package the framework ships; the rest are hand-written or come from general libraries. Sorted by optimized LCP, fastest first.",
+    gainsTable(),
     ...run.paths.flatMap((p) => [`${level} Medians, ${pathName(p)}, fastest FCP first`, benchTable(benchSorted(p))]),
   ].join("\n\n");
 }
@@ -470,6 +501,12 @@ const bandLabel = (v) => {
   const i = measured.bands.findIndex((b) => b.min > Math.round(v * 10) / 10);
   return `between ${measured.bands[i - 1].name} and ${measured.bands[i].name}`;
 };
+const fwName = (id) => frameworks.find((f) => f.id === id)?.name ?? id;
+/** Sort key: band index, or halfway between two bands for a value in a gap. Same as bandRank() in src/routes/measured.tsx. */
+const bandRank = (v) => {
+  const b = bandOf(v);
+  return b ? measured.bands.indexOf(b) : measured.bands.findIndex((x) => x.min > Math.round(v * 10) / 10) - 0.5;
+};
 const medianOf = (vs) => {
   const s = [...vs].sort((a, b) => a - b);
   return s.length ? (s.length % 2 ? s[s.length >> 1] : (s[s.length / 2 - 1] + s[s.length / 2]) / 2) : null;
@@ -483,14 +520,13 @@ const fcpPairs = run
         return { frameworkId: id, naive: of("baseline"), optimized: of("optimized") };
       })
       .filter((p) => p.naive != null && p.optimized != null)
-      .sort((a, b) => b.naive - a.naive || b.optimized - a.optimized)
+      .sort((a, b) => bandRank(b.naive) - bandRank(a.naive) || bandRank(b.optimized) - bandRank(a.optimized) || fwName(a.frameworkId).localeCompare(fwName(b.frameworkId)))
   : [];
 /** Earlier single-run averages, naive vs optimized, for the ports measured with the full Google Fonts waterfall. */
 const earlierPairs = measured.averages
   .filter((a) => a.build === "baseline")
   .map((a) => ({ frameworkId: a.frameworkId, naive: a.fcp, optimized: measured.averages.find((o) => o.frameworkId === a.frameworkId && o.build === "optimized")?.fcp ?? null }))
   .filter((p) => p.optimized != null);
-const fwName = (id) => frameworks.find((f) => f.id === id)?.name ?? id;
 const pairTable = (pairs, digits) =>
   tableMd(
     ["Port", "Naive FCP", "Optimized FCP", "Band"],
@@ -507,7 +543,7 @@ write(
     `The same Books app in ${fcpPairs.length} frameworks, built twice each: once with the framework's default settings (naive) and once optimized. Mobile Lighthouse, simulated Slow 4G, 4× CPU throttle.`,
     fcpSummary(),
     "## Every port, naive vs optimized",
-    `Home-page FCP. Each figure is the median across ${run?.hosts.length ?? 0} hosts (${run?.hosts.join(", ") ?? ""}) of each host's median PageSpeed Insights run. Per-host numbers: ${abs("/benchmark.md")}`,
+    `Home-page FCP. Each figure is the median across ${run?.hosts.length ?? 0} hosts (${run?.hosts.join(", ") ?? ""}) of each host's median PageSpeed Insights run. Rows are sorted by band, slowest naive band first, then by name; inside a band the order says nothing about speed. Per-host numbers: ${abs("/benchmark.md")}`,
     pairTable(fcpPairs, 2),
     "## What each band waits on",
     ...measured.bands.flatMap((b) => [`### ${b.name} (${b.min}–${b.max} s): ${b.anatomyTitle}`, md(story.bands[b.id] ?? b.anatomyHtml)]),
@@ -523,6 +559,7 @@ write(
     md(measured.oneSentenceHtml),
     "## Limits of these measurements",
     [
+      `- ${md(story.tieHtml)}`,
       "- **Lab data only.** Mobile Lighthouse results on a cold, throttled first load. Real users with warm caches, faster connections or repeat visits see different numbers.",
       "- **First load only.** Prefetching, navigating on pointer-down and keeping data in memory make an app feel faster after the first page, and FCP doesn't capture any of them.",
       "- **One host can sit a band higher.** A cold cache or a cold worker adds a step on that host alone. The medians smooth that out; the benchmark page shows each host.",
@@ -616,14 +653,16 @@ write("api/benchmark.json", {
   },
   units: {
     perf: "Lighthouse Performance score, 0-100",
-    fcp: "First Contentful Paint, ms",
+    fcp: "First Contentful Paint, ms. Lighthouse's estimate for simulated Slow 4G",
+    fcpObs: "First Contentful Paint in the real, unthrottled load the estimate is built from, ms",
     lcp: "Largest Contentful Paint, ms",
+    lcpObs: "Largest Contentful Paint in the real, unthrottled load, ms",
     tbt: "Total Blocking Time, ms",
     si: "Speed Index, ms",
     cls: "Cumulative Layout Shift, unitless",
     doc: "Document request time, ms",
   },
-  builds: run ? run.builds.map((b) => ({ frameworkId: b.frameworkId, branch: b.branch, build: buildName(b), path: b.path, hosts: b.hosts, perf: b.perf, fcp: b.fcp, lcp: b.lcp, tbt: b.tbt, si: b.si, cls: b.cls, doc: b.doc })) : [],
+  builds: run ? run.builds.map((b) => ({ frameworkId: b.frameworkId, branch: b.branch, build: buildName(b), path: b.path, hosts: b.hosts, perf: b.perf, fcp: b.fcp, fcpObs: b.fcpObs ?? null, lcp: b.lcp, lcpObs: b.lcpObs ?? null, tbt: b.tbt, si: b.si, cls: b.cls, doc: b.doc })) : [],
   targets: run ? run.targets.map((t) => ({ frameworkId: t.frameworkId, app: t.app, branch: t.branch, build: buildName(t), host: t.host, path: t.path, url: t.url, median: t.median, runs: t.runs, usedRuns: t.usedRuns, coldSuspect: t.coldSuspect, error: t.error })) : [],
   history: benchmark.history.map((h) => ({ date: h.date, targets: h.targets, withData: h.withData })),
 });
@@ -719,8 +758,8 @@ write("api/index.json", {
       schema: {
         run: "{ date, startedAt, finishedAt, tool, strategy, runsPerTarget, aborted, paths[], hosts[] } | null when no run is published",
         units: "object. Unit of each metric key.",
-        "builds[]": "{ frameworkId, branch, build, path, hosts[], perf, fcp, lcp, tbt, si, cls, doc }: the average of the hosts' medians. Any metric can be null.",
-        "targets[]": "{ frameworkId, app, branch, build, host, path, url, median: { perf, fcp, lcp, tbt, si, cls, doc } | null, runs, usedRuns, coldSuspect, error }: one deployment and page",
+        "builds[]": "{ frameworkId, branch, build, path, hosts[], perf, fcp, fcpObs, lcp, lcpObs, tbt, si, cls, doc }: the average of the hosts' medians. Any metric can be null.",
+        "targets[]": "{ frameworkId, app, branch, build, host, path, url, median: { perf, fcp, fcpObs?, lcp, lcpObs?, tbt, si, cls, doc } | null, runs, usedRuns, coldSuspect, error }: one deployment and page",
         "history[]": "{ date, targets, withData }: every run, oldest first",
       },
     },
