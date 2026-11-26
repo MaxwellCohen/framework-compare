@@ -41,12 +41,15 @@ export type FeatureId =
   | "image-pipeline"
   | "caching"
   | "route-prefetching"
+  | "streaming-ssr"
+  | "early-hints"
   | "islands"
   | "render-modes"
   | "reactivity"
   | "bundle-analysis"
   | "third-party-scripts"
-  | "multi-host-deployment";
+  | "multi-host-deployment"
+  | "service-worker";
 
 /**
  * The source uses three emoji tiers but four words:
@@ -55,7 +58,7 @@ export type FeatureId =
 export type Label = "first-party" | "experimental" | "third-party" | "manual";
 export type Points = 0 | 1 | 2;
 
-/** "fcp" = the five critical-path levers (max 10); "other" = six more (max 12). */
+/** "fcp" = the critical-path levers; "other" = the rest. 2 points per feature; see MAX_SCORE in index.ts. */
 export type FeatureGroup = "fcp" | "other";
 
 /** "core" = the nine frameworks with full how-to sections; "additional" = the ones scored from bullets. */
@@ -135,7 +138,7 @@ export interface ArtDirection {
   exampleHtml: string | null;
 }
 
-/** One framework × feature cell. One per framework per feature. */
+/** One framework × feature cell. There is one per framework per feature. */
 export interface Cell {
   frameworkId: FrameworkId;
   featureId: FeatureId;

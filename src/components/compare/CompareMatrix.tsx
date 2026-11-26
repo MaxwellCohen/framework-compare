@@ -18,10 +18,13 @@ export function featureHref(id: FeatureId, frameworkId?: FrameworkId) {
   return href("feature", { params: { id } }) + (frameworkId ? `#${frameworkId}` : "");
 }
 
-const GROUPS: { id: FeatureGroup; title: string; max: string }[] = [
-  { id: "fcp", title: "First-paint levers", max: "2 pts each · max 10" },
-  { id: "other", title: "Other features", max: "2 pts each · max 12" },
+const GROUPS: { id: FeatureGroup; title: string }[] = [
+  { id: "fcp", title: "First-paint levers" },
+  { id: "other", title: "Other features" },
 ];
+
+/** 2 points per row, so a group of seven rows has a max of 14. */
+const groupMax = (rows: { group: FeatureGroup }[], group: FeatureGroup) => 2 * rows.filter((f) => f.group === group).length;
 
 /**
  * The capability matrix narrowed to the picked frameworks. Same markup and
@@ -73,7 +76,7 @@ export function CompareMatrix({
       <tbody>
         {GROUPS.map((group) => (
           <>
-            <MatrixGroupRow span={frameworks.length} aside={group.max}>
+            <MatrixGroupRow span={frameworks.length} aside={`2 pts each · max ${groupMax(features, group.id)}`}>
               {group.title}
             </MatrixGroupRow>
             {indexed
@@ -104,9 +107,9 @@ export function CompareMatrix({
         ))}
       </tbody>
       <tfoot>
-        {footRow("First paint", 10, (f) => f.fcpScore)}
-        {footRow("Other", 12, (f) => f.otherScore)}
-        {footRow("Total", 22, (f) => f.total, true)}
+        {footRow("First paint", groupMax(features, "fcp"), (f) => f.fcpScore)}
+        {footRow("Other", groupMax(features, "other"), (f) => f.otherScore)}
+        {footRow("Total", 2 * features.length, (f) => f.total, true)}
       </tfoot>
     </Matrix>
   );

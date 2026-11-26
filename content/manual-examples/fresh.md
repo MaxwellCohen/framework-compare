@@ -310,3 +310,59 @@ export default defineConfig({
 ```
 
 Source: [Fresh: Vite](https://usefresh.dev/docs/advanced/vite)
+
+## service-worker
+
+Put a hand-written worker in `static/` and register it with an inline script in the app wrapper.
+
+```js
+// static/sw.js
+const CACHE = 'books-v1'; // change the name on each deploy
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))),
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET' || new URL(request.url).origin !== location.origin) return;
+  // Network first, so pages stay current. The cached copy answers when offline.
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE).then((cache) => cache.put(request, copy));
+        return response;
+      })
+      .catch(() => caches.match(request)),
+  );
+});
+```
+
+```tsx
+// routes/_app.tsx
+const swScript = `if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('/sw.js')});`;
+// … in <head>
+        <script dangerouslySetInnerHTML={{ __html: swScript }} />
+```
+
+Source: [Using Service Workers (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers) · [Fresh static files](https://usefresh.dev/docs/concepts/static-files)
+
+## early-hints
+
+Set a `Link` header on HTML responses in an app middleware. This one preconnects to the font host. To preload a built file with a hashed name, read its URL from the Vite manifest.
+
+```ts
+// main.ts
+const LINK = '<https://fonts.gstatic.com>; rel=preconnect; crossorigin';
+
+app.use(async (ctx) => {
+  const res = await ctx.next();
+  if (res.headers.get('content-type')?.includes('text/html')) res.headers.append('Link', LINK);
+  return res;
+});
+```
+
+Source: [Fresh middleware](https://usefresh.dev/docs/concepts/middleware)

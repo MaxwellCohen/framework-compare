@@ -279,3 +279,24 @@ export default defineConfig({
 ```
 
 Source: [Astro: @astrojs/node](https://docs.astro.build/en/guides/integrations-guide/node/)
+
+## early-hints
+
+Set a `Link` header on HTML responses in the middleware. This one preconnects to the font host. To preload a built file with a hashed name, read its URL from the Vite manifest.
+
+```ts
+// src/middleware.ts
+import { defineMiddleware } from 'astro:middleware'
+
+const LINK = '<https://fonts.gstatic.com>; rel=preconnect; crossorigin'
+
+export const onRequest = defineMiddleware(async (_context, next) => {
+  const response = await next()
+  if (!response.headers.get('content-type')?.includes('text/html')) return response
+  const headers = new Headers(response.headers)
+  headers.set('Link', LINK)
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers })
+})
+```
+
+Source: [Astro middleware](https://docs.astro.build/en/guides/middleware/)

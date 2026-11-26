@@ -130,7 +130,7 @@ export default function CompareView({ frameworks, features, initial, bench }: Co
                   {on ? "✓" : "+"}
                 </span>
                 <span class="font-semibold">{fw.name}</span>
-                <span class={`num text-xs ${on ? "" : "text-ink-3"}`}>{fw.total}/22</span>
+                <span class={`num text-xs ${on ? "" : "text-ink-3"}`}>{fw.total}/{fcpMax + otherMax}</span>
               </button>
             );
           })}
@@ -169,17 +169,17 @@ export default function CompareView({ frameworks, features, initial, bench }: Co
               }
               aside={<RankBadge rank={fw.rank} tied={fw.tied} size="sm" />}
             >
-              <ScoreBar fcp={fw.fcpScore} other={fw.otherScore} size="sm" />
+              <ScoreBar fcp={fw.fcpScore} other={fw.otherScore} fcpMax={fcpMax} otherMax={otherMax} size="sm" />
               <dl class="mt-3 grid grid-cols-[1fr_auto] gap-x-4 gap-y-1 text-sm">
                 <dt class="text-ink-2">First-paint levers</dt>
                 <dd class="num text-right">
                   {fw.fcpScore}
-                  <span class="text-ink-3">/10</span>
+                  <span class="text-ink-3">/{fcpMax}</span>
                 </dd>
                 <dt class="text-ink-2">Other features</dt>
                 <dd class="num text-right">
                   {fw.otherScore}
-                  <span class="text-ink-3">/12</span>
+                  <span class="text-ink-3">/{otherMax}</span>
                 </dd>
                 <dt class="text-ink-2">Completeness</dt>
                 <dd class="num text-right">{fw.completeness}%</dd>

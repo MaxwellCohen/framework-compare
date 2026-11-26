@@ -273,3 +273,18 @@ export default extendConfig(baseConfig, () => ({
 ```
 
 Source: [Qwik: Node middleware deployment](https://qwik.dev/docs/deployments/node/)
+
+## early-hints
+
+Set a `Link` header in the root layout's `onGet` handler. This one preconnects to the font host. To preload a built file with a hashed name, read its URL from the Vite manifest.
+
+```tsx
+// src/routes/layout.tsx
+import type { RequestHandler } from '@builder.io/qwik-city'
+
+export const onGet: RequestHandler = async ({ headers }) => {
+  headers.set('Link', '<https://fonts.gstatic.com>; rel=preconnect; crossorigin')
+}
+```
+
+Source: [Qwik City: caching and response headers](https://qwik.dev/docs/caching/)

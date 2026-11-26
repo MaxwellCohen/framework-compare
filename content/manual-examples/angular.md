@@ -320,3 +320,22 @@ ng build --stats-json
 ```
 
 Source: [Angular CLI: ng build](https://angular.dev/cli/build)
+
+## early-hints
+
+Add a `Link` header to the server route's `headers`. This one preconnects to the font host. To preload a built file with a hashed name, read its URL from the Vite manifest.
+
+```ts
+// src/app/app.routes.server.ts
+import { RenderMode, ServerRoute } from '@angular/ssr';
+
+export const serverRoutes: ServerRoute[] = [
+  {
+    path: '**',
+    renderMode: RenderMode.Server,
+    headers: { Link: '<https://fonts.gstatic.com>; rel=preconnect; crossorigin' },
+  },
+];
+```
+
+Source: [Angular SSR: setting headers and status codes](https://angular.dev/guide/ssr)

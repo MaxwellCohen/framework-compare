@@ -1,5 +1,5 @@
 import type { ComponentChildren } from "preact";
-import type { Framework, RankingRow } from "../../data/types.ts";
+import type { FeatureGroup, Framework, RankingRow } from "../../data/types.ts";
 import { FrameworkName } from "../Chips.tsx";
 import { Matrix, MatrixCell, MatrixColHeader, MatrixHead, MatrixRow, MatrixRowHeader } from "../Matrix.tsx";
 import { Prose } from "../Prose.tsx";
@@ -68,7 +68,15 @@ export function DocSection({
 type FwRef = Pick<Framework, "id" | "name" | "shortName">;
 
 /** The completeness ranking: rank, framework, the two sub-scores, total, completeness. */
-export function RankingTable({ rows }: { rows: (RankingRow & { framework: FwRef; tied: boolean })[] }) {
+export function RankingTable({
+  rows,
+  max,
+}: {
+  rows: (RankingRow & { framework: FwRef; tied: boolean })[];
+  /** Points available per group: 2 per feature. */
+  max: Record<FeatureGroup, number>;
+}) {
+  const maxTotal = max.fcp + max.other;
   const frac = (value: number, max: number, strong = false) => (
     <span class={`num whitespace-nowrap ${strong ? "font-semibold text-ink" : ""}`}>
       {value}
@@ -78,10 +86,10 @@ export function RankingTable({ rows }: { rows: (RankingRow & { framework: FwRef;
   return (
     <Matrix label={`Completeness ranking of all ${rows.length} frameworks`}>
       <MatrixHead corner="Rank and framework">
-        <MatrixColHeader title="Points from the five FCP levers, out of 10">FCP levers</MatrixColHeader>
-        <MatrixColHeader title="Points from the six other features, out of 12">Other features</MatrixColHeader>
-        <MatrixColHeader title="Sum of the two scores, out of 22">Total</MatrixColHeader>
-        <MatrixColHeader title="Total divided by 22, rounded to a whole percent">Completeness</MatrixColHeader>
+        <MatrixColHeader title={`Points from the ${max.fcp / 2} FCP levers, out of ${max.fcp}`}>FCP levers</MatrixColHeader>
+        <MatrixColHeader title={`Points from the ${max.other / 2} other features, out of ${max.other}`}>Other features</MatrixColHeader>
+        <MatrixColHeader title={`Sum of the two scores, out of ${maxTotal}`}>Total</MatrixColHeader>
+        <MatrixColHeader title={`Total divided by ${maxTotal}, rounded to a whole percent`}>Completeness</MatrixColHeader>
       </MatrixHead>
       <tbody>
         {rows.map((r) => (
@@ -90,9 +98,9 @@ export function RankingTable({ rows }: { rows: (RankingRow & { framework: FwRef;
               <RankBadge rank={r.rank} tied={r.tied} size="sm" />
               <span class="font-semibold underline decoration-rule-strong underline-offset-2">{r.framework.name}</span>
             </MatrixRowHeader>
-            <MatrixCell>{frac(r.fcpScore, 10)}</MatrixCell>
-            <MatrixCell>{frac(r.otherScore, 12)}</MatrixCell>
-            <MatrixCell>{frac(r.total, 22, true)}</MatrixCell>
+            <MatrixCell>{frac(r.fcpScore, max.fcp)}</MatrixCell>
+            <MatrixCell>{frac(r.otherScore, max.other)}</MatrixCell>
+            <MatrixCell>{frac(r.total, maxTotal, true)}</MatrixCell>
             <MatrixCell>
               <span class="num">{r.completeness}%</span>
             </MatrixCell>
