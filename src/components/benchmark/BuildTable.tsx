@@ -1,4 +1,4 @@
-import { hostName, pathName } from "./format.ts";
+import { hostName, pathName, type BenchMetricKey } from "./format.ts";
 import { MetricValue } from "./parts.tsx";
 
 /* --------------------------------------------------------------------------
@@ -26,23 +26,38 @@ export interface BuildTableRow {
   lcp: number | null;
   tbt: number | null;
   cls: number | null;
+  si: number | null;
+  tti: number | null;
+  doc: number | null;
   /** Hosts that went into the average. */
   hosts: string[];
 }
 
-export type SortKey = "framework" | "perf" | "fcp" | "lcp" | "tbt" | "cls" | "hosts";
+type LabMetric = Extract<BenchMetricKey, "perf" | "fcp" | "lcp" | "tbt" | "cls" | "si" | "tti" | "doc">;
+export type SortKey = "framework" | LabMetric | "hosts";
 export interface SortState {
   key: SortKey;
   dir: "asc" | "desc";
 }
 
-const METRIC_COLS: { key: "perf" | "fcp" | "lcp" | "tbt" | "cls"; label: string; title: string }[] = [
+const METRIC_COLS: { key: LabMetric; label: string; title: string }[] = [
   { key: "perf", label: "Perf", title: "Lighthouse Performance score, 0–100, higher is better" },
   { key: "fcp", label: "FCP", title: "First Contentful Paint, seconds" },
   { key: "lcp", label: "LCP", title: "Largest Contentful Paint, seconds" },
   { key: "tbt", label: "TBT", title: "Total Blocking Time, milliseconds" },
   { key: "cls", label: "CLS", title: "Cumulative Layout Shift" },
+  { key: "si", label: "SI", title: "Speed Index, seconds" },
+  { key: "tti", label: "TTI", title: "Time to Interactive, seconds" },
+  { key: "doc", label: "Doc", title: "Document request time (about TTFB), milliseconds" },
 ];
+
+/** Column sets for the /benchmark toggle. Every set keeps the score. */
+export const COLUMN_SETS = {
+  all: { label: "All", metrics: METRIC_COLS.map((c) => c.key) },
+  vitals: { label: "Paint and layout", metrics: ["perf", "fcp", "lcp", "cls"] },
+  timing: { label: "Load and script", metrics: ["perf", "tbt", "si", "tti", "doc"] },
+} satisfies Record<string, { label: string; metrics: LabMetric[] }>;
+export type ColumnSet = keyof typeof COLUMN_SETS;
 
 /** Sort rows; missing values always go last, ties fall back to framework then build. */
 export function sortRows(rows: BuildTableRow[], { key, dir }: SortState): BuildTableRow[] {
@@ -64,6 +79,7 @@ export function BuildTable({
   paths,
   hostCount,
   showFramework = true,
+  metrics,
   label,
   sort,
   onSort,
@@ -74,13 +90,16 @@ export function BuildTable({
   /** Hosts in the run, for "2 of 3". */
   hostCount: number;
   showFramework?: boolean;
+  /** Metric columns to show, in table order. Defaults to all of them. */
+  metrics?: LabMetric[];
   label: string;
   /** Current sort, shown with aria-sort. */
   sort?: SortState;
   /** Makes the column headers sort buttons. */
   onSort?: (key: SortKey) => void;
 }) {
-  const cols = 2 + METRIC_COLS.length; // path, metrics…, hosts (row header not counted)
+  const metricCols = metrics ? METRIC_COLS.filter((c) => metrics.includes(c.key)) : METRIC_COLS;
+  const cols = 2 + metricCols.length; // path, metrics…, hosts (row header not counted)
   const ariaSort = (key: SortKey) =>
     sort?.key === key ? (sort.dir === "asc" ? "ascending" : "descending") : onSort ? "none" : undefined;
 
@@ -134,7 +153,7 @@ export function BuildTable({
               <th scope="col" class="mx-colhead">
                 <span class="!px-2">Path</span>
               </th>
-              {METRIC_COLS.map((c) => head(c.key, c.label, c.title))}
+              {metricCols.map((c) => head(c.key, c.label, c.title))}
               {head("hosts", "Hosts", "Hosts whose medians were averaged", false)}
             </tr>
           </thead>
@@ -171,7 +190,7 @@ export function BuildTable({
                     <td class="mx-cell !text-left">
                       <span class="num text-xs text-ink-2">{r.path}</span>
                     </td>
-                    {METRIC_COLS.map((c) => (
+                    {metricCols.map((c) => (
                       <td key={c.key} class="mx-cell !text-right">
                         <MetricValue metric={c.key} value={r[c.key]} unit={false} />
                       </td>

@@ -279,10 +279,24 @@ export interface BenchMetrics {
   tbt: number | null;
   /** Speed Index, ms. */
   si: number | null;
+  /** Time to Interactive, ms. Missing from runs imported before it was kept. */
+  tti?: number | null;
   /** Cumulative Layout Shift, unitless. */
   cls: number | null;
   /** Document request time as seen by Lighthouse, ms. */
   doc: number | null;
+}
+
+/**
+ * Chrome UX Report (CrUX) field data for one URL: the 75th percentile of real
+ * Chrome visits over the last 28 days. Times in ms, CLS unitless.
+ */
+export interface BenchField {
+  lcp: number | null;
+  inp: number | null;
+  cls: number | null;
+  fcp: number | null;
+  ttfb: number | null;
 }
 
 /** One deployment × path: framework × branch × host × path. */
@@ -295,6 +309,8 @@ export interface BenchTarget {
   path: BenchPath;
   url: string;
   median: BenchMetrics | null;
+  /** CrUX field data for this URL. Present only when PSI returned page-level data. */
+  field?: BenchField | null;
   /** Measured runs made. */
   runs: number;
   /** Runs that went into the median (not cold). */
