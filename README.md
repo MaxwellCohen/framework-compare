@@ -54,6 +54,23 @@ markdown sources.
 from the Actions tab, and commits the results, which redeploys the site. It
 needs a `PSI_API_KEY` repository secret.
 
+## Files for agents and crawlers
+
+`scripts/build-agent-files.mjs` runs before `pracht build` and writes these into
+`public/` from `src/data/generated/*.json`:
+
+- `/llms.txt` and `/llms-full.txt` ([llmstxt.org](https://llmstxt.org) format);
+- `/api/index.json`, a catalog that describes `/api/frameworks.json`,
+  `/api/features.json`, `/api/matrix.json`, `/api/benchmark.json` and
+  `/api/fcp-bands.json`;
+- a markdown twin of each page (`/index.md`, `/frameworks/<id>.md`,
+  `/features/<id>.md`, `/methodology.md`, `/measured.md`, `/benchmark.md`);
+- `/sitemap.xml`.
+
+The outputs are gitignored. Set `SITE_URL` to build them for another origin; the
+default is the `url` in `src/data/site.json`. Each page's `head` links its twin
+and carries JSON-LD (helpers in `src/agents.ts`).
+
 ## Commands
 
 - `npm install`

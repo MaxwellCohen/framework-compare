@@ -9,6 +9,7 @@ import {
   Stat,
   StatGroup,
 } from "../components/index.ts";
+import { markdownAlternate, matrixLd } from "../agents.ts";
 import { RankingTable } from "../components/home/RankingTable.tsx";
 
 /**
@@ -62,6 +63,14 @@ export function head({ data }: HeadArgs<typeof loader>) {
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
+    ],
+    link: [markdownAlternate("/")],
+    script: [
+      matrixLd(
+        description,
+        data.frameworks.map((f) => f.name),
+        data.features.map((f) => f.name),
+      ),
     ],
   };
 }

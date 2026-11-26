@@ -1,4 +1,5 @@
 import type { HeadArgs, RouteComponentProps } from "@pracht/core";
+import { markdownAlternate, pageLd } from "../agents.ts";
 import {
   Callout,
   Card,
@@ -66,14 +67,13 @@ export async function loader() {
 }
 
 export function head({ data }: HeadArgs<typeof loader>) {
+  const title = `Why FCP comes in ${data.bands.length} bands — Framework Compare`;
+  const description = `First Contentful Paint for the same Books app, built in different frameworks, bunches into ${data.bands.length} bands instead of a smooth spread. Each band is one more request the browser waits for before it can paint. Mobile Lighthouse, September 2026.`;
   return {
-    title: `Why FCP comes in ${data.bands.length} bands — Framework Compare`,
-    meta: [
-      {
-        name: "description",
-        content: `First Contentful Paint for the same Books app, built in different frameworks, bunches into ${data.bands.length} bands instead of a smooth spread. Each band is one more request the browser waits for before it can paint. Mobile Lighthouse, September 2026.`,
-      },
-    ],
+    title,
+    meta: [{ name: "description", content: description }],
+    link: [markdownAlternate("/measured")],
+    script: [pageLd("WebPage", "/measured", title, description)],
   };
 }
 

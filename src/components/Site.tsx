@@ -176,6 +176,14 @@ export function SiteFooter() {
               Benchmark
             </NavLink>
           </p>
+          <p class="flex flex-wrap gap-x-4">
+            <a href="/llms.txt" class="link">
+              llms.txt
+            </a>
+            <a href="/api/index.json" class="link">
+              JSON data
+            </a>
+          </p>
         </div>
         <nav aria-label="Framework performance guides and issue trackers" class="md:col-span-2 border-t border-rule pt-6">
           <p class="eyebrow mb-3">Framework performance guides and issue trackers</p>

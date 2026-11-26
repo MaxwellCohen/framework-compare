@@ -1,4 +1,5 @@
 import type { Label, Points } from "../data/types.ts";
+import site from "../data/site.json";
 
 /**
  * The four capability labels. Shape carries the meaning, colour reinforces it:
@@ -10,33 +11,11 @@ import type { Label, Points } from "../data/types.ts";
  *
  * Circle = ships with the framework, diamond = comes from outside;
  * fill amount = points.
+ *
+ * The text lives in src/data/site.json so scripts/build-agent-files.mjs prints
+ * the same definitions in /llms.txt, the markdown pages and /api/*.json.
  */
-export const LABELS: Record<Label, { text: string; short: string; points: Points; description: string }> = {
-  "first-party": {
-    text: "1st-party",
-    short: "1st",
-    points: 2,
-    description: "Built into the framework and documented as stable.",
-  },
-  experimental: {
-    text: "Experimental",
-    short: "Exp",
-    points: 1,
-    description: "Built in, but behind an experimental flag or marked unstable.",
-  },
-  "third-party": {
-    text: "Third-party",
-    short: "3rd",
-    points: 1,
-    description: "Available through a plugin or package the framework does not ship.",
-  },
-  manual: {
-    text: "Manual",
-    short: "Man",
-    points: 0,
-    description: "Not built in and no package for it; you write it yourself.",
-  },
-};
+export const LABELS = site.labels as Record<Label, { text: string; short: string; points: Points; description: string }>;
 
 export const LABEL_ORDER: Label[] = ["first-party", "experimental", "third-party", "manual"];
 

@@ -9,3 +9,11 @@ node_modules
 # Keep .pracht/app-graph.json committed — it is the `pracht plan` snapshot.
 bench/.psi-usage.json
 bench/results/
+# Written by scripts/build-agent-files.mjs before every build and dev run.
+/public/llms.txt
+/public/llms-full.txt
+/public/sitemap.xml
+/public/api/
+/public/frameworks/
+/public/features/
+/public/*.md
