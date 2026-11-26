@@ -1,0 +1,109 @@
+{
+  "frameworkId": "solidstart",
+  "repo": "MaxwellCohen/solid-books",
+  "branch": "feature-tests",
+  "commit": "5048c457d4b11e75147fb445de7247197f718710",
+  "resultsCommit": "46e94d0d31529f0c1abaa68594340a7affc46c19",
+  "testedAt": "2026-11-26T04:58:27.871Z",
+  "features": {
+    "css-inlining": {
+      "status": "pass",
+      "evidence": "HTML has 2 inline <style> blocks (route one: 56 B incl. .ft-inline-marker), 0 <link rel=stylesheet>, 0 CSS requests, outline rgb(1, 2, 3) applied, CSS not in 14 client JS files",
+      "method": "Vite ?inline CSS import rendered in a <style> inside <NoHydration> (hand-rolled, per the cell)",
+      "claimedLabel": "manual",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/css-inlining",
+      "spec": "feature-tests/css-inlining.spec.ts"
+    },
+    "font-optimization": {
+      "status": "pass",
+      "evidence": "preload /assets/geist-latin-wght-normal-BgDaEnEv.woff2; 5 Geist @font-face rules with font-display:swap in inline CSS; 1 same-origin woff2 requests, 0 to Google Fonts; document.fonts.check = true",
+      "method": "@fontsource-variable/geist via app.css + <link rel=preload as=font> to the hashed woff2 in Document.tsx",
+      "claimedLabel": "third-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/font-optimization",
+      "spec": "feature-tests/font-optimization.spec.ts"
+    },
+    "image-pipeline": {
+      "status": "fail",
+      "evidence": "hero srcset widths 480/800/1200 with width/height; <source> types image/avif+image/webp; variants served as image/avif and image/webp; hero currentSrc i-9fa07114-480-DRbX7xvh.avif; offscreen image (2400px below the fold): 1 variant request(s) before scrolling (i-10e16487-480-CVRLzDdu.avif), 1 after; SSR <source srcset> present for the lazy image: true; noscript fallback loading=lazy: true | SolidImage emits a multi-width srcset, dimensions, lazy loading and modern formats: failed — Error: offscreen image variants must not be fetched before scrolling (lazy loading)",
+      "method": "@solidjs/image 1.0.0: imagePlugin (sharp, avif+webp at 480/800/1200) + <SolidImage>",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/image-pipeline",
+      "spec": "feature-tests/image-pipeline.spec.ts"
+    },
+    "caching": {
+      "status": "pass",
+      "evidence": "manual TTL cache: 2 requests returned the same value, a request after 2.3 s returned a new one; Cache-Control \"public, max-age=2, s-maxage=2, stale-while-revalidate=30\" | Nitro routeRules {cache:{maxAge:2}} cached a handler that returns a fresh value per call (x-cache HIT, Cache-Control \"public, max-age=2, s-maxage=2\") and revalidated after expiry: no hand-rolling needed, via Nitro (not Solid-team maintained, same basis as the multi-host cell)",
+      "method": "hand-rolled in-memory TTL cache + Cache-Control in a GET route; probe of Nitro routeRules cache",
+      "claimedLabel": "manual",
+      "suggestedLabel": "third-party",
+      "testRoute": "/feature-tests/api/manual-cache",
+      "spec": "feature-tests/caching.spec.ts"
+    },
+    "route-prefetching": {
+      "status": "pass",
+      "evidence": "on hover (before click): /assets/prefetch-target-D-q_Gc2L.js + 1 /_server data request(s); after click: 0 more for the target",
+      "method": "@solidjs/router createRouter preloadLinks (default on) preloading a plain <a> on hover",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/route-prefetching",
+      "spec": "feature-tests/route-prefetching.spec.ts"
+    },
+    "islands": {
+      "status": "pass",
+      "evidence": "\"use server\" component rendered inline (marker in HTML and DOM), marker absent from all 14 JS responses, island counter works after hydration (Island clicks: 1), 2 /_server requests",
+      "method": "@solidjs/vite-plugin serverFunctions.components (experimental server components) + a normal hydrated island",
+      "claimedLabel": "experimental",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/islands",
+      "spec": "feature-tests/islands.spec.ts"
+    },
+    "render-modes": {
+      "status": "pass",
+      "evidence": "nitro.prerender wrote .output/public/feature-tests/render-modes/prerendered/index.html; its stamp 2026-11-26T04:56:46.931Z is served unchanged on 2 requests; /ssr stamp changed per request (2026-11-26T04:58:23.199Z → 2026-11-26T04:58:23.257Z)",
+      "method": "nitro({ prerender: { routes } }) for one route, default per-request SSR for another",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/render-modes/prerendered",
+      "spec": "feature-tests/render-modes.spec.ts"
+    },
+    "reactivity": {
+      "status": "pass",
+      "evidence": "3 clicks → count 3, component body ran once on the client (render counter 1); 3 DOM mutations, all inside [data-testid=count] (characterData:count)",
+      "method": "solid-js createSignal; component body render counter + MutationObserver",
+      "claimedLabel": "first-party",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/reactivity",
+      "spec": "feature-tests/reactivity.spec.ts"
+    },
+    "bundle-analysis": {
+      "status": "pass",
+      "evidence": "ANALYZE=1 vite build wrote feature-tests/.tmp/bundle-stats.html (262 KiB treemap listing client chunks, e.g. prefetch-target)",
+      "method": "rollup-plugin-visualizer behind ANALYZE=1 (client environment)",
+      "claimedLabel": "third-party",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/bundle-analysis.spec.ts"
+    },
+    "third-party-scripts": {
+      "status": "pass",
+      "evidence": "no third-party <script src> in SSR HTML (only an inline load+requestIdleCallback loader); script ran at 446 ms, after loadEventEnd 173 ms and FCP 200 ms; global __ftThirdParty set",
+      "method": "inline load + requestIdleCallback loader injecting a local stand-in script (cell's example)",
+      "claimedLabel": "manual",
+      "suggestedLabel": null,
+      "testRoute": "/feature-tests/third-party-scripts",
+      "spec": "feature-tests/third-party-scripts.spec.ts"
+    },
+    "multi-host-deployment": {
+      "status": "pass",
+      "evidence": "node-server .output/server/index.mjs; NITRO_PRESET=vercel → .vercel/output (Build Output API v3, __server.func, images config present); NITRO_PRESET=netlify → .netlify/functions-internal/server + dist/",
+      "method": "Nitro presets: node-server (default), NITRO_PRESET=vercel, NITRO_PRESET=netlify",
+      "claimedLabel": "third-party",
+      "suggestedLabel": null,
+      "testRoute": null,
+      "spec": "feature-tests/multi-host-deployment.spec.ts"
+    }
+  }
+}
