@@ -229,8 +229,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
       <Container class="pt-6">
         <Callout kind="note" title="Newer numbers">
           <p>
-            This page is the September 2026 write-up. Our own repeatable PageSpeed Insights run, with FCP, LCP, TBT and CLS for every
-            deployment, is on the <NavLink to={{ route: "benchmark" }}>Benchmark</NavLink> page.
+            These runs are from September 2026. For current FCP, LCP, TBT and CLS on every deployment, from a PageSpeed Insights
+            run you can repeat, see <NavLink to={{ route: "benchmark" }}>Benchmark</NavLink>.
           </p>
         </Callout>
       </Container>
@@ -245,9 +245,8 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
             “Solid”.
           </p>
           <p>
-            {list(otherFw)} were not measured, so nothing on this page applies to them. Their{" "}
-            <NavLink to={{ route: "home", hash: "matrix" }}>capability labels</NavLink> come from documentation, not
-            measurement.
+            {list(otherFw)} were not in these runs. <NavLink to={{ route: "benchmark" }}>Benchmark</NavLink> covers every
+            port.
           </p>
         </Callout>
       </Container>
@@ -285,7 +284,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               ),
               range: { min: b.min, max: b.max },
             }))}
-            caption={`FCP in seconds, mobile Lighthouse (simulated Slow 4G, 4× CPU throttle). Each bar is the approximate range the source gives for a band. Under each name is what the page must wait for before it can paint. Every FCP chart below uses this same ${FCP_DOMAIN[0]}–${FCP_DOMAIN[1]} s axis.`}
+            caption={`FCP in seconds, mobile Lighthouse (simulated Slow 4G, 4× CPU throttle). Each bar is a band’s approximate range, and under each name is what the page waits for before it can paint. Every FCP chart below uses this same ${FCP_DOMAIN[0]}–${FCP_DOMAIN[1]} s axis.`}
           />
         </div>
         <div class="max-w-prose">
@@ -470,7 +469,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <Prose html={data.oneSentenceHtml} class="mt-2" />
         </div>
         <p class="mt-8 text-sm text-ink-2">
-          To see which of these levers each framework supports according to its own docs, use the{" "}
+          To see which of these features each framework documents, use the{" "}
           <NavLink to={{ route: "home", hash: "matrix" }} class="link">
             capability matrix
           </NavLink>
@@ -478,7 +477,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           <NavLink to={{ route: "methodology" }} class="link">
             Methodology
           </NavLink>{" "}
-          explains how those labels are assigned.
+          explains how each label was assigned.
         </p>
       </Section>
     </>
