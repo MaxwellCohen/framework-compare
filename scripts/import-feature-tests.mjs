@@ -44,6 +44,8 @@ const APPS = {
   "angular-books": "angular",
   "marko-books": "marko",
   "fresh-books": "fresh",
+  "vike-books": "vike",
+  "analog-books": "analog",
 };
 const FEATURES = [
   "css-inlining",

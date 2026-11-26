@@ -1,4 +1,12 @@
-import type { ArtDirection, CellTest, Deployment, Feature, Framework, Host, Label } from "../../data/types.ts";
+import type {
+  ArtDirection,
+  CellTest,
+  Deployment,
+  Feature,
+  Framework,
+  Host,
+  Label,
+} from "../../data/types.ts";
 import { featureNo } from "../Chips.tsx";
 import { LabelBadge } from "../LabelBadge.tsx";
 import { ExternalLink, NavLink } from "../links.tsx";
@@ -42,40 +50,74 @@ export function ScorecardGroup({
   rows: ScorecardRow[];
 }) {
   return (
-    <Card as="section" id={id} title={title} aside={<ScoreMeter value={score} max={max} />} flush class="scroll-mt-4">
+    <Card
+      as="section"
+      id={id}
+      title={title}
+      aside={<ScoreMeter value={score} max={max} />}
+      flush
+      class="scroll-mt-4"
+    >
       <ul>
-        {rows.map((row) => (
-          <li key={row.feature.id} class="border-b border-rule px-4 py-3 last:border-b-0">
-            <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
-              <NavLink
-                to={{ route: "feature", id: row.feature.id, hash: frameworkId }}
-                class="link min-w-0 font-semibold text-ink"
-              >
-                <span class="num mr-2 text-xs font-normal text-ink-3">{featureNo(row.feature.number)}</span>
-                {row.feature.name}
-              </NavLink>
-              <LabelBadge label={row.label} />
-            </div>
-            <p class="mt-1 text-sm text-ink-3">{row.comparison}</p>
-            {row.test && <TestStatus test={row.test} class="mt-1.5" />}
-            <details class="group mt-2">
-              <summary class="w-fit cursor-pointer text-sm text-ink-2 underline decoration-rule-strong underline-offset-2 hover:text-ink">
-                <span class="group-open:hidden">Show the how-to{row.test ? " and test" : ""}</span>
-                <span class="hidden group-open:inline">Hide the how-to{row.test ? " and test" : ""}</span>
-              </summary>
-              <Prose html={row.bodyHtml} size="sm" class="mt-3 max-w-prose pb-1" />
-              {row.test && <TestResult test={row.test} class="mt-3 mb-1" />}
-              {row.exampleHtml && <ManualExample html={row.exampleHtml} class="mb-1" />}
-              {row.artDirection && <ArtDirectionBlock art={row.artDirection} class="mb-1" />}
-              {row.gotchasHtml && (
-                <aside class="mt-3 mb-1 max-w-prose border-l-2 border-rule-strong pl-3" aria-label="Gotchas">
-                  <p class="eyebrow mb-1">Gotchas</p>
-                  <Prose html={row.gotchasHtml} size="sm" />
-                </aside>
-              )}
-            </details>
-          </li>
-        ))}
+        {rows.map((row) => {
+          const failed = row.test?.status === "fail" ? row.test : null;
+          return (
+            <li
+              key={row.feature.id}
+              class="border-b border-rule px-4 py-3 last:border-b-0"
+            >
+              <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5">
+                <NavLink
+                  to={{
+                    route: "feature",
+                    id: row.feature.id,
+                    hash: frameworkId,
+                  }}
+                  class="link min-w-0 font-semibold text-ink"
+                >
+                  <span class="num mr-2 text-xs font-normal text-ink-3">
+                    {featureNo(row.feature.number)}
+                  </span>
+                  {row.feature.name}
+                </NavLink>
+                <LabelBadge label={row.label} />
+              </div>
+              <p class="mt-1 text-sm text-ink-3">{row.comparison}</p>
+              {failed && <TestStatus test={failed} class="mt-1.5" />}
+              <details class="group mt-2">
+                <summary class="w-fit cursor-pointer text-sm text-ink-2 underline decoration-rule-strong underline-offset-2 hover:text-ink">
+                  <span class="group-open:hidden">
+                    Show the how-to{failed ? " and test" : ""}
+                  </span>
+                  <span class="hidden group-open:inline">
+                    Hide the how-to{failed ? " and test" : ""}
+                  </span>
+                </summary>
+                <Prose
+                  html={row.bodyHtml}
+                  size="sm"
+                  class="mt-3 max-w-prose pb-1"
+                />
+                {failed && <TestResult test={failed} class="mt-3 mb-1" />}
+                {row.exampleHtml && (
+                  <ManualExample html={row.exampleHtml} class="mb-1" />
+                )}
+                {row.artDirection && (
+                  <ArtDirectionBlock art={row.artDirection} class="mb-1" />
+                )}
+                {row.gotchasHtml && (
+                  <aside
+                    class="mt-3 mb-1 max-w-prose border-l-2 border-rule-strong pl-3"
+                    aria-label="Gotchas"
+                  >
+                    <p class="eyebrow mb-1">Gotchas</p>
+                    <Prose html={row.gotchasHtml} size="sm" />
+                  </aside>
+                )}
+              </details>
+            </li>
+          );
+        })}
       </ul>
     </Card>
   );
@@ -101,7 +143,9 @@ export function Deployments({ deployments }: { deployments: Deployment[] }) {
         >
           <div class="min-w-0">
             <p class="eyebrow">Branch</p>
-            <p class="num text-sm font-semibold break-words text-ink">{d.branch}</p>
+            <p class="num text-sm font-semibold break-words text-ink">
+              {d.branch}
+            </p>
             {d.note && <p class="mt-0.5 text-sm text-ink-2">{d.note}</p>}
           </div>
           <dl class="grid min-w-0 gap-x-6 gap-y-2 sm:grid-cols-3">
@@ -110,7 +154,9 @@ export function Deployments({ deployments }: { deployments: Deployment[] }) {
                 <dt class="eyebrow">{host.name}</dt>
                 <dd class="num text-xs break-all">
                   {d.urls[host.id] ? (
-                    <ExternalLink href={d.urls[host.id]!}>{d.urls[host.id]!.replace(/^https?:\/\//, "")}</ExternalLink>
+                    <ExternalLink href={d.urls[host.id]!}>
+                      {d.urls[host.id]!.replace(/^https?:\/\//, "")}
+                    </ExternalLink>
                   ) : (
                     <span class="text-ink-3">Not deployed</span>
                   )}

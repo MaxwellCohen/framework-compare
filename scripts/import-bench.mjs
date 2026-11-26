@@ -6,6 +6,11 @@
  *
  *   node scripts/import-bench.mjs bench/results/20261125-150209
  *   node scripts/import-bench.mjs            # newest run under bench/results
+ *   node scripts/import-bench.mjs --merge <dir>
+ *
+ * --merge adds a partial run (say `--filter vike-books`) to the file for its
+ * date instead of replacing it: targets of the frameworks in the new run
+ * replace theirs, and every other framework's targets are kept.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -21,7 +26,10 @@ function newestRun() {
   return dirs.length ? join(root, dirs.at(-1)) : null;
 }
 
-const arg = process.argv[2] ? resolve(process.argv[2]) : newestRun();
+const argv = process.argv.slice(2);
+const merge = argv.includes("--merge");
+const given = argv.find((a) => !a.startsWith("--"));
+const arg = given ? resolve(given) : newestRun();
 if (!arg) {
   console.error("import-bench: no results given and none under bench/results");
   process.exit(1);
@@ -94,6 +102,16 @@ const out = {
 
 mkdirSync(OUT_DIR, { recursive: true });
 const dest = join(OUT_DIR, `${out.startedAt.slice(0, 10)}.json`);
+if (merge && existsSync(dest)) {
+  const prev = JSON.parse(readFileSync(dest, "utf8"));
+  const ids = new Set(out.targets.map((t) => t.frameworkId));
+  out.targets = [...prev.targets.filter((t) => !ids.has(t.frameworkId)), ...out.targets];
+  out.startedAt = prev.startedAt < out.startedAt ? prev.startedAt : out.startedAt;
+  out.finishedAt = prev.finishedAt > out.finishedAt ? prev.finishedAt : out.finishedAt;
+  out.psiRequests = (prev.psiRequests ?? 0) + (out.psiRequests ?? 0);
+  out.aborted = Boolean(prev.aborted) || out.aborted;
+  console.log(`import-bench: merged ${[...ids].join(", ")} into ${dest}`);
+}
 writeFileSync(dest, JSON.stringify(out, null, 1) + "\n");
 const ok = out.targets.filter((t) => t.median).length;
 console.log(`import-bench: ${ok}/${out.targets.length} targets with data → ${dest}`);

@@ -2,11 +2,11 @@
  "latest": {
   "date": "2026-11-26",
   "startedAt": "2026-11-26T19:17:50.377Z",
-  "finishedAt": "2026-11-26T20:27:37.626Z",
+  "finishedAt": "2026-11-26T20:39:50.094Z",
   "tool": "PageSpeed Insights v5 (Lighthouse lab run)",
   "strategy": "mobile",
   "runsPerTarget": 3,
-  "psiRequests": 869,
+  "psiRequests": 924,
   "aborted": false,
   "paths": [
    "/",
@@ -4481,6 +4481,294 @@
     "usedRuns": 3,
     "coldSuspect": false,
     "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://vike-books.vercel.app/",
+    "median": {
+     "perf": 83,
+     "fcp": 1509,
+     "lcp": 4505,
+     "tbt": 0,
+     "si": 3889,
+     "tti": 4505,
+     "cls": 0,
+     "doc": 145,
+     "fcpObs": 2343,
+     "lcpObs": 2343
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://vike-books.vercel.app/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1507,
+     "lcp": 2737,
+     "tbt": 0,
+     "si": 1509,
+     "tti": 2737,
+     "cls": 0,
+     "doc": 92,
+     "fcpObs": 325,
+     "lcpObs": 325
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://vike-books.netlify.app/",
+    "median": {
+     "perf": 83,
+     "fcp": 1536,
+     "lcp": 4655,
+     "tbt": 0,
+     "si": 2792,
+     "tti": 4655,
+     "cls": 0,
+     "doc": 146,
+     "fcpObs": 1312,
+     "lcpObs": 1312
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://vike-books.netlify.app/10145787",
+    "median": {
+     "perf": 95,
+     "fcp": 1510,
+     "lcp": 2743,
+     "tbt": 0,
+     "si": 2551,
+     "tti": 2743,
+     "cls": 0,
+     "doc": 199,
+     "fcpObs": 1373,
+     "lcpObs": 1373
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://vike-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 83,
+     "fcp": 1512,
+     "lcp": 4506,
+     "tbt": 0,
+     "si": 3991,
+     "tti": 4506,
+     "cls": 0,
+     "doc": 260,
+     "fcpObs": 2416,
+     "lcpObs": 2416
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://vike-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1508,
+     "lcp": 2718,
+     "tbt": 0,
+     "si": 1508,
+     "tti": 2718,
+     "cls": 0,
+     "doc": 142,
+     "fcpObs": 307,
+     "lcpObs": 307
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://vike-books-optimized.vercel.app/",
+    "median": {
+     "perf": 84,
+     "fcp": 906,
+     "lcp": 4505,
+     "tbt": 8,
+     "si": 1538,
+     "tti": 4505,
+     "cls": 0,
+     "doc": 50,
+     "fcpObs": 306,
+     "lcpObs": 306
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://vike-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 95,
+     "fcp": 905,
+     "lcp": 2892,
+     "tbt": 0,
+     "si": 905,
+     "tti": 2892,
+     "cls": 0,
+     "doc": 72,
+     "fcpObs": 236,
+     "lcpObs": 236
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://vike-books-max-optimized.netlify.app/",
+    "median": {
+     "perf": 83,
+     "fcp": 914,
+     "lcp": 4508,
+     "tbt": 0,
+     "si": 3670,
+     "tti": 4508,
+     "cls": 0,
+     "doc": 188,
+     "fcpObs": 2358,
+     "lcpObs": 2358
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://vike-books-max-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 95,
+     "fcp": 918,
+     "lcp": 2913,
+     "tbt": 0,
+     "si": 2473,
+     "tti": 2913,
+     "cls": 0,
+     "doc": 140,
+     "fcpObs": 1270,
+     "lcpObs": 1270
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://vike-books-optimized.to-email-max.workers.dev/",
+    "median": {
+     "perf": 82,
+     "fcp": 909,
+     "lcp": 4509,
+     "tbt": 0,
+     "si": 2580,
+     "tti": 4509,
+     "cls": 0,
+     "doc": 101,
+     "fcpObs": 1336,
+     "lcpObs": 1336
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "vike",
+    "app": "vike-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://vike-books-optimized.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 94,
+     "fcp": 913,
+     "lcp": 2968,
+     "tbt": 17,
+     "si": 2550,
+     "tti": 3027,
+     "cls": 0,
+     "doc": 343,
+     "fcpObs": 1516,
+     "lcpObs": 1516
+    },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
    }
   ],
   "builds": [
@@ -5723,6 +6011,86 @@
     "doc": 170,
     "fcpObs": 993,
     "lcpObs": 1043
+   },
+   {
+    "frameworkId": "vike",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 83,
+    "fcp": 1519,
+    "lcp": 4555,
+    "tbt": 0,
+    "si": 3557,
+    "tti": 4555,
+    "cls": 0,
+    "doc": 184,
+    "fcpObs": 2024,
+    "lcpObs": 2024
+   },
+   {
+    "frameworkId": "vike",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 96,
+    "fcp": 1508,
+    "lcp": 2733,
+    "tbt": 0,
+    "si": 1856,
+    "tti": 2733,
+    "cls": 0,
+    "doc": 144,
+    "fcpObs": 668,
+    "lcpObs": 668
+   },
+   {
+    "frameworkId": "vike",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 83,
+    "fcp": 910,
+    "lcp": 4507,
+    "tbt": 3,
+    "si": 2596,
+    "tti": 4507,
+    "cls": 0,
+    "doc": 113,
+    "fcpObs": 1333,
+    "lcpObs": 1333
+   },
+   {
+    "frameworkId": "vike",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 95,
+    "fcp": 912,
+    "lcp": 2924,
+    "tbt": 6,
+    "si": 1976,
+    "tti": 2944,
+    "cls": 0,
+    "doc": 185,
+    "fcpObs": 1007,
+    "lcpObs": 1007
    }
   ]
  },
@@ -6232,8 +6600,8 @@
   },
   {
    "date": "2026-11-26",
-   "targets": 186,
-   "withData": 186,
+   "targets": 198,
+   "withData": 198,
    "builds": [
     {
      "frameworkId": "next",
@@ -6730,6 +7098,38 @@
      "fcp": 809,
      "lcp": 2254,
      "perf": 98
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1519,
+     "lcp": 4555,
+     "perf": 83
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1508,
+     "lcp": 2733,
+     "perf": 96
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 910,
+     "lcp": 4507,
+     "perf": 83
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 912,
+     "lcp": 2924,
+     "perf": 95
     }
    ]
   }

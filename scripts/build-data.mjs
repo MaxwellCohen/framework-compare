@@ -56,8 +56,8 @@ const FRAMEWORKS = {
   Marko: { id: "marko", shortName: "Marko" },
   Fresh: { id: "fresh", shortName: "Fresh" },
   // `port: false` = no Books port: no README deployment rows, no app, no repo.
-  Analog: { id: "analog", shortName: "Analog", port: false },
-  Vike: { id: "vike", shortName: "Vike", port: false },
+  Analog: { id: "analog", shortName: "Analog" },
+  Vike: { id: "vike", shortName: "Vike" },
   RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK", port: false },
   "Remix 3": { id: "remix", shortName: "Remix 3", port: false },
 };
@@ -109,6 +109,8 @@ const APPS = {
   "angular-books": "angular",
   "marko-books": "marko",
   "fresh-books": "fresh",
+  "vike-books": "vike",
+  "analog-books": "analog",
 };
 
 /** Label vocabulary of the source. */
@@ -123,7 +125,7 @@ const LABEL_POINTS = { "first-party": 2, experimental: 1, "third-party": 1, manu
 
 /** In-document anchors → site URLs. `#N-…` feature anchors are handled separately. */
 const ANCHOR_TARGETS = [
-  [/^lower-confidence-claims$/, "/methodology#lower-confidence"],
+  [/^lower-confidence-claims$/, "/methodology#labels"],
   [/^versions-checked$/, "/methodology#versions"],
   [/^how-to-read-the-labels$/, "/methodology#labels"],
   [/^how-scoring-works/, "/methodology#scoring"],
@@ -807,30 +809,8 @@ function buildCapability() {
     }
   }
 
-  // --- Methodology prose.
-  const disclaimerTok = meaningful(lex(doc.body)).find((t) => t.type === "blockquote");
-  if (!disclaimerTok) die("comparison: no disclaimer blockquote under the H1");
-  const otherSec = scoreTables.find((t) => t.group === "other" && coreVersions.has(FRAMEWORKS[t.frameworks[0]].id)).section;
-  const otherTokens = lex(otherSec.body);
-  const afterTable = otherTokens.slice(otherTokens.findIndex((t) => t.type === "table") + 1);
-  const claimsSec = findSection(doc, /^Lower-confidence claims$/, "lower-confidence claims");
-  const claimsList = meaningful(lex(claimsSec.body)).find((t) => t.type === "list");
-  if (!claimsList) die("Lower-confidence claims: no bullet list");
-
-  const methodology = {
-    disclaimerHtml: renderTokens(disclaimerTok.tokens),
-    labelsHtml: renderBlock(fullMarkdown(findSection(doc, /^How to read the labels$/, "labels"))),
-    scoringHtml: renderBlock(fullMarkdown(findSection(doc, /^How scoring works/, "scoring"))),
-    rankingHtml: renderTokens(lex(rankingMd).filter((t) => t.type !== "table")),
-    otherFeaturesSummaryHtml: renderTokens(afterTable.filter((t) => t.type === "paragraph" || t.type === "space")),
-    additionalFrameworksHtml: renderBlock(findSection(doc, /^Additional frameworks$/, "additional frameworks").body),
-    lowerConfidenceClaims: claimsList.items.map((item) =>
-      meaningful(item.tokens).length === 1 ? renderInline(item.text) : renderTokens(item.tokens),
-    ),
-  };
-
   validateCapability({ frameworks, features, cells: orderedCells, ranking, tableLabel, tableScore });
-  return { ...splitGotchas(foldFeatures({ frameworks, features, cells: orderedCells })), methodology };
+  return splitGotchas(foldFeatures({ frameworks, features, cells: orderedCells }));
 }
 
 /**
@@ -1243,7 +1223,7 @@ function walkStrings(value, path, visit) {
 const ALLOWED_TAGS = new Set(
   "a blockquote br code del div em h2 h3 h4 h5 h6 hr li ol p pre span strong table tbody td th thead tr ul".split(" "),
 );
-const isHtmlPath = (path) => /Html$|\.html$|lowerConfidenceClaims\[\d+\]$/.test(path);
+const isHtmlPath = (path) => /Html$|\.html$/.test(path);
 const RAW_MARKDOWN_OK = /\.rowLabel$/; // contract keeps the row label as written
 
 function checkOutput(name, data) {
@@ -1312,9 +1292,6 @@ function rephraseNotFound(value, path = "") {
   }
   return value;
 }
-capability.methodology.lowerConfidenceClaims = capability.methodology.lowerConfidenceClaims.filter(
-  (c) => !/Additional frameworks have/.test(typeof c === "string" ? c : JSON.stringify(c)),
-);
 rephraseNotFound(capability, "capability");
 rephraseNotFound(measured, "measured");
 
@@ -1410,8 +1387,7 @@ const pad = (s, n) => String(s).padEnd(n);
 console.log(`build-data: sources from ${SOURCE_DIR}${SOURCE_REF ? ` at git ref ${SOURCE_REF}` : ""}`);
 console.log(
   `  ${frameworks.length} frameworks (${frameworks.filter((f) => f.group === "core").length} core), ` +
-    `${features.length} features, ${cells.length} cells (${cells.filter((c) => c.hasSnippet).length} with snippets), ` +
-    `${capability.methodology.lowerConfidenceClaims.length} lower-confidence claims`,
+    `${features.length} features, ${cells.length} cells (${cells.filter((c) => c.hasSnippet).length} with snippets)`,
 );
 console.log(
   `  ${measured.bands.length} bands, ${measured.runs.length} runs ` +

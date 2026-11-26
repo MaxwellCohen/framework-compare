@@ -28,5 +28,12 @@
       "points": 0,
       "description": "Not built in and no package for it; you write it yourself."
     }
-  }
+  },
+  "labelRules": [
+    "A label describes what the framework offers, not what a Books port chose. If the framework ships the feature, the cell is 1st-party even where a port wired it by hand.",
+    "Opt-in counts the same as on by default. An official package from the framework team counts as 1st-party: @nuxt/image, @sveltejs/enhanced-img and next/image all score the same.",
+    "Third-party means a community package or a host service provides the feature itself, not a building block the app still has to assemble. The cell names the package. Partytown counts only where the framework's own docs point to it.",
+    "Manual means nothing covers it. The app wires it by hand or goes without.",
+    "Every cell links the vendor docs behind its label. For Manual and Third-party cells, that is the docs page on the topic, which documents no first-party option."
+  ]
 }

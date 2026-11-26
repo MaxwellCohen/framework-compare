@@ -108,13 +108,17 @@ closest existing port so markup and styles match.
 
 ## 4. Measure it and check the site
 
-- [ ] Benchmark the new port alone first:
-      `node bench/cwv-bench.mjs --filter <id>`. Fix any errors and cold
-      targets, then run `npm run bench` (all ports, about an hour) or wait
-      for Monday's `.github/workflows/benchmark.yml` run.
-- [ ] Import with `npm run bench:import [results-dir]`. This writes
-      `content/benchmarks/<date>.json` and rebuilds `src/data/generated/benchmark.json`.
-      `build-bench-data.mjs` fails on a `frameworkId` it does not know.
+- [ ] Benchmark the new port alone:
+      `node bench/cwv-bench.mjs --filter <x>-books` (about 10 minutes; check
+      the targets first with `--dry-run`). The filter is matched against the
+      target id, which starts with the app name, not the framework id.
+- [ ] Import it with `node scripts/import-bench.mjs --merge <results-dir>`.
+      `--merge` adds the port to the run file for that date and keeps every
+      other framework's results. Without it the file is replaced, and the
+      site would show only the new port. It then rebuilds
+      `src/data/generated/benchmark.json`, which fails on a `frameworkId` it
+      does not know. The next full run (`npm run bench`, or Monday's
+      `.github/workflows/benchmark.yml`) picks the port up by itself.
 - [ ] If the port has a `feature-tests` branch:
       `node scripts/import-feature-tests.mjs`, then the data script.
 - [ ] `npm run typecheck`, `npm run build`, `npx pracht verify`.

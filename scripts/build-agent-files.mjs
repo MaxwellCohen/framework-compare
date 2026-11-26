@@ -32,7 +32,7 @@ const changes = read("content/optimizations.json");
 const ORIGIN = (process.env.SITE_URL || site.url).replace(/\/+$/, "");
 const abs = (path) => ORIGIN + path;
 
-const { frameworks, features, cells, methodology } = capability;
+const { frameworks, features, cells } = capability;
 const LABELS = site.labels;
 const LABEL_ORDER = ["first-party", "experimental", "third-party", "manual"];
 const GROUPS = { fcp: "First-paint levers", other: "Other features" };
@@ -337,12 +337,10 @@ function methodologyRules() {
   return [
     "### Labels",
     labelKey(),
-    "The source document marks cells with three emoji: ✅ 1st-party, 🧪 experimental or third-party, 🔧 manual. This site splits 🧪 into Experimental and Third-party by the word in each cell. Both score 1 point.",
-    "The source rubric:",
-    md(methodology.labelsHtml),
+    "How a cell gets its label:",
+    site.labelRules.map((r) => `- ${r}`).join("\n"),
     "### Scoring",
-    `Each feature scores 2, 1 or 0 points by its label. ${features.length} features are scored: ${MAX.fcp / 2} first-paint levers (max ${MAX.fcp}) and ${MAX.other / 2} other features (max ${MAX.other}), ${MAX.total} points in total. Completeness is total / ${MAX.total} as a whole percent. Frameworks are ranked by total, and equal totals share a rank.`,
-    `The source comparison scores 12 features out of 24 points. This site leaves its "Art-directed / modern-format images (\`<picture>\`)" row out of the score and shows it under Image pipeline, so the scores and ranks here can differ from the source's.`,
+    `Each feature scores 2, 1 or 0 points by its label, and every feature counts the same. ${features.length} features are scored: ${MAX.fcp / 2} FCP levers (max ${MAX.fcp}) and ${MAX.other / 2} other features (max ${MAX.other}), ${MAX.total} points in total. Completeness is total / ${MAX.total}, rounded to a whole percent. Frameworks are ranked by total, and equal totals share a rank. The score counts speed features; no measurement goes into it.`,
   ].join("\n\n");
 }
 
@@ -469,20 +467,13 @@ write(
     "# Methodology",
     `How each of the ${frameworks.length} meta-frameworks gets a label for each of the ${features.length} features, how the labels add up to scores and a ranking, and which versions were checked.`,
     methodologyRules().replace(/^### /gm, "## "),
-    "## The source's scoring text",
-    md(methodology.scoringHtml),
-    md(methodology.rankingHtml, 1),
     "## Ranking",
     rankingMd(),
-    "## Reading the other-features scores",
-    md(methodology.otherFeaturesSummaryHtml),
     "## Versions checked",
     tableMd(
       ["Framework", "Version", "Notes"],
       frameworks.map((f) => [f.name, f.version, f.versionNotes || ""]),
     ),
-    "## Lower-confidence claims",
-    methodology.lowerConfidenceClaims.map((c, i) => `${i + 1}. ${md(c).replace(/\n/g, "\n   ")}`).join("\n"),
     twinFooter("/methodology"),
   ].join("\n\n"),
 );

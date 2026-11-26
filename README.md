@@ -43,6 +43,7 @@ cp bench/.env.example bench/.env   # set PSI_API_KEY
 npm run bench                      # run (about an hour), import, rebuild data
 node bench/cwv-bench.mjs --help    # options: --filter, --hosts, --paths, --runs…
 npm run bench:import [results-dir] # import a run made earlier
+node scripts/import-bench.mjs --merge <dir>  # add a --filter run to that date's file
 ```
 
 Runs are kept in `content/benchmarks/<date>.json`, and

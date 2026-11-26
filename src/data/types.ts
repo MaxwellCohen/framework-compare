@@ -178,23 +178,6 @@ export interface CapabilityData {
   features: Feature[];
   cells: Cell[];
   ranking: RankingRow[];
-  /** Prose blocks for the methodology page. */
-  methodology: {
-    /** The "AI-generated note" blockquote at the top. */
-    disclaimerHtml: string;
-    /** "How to read the labels". */
-    labelsHtml: string;
-    /** "How scoring works, with a worked example". */
-    scoringHtml: string;
-    /** "How to read the ranking" + "How to recompute it" (without the ranking table). */
-    rankingHtml: string;
-    /** Summary + "honest reading" paragraphs under the second table. */
-    otherFeaturesSummaryHtml: string;
-    /** "Additional frameworks" intro (why these, what is excluded). */
-    additionalFrameworksHtml: string;
-    /** Each bullet of "Lower-confidence claims" as its own HTML fragment. */
-    lowerConfidenceClaims: string[];
-  };
 }
 
 // ---------------------------------------------------------------------------
