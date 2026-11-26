@@ -46,3 +46,42 @@ export const Route = createRootRoute({
   // …
 });
 ```
+
+## service-worker
+
+Put a hand-written worker in `public/` and register it with an inline script from the root route's `head`.
+
+```js
+// public/sw.js
+const CACHE = 'books-v1'; // change the name on each deploy
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))),
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET' || new URL(request.url).origin !== location.origin) return;
+  // Network first, so pages stay current. The cached copy answers when offline.
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE).then((cache) => cache.put(request, copy));
+        return response;
+      })
+      .catch(() => caches.match(request)),
+  );
+});
+```
+
+```tsx
+// src/routes/__root.tsx
+const swScript = `if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('/sw.js')});`;
+// …
+    scripts: [{ children: themeScript }, { children: swScript }],
+```
+
+Source: [Using Service Workers (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers) · [TanStack Start document head](https://tanstack.com/router/latest/docs/framework/solid/guide/document-head-management)

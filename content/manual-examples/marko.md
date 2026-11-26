@@ -127,3 +127,59 @@ Marko's `<script>` is a mount effect, so you use `<html-script>` for a literal a
 ```
 
 Source: [Marko core tags](https://markojs.com/docs/reference/core-tag)
+
+## service-worker
+
+Put a hand-written worker in `public/` and register it with an inline script in the root layout.
+
+```js
+// public/sw.js
+const CACHE = 'books-v1'; // change the name on each deploy
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))),
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET' || new URL(request.url).origin !== location.origin) return;
+  // Network first, so pages stay current. The cached copy answers when offline.
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE).then((cache) => cache.put(request, copy));
+        return response;
+      })
+      .catch(() => caches.match(request)),
+  );
+});
+```
+
+```marko
+// src/routes/+layout.marko
+static const SW_SCRIPT = `if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('/sw.js')});`;
+// … in <head>
+    <html-script>$!{SW_SCRIPT}</html-script>
+```
+
+Source: [Using Service Workers (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)
+
+## early-hints
+
+Set a `Link` header on HTML responses in the root middleware. This one preconnects to the font host. To preload a built file with a hashed name, read its URL from the Vite manifest.
+
+```ts
+// src/routes/+middleware.ts
+const LINK = '<https://fonts.gstatic.com>; rel=preconnect; crossorigin';
+
+export default async (_ctx: unknown, next: () => Promise<Response>) => {
+  const response = await next();
+  if (response.headers.get('content-type')?.includes('text/html')) response.headers.append('Link', LINK);
+  return response;
+};
+```
+
+Source: [Marko Run: file-based routing](https://markojs.com/docs/marko-run/file-based-routing)

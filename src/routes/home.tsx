@@ -16,11 +16,11 @@ import { RankingTable } from "../components/home/RankingTable.tsx";
  * one-line summaries per feature, and label + points per cell. No `*Html` bodies.
  */
 export async function loader() {
-  const { cells, features, frameworksByRank, MAX_TOTAL } = await import("../data/index.ts");
+  const { cells, features, frameworksByRank, MAX_SCORE } = await import("../data/index.ts");
   const ranked = frameworksByRank();
 
   return {
-    maxTotal: MAX_TOTAL,
+    max: MAX_SCORE,
     // Columns of the matrix and rows of the ranking, both in rank order
     // (ties keep the source document's column order).
     frameworks: ranked.map((f) => ({
@@ -73,7 +73,8 @@ function listNames(names: string[]) {
 }
 
 export function Component({ data }: RouteComponentProps<typeof loader>) {
-  const { frameworks, features, cells, maxTotal } = data;
+  const { frameworks, features, cells, max } = data;
+  const maxTotal = max.fcp + max.other;
   const topScore = frameworks[0].total;
   const leaders = frameworks.filter((f) => f.total === topScore);
   const fcpCount = features.filter((f) => f.group === "fcp").length;
@@ -160,7 +161,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           </>
         }
       >
-        <RankingTable frameworks={frameworks} maxTotal={maxTotal} />
+        <RankingTable frameworks={frameworks} max={max} />
       </Section>
     </>
   );

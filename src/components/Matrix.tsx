@@ -172,10 +172,13 @@ type MatrixFramework = Pick<Framework, "id" | "name" | "shortName" | "fcpScore" 
 type MatrixFeature = Pick<Feature, "id" | "number" | "name" | "shortName" | "group">;
 type MatrixCellData = Pick<Cell, "frameworkId" | "featureId" | "label" | "points">;
 
-const GROUPS: { id: FeatureGroup; title: string; max: string }[] = [
-  { id: "fcp", title: "First-paint levers", max: "2 pts each · max 10" },
-  { id: "other", title: "Other features", max: "2 pts each · max 12" },
+const GROUPS: { id: FeatureGroup; title: string }[] = [
+  { id: "fcp", title: "First-paint levers" },
+  { id: "other", title: "Other features" },
 ];
+
+/** 2 points per row, so a group of seven rows has a max of 14. */
+const groupMax = (rows: { group: FeatureGroup }[], group: FeatureGroup) => 2 * rows.filter((f) => f.group === group).length;
 
 /**
  * Features (rows) × frameworks (columns), one `LabelBadge` per cell.
@@ -210,7 +213,9 @@ export function CapabilityMatrix({
   const byKey = new Map(cells.map((c) => [`${c.featureId}|${c.frameworkId}`, c]));
   const isVertical = vertical ?? frameworks.length > 6;
   const sections = grouped
-    ? GROUPS.map((g) => ({ ...g, rows: features.filter((f) => f.group === g.id) })).filter((g) => g.rows.length)
+    ? GROUPS.map((g) => ({ ...g, max: `2 pts each · max ${groupMax(features, g.id)}`, rows: features.filter((f) => f.group === g.id) })).filter(
+        (g) => g.rows.length,
+      )
     : [{ id: "all" as const, title: "", max: "", rows: features }];
 
   const footRow = (title: string, max: number, pick: (f: MatrixFramework) => number, strong = false) => (
@@ -279,9 +284,9 @@ export function CapabilityMatrix({
       </tbody>
       {totals && (
         <tfoot>
-          {footRow("First paint", 10, (f) => f.fcpScore)}
-          {footRow("Other", 12, (f) => f.otherScore)}
-          {footRow("Total", 22, (f) => f.total, true)}
+          {footRow("First paint", groupMax(features, "fcp"), (f) => f.fcpScore)}
+          {footRow("Other", groupMax(features, "other"), (f) => f.otherScore)}
+          {footRow("Total", 2 * features.length, (f) => f.total, true)}
         </tfoot>
       )}
     </Matrix>

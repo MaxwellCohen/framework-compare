@@ -28,6 +28,7 @@ export async function loader() {
     featureCount: capability.features.length,
     otherFeatureCount: capability.features.filter((f) => f.group === "other").length,
     otherMax: MAX_SCORE.other,
+    max: MAX_SCORE,
     measuredCount: new Set([
       ...measured.runs.flatMap((r) => r.samples.map((s) => s.frameworkId)),
       ...measured.averages.map((a) => a.frameworkId),
@@ -148,11 +149,11 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
           </DocSection>
 
           <DocSection id="scoring" index="03" title="How scoring works, with a worked example">
-            <Callout kind="caveat" title="This site scores 11 features, out of 22 points" class="mb-6 max-w-prose">
+            <Callout kind="caveat" title={`This site scores ${data.featureCount} features, out of ${2 * data.featureCount} points`} class="mb-6 max-w-prose">
               <p>
-                The source comparison scores 12 features out of 24 points. This site drops its “Art-directed /
-                modern-format images (&lt;picture&gt;)” row from the score, so the text quoted below still counts 12
-                features. Each framework’s art-direction how-to now appears, unscored, under{" "}
+                The source comparison scores {data.featureCount + 1} features out of {2 * (data.featureCount + 1)} points. This site drops its “Art-directed /
+                modern-format images (&lt;picture&gt;)” row from the score, so the text quoted below still counts{" "}
+                {data.featureCount + 1} features. Each framework’s art-direction how-to now appears, unscored, under{" "}
                 <NavLink to={{ route: "feature", id: "image-pipeline" }}>Image pipeline</NavLink>. Scores, completeness
                 and ranks on this site are recalculated without that row, so they can differ from the source’s ranking.
               </p>
@@ -167,7 +168,7 @@ export function Component({ data }: RouteComponentProps<typeof loader>) {
               <Prose html={data.rankingHtml} />
             </div>
             <h3 class="mt-8 mb-3 font-semibold text-ink">The ranking</h3>
-            <RankingTable rows={data.ranking} />
+            <RankingTable rows={data.ranking} max={data.max} />
             <p class="mt-2 max-w-prose text-xs text-ink-3">
               “=” marks a tied rank. Each name links to that
               framework’s page.

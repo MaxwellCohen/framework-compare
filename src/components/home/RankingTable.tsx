@@ -1,4 +1,4 @@
-import type { Framework } from "../../data/types.ts";
+import type { FeatureGroup, Framework } from "../../data/types.ts";
 import { Matrix, MatrixCell, MatrixColHeader, MatrixHead, MatrixRow, MatrixRowHeader } from "../Matrix.tsx";
 import { RankBadge, ScoreBar } from "../Score.tsx";
 
@@ -12,15 +12,23 @@ export type RankingFramework = Pick<
  * split score bar, the three point columns, and completeness.
  * Pass the rows already sorted.
  */
-export function RankingTable({ frameworks, maxTotal }: { frameworks: RankingFramework[]; maxTotal: number }) {
+export function RankingTable({
+  frameworks,
+  max,
+}: {
+  frameworks: RankingFramework[];
+  /** Points available per group: 2 per feature. */
+  max: Record<FeatureGroup, number>;
+}) {
+  const maxTotal = max.fcp + max.other;
   return (
     <Matrix label="Frameworks ranked by total score" class="ranking">
       <MatrixHead corner="Framework">
         <MatrixColHeader>Score</MatrixColHeader>
-        <MatrixColHeader title="Points from the five first-paint levers, out of 10">First paint</MatrixColHeader>
-        <MatrixColHeader title="Points from the six other features, out of 12">Other</MatrixColHeader>
+        <MatrixColHeader title={`Points from the ${max.fcp / 2} first-paint levers, out of ${max.fcp}`}>First paint</MatrixColHeader>
+        <MatrixColHeader title={`Points from the ${max.other / 2} other features, out of ${max.other}`}>Other</MatrixColHeader>
         <MatrixColHeader>Total</MatrixColHeader>
-        <MatrixColHeader title="Total as a share of the 22 available points">Complete</MatrixColHeader>
+        <MatrixColHeader title={`Total as a share of the ${maxTotal} available points`}>Complete</MatrixColHeader>
       </MatrixHead>
       <tbody>
         {frameworks.map((f) => (
@@ -30,18 +38,18 @@ export function RankingTable({ frameworks, maxTotal }: { frameworks: RankingFram
               <span class="font-semibold">{f.name}</span>
             </MatrixRowHeader>
             <MatrixCell class="text-left">
-              <ScoreBar fcp={f.fcpScore} other={f.otherScore} size="sm" showValue={false} />
+              <ScoreBar fcp={f.fcpScore} other={f.otherScore} fcpMax={max.fcp} otherMax={max.other} size="sm" showValue={false} />
             </MatrixCell>
             <MatrixCell>
               <span class="num whitespace-nowrap">
                 {f.fcpScore}
-                <span class="text-ink-3">/10</span>
+                <span class="text-ink-3">/{max.fcp}</span>
               </span>
             </MatrixCell>
             <MatrixCell>
               <span class="num whitespace-nowrap">
                 {f.otherScore}
-                <span class="text-ink-3">/12</span>
+                <span class="text-ink-3">/{max.other}</span>
               </span>
             </MatrixCell>
             <MatrixCell>

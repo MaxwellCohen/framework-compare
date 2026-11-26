@@ -54,13 +54,15 @@ const FRAMEWORKS = {
   Fresh: { id: "fresh", shortName: "Fresh" },
 };
 
-/** Section number (1–12) → slug + short name. */
+/** Source rows in order (the fcp table's rows, then the other table's) → slug + short name. Row N is section N. */
 const FEATURES = [
   { id: "css-inlining", shortName: "CSS inlining" },
   { id: "font-optimization", shortName: "Fonts" },
   { id: "image-pipeline", shortName: "Images" },
   { id: "caching", shortName: "Caching" },
   { id: "route-prefetching", shortName: "Prefetching" },
+  { id: "streaming-ssr", shortName: "Streaming" },
+  { id: "early-hints", shortName: "Early Hints" },
   { id: "islands", shortName: "Islands" },
   { id: "render-modes", shortName: "Render modes" },
   { id: "picture", shortName: "<picture>" },
@@ -68,6 +70,7 @@ const FEATURES = [
   { id: "bundle-analysis", shortName: "Bundle analysis" },
   { id: "third-party-scripts", shortName: "Scripts" },
   { id: "multi-host-deployment", shortName: "Multi-host" },
+  { id: "service-worker", shortName: "Service worker" },
 ];
 
 /**
@@ -532,7 +535,10 @@ function buildCapability() {
       const scoreRow = t.rows.find((r) => /^Score \(max \d+\)$/.test(plain(r[0])));
       if (!scoreRow) die(`table in "${sec.title}" has no score row`);
       const max = Number(plain(scoreRow[0]).match(/max (\d+)/)[1]);
-      const group = max === 10 ? "fcp" : max === 14 ? "other" : die(`"${sec.title}": unexpected max ${max}`);
+      // The group comes from the section title, so adding a row never needs a change here.
+      const group = /^Other performance features\b/.test(sec.title) ? "other" : "fcp";
+      const rowCount = t.rows.length - 1;
+      if (max !== 2 * rowCount) die(`"${sec.title}": score row says max ${max} but ${rowCount} rows give ${2 * rowCount}`);
       scoreTables.push({
         section: sec,
         group,
@@ -544,7 +550,7 @@ function buildCapability() {
   }
   if (scoreTables.length !== 4) die(`expected 4 score tables, found ${scoreTables.length}`);
 
-  // --- Features, from the row names (fcp rows first, then other), numbered 1–12.
+  // --- Features, from the row names (fcp rows first, then other), numbered from 1.
   const featureRows = [];
   for (const group of ["fcp", "other"]) {
     const tables = scoreTables.filter((t) => t.group === group);
@@ -902,8 +908,9 @@ function foldFeatures({ frameworks, features, cells }) {
 
 function validateCapability({ frameworks, features, cells, ranking, tableLabel, tableScore }) {
   if (frameworks.length !== 15) problem(`expected 15 frameworks, found ${frameworks.length}`);
-  if (features.length !== 12) problem(`expected 12 features, found ${features.length}`);
-  if (cells.length !== 180) problem(`expected 180 cells, found ${cells.length}`);
+  if (features.length !== FEATURES.length) problem(`expected ${FEATURES.length} features, found ${features.length}`);
+  const cellCount = frameworks.length * features.length;
+  if (cells.length !== cellCount) problem(`expected ${cellCount} cells, found ${cells.length}`);
   if (ranking.length !== frameworks.length) problem(`ranking has ${ranking.length} rows for ${frameworks.length} frameworks`);
 
   const sameSet = (a, b) => a.length === b.length && a.every((x, i) => x === b[i]);
@@ -943,8 +950,9 @@ function validateCapability({ frameworks, features, cells, ranking, tableLabel, 
     if (fw.total !== fw.fcpScore + fw.otherScore) {
       problem(`${fw.name}: total ${fw.total} ≠ ${fw.fcpScore} + ${fw.otherScore}`);
     }
-    const pct = Math.round((fw.total / 24) * 100);
-    if (fw.completeness !== pct) problem(`${fw.name}: completeness ${fw.completeness}% ≠ round(${fw.total}/24) = ${pct}%`);
+    const maxTotal = 2 * features.length;
+    const pct = Math.round((fw.total / maxTotal) * 100);
+    if (fw.completeness !== pct) problem(`${fw.name}: completeness ${fw.completeness}% ≠ round(${fw.total}/${maxTotal}) = ${pct}%`);
     if (!fw.version) problem(`${fw.name}: empty version`);
     if (!fw.app) problem(`${fw.name}: empty app`);
   }

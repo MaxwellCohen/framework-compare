@@ -201,3 +201,58 @@ export default {
   },
 };
 ```
+
+## service-worker
+
+Put a hand-written worker in `public/` and register it with an inline script in `index.html`.
+
+```js
+// public/sw.js
+const CACHE = 'books-v1'; // change the name on each deploy
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))),
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET' || new URL(request.url).origin !== location.origin) return;
+  // Network first, so pages stay current. The cached copy answers when offline.
+  event.respondWith(
+    fetch(request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE).then((cache) => cache.put(request, copy));
+        return response;
+      })
+      .catch(() => caches.match(request)),
+  );
+});
+```
+
+```html
+<!-- index.html, before </head> -->
+<script>
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+</script>
+```
+
+Source: [Using Service Workers (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)
+
+## early-hints
+
+Set a `Link` header on the Fastify reply that sends the rendered page. This one preconnects to the font host. To preload a built file with a hashed name, read its URL from the Vite manifest.
+
+```js
+// server.js
+const LINK = '<https://fonts.gstatic.com>; rel=preconnect; crossorigin';
+// … in the handler that sends the SSR result
+const { html } = await renderHtml(emberApp, request.url, template);
+return reply.header('Link', LINK).type('text/html').send(html);
+```
+
+Source: [Fastify Reply: `.header()`](https://fastify.dev/docs/latest/Reference/Reply/#headerkey-value)
