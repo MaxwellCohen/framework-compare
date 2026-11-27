@@ -67,7 +67,7 @@ export type FrameworkGroup = "core" | "additional";
 export type Host = "vercel" | "netlify" | "cloudflare";
 
 export interface Deployment {
-  /** Git branch, e.g. "main", "optimized", "nuxt-books-optimized-max". */
+  /** Git branch: "main" (baseline) or "optimized". */
   branch: string;
   /** Free-text note from the README table ("vibe port", "cache + fonts"), plain text. */
   note: string;
@@ -301,7 +301,7 @@ export interface BenchField {
 export interface BenchTarget {
   frameworkId: FrameworkId;
   app: string;
-  /** Git branch, e.g. "main", "optimized", "nuxt-books-optimized-max". */
+  /** Git branch: "main" (baseline) or "optimized". */
   branch: string;
   host: Host;
   path: BenchPath;

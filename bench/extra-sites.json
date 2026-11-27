@@ -1,14 +1,4 @@
 {
   "_comment": "Deployments to benchmark that capability.json does not list (it comes from the comparison doc). Same shape as a framework's deployments entry.",
-  "sites": [
-    {
-      "frameworkId": "next",
-      "branch": "naive",
-      "urls": {
-        "vercel": "https://next-books-naive.vercel.app",
-        "netlify": "https://next-books-max-naive.netlify.app",
-        "cloudflare": "https://next-books-naive.to-email-max.workers.dev"
-      }
-    }
-  ]
+  "sites": []
 }

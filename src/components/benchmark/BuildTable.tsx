@@ -15,7 +15,7 @@ export interface BuildTableRow {
   framework: string;
   /** Framework page URL (from the typed `href()`), or null for no link. */
   href: string | null;
-  /** "baseline", "optimized", "max optimized". */
+  /** "baseline" or "optimized". */
   build: string;
   branch: string;
   /** Sort key for builds within a framework. */

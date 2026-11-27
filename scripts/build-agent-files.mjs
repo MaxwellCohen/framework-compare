@@ -248,15 +248,13 @@ const rankingMd = () =>
     ranked.map((f) => [f.rank, `[${f.name}](${fwUrl(f.id)}.md)`, `${f.fcpScore}/${MAX.fcp}`, `${f.otherScore}/${MAX.other}`, `${f.total}/${MAX.total}`, `${f.completeness}%`]),
   );
 
-// Build names per git branch. Keep in step with BRANCH_NAME and BRANCH_OVERRIDES in src/data/index.ts.
-const BRANCH_ORDER = ["main", "optimized", "nuxt-books-optimized-max"];
-const BRANCH_NAME = { main: "baseline", optimized: "optimized", "nuxt-books-optimized-max": "max optimized" };
-const BRANCH_OVERRIDES = { next: { order: ["naive", "main"], names: { naive: "baseline", main: "optimized" } } };
-const buildName = (b) => BRANCH_OVERRIDES[b.frameworkId]?.names[b.branch] ?? BRANCH_NAME[b.branch] ?? b.branch;
+// Build names per git branch. Keep in step with BRANCH_NAME in src/data/index.ts.
+const BRANCH_ORDER = ["main", "optimized"];
+const BRANCH_NAME = { main: "baseline", optimized: "optimized" };
+const buildName = (b) => BRANCH_NAME[b.branch] ?? b.branch;
 const branchRank = (b) => {
-  const order = BRANCH_OVERRIDES[b.frameworkId]?.order ?? BRANCH_ORDER;
-  const i = order.indexOf(b.branch);
-  return i === -1 ? order.length : i;
+  const i = BRANCH_ORDER.indexOf(b.branch);
+  return i === -1 ? BRANCH_ORDER.length : i;
 };
 const pathName = (p) => (p === "/" ? "book list (/)" : `one book (${p})`);
 const run = benchmark.latest;

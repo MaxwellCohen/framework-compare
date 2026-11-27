@@ -119,33 +119,22 @@ export function getMatrix(): Matrix {
 /** The book-list page; the bench also measures one book page. */
 export const BENCH_HOME_PATH = "/";
 
-const BRANCH_ORDER = ["main", "optimized", "nuxt-books-optimized-max"];
+/** Every port has the same two branches: `main` (baseline) and `optimized`. */
+const BRANCH_ORDER = ["main", "optimized"];
 const BRANCH_NAME: Record<string, string> = {
   main: "baseline",
   optimized: "optimized",
-  "nuxt-books-optimized-max": "max optimized",
 };
 
-/**
- * Ports whose `main` is already tuned and whose untuned build lives on another
- * branch. Next's `main` enables Cache Components, inlineCss and so on; `naive`
- * is the untuned build (see the books-demo README).
- */
-const BRANCH_OVERRIDES: Partial<Record<FrameworkId, { order: string[]; names: Record<string, string> }>> = {
-  next: { order: ["naive", "main"], names: { naive: "baseline", main: "optimized" } },
-};
-
-/** Build name for a git branch: main → "baseline", optimized → "optimized", … Unknown branches keep their name. */
-export function benchBuildName(branch: string, frameworkId?: FrameworkId): string {
-  const o = frameworkId && BRANCH_OVERRIDES[frameworkId];
-  return (o && o.names[branch]) ?? BRANCH_NAME[branch] ?? branch;
+/** Build name for a git branch: main → "baseline", optimized → "optimized". Unknown branches keep their name. */
+export function benchBuildName(branch: string): string {
+  return BRANCH_NAME[branch] ?? branch;
 }
 
-/** Sort key for branches: baseline first, then optimized, then max, then anything else. */
-export function benchBranchRank(branch: string, frameworkId?: FrameworkId): number {
-  const order = (frameworkId && BRANCH_OVERRIDES[frameworkId]?.order) || BRANCH_ORDER;
-  const i = order.indexOf(branch);
-  return i === -1 ? order.length : i;
+/** Sort key for branches: baseline first, then optimized, then anything else. */
+export function benchBranchRank(branch: string): number {
+  const i = BRANCH_ORDER.indexOf(branch);
+  return i === -1 ? BRANCH_ORDER.length : i;
 }
 
 /** Sort key for paths: the order the run lists them, home page first. */
@@ -167,7 +156,7 @@ export function benchHostRank(host: string): number {
 export function benchBuildsFor(id: FrameworkId): BenchBuild[] {
   return (benchmark.latest?.builds ?? [])
     .filter((b) => b.frameworkId === id)
-    .sort((a, b) => benchPathRank(a.path) - benchPathRank(b.path) || benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId));
+    .sort((a, b) => benchPathRank(a.path) - benchPathRank(b.path) || benchBranchRank(a.branch) - benchBranchRank(b.branch));
 }
 
 // ---------------------------------------------------------------------------
@@ -223,8 +212,7 @@ function median(values: number[]): number | null {
 
 /**
  * Home-page FCP of each port's naive (default-settings) build against its
- * optimized build. The max-optimized Nuxt build is left out: `optimized` is
- * the comparable build for every port.
+ * optimized build.
  */
 export function fcpPairs(): FcpPair[] {
   const run = benchmark.latest;
@@ -234,7 +222,7 @@ export function fcpPairs(): FcpPair[] {
   const byHost = (id: FrameworkId, build: string) =>
     hosts.map((h) => {
       const t = run.targets.find(
-        (t) => t.frameworkId === id && t.host === h && t.path === BENCH_HOME_PATH && benchBuildName(t.branch, id) === build,
+        (t) => t.frameworkId === id && t.host === h && t.path === BENCH_HOME_PATH && benchBuildName(t.branch) === build,
       );
       return t?.median?.fcp != null ? t.median.fcp / 1000 : null;
     });

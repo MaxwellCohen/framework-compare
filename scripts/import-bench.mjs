@@ -17,6 +17,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { normalizeBranches } from "./bench-branches.mjs";
 
 const PROJECT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_DIR = join(PROJECT, "content/benchmarks");
@@ -115,7 +116,9 @@ if (merge && out.targets.length === 0) {
   process.exit(1);
 }
 if (merge && base) {
-  const prev = JSON.parse(readFileSync(base, "utf8"));
+  // Map an older base run onto the two-branch layout first, so its retired branches
+  // do not survive the merge next to freshly measured `main` / `optimized` targets.
+  const prev = normalizeBranches(JSON.parse(readFileSync(base, "utf8")));
   const key = (t) => `${t.frameworkId}|${t.branch}|${t.host}|${t.path}`;
   const keys = new Set(out.targets.map(key));
   const ids = new Set(out.targets.map((t) => t.frameworkId));

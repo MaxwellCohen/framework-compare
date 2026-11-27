@@ -54,13 +54,13 @@ export async function loader() {
       .filter((t) => t.path === BENCH_HOME_PATH)
       .sort(
         (a, b) =>
-          benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId) ||
+          benchBranchRank(a.branch) - benchBranchRank(b.branch) ||
           benchHostRank(a.host) - benchHostRank(b.host),
       );
     for (const t of targets) {
       (rows[t.frameworkId] ??= []).push({
         key: `${t.branch}|${t.host}`,
-        build: benchBuildName(t.branch, t.frameworkId),
+        build: benchBuildName(t.branch),
         branch: t.branch,
         path: t.path,
         host: t.host,

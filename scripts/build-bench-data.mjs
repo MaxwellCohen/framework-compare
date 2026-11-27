@@ -7,6 +7,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { normalizeBranches } from "./bench-branches.mjs";
 
 const PROJECT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const IN_DIR = join(PROJECT, "content/benchmarks");
@@ -16,7 +17,8 @@ const capability = JSON.parse(readFileSync(join(PROJECT, "src/data/generated/cap
 const fwIds = new Set(capability.frameworks.map((f) => f.id));
 
 const files = existsSync(IN_DIR) ? readdirSync(IN_DIR).filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort() : [];
-const runs = files.map((f) => ({ file: f, ...JSON.parse(readFileSync(join(IN_DIR, f), "utf8")) }));
+const runs = files.map((f) => normalizeBranches({ file: f, ...JSON.parse(readFileSync(join(IN_DIR, f), "utf8")) }));
+
 
 const METRICS = ["perf", "fcp", "lcp", "tbt", "si", "tti", "cls", "doc", "fcpObs", "lcpObs"];
 const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);

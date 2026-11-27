@@ -63,14 +63,14 @@ export async function loader() {
     .map((id) => {
       const f = fwById.get(id);
       const builds = home.filter((b) => b.frameworkId === id);
-      const base = builds.find((b) => benchBuildName(b.branch, id) === "baseline");
+      const base = builds.find((b) => benchBuildName(b.branch) === "baseline");
       const opt = builds
         .filter((b) => b !== base && b.lcp != null)
-        .sort((a, b) => a.lcp! - b.lcp! || benchBranchRank(a.branch, id) - benchBranchRank(b.branch, id))[0];
+        .sort((a, b) => a.lcp! - b.lcp! || benchBranchRank(a.branch) - benchBranchRank(b.branch))[0];
       return {
         key: id,
         framework: { id, name: f?.name ?? id, shortName: f?.shortName ?? id },
-        build: opt ? benchBuildName(opt.branch, id) : null,
+        build: opt ? benchBuildName(opt.branch) : null,
         changes: changes[id] ?? [],
         hosts: opt ? hostNote(opt.hosts) : undefined,
         fcp: { from: base?.fcp != null ? base.fcp / 1000 : null, to: opt?.fcp != null ? opt.fcp / 1000 : null },
@@ -87,9 +87,9 @@ export async function loader() {
     frameworkId: b.frameworkId,
     framework: fwName(b.frameworkId),
     href: fwById.has(b.frameworkId) ? href("framework", { params: { id: b.frameworkId } }) : null,
-    build: benchBuildName(b.branch, b.frameworkId),
+    build: benchBuildName(b.branch),
     branch: b.branch,
-    buildRank: benchBranchRank(b.branch, b.frameworkId),
+    buildRank: benchBranchRank(b.branch),
     path: b.path,
     perf: b.perf,
     fcp: b.fcp,
@@ -112,14 +112,14 @@ export async function loader() {
       .filter((t) => t.frameworkId === id)
       .sort(
         (a, b) =>
-          benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId) ||
+          benchBranchRank(a.branch) - benchBranchRank(b.branch) ||
           a.branch.localeCompare(b.branch) ||
           benchPathRank(a.path) - benchPathRank(b.path) ||
           hostRank(a.host) - hostRank(b.host),
       )
       .map((t) => ({
         key: `${t.branch}|${t.path}|${t.host}`,
-        build: benchBuildName(t.branch, t.frameworkId),
+        build: benchBuildName(t.branch),
         branch: t.branch,
         path: t.path,
         host: t.host,
@@ -141,13 +141,13 @@ export async function loader() {
         .filter((t) => t.frameworkId === g.key && t.field)
         .sort(
           (a, b) =>
-            benchBranchRank(a.branch, a.frameworkId) - benchBranchRank(b.branch, b.frameworkId) ||
+            benchBranchRank(a.branch) - benchBranchRank(b.branch) ||
             benchPathRank(a.path) - benchPathRank(b.path) ||
             hostRank(a.host) - hostRank(b.host),
         )
         .map((t) => ({
           key: `${t.branch}|${t.path}|${t.host}`,
-          build: benchBuildName(t.branch, t.frameworkId),
+          build: benchBuildName(t.branch),
           branch: t.branch,
           path: t.path,
           host: t.host,
