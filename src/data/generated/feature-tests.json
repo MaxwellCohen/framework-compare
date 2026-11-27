@@ -135,10 +135,10 @@
    "repo": "MaxwellCohen/tanstack-solid-books",
    "repoUrl": "https://github.com/MaxwellCohen/tanstack-solid-books",
    "branch": "feature-tests",
-   "commit": "f14ecbbb1afef63315293d6504ea10e82ca898f2",
-   "resultsCommit": "577d9a7e6afce2ac311ae65efc57e3065d53e854",
-   "testsUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/tree/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests",
-   "testedAt": "2026-11-26T04:58:30.414Z"
+   "commit": "ed6d298a5356c90f86d9f47e33f5a3635e2f343b",
+   "resultsCommit": "8362e4f1ce8678e4132311d56fc2f9f907d46378",
+   "testsUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/tree/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests",
+   "testedAt": "2026-11-27T03:21:57.380Z"
   },
   {
    "frameworkId": "waku",
@@ -1732,7 +1732,7 @@
    "evidence": "inline <style> with route CSS: true; render-blocking <link rel=stylesheet> for same CSS: /assets/css-inlining-Dbk-Cmme.css; computed color rgb(12, 34, 56) — failed: Error: route CSS must not also be a render-blocking <link rel=stylesheet>",
    "method": "TanStack Start server.build.inlineCss: true (vite.config.ts) + route-level import '…/css-inlining.css'",
    "testRoute": "/feature-tests/css-inlining",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/css-inlining.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/css-inlining.spec.ts",
    "testedLabel": "experimental",
    "suggestedLabel": null
   },
@@ -1743,7 +1743,7 @@
    "evidence": "4 inline @font-face (4 with font-display), preload present, 1 same-origin woff2 request(s), 0 Google Fonts request(s)",
    "method": "@fontsource-variable/geist woff2 via hand-written @font-face (font-display: optional) in app.css + head().links preload in __root.tsx",
    "testRoute": "/feature-tests/font-optimization",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/font-optimization.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/font-optimization.spec.ts",
    "testedLabel": "third-party",
    "suggestedLabel": null
   },
@@ -1754,18 +1754,18 @@
    "evidence": "srcset widths 640w 750w 828w 960w 1080w 1280w; width/height attrs absent (aspect-ratio style instead); offscreen loading=lazy; /_ipx/s_640x400,f_auto/feature-tests/sample.jpg → 200 image/avif",
    "method": "@unpic/solid <Image> (port's Image wrapper) with IPX transformer at /_ipx (Nitro server route)",
    "testRoute": "/feature-tests/image-pipeline",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/image-pipeline.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/image-pipeline.spec.ts",
    "testedLabel": "third-party",
    "suggestedLabel": null
   },
   {
    "frameworkId": "tanstack-start-solid",
    "featureId": "caching",
-   "status": "fail",
-   "evidence": "Cache-Control \"public, max-age=0, s-maxage=60, stale-while-revalidate=300\"; loader counter 2 → 2 (nav away/back inside 5s staleTime) → 2 (after staleTime expired); server-fn requests: 0 within staleTime, 1 after expiry — failed: Error: expect(received).not.toBe(expected) // Object.is equality",
+   "status": "pass",
+   "evidence": "Cache-Control \"public, max-age=0, s-maxage=60, stale-while-revalidate=300\"; loader counter 2 → 2 (nav away/back inside 5s staleTime) → 3 (after staleTime expired); server-fn requests: 0 within staleTime, 1 after expiry",
    "method": "TanStack Router loader cache (staleTime: 5_000) over a createServerFn counter + route headers() Cache-Control",
    "testRoute": "/feature-tests/caching",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/caching.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/caching.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -1776,7 +1776,7 @@
    "evidence": "on hover (before click): /_serverFn/data/ad22717454b1dc63b50d0155, target-D-aks70K.js; after click: 7 more request(s)",
    "method": "@tanstack/solid-router <Link preload=\"intent\"> to a route with a server-fn loader (router also sets defaultPreload: 'intent')",
    "testRoute": "/feature-tests/route-prefetching",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/route-prefetching.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/route-prefetching.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -1787,7 +1787,7 @@
    "evidence": "marker in SSR HTML: true; island buttons in DOM: 1; counter → 2 after clicks; 24 JS files loaded, marker found in: none",
    "method": "<Hydrate when={never()}> around a static card + <Hydrate when={visible()}> around a counter (@tanstack/solid-start)",
    "testRoute": "/feature-tests/islands",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/islands.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/islands.spec.ts",
    "testedLabel": "experimental",
    "suggestedLabel": null
   },
@@ -1798,7 +1798,7 @@
    "evidence": "per-request SSR stamps differ: true; ssr:false route HTML lacks content (true) and the browser renders it; prerendered file written but node server re-renders it per request (Nitro asset manifest predates Start prerender)",
    "method": "Per-route ssr: true vs ssr: false (selective SSR) + prerender.pages for one route",
    "testRoute": "/feature-tests/render-modes/static",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/render-modes.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/render-modes.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -1809,7 +1809,7 @@
    "evidence": "count 0 → 3 after 3 clicks; component render count 1; same <span> node: true",
    "method": "Solid createSignal; component-body run counter on window",
    "testRoute": "/feature-tests/reactivity",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/reactivity.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/reactivity.spec.ts",
    "testedLabel": "first-party",
    "suggestedLabel": null
   },
@@ -1820,7 +1820,7 @@
    "evidence": "/home/maxc/code/books-demo/_ft/tanstack-solid-books/.analyze/client.html (336297 B) and /home/maxc/code/books-demo/_ft/tanstack-solid-books/.analyze/client.json (272940 B) written",
    "method": "rollup-plugin-visualizer (treemap + raw-data) added to the client environment when ANALYZE=1",
    "testRoute": null,
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/bundle-analysis.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/bundle-analysis.spec.ts",
    "testedLabel": "third-party",
    "suggestedLabel": null
   },
@@ -1828,10 +1828,10 @@
    "frameworkId": "tanstack-start-solid",
    "featureId": "third-party-scripts",
    "status": "pass",
-   "evidence": "no <script src=fake-analytics> in HTML: true; loader inline in <head>: true; window load at 211ms, script ran at 414ms (readyState complete)",
+   "evidence": "no <script src=fake-analytics> in HTML: true; loader inline in <head>: true; window load at 80ms, script ran at 145ms (readyState complete)",
    "method": "Hand-rolled inline loader in route head().scripts that injects the script after window load + requestIdleCallback",
    "testRoute": "/feature-tests/third-party-scripts",
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/third-party-scripts.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/third-party-scripts.spec.ts",
    "testedLabel": "manual",
    "suggestedLabel": null
   },
@@ -1842,7 +1842,7 @@
    "evidence": "node (nitro): ok; vercel (nitro preset): ok; netlify (@netlify/vite-plugin-tanstack-start): ok; cloudflare (@cloudflare/vite-plugin): ok",
    "method": "vite.config.ts adapter switch: nitro() (node / NITRO_PRESET=vercel), @netlify/vite-plugin-tanstack-start, @cloudflare/vite-plugin",
    "testRoute": null,
-   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/577d9a7e6afce2ac311ae65efc57e3065d53e854/feature-tests/multi-host-deployment.spec.ts",
+   "specUrl": "https://github.com/MaxwellCohen/tanstack-solid-books/blob/8362e4f1ce8678e4132311d56fc2f9f907d46378/feature-tests/multi-host-deployment.spec.ts",
    "testedLabel": "third-party",
    "suggestedLabel": null
   },
