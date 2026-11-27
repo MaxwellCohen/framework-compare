@@ -27,10 +27,11 @@
     },
     {
      "branch": "optimized",
-     "note": "fork from work by aurorascharff; Cloudflare pending",
+     "note": "fork from work by aurorascharff",
      "urls": {
       "vercel": "https://next-books-optimized.vercel.app",
-      "netlify": "https://next-books-max-optimized.netlify.app"
+      "netlify": "https://next-books-max-optimized.netlify.app",
+      "cloudflare": "https://next-books-optimized.to-email-max.workers.dev"
      }
     }
    ],
