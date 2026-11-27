@@ -27,8 +27,11 @@
     },
     {
      "branch": "optimized",
-     "note": "fork from work by aurorascharff; deploys pending",
-     "urls": {}
+     "note": "fork from work by aurorascharff; Cloudflare pending",
+     "urls": {
+      "vercel": "https://next-books-optimized.vercel.app",
+      "netlify": "https://next-books-max-optimized.netlify.app"
+     }
     }
    ],
    "extrasHtml": "<p><a href=\"https://nextjs.org/docs/app/guides/lazy-loading\" target=\"_blank\" rel=\"noopener\"><code>next/dynamic</code></a> lazy loading; <a href=\"https://nextjs.org/docs/app/guides/package-bundling\" target=\"_blank\" rel=\"noopener\"><code>optimizePackageImports</code></a>.</p>",
