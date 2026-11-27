@@ -109,5 +109,13 @@
     { "label": "Catalog query cache, hand-written", "feature": "caching", "framework": false },
     { "label": "Home grid in first HTML, cover preloads", "feature": "streaming-ssr", "framework": false },
     { "label": "Immutable asset headers", "feature": "caching", "framework": false }
+  ],
+  "remix": [
+    { "label": "Streamed home grid (Frame regions)", "feature": "streaming-ssr", "framework": true },
+    { "label": "Prefetch on intent (data-rmx-prefetch)", "feature": "route-prefetching", "framework": true },
+    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "Cover image preload", "feature": "image-pipeline", "framework": false },
+    { "label": "Catalog query cache, hand-written", "feature": "caching", "framework": false },
+    { "label": "Cache headers (HTML + immutable assets)", "feature": "caching", "framework": false }
   ]
 }

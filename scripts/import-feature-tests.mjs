@@ -47,6 +47,7 @@ const APPS = {
   "vike-books": "vike",
   "analog-books": "analog",
   "redwoodsdk-books": "redwoodsdk",
+  "remix3-books": "remix",
 };
 const FEATURES = [
   "css-inlining",

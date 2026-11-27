@@ -59,7 +59,7 @@ const FRAMEWORKS = {
   Analog: { id: "analog", shortName: "Analog" },
   Vike: { id: "vike", shortName: "Vike" },
   RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK" },
-  "Remix 3": { id: "remix", shortName: "Remix 3", port: false },
+  "Remix 3": { id: "remix", shortName: "Remix 3" },
 };
 
 /** Source rows in order (the fcp table's rows, then the other table's) → slug + short name. Row N is section N. */
@@ -112,6 +112,7 @@ const APPS = {
   "vike-books": "vike",
   "analog-books": "analog",
   "redwoodsdk-books": "redwoodsdk",
+  "remix3-books": "remix",
 };
 
 /** Label vocabulary of the source. */

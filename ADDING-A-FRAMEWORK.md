@@ -9,8 +9,8 @@ There are two cases:
 
 - **A. New framework, scored from docs only.** Do part 1, then the build checks at the end of part 4.
 - **B. A Books port for a framework.** This can be a framework that is already
-  scored but has no port (the case for Analog, Vike, RedwoodSDK and Remix 3 in
-  November 2026) or a new one. Do part 1 if it is new, then parts 2, 3 and 4.
+  scored but has no port (the case for Analog, Vike, RedwoodSDK and Remix 3
+  until they got ports in November 2026) or a new one. Do part 1 if it is new, then parts 2, 3 and 4.
 
 The `books-demo` repo is the parent folder of this one (`../`). Part 1 edits its markdown
 sources, part 2 creates a repo next to the other ports, and parts 3 and 4 run here.
