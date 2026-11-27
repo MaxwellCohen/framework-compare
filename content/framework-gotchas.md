@@ -22,6 +22,9 @@ A feature with no section here keeps the source list unchanged.
 ### pracht
 - Pracht has a first-party font feature, but this port uses Fontsource instead.
 
+### angular
+- `optimization.fonts.inline` only inlines the provider CSS; the font files still load from the font host and nothing is preloaded. Built-in self-hosting is an open request: [angular/angular-cli#27038](https://github.com/angular/angular-cli/issues/27038).
+
 ### general
 - Importing Fontsource alone does not preload anything. Without a `<link rel="preload">` the browser finds the font only after the stylesheet is parsed.
 
@@ -105,6 +108,9 @@ A feature with no section here keeps the source list unchanged.
 
 ### react-router
 - The React Compiler is opt-in: add its Babel preset to the React Vite plugin.
+
+### angular
+- Angular updates per component, not per DOM node: when a signal changes, the whole template of each component that reads it re-runs (only changed bindings touch the DOM). Components that don't read the signal are not refreshed, and nothing is re-created. Finer-grained updates are proposed in [angular/angular#70333](https://github.com/angular/angular/issues/70333).
 
 ### general
 - The React Compiler is opt-in for every React framework here: nothing changes until you add it to the build.

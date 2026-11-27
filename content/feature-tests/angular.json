@@ -2,9 +2,9 @@
   "frameworkId": "angular",
   "repo": "MaxwellCohen/angular-books",
   "branch": "feature-tests",
-  "commit": "2f250dc83ecd68f329dbfd752800f0e69ab06945",
-  "resultsCommit": "31e38f276f5400ff167041d5ffa5dbe09f1acc2f",
-  "testedAt": "2026-11-26T05:20:15.548Z",
+  "commit": "10492f98546550ee1f8cd2bd424de4c0c9f55915",
+  "resultsCommit": "4beef3eb3eada1c2cbd4464f83feda958d65b6c9",
+  "testedAt": "2026-11-27T03:13:41.750Z",
   "features": {
     "css-inlining": {
       "status": "pass",
@@ -17,7 +17,7 @@
     },
     "font-optimization": {
       "status": "fail",
-      "evidence": "fonts.inline: Google CSS inlined=true, <link> to googleapis left=false, font-display:swap=true, preload as=font=false, preconnect gstatic=true, font files from Google=1 (https://fonts.gstatic.com/s/lobster/v32/neILzCirqoswsqX9zoKmMw.woff2); assertion: Error: self-hosted: no requests to fonts.googleapis.com / fonts.gstatic.com expect(received).toEqual(expected) // deep equality - Expected - 1 + Received + 3 - Array [] + Array [ + \"https://fonts.gstatic.com/s/lobster/v32/neILzCirqoswsqX9zoKmMw.woff2\", + ]",
+      "evidence": "fonts.inline: Google CSS inlined=true, <link> to googleapis left=false, font-display:swap=true, preload as=font=false, preconnect gstatic=true, font files from Google=1 (https://fonts.gstatic.com/s/lobster/v32/neILzCirqoswsqX9zoKmMw.woff2). No built-in self-hosting/preload; upstream: angular/angular-cli#27038 https://github.com/angular/angular-cli/issues/27038; assertion: Error: self-hosted: no requests to fonts.googleapis.com / fonts.gstatic.com expect(received).toEqual(expected) // deep equality - Expected - 1 + Received + 3 - Array [] + Array [ + \"https://fonts.gstatic.com/s/lobster/v32/neILzCirqoswsqX9zoKmMw.woff2\", + ]",
       "method": "optimization.fonts.inline (default true) inlines a Google Fonts <link> from index.feature-tests.html at build time",
       "claimedLabel": "first-party",
       "suggestedLabel": "manual",
@@ -35,7 +35,7 @@
     },
     "caching": {
       "status": "pass",
-      "evidence": "prerendered stamp 1795670381998 == 1795670381998 across requests (live API counter 1->2); hydration made 0 /api/ft/now requests (ng-state transfer cache), shown=1795670381998; server route Cache-Control=\"public, max-age=0, s-maxage=60, stale-while-revalidate=300\" but its stamp changes per request locally (1795670391595 vs 1795670391622): no server/data cache or ISR, reuse only via a CDN honoring s-maxage",
+      "evidence": "prerendered stamp 1795749190582 == 1795749190582 across requests (live API counter 1->2); hydration made 0 /api/ft/now requests (ng-state transfer cache), shown=1795749190582; server route Cache-Control=\"public, max-age=0, s-maxage=60, stale-while-revalidate=300\" but its stamp changes per request locally (1795749199796 vs 1795749199821): no server/data cache or ISR, reuse only via a CDN honoring s-maxage",
       "method": "RenderMode.Prerender + default HttpClient transfer cache (provideClientHydration) + per-route ServerRoute headers (Cache-Control s-maxage)",
       "claimedLabel": "first-party",
       "suggestedLabel": null,
@@ -62,7 +62,7 @@
     },
     "render-modes": {
       "status": "pass",
-      "evidence": "prerendered: build file exists, stamp stable 2026-11-26T05:19:41.996Z == 2026-11-26T05:19:41.996Z; server: stamp changes 2026-11-26T05:20:13.634Z -> 2026-11-26T05:20:13.714Z; client: response is the CSR shell (no stamp), rendered in browser",
+      "evidence": "prerendered: build file exists, stamp stable 2026-11-27T03:13:10.569Z == 2026-11-27T03:13:10.569Z; server: stamp changes 2026-11-27T03:13:40.034Z -> 2026-11-27T03:13:40.120Z; client: response is the CSR shell (no stamp), rendered in browser",
       "method": "ServerRoute[] in app.routes.server.ts with RenderMode.Prerender / RenderMode.Server / RenderMode.Client on different routes",
       "claimedLabel": "first-party",
       "suggestedLabel": null,
@@ -70,9 +70,9 @@
       "spec": "feature-tests/render-modes.spec.ts"
     },
     "reactivity": {
-      "status": "fail",
-      "evidence": "count 0->3; constructors parent 1->1, child 1->1; 3 signal.set() calls from outside Angular: parent template runs 1->1, child (signal-reading) template runs 1->4; 1 (click) handler: parent 1->2, child 4->5. Granularity is the component view (its whole template update pass re-runs), not the text node; assertion: Error: signal-reading component template re-ran expect(received).toBe(expected) // Object.is equality Expected: 1 Received: 4",
-      "method": "signal() read in an OnPush child template (zoneless default); render counters on parent and child templates + constructors",
+      "status": "pass",
+      "evidence": "count 0->3 via 3 signal.set() calls from outside Angular; constructors parent 1->1, child 1->1, sibling 1->1; parent template runs 1->1; unrelated sibling template runs 1->1; info: signal-reading child template runs 1->4 (one view refresh per set). 1 (click) handler: parent 1->2, child 4->5. Granularity is the component view (its template update pass re-runs), not the text node",
+      "method": "signal() read in an OnPush child template (zoneless default); render counters on parent, signal-reading child and unrelated sibling templates + constructors. Pass = no component re-created and non-reading views not refreshed; the reading view re-runs its template per update (view-level, not per-node granularity), recorded as info",
       "claimedLabel": "first-party",
       "suggestedLabel": null,
       "testRoute": "/feature-tests/reactivity",
@@ -89,7 +89,7 @@
     },
     "third-party-scripts": {
       "status": "pass",
-      "evidence": "not in SSR HTML; injected into <body> async=true; request started at 160ms vs FCP 76ms / DCL 114ms; window.__ftThirdParty set",
+      "evidence": "not in SSR HTML; injected into <body> async=true; request started at 154ms vs FCP 60ms / DCL 114ms; window.__ftThirdParty set",
       "method": "Hand-rolled: afterNextRender + requestIdleCallback injects an async <script src=/ft/third-party.js>",
       "claimedLabel": "manual",
       "suggestedLabel": null,
