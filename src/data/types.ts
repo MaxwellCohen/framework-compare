@@ -316,6 +316,9 @@ export interface BenchTarget {
   /** Every run was cold (document over the cold threshold), so the median includes cold runs. */
   coldSuspect: boolean;
   error: string | null;
+  /** When this target was measured (ISO). A run merged from a one-framework
+   * bench has targets from different days; missing in files before 2026-11-26. */
+  measuredAt?: string;
 }
 
 /** Average of target medians across hosts, per framework × branch × path. */

@@ -13,7 +13,7 @@ const SVC = 'pagespeedonline.googleapis.com';
 const STOP = Symbol('daily-quota');
 
 const DEFS = {
-  filter: ['str', ''], hosts: ['str', 'vercel,netlify,cloudflare'], paths: ['str', '/,/10145787'],
+  filter: ['str', ''], framework: ['str', ''], hosts: ['str', 'vercel,netlify,cloudflare'], paths: ['str', '/,/10145787'],
   strategy: ['str', 'mobile'], runs: ['int', 3], 'warm-fetches': ['int', 3], 'warm-max': ['int', 8],
   'warm-ttfb-ms': ['int', 800], 'warm-psi': ['int', 1], 'cold-doc-ms': ['int', 1000], 'cold-retries': ['int', 2],
   concurrency: ['int', 4], rpm: ['int', 60], 'min-gap-s': ['int', 35], 'daily-limit': ['int', 25000],
@@ -30,6 +30,7 @@ with: node scripts/import-bench.mjs <results dir>  (npm run bench does both).
 API key: PSI_API_KEY, or PSI_GCP_PROJECT (key fetched with gcloud). Both may live in bench/.env.
 
 Options (defaults in brackets):
+  --framework <ids>       only these frameworks: comma-separated framework ids or app names (e.g. solidstart or solid-books)
   --filter <regex>        case-insensitive, tested against "<id> <origin>"
   --hosts <list>          vercel,netlify,cloudflare [all]
   --paths <list>          [/,/10145787]
@@ -148,11 +149,16 @@ function discoverSites() {
 function buildTargets(args) {
   const hosts = args.hosts.split(',').map((s) => s.trim()).filter(Boolean);
   const re = args.filter ? new RegExp(args.filter, 'i') : null;
+  const only = new Set(args.framework.split(',').map((s) => s.trim()).filter(Boolean));
   const paths = args.paths.split(',').map((s) => s.trim()).filter(Boolean);
   const strategies = args.strategy === 'both' ? ['mobile', 'desktop'] : [args.strategy];
   const out = [];
-  for (const s of discoverSites()) {
+  const sites = discoverSites();
+  const unknown = [...only].filter((x) => !sites.some((s) => s.frameworkId === x || s.app === x));
+  if (unknown.length) die(`--framework: unknown ${unknown.join(', ')}. Known: ${[...new Set(sites.map((s) => s.frameworkId))].join(', ')}`);
+  for (const s of sites) {
     if (!hosts.includes(s.host) || (re && !re.test(`${s.id} ${s.origin}`))) continue;
+    if (only.size && !only.has(s.frameworkId) && !only.has(s.app)) continue;
     for (const p of paths) for (const strategy of strategies) {
       out.push({ ...s, path: p, url: s.origin + p, strategy, warm: null, psiWarm: [], runs: [], median: null, coldSuspect: false, field: null, error: null });
     }

@@ -108,14 +108,12 @@ closest existing port so markup and styles match.
 
 ## 4. Measure it and check the site
 
-- [ ] Benchmark the new port alone:
-      `node bench/cwv-bench.mjs --filter <x>-books` (about 10 minutes; check
-      the targets first with `--dry-run`). The filter is matched against the
-      target id, which starts with the app name, not the framework id.
-- [ ] Import it with `node scripts/import-bench.mjs --merge <results-dir>`.
-      `--merge` adds the port to the run file for that date and keeps every
-      other framework's results. Without it the file is replaced, and the
-      site would show only the new port. It then rebuilds
+- [ ] Benchmark the new port alone and import it:
+      `npm run bench -- --framework <id>` (about 10 minutes; check the
+      targets first with `--dry-run`). It merges the port onto the newest
+      imported run and keeps every other framework's results. Importing a
+      run by hand without `--merge` replaces the file, and the site would
+      show only the new port. It then rebuilds
       `src/data/generated/benchmark.json`, which fails on a `frameworkId` it
       does not know. The next full run (`npm run bench`, or Monday's
       `.github/workflows/benchmark.yml`) picks the port up by itself.

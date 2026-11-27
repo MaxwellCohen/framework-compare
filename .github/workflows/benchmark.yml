@@ -11,6 +11,9 @@ on:
       runs:
         description: Measured PSI runs per target (median reported)
         default: "3"
+      framework:
+        description: Only these frameworks (comma-separated ids, e.g. "solid,nuxt"); empty for all. Merged into the latest run.
+        default: ""
   schedule:
     - cron: "0 9 * * 1" # Mondays 09:00 UTC
 
@@ -35,17 +38,19 @@ jobs:
       - name: Run benchmark
         env:
           PSI_API_KEY: ${{ secrets.PSI_API_KEY }}
+          FRAMEWORK: ${{ inputs.framework }}
         run: |
           test -n "$PSI_API_KEY" || { echo "::error::Set the PSI_API_KEY repository secret"; exit 1; }
           # Exit code 2 means the daily quota ran out; partial results are still written.
-          node bench/cwv-bench.mjs --no-live-limits --runs "${{ inputs.runs || '3' }}" || [ $? -eq 2 ]
-      - name: Import results
-        run: npm run bench:import
+          # A --framework run is imported with --merge, so other frameworks keep their results.
+          npm run bench -- --no-live-limits --runs "${{ inputs.runs || '3' }}" ${FRAMEWORK:+--framework "$FRAMEWORK"} || [ $? -eq 2 ]
       - name: Commit results
+        env:
+          FRAMEWORK: ${{ inputs.framework }}
         run: |
           git add content/benchmarks src/data/generated/benchmark.json
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Benchmark results $(date -u +%Y-%m-%d)"
+          git commit -m "Benchmark results $(date -u +%Y-%m-%d)${FRAMEWORK:+ ($FRAMEWORK)}"
           git push

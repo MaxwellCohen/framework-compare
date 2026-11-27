@@ -17,7 +17,7 @@
     "preview": "pracht preview",
     "data:feature-tests": "node scripts/import-feature-tests.mjs",
     "data:bench": "node scripts/build-bench-data.mjs",
-    "bench": "node bench/cwv-bench.mjs && node scripts/import-bench.mjs",
+    "bench": "node scripts/run-bench.mjs",
     "bench:import": "node scripts/import-bench.mjs"
   },
   "dependencies": {

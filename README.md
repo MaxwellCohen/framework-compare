@@ -41,10 +41,16 @@ median, after warming each target and discarding cold runs.
 ```bash
 cp bench/.env.example bench/.env   # set PSI_API_KEY
 npm run bench                      # run (about an hour), import, rebuild data
-node bench/cwv-bench.mjs --help    # options: --filter, --hosts, --paths, --runs…
+npm run bench -- --framework solidstart  # re-measure one framework (ids or app names, comma-separated)
+node bench/cwv-bench.mjs --help    # options: --framework, --filter, --hosts, --paths, --runs…
 npm run bench:import [results-dir] # import a run made earlier
-node scripts/import-bench.mjs --merge <dir>  # add a --filter run to that date's file
+node scripts/import-bench.mjs --merge <dir>  # import a narrowed run made earlier
 ```
+
+A narrowed run (`--framework`, `--filter`, `--hosts` or `--paths`) is merged
+onto the newest imported run: only the targets it measured are replaced, and
+each target keeps a `measuredAt` time. The Actions workflow takes the same
+`framework` input.
 
 Runs are kept in `content/benchmarks/<date>.json`, and
 `scripts/build-bench-data.mjs` builds `src/data/generated/benchmark.json` from

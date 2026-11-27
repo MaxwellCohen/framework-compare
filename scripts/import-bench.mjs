@@ -8,9 +8,11 @@
  *   node scripts/import-bench.mjs            # newest run under bench/results
  *   node scripts/import-bench.mjs --merge <dir>
  *
- * --merge adds a partial run (say `--filter vike-books`) to the file for its
- * date instead of replacing it: targets of the frameworks in the new run
- * replace theirs, and every other framework's targets are kept.
+ * --merge adds a partial run (say `--framework vike`) on top of the newest
+ * imported run instead of replacing it. Each target in the new run (framework
+ * × branch × host × path) replaces the same target; every other target is kept
+ * with its own `measuredAt`. The result is written to the new run's date, so
+ * the site keeps showing every framework. Older files stay as history.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -91,6 +93,7 @@ const out = {
               },
             }
           : {}),
+        measuredAt: meta.startedAt,
         runs: t.runs.length,
         usedRuns: t.runs.filter((r) => !r.cold).length,
         coldSuspect: Boolean(t.coldSuspect),
@@ -102,15 +105,27 @@ const out = {
 
 mkdirSync(OUT_DIR, { recursive: true });
 const dest = join(OUT_DIR, `${out.startedAt.slice(0, 10)}.json`);
-if (merge && existsSync(dest)) {
-  const prev = JSON.parse(readFileSync(dest, "utf8"));
+// Merge base: this date's file if there is one, else the newest earlier run.
+const destName = `${out.startedAt.slice(0, 10)}.json`;
+const base = existsSync(dest)
+  ? dest
+  : readdirSync(OUT_DIR).filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f) && f < destName).sort().map((f) => join(OUT_DIR, f)).at(-1);
+if (merge && out.targets.length === 0) {
+  console.error("import-bench: --merge given a run with no targets; nothing to merge");
+  process.exit(1);
+}
+if (merge && base) {
+  const prev = JSON.parse(readFileSync(base, "utf8"));
+  const key = (t) => `${t.frameworkId}|${t.branch}|${t.host}|${t.path}`;
+  const keys = new Set(out.targets.map(key));
   const ids = new Set(out.targets.map((t) => t.frameworkId));
-  out.targets = [...prev.targets.filter((t) => !ids.has(t.frameworkId)), ...out.targets];
+  const kept = prev.targets.filter((t) => !keys.has(key(t))).map((t) => ({ ...t, measuredAt: t.measuredAt ?? prev.startedAt }));
+  out.targets = [...kept, ...out.targets];
   out.startedAt = prev.startedAt < out.startedAt ? prev.startedAt : out.startedAt;
   out.finishedAt = prev.finishedAt > out.finishedAt ? prev.finishedAt : out.finishedAt;
   out.psiRequests = (prev.psiRequests ?? 0) + (out.psiRequests ?? 0);
   out.aborted = Boolean(prev.aborted) || out.aborted;
-  console.log(`import-bench: merged ${[...ids].join(", ")} into ${dest}`);
+  console.log(`import-bench: merged ${[...ids].join(", ")} (${keys.size} targets) onto ${base}`);
 }
 writeFileSync(dest, JSON.stringify(out, null, 1) + "\n");
 const ok = out.targets.filter((t) => t.median).length;

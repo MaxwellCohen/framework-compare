@@ -654,7 +654,7 @@ write("api/benchmark.json", {
     doc: "Document request time, ms",
   },
   builds: run ? run.builds.map((b) => ({ frameworkId: b.frameworkId, branch: b.branch, build: buildName(b), path: b.path, hosts: b.hosts, perf: b.perf, fcp: b.fcp, fcpObs: b.fcpObs ?? null, lcp: b.lcp, lcpObs: b.lcpObs ?? null, tbt: b.tbt, si: b.si, cls: b.cls, doc: b.doc })) : [],
-  targets: run ? run.targets.map((t) => ({ frameworkId: t.frameworkId, app: t.app, branch: t.branch, build: buildName(t), host: t.host, path: t.path, url: t.url, median: t.median, runs: t.runs, usedRuns: t.usedRuns, coldSuspect: t.coldSuspect, error: t.error })) : [],
+  targets: run ? run.targets.map((t) => ({ frameworkId: t.frameworkId, app: t.app, branch: t.branch, build: buildName(t), host: t.host, path: t.path, url: t.url, median: t.median, runs: t.runs, usedRuns: t.usedRuns, coldSuspect: t.coldSuspect, error: t.error, ...(t.measuredAt ? { measuredAt: t.measuredAt } : {}) })) : [],
   history: benchmark.history.map((h) => ({ date: h.date, targets: h.targets, withData: h.withData })),
 });
 
@@ -750,7 +750,7 @@ write("api/index.json", {
         run: "{ date, startedAt, finishedAt, tool, strategy, runsPerTarget, aborted, paths[], hosts[] } | null when no run is published",
         units: "object. Unit of each metric key.",
         "builds[]": "{ frameworkId, branch, build, path, hosts[], perf, fcp, fcpObs, lcp, lcpObs, tbt, si, cls, doc }: the average of the hosts' medians. Any metric can be null.",
-        "targets[]": "{ frameworkId, app, branch, build, host, path, url, median: { perf, fcp, fcpObs?, lcp, lcpObs?, tbt, si, cls, doc } | null, runs, usedRuns, coldSuspect, error }: one deployment and page",
+        "targets[]": "{ frameworkId, app, branch, build, host, path, url, median: { perf, fcp, fcpObs?, lcp, lcpObs?, tbt, si, cls, doc } | null, runs, usedRuns, coldSuspect, error, measuredAt? (ISO time this target was measured; targets can differ after a one-framework re-run) }: one deployment and page",
         "history[]": "{ date, targets, withData }: every run, oldest first",
       },
     },
