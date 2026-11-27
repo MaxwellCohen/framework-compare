@@ -1,12 +1,12 @@
 {
  "latest": {
-  "date": "2026-11-26",
+  "date": "2026-11-27",
   "startedAt": "2026-11-26T19:17:50.377Z",
-  "finishedAt": "2026-11-26T21:08:00.595Z",
+  "finishedAt": "2026-11-27T04:25:03.833Z",
   "tool": "PageSpeed Insights v5 (Lighthouse lab run)",
   "strategy": "mobile",
   "runsPerTarget": 3,
-  "psiRequests": 1037,
+  "psiRequests": 1094,
   "aborted": false,
   "paths": [
    "/",
@@ -40,7 +40,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -64,7 +65,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -88,7 +90,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -112,7 +115,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -136,7 +140,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -160,7 +165,8 @@
     "runs": 4,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -184,7 +190,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -208,7 +215,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -232,7 +240,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -256,7 +265,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -280,7 +290,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -304,7 +315,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -328,7 +340,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -352,7 +365,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -376,7 +390,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -400,7 +415,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -424,7 +440,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -448,7 +465,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -472,7 +490,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -496,7 +515,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -520,7 +540,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -544,7 +565,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -568,7 +590,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "nuxt",
@@ -592,7 +615,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -616,7 +640,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -640,7 +665,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -664,7 +690,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -688,7 +715,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -712,7 +740,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -736,7 +765,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -760,7 +790,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -784,7 +815,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -808,7 +840,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -832,7 +865,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -856,7 +890,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "sveltekit",
@@ -880,7 +915,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -904,7 +940,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -928,7 +965,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -952,7 +990,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -976,7 +1015,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1000,7 +1040,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1024,7 +1065,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1048,7 +1090,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1072,7 +1115,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1096,7 +1140,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1120,7 +1165,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1144,7 +1190,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "solidstart",
@@ -1168,7 +1215,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1192,7 +1240,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1216,7 +1265,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1240,7 +1290,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1264,7 +1315,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1288,7 +1340,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1312,7 +1365,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1336,7 +1390,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1360,7 +1415,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1384,7 +1440,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1408,7 +1465,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1432,7 +1490,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-react",
@@ -1456,7 +1515,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1480,7 +1540,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1504,7 +1565,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1528,7 +1590,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1552,7 +1615,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1576,7 +1640,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1600,7 +1665,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1624,7 +1690,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1648,7 +1715,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1672,7 +1740,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1696,7 +1765,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1720,7 +1790,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "tanstack-start-solid",
@@ -1744,7 +1815,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1768,7 +1840,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1792,7 +1865,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1816,7 +1890,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1840,7 +1915,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1864,7 +1940,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1888,7 +1965,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1912,7 +1990,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1936,7 +2015,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1960,7 +2040,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -1984,7 +2065,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -2008,7 +2090,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "pracht",
@@ -2032,7 +2115,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2056,7 +2140,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2080,7 +2165,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2104,7 +2190,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2128,7 +2215,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2152,7 +2240,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2176,7 +2265,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2200,7 +2290,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2224,7 +2315,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2248,7 +2340,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2272,7 +2365,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2296,7 +2390,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "waku",
@@ -2320,7 +2415,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2344,7 +2440,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2368,7 +2465,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2392,7 +2490,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2416,7 +2515,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2440,7 +2540,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2464,7 +2565,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2488,7 +2590,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2512,7 +2615,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2536,7 +2640,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2560,7 +2665,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2584,7 +2690,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "ember",
@@ -2608,7 +2715,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2632,7 +2740,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2656,7 +2765,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2680,7 +2790,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2704,7 +2815,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2728,7 +2840,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2752,7 +2865,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2776,7 +2890,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2800,7 +2915,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2824,7 +2940,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2848,7 +2965,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2872,7 +2990,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "astro",
@@ -2896,7 +3015,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -2920,7 +3040,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -2944,7 +3065,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -2968,7 +3090,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -2992,7 +3115,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3016,7 +3140,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3040,7 +3165,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3064,7 +3190,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3088,7 +3215,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3112,7 +3240,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3136,7 +3265,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3160,7 +3290,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "react-router",
@@ -3184,7 +3315,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3208,7 +3340,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3232,7 +3365,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3256,7 +3390,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3280,7 +3415,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3304,7 +3440,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3328,7 +3465,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3352,7 +3490,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3376,7 +3515,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3400,7 +3540,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3424,7 +3565,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3448,7 +3590,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "qwik-city",
@@ -3472,7 +3615,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3496,7 +3640,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3520,7 +3665,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3544,7 +3690,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3568,7 +3715,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3592,7 +3740,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3616,7 +3765,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3640,7 +3790,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3664,7 +3815,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3688,7 +3840,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3712,7 +3865,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3736,7 +3890,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "angular",
@@ -3760,7 +3915,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3784,7 +3940,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3808,7 +3965,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3832,7 +3990,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3856,7 +4015,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3880,7 +4040,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3904,7 +4065,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3928,7 +4090,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3952,7 +4115,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -3976,7 +4140,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -4000,7 +4165,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -4024,7 +4190,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "marko",
@@ -4048,7 +4215,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4072,7 +4240,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4096,7 +4265,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4120,7 +4290,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4144,7 +4315,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4168,7 +4340,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4192,7 +4365,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4216,7 +4390,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4240,7 +4415,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4264,7 +4440,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4288,7 +4465,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4312,7 +4490,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "fresh",
@@ -4336,7 +4515,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -4360,7 +4540,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -4384,7 +4565,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -4408,7 +4590,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -4432,7 +4615,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -4456,7 +4640,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "next",
@@ -4480,7 +4665,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4504,7 +4690,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4528,7 +4715,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4552,7 +4740,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4576,7 +4765,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4600,7 +4790,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4624,7 +4815,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4648,7 +4840,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4672,7 +4865,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4696,7 +4890,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4720,7 +4915,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4744,7 +4940,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "vike",
@@ -4768,7 +4965,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4792,7 +4990,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4816,7 +5015,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4840,7 +5040,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4864,7 +5065,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4888,7 +5090,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4912,7 +5115,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4936,7 +5140,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4960,7 +5165,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -4984,7 +5190,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -5008,7 +5215,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -5032,7 +5240,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "analog",
@@ -5056,7 +5265,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5080,7 +5290,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5104,7 +5315,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5128,7 +5340,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5152,7 +5365,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5176,7 +5390,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5200,7 +5415,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5224,7 +5440,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5248,7 +5465,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5272,7 +5490,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5296,7 +5515,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5320,7 +5540,8 @@
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
-    "error": null
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
    },
    {
     "frameworkId": "redwoodsdk",
@@ -5341,6 +5562,307 @@
      "fcpObs": 177,
      "lcpObs": 177
     },
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null,
+    "measuredAt": "2026-11-26T19:17:50.377Z"
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://remix3-books.vercel.app/",
+    "median": {
+     "perf": 84,
+     "fcp": 1509,
+     "lcp": 4505,
+     "tbt": 0,
+     "si": 1509,
+     "tti": 4505,
+     "cls": 0,
+     "doc": 139,
+     "fcpObs": 318,
+     "lcpObs": 318
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "main",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://remix3-books.vercel.app/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1511,
+     "lcp": 2709,
+     "tbt": 0,
+     "si": 1536,
+     "tti": 2709,
+     "cls": 0,
+     "doc": 137,
+     "fcpObs": 339,
+     "lcpObs": 339
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://remix3-books.netlify.app/",
+    "median": {
+     "perf": 84,
+     "fcp": 1511,
+     "lcp": 4206,
+     "tbt": 0,
+     "si": 3899,
+     "tti": 4206,
+     "cls": 0,
+     "doc": 177,
+     "fcpObs": 2349,
+     "lcpObs": 2349
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "main",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://remix3-books.netlify.app/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1519,
+     "lcp": 2570,
+     "tbt": 0,
+     "si": 2448,
+     "tti": 2570,
+     "cls": 0,
+     "doc": 127,
+     "fcpObs": 1303,
+     "lcpObs": 1303
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://remix3-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 83,
+     "fcp": 1508,
+     "lcp": 4360,
+     "tbt": 0,
+     "si": 3888,
+     "tti": 4360,
+     "cls": 0,
+     "doc": 165,
+     "fcpObs": 2343,
+     "lcpObs": 2343
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://remix3-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1508,
+     "lcp": 2709,
+     "tbt": 0,
+     "si": 1508,
+     "tti": 2709,
+     "cls": 0,
+     "doc": 113,
+     "fcpObs": 259,
+     "lcpObs": 259
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/",
+    "url": "https://remix3-books-optimized.vercel.app/",
+    "median": {
+     "perf": 87,
+     "fcp": 905,
+     "lcp": 4058,
+     "tbt": 0,
+     "si": 922,
+     "tti": 4058,
+     "cls": 0,
+     "doc": 84,
+     "fcpObs": 207,
+     "lcpObs": 413
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "optimized",
+    "host": "vercel",
+    "path": "/10145787",
+    "url": "https://remix3-books-optimized.vercel.app/10145787",
+    "median": {
+     "perf": 99,
+     "fcp": 905,
+     "lcp": 2263,
+     "tbt": 0,
+     "si": 905,
+     "tti": 2263,
+     "cls": 0,
+     "doc": 77,
+     "fcpObs": 211,
+     "lcpObs": 211
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/",
+    "url": "https://remix3-books-max-optimized.netlify.app/",
+    "median": {
+     "perf": 87,
+     "fcp": 905,
+     "lcp": 3918,
+     "tbt": 0,
+     "si": 3632,
+     "tti": 3918,
+     "cls": 0,
+     "doc": 121,
+     "fcpObs": 2332,
+     "lcpObs": 2332
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "optimized",
+    "host": "netlify",
+    "path": "/10145787",
+    "url": "https://remix3-books-max-optimized.netlify.app/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 905,
+     "lcp": 2291,
+     "tbt": 7,
+     "si": 2223,
+     "tti": 2291,
+     "cls": 0,
+     "doc": 134,
+     "fcpObs": 1323,
+     "lcpObs": 1323
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://remix3-books-optimized.to-email-max.workers.dev/",
+    "median": {
+     "perf": 86,
+     "fcp": 905,
+     "lcp": 4209,
+     "tbt": 0,
+     "si": 1139,
+     "tti": 4209,
+     "cls": 0,
+     "doc": 133,
+     "fcpObs": 315,
+     "lcpObs": 565
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "remix",
+    "app": "remix3-books",
+    "branch": "optimized",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://remix3-books-optimized.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 98,
+     "fcp": 909,
+     "lcp": 2299,
+     "tbt": 3,
+     "si": 2373,
+     "tti": 2299,
+     "cls": 0,
+     "doc": 280,
+     "fcpObs": 1429,
+     "lcpObs": 1429
+    },
+    "measuredAt": "2026-11-27T04:18:19.030Z",
     "runs": 3,
     "usedRuns": 3,
     "coldSuspect": false,
@@ -6827,6 +7349,86 @@
     "doc": 141,
     "fcpObs": 636,
     "lcpObs": 636
+   },
+   {
+    "frameworkId": "remix",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 84,
+    "fcp": 1509,
+    "lcp": 4357,
+    "tbt": 0,
+    "si": 3099,
+    "tti": 4357,
+    "cls": 0,
+    "doc": 160,
+    "fcpObs": 1670,
+    "lcpObs": 1670
+   },
+   {
+    "frameworkId": "remix",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 96,
+    "fcp": 1513,
+    "lcp": 2663,
+    "tbt": 0,
+    "si": 1831,
+    "tti": 2663,
+    "cls": 0,
+    "doc": 126,
+    "fcpObs": 634,
+    "lcpObs": 634
+   },
+   {
+    "frameworkId": "remix",
+    "branch": "optimized",
+    "path": "/",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 87,
+    "fcp": 905,
+    "lcp": 4062,
+    "tbt": 0,
+    "si": 1898,
+    "tti": 4062,
+    "cls": 0,
+    "doc": 113,
+    "fcpObs": 951,
+    "lcpObs": 1103
+   },
+   {
+    "frameworkId": "remix",
+    "branch": "optimized",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare",
+     "netlify",
+     "vercel"
+    ],
+    "perf": 98,
+    "fcp": 906,
+    "lcp": 2284,
+    "tbt": 3,
+    "si": 1834,
+    "tti": 2284,
+    "cls": 0,
+    "doc": 164,
+    "fcpObs": 988,
+    "lcpObs": 988
    }
   ]
  },
@@ -7929,6 +8531,637 @@
      "path": "/10145787",
      "fcp": 908,
      "lcp": 2137,
+     "perf": 98
+    }
+   ]
+  },
+  {
+   "date": "2026-11-27",
+   "targets": 234,
+   "withData": 234,
+   "builds": [
+    {
+     "frameworkId": "next",
+     "branch": "main",
+     "path": "/",
+     "fcp": 976,
+     "lcp": 2801,
+     "perf": 94
+    },
+    {
+     "frameworkId": "next",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 924,
+     "lcp": 2328,
+     "perf": 98
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4356,
+     "perf": 84
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1519,
+     "lcp": 2529,
+     "perf": 97
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 916,
+     "lcp": 2602,
+     "perf": 95
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 913,
+     "lcp": 1564,
+     "perf": 100
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "nuxt-books-optimized-max",
+     "path": "/",
+     "fcp": 916,
+     "lcp": 2651,
+     "perf": 95
+    },
+    {
+     "frameworkId": "nuxt",
+     "branch": "nuxt-books-optimized-max",
+     "path": "/10145787",
+     "fcp": 927,
+     "lcp": 1550,
+     "perf": 100
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1513,
+     "lcp": 4308,
+     "perf": 85
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1517,
+     "lcp": 2560,
+     "perf": 96
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 921,
+     "lcp": 2624,
+     "perf": 95
+    },
+    {
+     "frameworkId": "sveltekit",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 870,
+     "lcp": 2012,
+     "perf": 99
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1511,
+     "lcp": 4207,
+     "perf": 85
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1524,
+     "lcp": 2575,
+     "perf": 96
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 927,
+     "lcp": 2252,
+     "perf": 97
+    },
+    {
+     "frameworkId": "solidstart",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 924,
+     "lcp": 1651,
+     "perf": 100
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1510,
+     "lcp": 4656,
+     "perf": 82
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2890,
+     "perf": 93
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 923,
+     "lcp": 1954,
+     "perf": 99
+    },
+    {
+     "frameworkId": "tanstack-start-react",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 927,
+     "lcp": 1654,
+     "perf": 99
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1508,
+     "lcp": 4157,
+     "perf": 85
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1528,
+     "lcp": 2628,
+     "perf": 97
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 938,
+     "lcp": 2506,
+     "perf": 96
+    },
+    {
+     "frameworkId": "tanstack-start-solid",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 875,
+     "lcp": 1805,
+     "perf": 99
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4256,
+     "perf": 85
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1517,
+     "lcp": 2518,
+     "perf": 97
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 926,
+     "lcp": 1701,
+     "perf": 100
+    },
+    {
+     "frameworkId": "pracht",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 774,
+     "lcp": 1302,
+     "perf": 100
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1524,
+     "lcp": 4559,
+     "perf": 82
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1512,
+     "lcp": 2893,
+     "perf": 95
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 906,
+     "lcp": 3071,
+     "perf": 93
+    },
+    {
+     "frameworkId": "waku",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 905,
+     "lcp": 2120,
+     "perf": 99
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4157,
+     "perf": 86
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1518,
+     "lcp": 2569,
+     "perf": 97
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 872,
+     "lcp": 3410,
+     "perf": 91
+    },
+    {
+     "frameworkId": "ember",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 771,
+     "lcp": 2149,
+     "perf": 99
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1518,
+     "lcp": 4256,
+     "perf": 85
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2561,
+     "perf": 96
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 909,
+     "lcp": 3455,
+     "perf": 90
+    },
+    {
+     "frameworkId": "astro",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 905,
+     "lcp": 1684,
+     "perf": 100
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1511,
+     "lcp": 4557,
+     "perf": 82
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2816,
+     "perf": 95
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 958,
+     "lcp": 4105,
+     "perf": 86
+    },
+    {
+     "frameworkId": "react-router",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 908,
+     "lcp": 2572,
+     "perf": 97
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1606,
+     "lcp": 4153,
+     "perf": 85
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1508,
+     "lcp": 2559,
+     "perf": 97
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 929,
+     "lcp": 4402,
+     "perf": 84
+    },
+    {
+     "frameworkId": "qwik-city",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 910,
+     "lcp": 2753,
+     "perf": 96
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "main",
+     "path": "/",
+     "fcp": 784,
+     "lcp": 3969,
+     "perf": 88
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 783,
+     "lcp": 1909,
+     "perf": 99
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 783,
+     "lcp": 3556,
+     "perf": 89
+    },
+    {
+     "frameworkId": "angular",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 776,
+     "lcp": 1671,
+     "perf": 100
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1522,
+     "lcp": 4060,
+     "perf": 86
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2560,
+     "perf": 96
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 963,
+     "lcp": 3356,
+     "perf": 92
+    },
+    {
+     "frameworkId": "marko",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 882,
+     "lcp": 1811,
+     "perf": 99
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4255,
+     "perf": 84
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1510,
+     "lcp": 2488,
+     "perf": 97
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 905,
+     "lcp": 3355,
+     "perf": 92
+    },
+    {
+     "frameworkId": "fresh",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 861,
+     "lcp": 1715,
+     "perf": 100
+    },
+    {
+     "frameworkId": "next",
+     "branch": "naive",
+     "path": "/",
+     "fcp": 915,
+     "lcp": 2730,
+     "perf": 96
+    },
+    {
+     "frameworkId": "next",
+     "branch": "naive",
+     "path": "/10145787",
+     "fcp": 809,
+     "lcp": 2254,
+     "perf": 98
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1519,
+     "lcp": 4555,
+     "perf": 83
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1508,
+     "lcp": 2733,
+     "perf": 96
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 910,
+     "lcp": 4507,
+     "perf": 83
+    },
+    {
+     "frameworkId": "vike",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 912,
+     "lcp": 2924,
+     "perf": 95
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1520,
+     "lcp": 4358,
+     "perf": 82
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1511,
+     "lcp": 2619,
+     "perf": 97
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 906,
+     "lcp": 3366,
+     "perf": 92
+    },
+    {
+     "frameworkId": "analog",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 911,
+     "lcp": 2102,
+     "perf": 99
+    },
+    {
+     "frameworkId": "redwoodsdk",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4555,
+     "perf": 83
+    },
+    {
+     "frameworkId": "redwoodsdk",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1518,
+     "lcp": 2823,
+     "perf": 95
+    },
+    {
+     "frameworkId": "redwoodsdk",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 914,
+     "lcp": 4005,
+     "perf": 86
+    },
+    {
+     "frameworkId": "redwoodsdk",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 908,
+     "lcp": 2137,
+     "perf": 98
+    },
+    {
+     "frameworkId": "remix",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1509,
+     "lcp": 4357,
+     "perf": 84
+    },
+    {
+     "frameworkId": "remix",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1513,
+     "lcp": 2663,
+     "perf": 96
+    },
+    {
+     "frameworkId": "remix",
+     "branch": "optimized",
+     "path": "/",
+     "fcp": 905,
+     "lcp": 4062,
+     "perf": 87
+    },
+    {
+     "frameworkId": "remix",
+     "branch": "optimized",
+     "path": "/10145787",
+     "fcp": 906,
+     "lcp": 2284,
      "perf": 98
     }
    ]
