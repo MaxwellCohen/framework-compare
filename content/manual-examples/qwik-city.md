@@ -26,7 +26,7 @@ Source: [MDN: the picture element](https://developer.mozilla.org/en-US/docs/Web/
 
 ## css-inlining
 
-Import the global stylesheet in `root.tsx`. In production Qwik inlines it when it is under 10KB. Component styles registered with `useStylesScoped$` load only with the component.
+Import the global stylesheet in `root.tsx`. In production Qwik inlines it when it is under `inlineStylesUpToBytes` (20 KB by default). Component styles registered with `useStylesScoped$` load only with the component.
 
 ```tsx
 // src/root.tsx
@@ -34,7 +34,7 @@ import { component$ } from '@builder.io/qwik'
 import { QwikCityProvider, RouterOutlet } from '@builder.io/qwik-city'
 import { RouterHead } from './components/router-head/router-head'
 
-import './styles/global.css' // inlined in production if < 10KB
+import './styles/global.css' // inlined in production if < 20 KB (inlineStylesUpToBytes)
 
 export default component$(() => (
   <QwikCityProvider>

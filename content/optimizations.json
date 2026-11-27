@@ -1,29 +1,36 @@
 {
   "_comment": "What each port's optimized build changes, from the git diff of baseline vs optimized. framework: true when it uses an API, config option or official package the framework ships; false when it is hand-written or a generic library. Shown under each row of the Benchmark lead chart.",
   "angular": [
+    { "label": "Cover images (NgOptimizedImage)", "feature": "image-pipeline", "framework": true },
+    { "label": "Router preloading", "feature": "route-prefetching", "framework": true },
+    { "label": "Font preload via critical CSS inlining", "feature": "font-optimization", "framework": true },
     { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
     { "label": "Data cache, hand-written", "feature": "caching", "framework": false },
     { "label": "Cache headers", "feature": "caching", "framework": false }
   ],
   "astro": [
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
-    { "label": "Data cache, hand-written", "feature": "caching", "framework": false },
-    { "label": "Cache headers in middleware", "feature": "caching", "framework": false }
+    { "label": "Built-in Fonts API with preload", "feature": "font-optimization", "framework": true },
+    { "label": "astro:assets Image via host image CDN", "feature": "image-pipeline", "framework": true },
+    { "label": "Route cache + routeRules (adapter CDN provider)", "feature": "caching", "framework": true },
+    { "label": "build.inlineStylesheets", "feature": "css-inlining", "framework": true },
+    { "label": "Prefetch on hover (prefetchAll)", "feature": "route-prefetching", "framework": true },
+    { "label": "Data cache, hand-written", "feature": "caching", "framework": false }
   ],
   "ember": [
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "Self-hosted font (Fontsource) + preload", "feature": "font-optimization", "framework": false },
     { "label": "Data cache, hand-written", "feature": "caching", "framework": false },
-    { "label": "Cache headers", "feature": "caching", "framework": false }
+    { "label": "Cache headers", "feature": "caching", "framework": false },
+    { "label": "Immutable asset headers", "feature": "caching", "framework": false }
   ],
   "fresh": [
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "Self-hosted font (Fontsource) + preload", "feature": "font-optimization", "framework": false },
     { "label": "Data cache, hand-written", "feature": "caching", "framework": false },
     { "label": "Cache headers", "feature": "caching", "framework": false }
   ],
   "marko": [
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "Self-hosted font (Fontsource) + preload", "feature": "font-optimization", "framework": false },
     { "label": "Data cache, hand-written", "feature": "caching", "framework": false },
-    { "label": "Cache headers", "feature": "caching", "framework": false }
+    { "label": "Cache headers in middleware", "feature": "caching", "framework": false }
   ],
   "next": [
     { "label": "'use cache' + cacheLife", "feature": "caching", "framework": true },
@@ -36,53 +43,65 @@
     { "label": "Nitro cached handlers + SWR", "feature": "caching", "framework": true },
     { "label": "routeRules cache", "feature": "caching", "framework": true },
     { "label": "NuxtLink prefetch", "feature": "route-prefetching", "framework": true },
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false }
+    { "label": "@nuxt/fonts (self-hosted, preload, fallback metrics)", "feature": "font-optimization", "framework": true }
   ],
   "pracht": [
     { "label": "@pracht/image", "feature": "image-pipeline", "framework": true },
     { "label": "inlineCss", "feature": "css-inlining", "framework": true },
     { "label": "ISG render mode", "feature": "render-modes", "framework": true },
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "SSR streaming", "feature": "streaming-ssr", "framework": true },
+    { "label": "defineFont()", "feature": "font-optimization", "framework": true },
+    { "label": "CDN caching via route headers() + adapter ISG", "feature": "caching", "framework": true },
+    { "label": "loaderCache", "feature": "caching", "framework": true },
     { "label": "Data cache, hand-written", "feature": "caching", "framework": false }
   ],
   "qwik-city": [
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
-    { "label": "Data cache, hand-written", "feature": "caching", "framework": false },
-    { "label": "Cache headers", "feature": "caching", "framework": false }
+    { "label": "Deferred routeLoader$ streaming", "feature": "streaming-ssr", "framework": true },
+    { "label": "cacheControl() in onGet", "feature": "caching", "framework": true },
+    { "label": "inlineStylesUpToBytes", "feature": "css-inlining", "framework": true },
+    { "label": "Self-hosted font (Fontsource) + preload", "feature": "font-optimization", "framework": false },
+    { "label": "Data cache, hand-written", "feature": "caching", "framework": false }
   ],
   "react-router": [
+    { "label": "Cache headers (root headers export, CDN s-maxage)", "feature": "caching", "framework": true },
+    { "label": "Font preload via links()", "feature": "font-optimization", "framework": true },
     { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
-    { "label": "Data cache, hand-written", "feature": "caching", "framework": false },
-    { "label": "Cache headers", "feature": "caching", "framework": false }
+    { "label": "Data cache, hand-written", "feature": "caching", "framework": false }
   ],
   "solidstart": [
+    { "label": "Nitro isr route rules", "feature": "caching", "framework": true },
+    { "label": "@solidjs/image via host image CDN", "feature": "image-pipeline", "framework": true },
     { "label": "CSS inlined by hand", "feature": "css-inlining", "framework": false },
-    { "label": "Self-hosted, preloaded font", "feature": "font-optimization", "framework": false },
-    { "label": "Host image CDN, hand-built srcset", "feature": "image-pipeline", "framework": false }
+    { "label": "Self-hosted, preloaded font", "feature": "font-optimization", "framework": false }
   ],
   "sveltekit": [
     { "label": "inlineStyleThreshold", "feature": "css-inlining", "framework": true },
     { "label": "Vercel adapter ISR", "feature": "render-modes", "framework": true },
     { "label": "Streamed load promises", "feature": "streaming-ssr", "framework": true },
+    { "label": "Prefetch route code in view (preload-code)", "feature": "route-prefetching", "framework": true },
+    { "label": "Font preload (resolve preload option)", "feature": "font-optimization", "framework": true },
     { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
     { "label": "Image CDN via IPX + Unpic", "feature": "image-pipeline", "framework": false },
     { "label": "Data cache, hand-written", "feature": "caching", "framework": false }
   ],
   "tanstack-start-react": [
     { "label": "Inline CSS via head() styles", "feature": "css-inlining", "framework": true },
+    { "label": "Cache headers via route headers()", "feature": "caching", "framework": true },
+    { "label": "Hover preloads reused (preloadStaleTime)", "feature": "route-prefetching", "framework": true },
     { "label": "Image CDN via Unpic", "feature": "image-pipeline", "framework": false },
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
-    { "label": "Cache headers in middleware", "feature": "caching", "framework": false }
+    { "label": "Self-hosted font (Fontsource), preloaded via head()", "feature": "font-optimization", "framework": false }
   ],
   "tanstack-start-solid": [
     { "label": "Inline CSS via head() styles", "feature": "css-inlining", "framework": true },
+    { "label": "CDN cache via route headers()", "feature": "caching", "framework": true },
     { "label": "Image CDN via Unpic", "feature": "image-pipeline", "framework": false },
     { "label": "Self-hosted, preloaded font", "feature": "font-optimization", "framework": false },
-    { "label": "Cache headers in middleware", "feature": "caching", "framework": false }
+    { "label": "Data cache, hand-written", "feature": "caching", "framework": false }
   ],
   "waku": [
     { "label": "waku-cache", "feature": "caching", "framework": true },
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "Link prefetch (unstable_prefetchOnView/OnEnter)", "feature": "route-prefetching", "framework": true },
+    { "label": "Self-hosted font (Fontsource) + React preload()", "feature": "font-optimization", "framework": false },
     { "label": "Cover image preload", "feature": "image-pipeline", "framework": false },
     { "label": "Cache headers in middleware", "feature": "caching", "framework": false }
   ],
@@ -105,7 +124,8 @@
   ],
   "redwoodsdk": [
     { "label": "Navigation prefetch (x-prefetch links)", "feature": "route-prefetching", "framework": true },
-    { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
+    { "label": "Cache headers in route middleware (CDN s-maxage)", "feature": "caching", "framework": true },
+    { "label": "Self-hosted font (Fontsource) + preload", "feature": "font-optimization", "framework": false },
     { "label": "Catalog query cache, hand-written", "feature": "caching", "framework": false },
     { "label": "Home grid in first HTML, cover preloads", "feature": "streaming-ssr", "framework": false },
     { "label": "Immutable asset headers", "feature": "caching", "framework": false }
@@ -113,6 +133,7 @@
   "remix": [
     { "label": "Streamed home grid (Frame regions)", "feature": "streaming-ssr", "framework": true },
     { "label": "Prefetch on intent (data-rmx-prefetch)", "feature": "route-prefetching", "framework": true },
+    { "label": "Font files fingerprinted + preloaded via asset server", "feature": "font-optimization", "framework": true },
     { "label": "Self-hosted font (Fontsource)", "feature": "font-optimization", "framework": false },
     { "label": "Cover image preload", "feature": "image-pipeline", "framework": false },
     { "label": "Catalog query cache, hand-written", "feature": "caching", "framework": false },

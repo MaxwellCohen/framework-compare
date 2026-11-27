@@ -17,13 +17,17 @@ A feature with no section here keeps the source list unchanged.
 ## font-optimization
 
 ### nuxt
-- The official `@nuxt/fonts` module is first-party, but this port uses Fontsource instead.
-
-### pracht
-- Pracht has a first-party font feature, but this port uses Fontsource instead.
+- `@nuxt/fonts` reads Tailwind v4's `--font-*` theme variables, so the family name must be written there literally (not `var(--font-geist-sans)`) for it to resolve, download and preload the font.
 
 ### angular
+- The critical CSS inliner (Beasties) inlines and preloads `@font-face` only for families written literally. Tailwind v4's `font-family: var(--font-sans)` hides the name, so put the font tokens in `@theme inline`.
 - `optimization.fonts.inline` only inlines the provider CSS; the font files still load from the font host and nothing is preloaded. Built-in self-hosting is an open request: [angular/angular-cli#27038](https://github.com/angular/angular-cli/issues/27038).
+
+### qwik-city
+- `qwikVite` preloads every font file in the build by default (every Fontsource subset, on every page). This port turns that off with `disableFontPreload` and preloads one file.
+
+### vike
+- Vike preloads every font file the page CSS references (here, all 12 Geist subsets); vike-react doesn't expose `injectFilter`, so narrowing it means writing your own `onRenderHtml`.
 
 ### general
 - Importing Fontsource alone does not preload anything. Without a `<link rel="preload">` the browser finds the font only after the stylesheet is parsed.
@@ -35,6 +39,10 @@ A feature with no section here keeps the source list unchanged.
 
 ### sveltekit
 - Sharp does not run on Cloudflare Workers, so this port switches image optimization off there.
+- `@sveltejs/enhanced-img` only processes local images at build time; remote covers need a runtime optimizer.
+
+### astro
+- The Vercel image service requests `q=100` unless `quality` is set on `<Image>`.
 
 ### general
 - Unpic only builds URLs; something (IPX, a host CDN) still has to serve the resized image.
@@ -47,6 +55,21 @@ A feature with no section here keeps the source list unchanged.
 ### tanstack-start-solid
 - TanStack's ISR is a headers pattern, not a framework cache: `s-maxage` plus `stale-while-revalidate` only helps if your CDN honors them.
 
+### astro
+- Vercel ISR in `@astrojs/vercel` ignores query strings (`allowQuery`), so pages driven by search params use the route cache with the adapter's CDN provider instead.
+
+### solidstart
+- Nitro's Netlify runtime only reads a numeric `isr` value; the object form (needed on Vercel to pass the query string through) does not give the same cache on Netlify.
+
+### qwik-city
+- `cacheControl()` skips `maxAge: 0` and has no `must-revalidate` option; use `noCache` to revalidate on every request.
+
+### pracht
+- A route's own `headers()` Cache-Control overrides the adapter's ISG/CDN headers.
+
+### react-router
+- `headers` cannot see the response status; force `no-store` for 4xx/5xx in `entry.server` (`handleRequest` / `handleDataRequest`), or the CDN keeps error pages.
+
 ### general
 - Host cache layers differ (Vercel runtime cache, Netlify Blobs, Cloudflare KV), so a "cache" written for one host needs a storage driver for the others.
 
@@ -54,6 +77,7 @@ A feature with no section here keeps the source list unchanged.
 
 ### tanstack-start-react
 - Preloading is off until you set `defaultPreload`.
+- `defaultPreloadStaleTime: 0` makes data loaded on hover stale at once, so the click loads it again. Use 0 only when an outside cache such as TanStack Query handles reuse.
 
 ### tanstack-start-solid
 - Preloading is off until you set `defaultPreload`.
