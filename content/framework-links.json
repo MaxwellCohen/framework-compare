@@ -74,5 +74,9 @@
   "remix": {
     "performanceGuide": { "url": "https://docs.remix.run/files-and-assets/", "title": "Files and Assets | Remix Guides", "note": "No dedicated performance page; closest official page" },
     "issues": "https://github.com/remix-run/remix/issues"
+  },
+  "void": {
+    "performanceGuide": { "url": "https://void.cloud/guide/edge/static-assets", "title": "Static Assets | Void", "note": "No dedicated performance page; closest official page" },
+    "issues": "https://github.com/voidzero-dev/void/issues"
   }
 }

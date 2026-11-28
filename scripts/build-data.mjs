@@ -60,6 +60,7 @@ const FRAMEWORKS = {
   Vike: { id: "vike", shortName: "Vike" },
   RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK" },
   "Remix 3": { id: "remix", shortName: "Remix 3" },
+  Void: { id: "void", shortName: "Void", port: false },
 };
 
 /** Source rows in order (the fcp table's rows, then the other table's) → slug + short name. Row N is section N. */

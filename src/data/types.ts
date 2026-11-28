@@ -29,7 +29,8 @@ export type FrameworkId =
   | "analog"
   | "vike"
   | "redwoodsdk"
-  | "remix";
+  | "remix"
+  | "void";
 
 /**
  * Stable slugs, in source order. The source's "<picture>" row (section 8) is

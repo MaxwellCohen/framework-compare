@@ -70,6 +70,9 @@ A feature with no section here keeps the source list unchanged.
 ### react-router
 - `headers` cannot see the response status; force `no-store` for 4xx/5xx in `entry.server` (`handleRequest` / `handleDataRequest`), or the CDN keeps error pages.
 
+### void
+- ISR (`revalidate`) and deploy-time prerendering run only on the Cloudflare target. On `target: 'node'`, `bun` or `deno` they are ignored, so cache with `Cache-Control` from `routing.headers`.
+
 ### general
 - Host cache layers differ (Vercel runtime cache, Netlify Blobs, Cloudflare KV), so a "cache" written for one host needs a storage driver for the others.
 
@@ -105,6 +108,9 @@ A feature with no section here keeps the source list unchanged.
 ### pracht
 - Server islands are a newer API: check the linked guide for current behavior.
 
+### void
+- Island pages have no client router: links out of them are full page loads. In the local Vue build the island page's chunk, static component included, still sat in the main pages bundle; the island page itself never requested it.
+
 ### general
 - `<ClientOnly>` and `clientOnly` skip server rendering; they are not deferred hydration.
 
@@ -118,6 +124,9 @@ A feature with no section here keeps the source list unchanged.
 
 ### tanstack-start-solid
 - `ssr: false` still runs on the client only; `'data-only'` is the middle option.
+
+### void
+- With `output: 'static'` on `target: 'node'` (1.12.2), the prerendered HTML is written to `dist/client`, but the Node server renders those pages again on every request. The local ports needed middleware to serve the files.
 
 ### general
 - Static modes need an adapter that can serve prerendered output on the host you deploy to.
@@ -175,6 +184,11 @@ A feature with no section here keeps the source list unchanged.
 
 ### waku
 - Waku's Deno, Bun, and Lambda adapters are experimental.
+
+### void
+- On `target: 'node'` (1.12.2), a root dynamic page such as `pages/[id].tsx` catches files from `public/` (`/icon.svg` returns 404). Serve them from middleware that runs before routing.
+- With `output: 'static'`, the prerender step runs in Node, so `target: 'bun'` fails with `Bun is not defined` unless you build with `bunx --bun vite build`. Deno fails the same way.
+- The build stops if the project root has any dotenv file other than `.env`, such as `.env.example`, on every target.
 
 ### general
 - Presets and adapters change the build output; they don't set up data caching. Most ports here still write their own host-specific cache code (see [section 4](#4-data-and-html-caching)).
