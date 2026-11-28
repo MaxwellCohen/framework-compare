@@ -133,9 +133,30 @@
   "issues": "https://github.com/remix-run/remix/issues"
  },
  {
-  "id": "void",
-  "name": "Void",
-  "shortName": "Void",
+  "id": "void-react",
+  "name": "Void (React)",
+  "shortName": "Void (React)",
+  "guide": "https://void.cloud/guide/edge/static-assets",
+  "issues": "https://github.com/voidzero-dev/void/issues"
+ },
+ {
+  "id": "void-vue",
+  "name": "Void (Vue)",
+  "shortName": "Void (Vue)",
+  "guide": "https://void.cloud/guide/edge/static-assets",
+  "issues": "https://github.com/voidzero-dev/void/issues"
+ },
+ {
+  "id": "void-svelte",
+  "name": "Void (Svelte)",
+  "shortName": "Void (Svelte)",
+  "guide": "https://void.cloud/guide/edge/static-assets",
+  "issues": "https://github.com/voidzero-dev/void/issues"
+ },
+ {
+  "id": "void-solid",
+  "name": "Void (Solid)",
+  "shortName": "Void (Solid)",
   "guide": "https://void.cloud/guide/edge/static-assets",
   "issues": "https://github.com/voidzero-dev/void/issues"
  }

@@ -1,15 +1,15 @@
 ## css-inlining
 
-Void has no option to inline CSS, so import the stylesheet with Vite's `?inline` query and print it in a `<style>` tag. Void does not add a `<link>` for a file imported this way. In Svelte, `<svelte:options css="injected" />` makes the compiler inline that component's CSS.
+Void has no option to inline CSS, so import the stylesheet with Vite's `?inline` query and print it in a `<style>` tag. Void does not add a `<link>` for a file imported this way.
 
 ```tsx
-// pages/about.tsx (React; Vue and Solid render the same string in a <style>)
+// pages/about.tsx
 import criticalCss from './critical.css?inline'
 
 export default function About() {
   return (
     <main>
-      <style href="about-critical" precedence="default">{criticalCss}</style>
+      <style id="about-critical" innerHTML={criticalCss} />
       <h1>About</h1>
     </main>
   )
@@ -37,37 +37,37 @@ Source: [Fontsource: Install](https://fontsource.org/docs/getting-started/instal
 
 ## image-pipeline
 
-Void has no image component. Resize and re-encode at build time with `vite-imagetools` query imports, and write `width`, `height` and `loading` yourself. For remote covers, use the Unpic component for your UI library (`@unpic/react`, `@unpic/vue`, `@unpic/svelte`, `@unpic/solid`) with an image CDN.
+Void has no image component. Resize and re-encode at build time with `vite-imagetools` query imports, and write `width`, `height` and `loading` yourself. For remote covers, use `@unpic/solid` with an image CDN.
 
 ```tsx
-// pages/[id].tsx
+// components/Cover.tsx
 import srcset from './cover.jpg?w=320;640;960&format=webp&as=srcset'
 import fallback from './cover.jpg?w=640&format=webp'
 
-export function Cover({ title }: { title: string }) {
+export function Cover(props: { title: string }) {
   return (
-    <img src={fallback} srcSet={srcset} sizes="320px" width={320} height={480} loading="lazy" decoding="async" alt={title} />
+    <img src={fallback} srcset={srcset} sizes="320px" width={320} height={480} loading="lazy" decoding="async" alt={props.title} />
   )
 }
 ```
 
-Source: [vite-imagetools](https://github.com/JonasKruckenberg/imagetools) · [Unpic](https://unpic.pics/img/)
+Source: [vite-imagetools](https://github.com/JonasKruckenberg/imagetools) · [Unpic](https://unpic.pics/img/solid/)
 
 ## picture
 
 Write the `<picture>` by hand. The `?as=srcset` imports give each `<source>` its own format or crop, and the `<img>` is the fallback.
 
 ```tsx
-// pages/[id].tsx
+// components/Cover.tsx
 import avif from './cover.jpg?w=320;640;960&format=avif&as=srcset'
 import webp from './cover.jpg?w=320;640;960&format=webp&as=srcset'
 import fallback from './cover.jpg?w=640&format=webp'
 
-export function Cover({ title }: { title: string }) {
+export function Cover(props: { title: string }) {
   return (
     <picture>
-      <source type="image/avif" srcSet={avif} sizes="320px" />
-      <img src={fallback} srcSet={webp} sizes="320px" width={320} height={480} alt={title} />
+      <source type="image/avif" srcset={avif} sizes="320px" />
+      <img src={fallback} srcset={webp} sizes="320px" width={320} height={480} alt={props.title} />
     </picture>
   )
 }
@@ -101,14 +101,14 @@ Source: [Void: Revalidation](https://void.cloud/guide/edge/revalidation) · [Voi
 
 ## route-prefetching
 
-Add `prefetch` to `<Link>`. It loads the destination's code and runs its loader before the click. Strategies are `hover`, `click`, `mount` and `visible`, and `prefetch.defaultStrategy` on the adapter plugin turns it on for every link.
+Add `prefetch` to `<Link>`. It loads the destination's code and runs its loader before the click. Strategies are `hover`, `click`, `mount` and `visible`, and `prefetch.defaultStrategy` on `voidSolid()` turns it on for every link.
 
 ```tsx
-// pages/index.tsx (React; import Link from @void/vue, @void/svelte or @void/solid for the others)
-import { Link } from '@void/react'
+// components/BookLink.tsx
+import { Link } from '@void/solid'
 
-export function BookLink({ id, title }: { id: string; title: string }) {
-  return <Link href={`/${id}`} prefetch="hover">{title}</Link>
+export function BookLink(props: { id: string; title: string }) {
+  return <Link href={`/${props.id}`} prefetch="hover">{props.title}</Link>
 }
 ```
 
@@ -116,7 +116,7 @@ Source: [Void: Prefetching](https://void.cloud/reference/api/pages#prefetching)
 
 ## streaming-ssr
 
-Wrap a slow value in `defer()`. The page is sent first, and the value follows later in the same response. React reads it with `use()` under `<Suspense>`. Vue, Svelte and Solid get an object with `loading`, `value` and `error`.
+Wrap a slow value in `defer()`. The page is sent first, and the value follows later in the same response. The Solid page gets an object with `loading`, `value` and `error`.
 
 ```ts
 // pages/[id].server.ts
@@ -128,13 +128,16 @@ export const loader = defineHandler(async (c) => ({
 }))
 ```
 
-```svelte
-<!-- pages/[id].svelte -->
-<script lang="ts">
-  let { book, reviews } = $props()
-</script>
-<h1>{book.title}</h1>
-{#if reviews.loading}<p>Loading reviews…</p>{:else}<Reviews items={reviews.value} />{/if}
+```tsx
+// pages/[id].tsx
+export default function Book(props: Props) {
+  return (
+    <>
+      <h1>{props.book.title}</h1>
+      {props.reviews.loading ? <p>Loading reviews…</p> : props.reviews.error ? <p>Reviews failed to load.</p> : <Reviews items={props.reviews.value} />}
+    </>
+  )
+}
 ```
 
 Source: [Void: Deferred props](https://void.cloud/guide/pages-routing/loaders#deferred-props)
@@ -156,7 +159,7 @@ Source: [Void: Headers](https://void.cloud/guide/edge/headers)
 
 ## islands
 
-Name the page `*.island.tsx` (`.island.vue`, `.island.svelte`) and import each interactive component with an `island` import attribute. Components imported without it render to HTML and ship no JavaScript. Island pages have no client router.
+Name the page `*.island.tsx` and import each interactive component with an `island` import attribute. Components imported without it render to HTML and ship no JavaScript. Island pages have no client router.
 
 ```tsx
 // pages/about.island.tsx
@@ -193,10 +196,10 @@ Source: [Void: Pages routing](https://void.cloud/guide/pages-routing/overview) �
 
 ## reactivity
 
-Each adapter keeps its UI library's reactivity: Solid signals, Svelte runes and Vue refs update only the bound text. React re-renders the component; pass React Compiler through `voidReact({ react: { ... } })`, or use a signals package.
+`@void/solid` keeps Solid's signals: a `createSignal` change updates only the bound text, and the component function runs once. The adapter needs `solid-js` ^1.9 (Solid 1).
 
 ```tsx
-// pages/counter.tsx (Solid: the component runs once)
+// pages/counter.tsx
 import { createSignal } from 'solid-js'
 
 export default function Counter() {
@@ -213,7 +216,7 @@ Void has no analyze command. Add `rollup-plugin-visualizer` to `vite.config.ts` 
 
 ```ts
 // vite.config.ts
-import { voidReact } from '@void/react/plugin'
+import { voidSolid } from '@void/solid/plugin'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import { voidPlugin } from 'void'
@@ -221,7 +224,7 @@ import { voidPlugin } from 'void'
 export default defineConfig({
   plugins: [
     voidPlugin(),
-    voidReact(),
+    voidSolid(),
     process.env.ANALYZE && { ...visualizer({ filename: 'dist/stats.html' }), applyToEnvironment: (env) => env.name === 'client' },
   ],
 })
