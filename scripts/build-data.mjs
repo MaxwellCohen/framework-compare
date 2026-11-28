@@ -60,10 +60,10 @@ const FRAMEWORKS = {
   Vike: { id: "vike", shortName: "Vike" },
   RedwoodSDK: { id: "redwoodsdk", shortName: "RedwoodSDK" },
   "Remix 3": { id: "remix", shortName: "Remix 3" },
-  "Void (React)": { id: "void-react", shortName: "Void (React)", port: false },
-  "Void (Vue)": { id: "void-vue", shortName: "Void (Vue)", port: false },
-  "Void (Svelte)": { id: "void-svelte", shortName: "Void (Svelte)", port: false },
-  "Void (Solid)": { id: "void-solid", shortName: "Void (Solid)", port: false },
+  "Void (React)": { id: "void-react", shortName: "Void (React)" },
+  "Void (Vue)": { id: "void-vue", shortName: "Void (Vue)" },
+  "Void (Svelte)": { id: "void-svelte", shortName: "Void (Svelte)" },
+  "Void (Solid)": { id: "void-solid", shortName: "Void (Solid)" },
 };
 
 /** Source rows in order (the fcp table's rows, then the other table's) → slug + short name. Row N is section N. */
@@ -117,6 +117,10 @@ const APPS = {
   "analog-books": "analog",
   "redwoodsdk-books": "redwoodsdk",
   "remix3-books": "remix",
+  "void-react-books": "void-react",
+  "void-vue-books": "void-vue",
+  "void-svelte-books": "void-svelte",
+  "void-solid-books": "void-solid",
 };
 
 /** Label vocabulary of the source. */

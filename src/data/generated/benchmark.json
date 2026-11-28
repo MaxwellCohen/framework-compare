@@ -2,11 +2,11 @@
  "latest": {
   "date": "2026-11-28",
   "startedAt": "2026-11-26T19:17:50.377Z",
-  "finishedAt": "2026-11-28T15:23:15.944Z",
+  "finishedAt": "2026-11-28T19:41:47.248Z",
   "tool": "PageSpeed Insights v5 (Lighthouse lab run)",
   "strategy": "mobile",
   "runsPerTarget": 3,
-  "psiRequests": 2048,
+  "psiRequests": 2089,
   "aborted": false,
   "paths": [
    "/",
@@ -5717,6 +5717,206 @@
     "usedRuns": 3,
     "coldSuspect": false,
     "error": null
+   },
+   {
+    "frameworkId": "void-react",
+    "app": "void-react-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://void-react-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 87,
+     "fcp": 1512,
+     "lcp": 4056,
+     "tbt": 0,
+     "si": 1537,
+     "tti": 4056,
+     "cls": 0,
+     "doc": 159,
+     "fcpObs": 276,
+     "lcpObs": 276
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "void-react",
+    "app": "void-react-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://void-react-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 1507,
+     "lcp": 2558,
+     "tbt": 0,
+     "si": 1507,
+     "tti": 2558,
+     "cls": 0,
+     "doc": 106,
+     "fcpObs": 254,
+     "lcpObs": 254
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "void-vue",
+    "app": "void-vue-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://void-vue-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 85,
+     "fcp": 1507,
+     "lcp": 4355,
+     "tbt": 40,
+     "si": 1507,
+     "tti": 4355,
+     "cls": 0,
+     "doc": 123,
+     "fcpObs": 272,
+     "lcpObs": 272
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "void-vue",
+    "app": "void-vue-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://void-vue-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 96,
+     "fcp": 1509,
+     "lcp": 2560,
+     "tbt": 0,
+     "si": 2484,
+     "tti": 2560,
+     "cls": 0,
+     "doc": 191,
+     "fcpObs": 1337,
+     "lcpObs": 1337
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "void-svelte",
+    "app": "void-svelte-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://void-svelte-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 91,
+     "fcp": 905,
+     "lcp": 3455,
+     "tbt": 23,
+     "si": 905,
+     "tti": 3455,
+     "cls": 0,
+     "doc": 57,
+     "fcpObs": 147,
+     "lcpObs": 147
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "void-svelte",
+    "app": "void-svelte-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://void-svelte-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 100,
+     "fcp": 766,
+     "lcp": 1655,
+     "tbt": 5,
+     "si": 766,
+     "tti": 1655,
+     "cls": 0,
+     "doc": 72,
+     "fcpObs": 140,
+     "lcpObs": 140
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "void-solid",
+    "app": "void-solid-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/",
+    "url": "https://void-solid-books.to-email-max.workers.dev/",
+    "median": {
+     "perf": 85,
+     "fcp": 1512,
+     "lcp": 4059,
+     "tbt": 0,
+     "si": 2697,
+     "tti": 4059,
+     "cls": 0,
+     "doc": 311,
+     "fcpObs": 1477,
+     "lcpObs": 1477
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
+   },
+   {
+    "frameworkId": "void-solid",
+    "app": "void-solid-books",
+    "branch": "main",
+    "host": "cloudflare",
+    "path": "/10145787",
+    "url": "https://void-solid-books.to-email-max.workers.dev/10145787",
+    "median": {
+     "perf": 97,
+     "fcp": 1513,
+     "lcp": 2438,
+     "tbt": 0,
+     "si": 1537,
+     "tti": 2438,
+     "cls": 0,
+     "doc": 168,
+     "fcpObs": 260,
+     "lcpObs": 260
+    },
+    "measuredAt": "2026-11-28T19:37:55.776Z",
+    "runs": 3,
+    "usedRuns": 3,
+    "coldSuspect": false,
+    "error": null
    }
   ],
   "builds": [
@@ -7239,6 +7439,150 @@
     "doc": 144,
     "fcpObs": 1294,
     "lcpObs": 1294
+   },
+   {
+    "frameworkId": "void-react",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 87,
+    "fcp": 1512,
+    "lcp": 4056,
+    "tbt": 0,
+    "si": 1537,
+    "tti": 4056,
+    "cls": 0,
+    "doc": 159,
+    "fcpObs": 276,
+    "lcpObs": 276
+   },
+   {
+    "frameworkId": "void-react",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 97,
+    "fcp": 1507,
+    "lcp": 2558,
+    "tbt": 0,
+    "si": 1507,
+    "tti": 2558,
+    "cls": 0,
+    "doc": 106,
+    "fcpObs": 254,
+    "lcpObs": 254
+   },
+   {
+    "frameworkId": "void-vue",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 85,
+    "fcp": 1507,
+    "lcp": 4355,
+    "tbt": 40,
+    "si": 1507,
+    "tti": 4355,
+    "cls": 0,
+    "doc": 123,
+    "fcpObs": 272,
+    "lcpObs": 272
+   },
+   {
+    "frameworkId": "void-vue",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 96,
+    "fcp": 1509,
+    "lcp": 2560,
+    "tbt": 0,
+    "si": 2484,
+    "tti": 2560,
+    "cls": 0,
+    "doc": 191,
+    "fcpObs": 1337,
+    "lcpObs": 1337
+   },
+   {
+    "frameworkId": "void-svelte",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 91,
+    "fcp": 905,
+    "lcp": 3455,
+    "tbt": 23,
+    "si": 905,
+    "tti": 3455,
+    "cls": 0,
+    "doc": 57,
+    "fcpObs": 147,
+    "lcpObs": 147
+   },
+   {
+    "frameworkId": "void-svelte",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 100,
+    "fcp": 766,
+    "lcp": 1655,
+    "tbt": 5,
+    "si": 766,
+    "tti": 1655,
+    "cls": 0,
+    "doc": 72,
+    "fcpObs": 140,
+    "lcpObs": 140
+   },
+   {
+    "frameworkId": "void-solid",
+    "branch": "main",
+    "path": "/",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 85,
+    "fcp": 1512,
+    "lcp": 4059,
+    "tbt": 0,
+    "si": 2697,
+    "tti": 4059,
+    "cls": 0,
+    "doc": 311,
+    "fcpObs": 1477,
+    "lcpObs": 1477
+   },
+   {
+    "frameworkId": "void-solid",
+    "branch": "main",
+    "path": "/10145787",
+    "hosts": [
+     "cloudflare"
+    ],
+    "perf": 97,
+    "fcp": 1513,
+    "lcp": 2438,
+    "tbt": 0,
+    "si": 1537,
+    "tti": 2438,
+    "cls": 0,
+    "doc": 168,
+    "fcpObs": 260,
+    "lcpObs": 260
    }
   ]
  },
@@ -8930,8 +9274,8 @@
   },
   {
    "date": "2026-11-28",
-   "targets": 228,
-   "withData": 228,
+   "targets": 236,
+   "withData": 236,
    "builds": [
     {
      "frameworkId": "qwik-city",
@@ -9540,6 +9884,70 @@
      "fcp": 1015,
      "lcp": 2630,
      "perf": 96
+    },
+    {
+     "frameworkId": "void-react",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1512,
+     "lcp": 4056,
+     "perf": 87
+    },
+    {
+     "frameworkId": "void-react",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1507,
+     "lcp": 2558,
+     "perf": 97
+    },
+    {
+     "frameworkId": "void-vue",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1507,
+     "lcp": 4355,
+     "perf": 85
+    },
+    {
+     "frameworkId": "void-vue",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1509,
+     "lcp": 2560,
+     "perf": 96
+    },
+    {
+     "frameworkId": "void-svelte",
+     "branch": "main",
+     "path": "/",
+     "fcp": 905,
+     "lcp": 3455,
+     "perf": 91
+    },
+    {
+     "frameworkId": "void-svelte",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 766,
+     "lcp": 1655,
+     "perf": 100
+    },
+    {
+     "frameworkId": "void-solid",
+     "branch": "main",
+     "path": "/",
+     "fcp": 1512,
+     "lcp": 4059,
+     "perf": 85
+    },
+    {
+     "frameworkId": "void-solid",
+     "branch": "main",
+     "path": "/10145787",
+     "fcp": 1513,
+     "lcp": 2438,
+     "perf": 97
     }
    ]
   }

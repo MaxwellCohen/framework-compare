@@ -862,15 +862,23 @@
    "group": "additional",
    "order": 19,
    "version": "void 1.12.2 with @void/react 1.12.2 (npm latest on 2026-11-28), by VoidZero",
-   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the React adapter (voidReact() from @void/react/plugin); the other adapters are scored in their own columns. No deployed Books port yet (local test app void-react-books only; see the intro above).",
+   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the React adapter (voidReact() from @void/react/plugin); the other adapters are scored in their own columns. Books port: void-react-books, main only, deployed to Cloudflare Workers with void deploy (see the intro above).",
    "fcpScore": 8,
    "otherScore": 7,
    "total": 15,
    "completeness": 54,
    "rank": 14,
-   "app": null,
-   "repo": null,
-   "deployments": [],
+   "app": "void-react-books",
+   "repo": "https://github.com/MaxwellCohen/void-react-books",
+   "deployments": [
+    {
+     "branch": "main",
+     "note": "vibe port; void deploy from GitHub Actions",
+     "urls": {
+      "cloudflare": "https://void-react-books.to-email-max.workers.dev"
+     }
+    }
+   ],
    "extrasHtml": "<ul>\n<li>View transitions: <code>voidReact({ viewTransitions: true })</code> cross-fades navigations, with a per-link <code>viewTransition</code> prop and CSS customization. (<a href=\"https://void.cloud/guide/pages-routing/view-transitions\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Hashed build files get <code>Cache-Control: public, max-age=31536000, immutable</code> and ETag/304 handling at the edge, and an open tab whose build was replaced by a deploy recovers with a document load (<code>deployRecovery</code>). (<a href=\"https://void.cloud/guide/edge/static-assets\" target=\"_blank\" rel=\"noopener\">static-assets</a>, <a href=\"https://void.cloud/guide/pages-routing/overview\" target=\"_blank\" rel=\"noopener\">overview</a>)</li>\n</ul>",
    "links": {
     "performanceGuide": {
@@ -888,15 +896,23 @@
    "group": "additional",
    "order": 20,
    "version": "void 1.12.2 with @void/vue 1.12.2 (npm latest on 2026-11-28), by VoidZero",
-   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the Vue adapter (voidVue() from @void/vue/plugin); the other adapters are scored in their own columns. No deployed Books port yet (local test app void-vue-books only; see the intro above).",
+   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the Vue adapter (voidVue() from @void/vue/plugin); the other adapters are scored in their own columns. Books port: void-vue-books, main only, deployed to Cloudflare Workers with void deploy (see the intro above).",
    "fcpScore": 8,
    "otherScore": 7,
    "total": 15,
    "completeness": 54,
    "rank": 14,
-   "app": null,
-   "repo": null,
-   "deployments": [],
+   "app": "void-vue-books",
+   "repo": "https://github.com/MaxwellCohen/void-vue-books",
+   "deployments": [
+    {
+     "branch": "main",
+     "note": "vibe port; void deploy from GitHub Actions",
+     "urls": {
+      "cloudflare": "https://void-vue-books.to-email-max.workers.dev"
+     }
+    }
+   ],
    "extrasHtml": "<ul>\n<li>View transitions: <code>voidVue({ viewTransitions: true })</code> cross-fades navigations, with a per-link <code>viewTransition</code> prop and CSS customization. (<a href=\"https://void.cloud/guide/pages-routing/view-transitions\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Hashed build files get <code>Cache-Control: public, max-age=31536000, immutable</code> and ETag/304 handling at the edge, and an open tab whose build was replaced by a deploy recovers with a document load (<code>deployRecovery</code>). (<a href=\"https://void.cloud/guide/edge/static-assets\" target=\"_blank\" rel=\"noopener\">static-assets</a>, <a href=\"https://void.cloud/guide/pages-routing/overview\" target=\"_blank\" rel=\"noopener\">overview</a>)</li>\n</ul>",
    "links": {
     "performanceGuide": {
@@ -914,15 +930,23 @@
    "group": "additional",
    "order": 21,
    "version": "void 1.12.2 with @void/svelte 1.12.2 (npm latest on 2026-11-28), by VoidZero",
-   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the Svelte adapter (voidSvelte() from @void/svelte/plugin); the other adapters are scored in their own columns. No deployed Books port yet (local test app void-svelte-books only; see the intro above).",
+   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the Svelte adapter (voidSvelte() from @void/svelte/plugin); the other adapters are scored in their own columns. Books port: void-svelte-books, main only, deployed to Cloudflare Workers with void deploy (see the intro above).",
    "fcpScore": 10,
    "otherScore": 7,
    "total": 17,
    "completeness": 61,
    "rank": 8,
-   "app": null,
-   "repo": null,
-   "deployments": [],
+   "app": "void-svelte-books",
+   "repo": "https://github.com/MaxwellCohen/void-svelte-books",
+   "deployments": [
+    {
+     "branch": "main",
+     "note": "vibe port; void deploy from GitHub Actions",
+     "urls": {
+      "cloudflare": "https://void-svelte-books.to-email-max.workers.dev"
+     }
+    }
+   ],
    "extrasHtml": "<ul>\n<li>View transitions: <code>voidSvelte({ viewTransitions: true })</code> cross-fades navigations, with a per-link <code>viewTransition</code> prop and CSS customization. (<a href=\"https://void.cloud/guide/pages-routing/view-transitions\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Hashed build files get <code>Cache-Control: public, max-age=31536000, immutable</code> and ETag/304 handling at the edge, and an open tab whose build was replaced by a deploy recovers with a document load (<code>deployRecovery</code>). (<a href=\"https://void.cloud/guide/edge/static-assets\" target=\"_blank\" rel=\"noopener\">static-assets</a>, <a href=\"https://void.cloud/guide/pages-routing/overview\" target=\"_blank\" rel=\"noopener\">overview</a>)</li>\n</ul>",
    "links": {
     "performanceGuide": {
@@ -940,15 +964,23 @@
    "group": "additional",
    "order": 22,
    "version": "void 1.12.2 with @void/solid 1.12.2 (npm latest on 2026-11-28), by VoidZero",
-   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the Solid adapter (voidSolid() from @void/solid/plugin); the other adapters are scored in their own columns. No deployed Books port yet (local test app void-solid-books only; see the intro above).",
+   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. These labels are for Pages Routing with the Solid adapter (voidSolid() from @void/solid/plugin); the other adapters are scored in their own columns. Books port: void-solid-books, main only, deployed to Cloudflare Workers with void deploy (see the intro above).",
    "fcpScore": 8,
    "otherScore": 7,
    "total": 15,
    "completeness": 54,
    "rank": 14,
-   "app": null,
-   "repo": null,
-   "deployments": [],
+   "app": "void-solid-books",
+   "repo": "https://github.com/MaxwellCohen/void-solid-books",
+   "deployments": [
+    {
+     "branch": "main",
+     "note": "vibe port; void deploy from GitHub Actions",
+     "urls": {
+      "cloudflare": "https://void-solid-books.to-email-max.workers.dev"
+     }
+    }
+   ],
    "extrasHtml": "<ul>\n<li>View transitions: <code>voidSolid({ viewTransitions: true })</code> cross-fades navigations, with a per-link <code>viewTransition</code> prop and CSS customization. (<a href=\"https://void.cloud/guide/pages-routing/view-transitions\" target=\"_blank\" rel=\"noopener\">view-transitions</a>)</li>\n<li>Hashed build files get <code>Cache-Control: public, max-age=31536000, immutable</code> and ETag/304 handling at the edge, and an open tab whose build was replaced by a deploy recovers with a document load (<code>deployRecovery</code>). (<a href=\"https://void.cloud/guide/edge/static-assets\" target=\"_blank\" rel=\"noopener\">static-assets</a>, <a href=\"https://void.cloud/guide/pages-routing/overview\" target=\"_blank\" rel=\"noopener\">overview</a>)</li>\n</ul>",
    "links": {
     "performanceGuide": {

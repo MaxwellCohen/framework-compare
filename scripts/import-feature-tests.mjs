@@ -48,6 +48,10 @@ const APPS = {
   "analog-books": "analog",
   "redwoodsdk-books": "redwoodsdk",
   "remix3-books": "remix",
+  "void-react-books": "void-react",
+  "void-vue-books": "void-vue",
+  "void-svelte-books": "void-svelte",
+  "void-solid-books": "void-solid",
 };
 const FEATURES = [
   "css-inlining",
