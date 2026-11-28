@@ -862,7 +862,7 @@
    "group": "additional",
    "order": 19,
    "version": "void 1.12.2 with @void/react, @void/vue, @void/svelte and @void/solid 1.12.2 (npm latest on 2026-11-28), by VoidZero",
-   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. The labels assume Pages Routing with one of the four adapters installed. No Books port yet.",
+   "versionNotes": "Void is a Vite 8 framework and deploy CLI that targets Cloudflare Workers by default. The labels assume Pages Routing with one of the four adapters installed. No deployed Books port yet (local test apps only; see the intro above).",
    "fcpScore": 8,
    "otherScore": 7,
    "total": 15,
